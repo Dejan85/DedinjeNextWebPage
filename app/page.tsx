@@ -1,52 +1,80 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import HeroSlider from "@/components/HeroSlider";
 import ScrollToTop from "@/components/ScrollToTop";
 
-export default function Home() {
+// Stat Counter Component
+function StatCounter({
+  target,
+  label,
+  icon,
+}: {
+  target: number;
+  label: string;
+  icon: string;
+}) {
+  const [count, setCount] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+  const counterRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    // Counter animation for statistics
-    const animateCounters = () => {
-      const counters = document.querySelectorAll(".stat-number");
-      counters.forEach((counter) => {
-        const target = parseInt(counter.getAttribute("data-target") || "0");
-        const duration = 2000;
-        const step = target / (duration / 16);
-        let current = 0;
-
-        const updateCounter = () => {
-          current += step;
-          if (current < target) {
-            counter.textContent = Math.floor(current).toLocaleString();
-            requestAnimationFrame(updateCounter);
-          } else {
-            counter.textContent = target.toLocaleString();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !isVisible) {
+            setIsVisible(true);
           }
-        };
+        });
+      },
+      { threshold: 0.5 },
+    );
 
-        // Start animation when element is in viewport
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                updateCounter();
-                observer.unobserve(entry.target);
-              }
-            });
-          },
-          { threshold: 0.5 },
-        );
+    if (counterRef.current) {
+      observer.observe(counterRef.current);
+    }
 
-        observer.observe(counter);
-      });
+    return () => {
+      if (counterRef.current) {
+        observer.unobserve(counterRef.current);
+      }
+    };
+  }, [isVisible]);
+
+  useEffect(() => {
+    if (!isVisible) return;
+
+    const duration = 2000;
+    const step = target / (duration / 16);
+    let current = 0;
+
+    const animate = () => {
+      current += step;
+      if (current < target) {
+        setCount(Math.floor(current));
+        requestAnimationFrame(animate);
+      } else {
+        setCount(target);
+      }
     };
 
-    animateCounters();
-  }, []);
+    animate();
+  }, [isVisible, target]);
 
+  return (
+    <div className="stat-item" ref={counterRef}>
+      <div className="stat-icon">
+        <i className={icon}></i>
+      </div>
+      <div className="stat-number">{count.toLocaleString()}</div>
+      <div className="stat-label">{label}</div>
+    </div>
+  );
+}
+
+export default function Home() {
   return (
     <>
       <Header />
@@ -195,42 +223,26 @@ export default function Home() {
               <p>Наши резултати су доказ посвећености и стручности</p>
             </div>
             <div className="stats-grid">
-              <div className="stat-item">
-                <div className="stat-icon">
-                  <i className="fas fa-heartbeat"></i>
-                </div>
-                <div className="stat-number" data-target="15000">
-                  0
-                </div>
-                <div className="stat-label">Операција годишње</div>
-              </div>
-              <div className="stat-item">
-                <div className="stat-icon">
-                  <i className="fas fa-user-md"></i>
-                </div>
-                <div className="stat-number" data-target="200">
-                  0
-                </div>
-                <div className="stat-label">Лекара специјалиста</div>
-              </div>
-              <div className="stat-item">
-                <div className="stat-icon">
-                  <i className="fas fa-award"></i>
-                </div>
-                <div className="stat-number" data-target="65">
-                  0
-                </div>
-                <div className="stat-label">Година искуства</div>
-              </div>
-              <div className="stat-item">
-                <div className="stat-icon">
-                  <i className="fas fa-smile"></i>
-                </div>
-                <div className="stat-number" data-target="50000">
-                  0
-                </div>
-                <div className="stat-label">Задовољних пацијената</div>
-              </div>
+              <StatCounter
+                target={15000}
+                label="Операција годишње"
+                icon="fas fa-heartbeat"
+              />
+              <StatCounter
+                target={200}
+                label="Лекара специјалиста"
+                icon="fas fa-user-md"
+              />
+              <StatCounter
+                target={65}
+                label="Година искуства"
+                icon="fas fa-award"
+              />
+              <StatCounter
+                target={50000}
+                label="Задовољних пацијената"
+                icon="fas fa-smile"
+              />
             </div>
           </div>
         </div>
