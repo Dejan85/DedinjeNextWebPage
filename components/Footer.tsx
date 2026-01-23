@@ -9,7 +9,10 @@ export default function Footer() {
             <div className="footer-col about">
               <div className="footer-logo">
                 <div className="logo-icon">
-                  <img src="/images/logo dedinje.png" alt="Institut Dedinje Logo" />
+                  <img
+                    src="/images/logo dedinje.png"
+                    alt="Institut Dedinje Logo"
+                  />
                 </div>
                 <div className="logo-text">
                   <span className="logo-name">ДЕДИЊЕ</span>
@@ -17,9 +20,9 @@ export default function Footer() {
                 </div>
               </div>
               <p>
-                Институт за кардиоваскуларне болести Дедиње је водећа здравствена
-                установа у региону специјализована за дијагностику и лечење болести
-                срца и крвних судова.
+                Институт за кардиоваскуларне болести Дедиње је водећа
+                здравствена установа у региону специјализована за дијагностику и
+                лечење болести срца и крвних судова.
               </p>
               <div className="footer-social">
                 <a href="#" aria-label="Facebook">
@@ -44,6 +47,9 @@ export default function Footer() {
               <ul>
                 <li>
                   <Link href="/rec-direktora">Реч директора</Link>
+                </li>
+                <li>
+                  <Link href="/biografija">Биографија</Link>
                 </li>
                 <li>
                   <a href="#">О нама</a>
@@ -101,7 +107,8 @@ export default function Footer() {
                 <li>
                   <i className="fas fa-phone-alt"></i>
                   <span>
-                    011 3601 668<br />
+                    011 3601 668
+                    <br />
                     011 3601 669
                   </span>
                 </li>
@@ -112,7 +119,8 @@ export default function Footer() {
                 <li>
                   <i className="fas fa-clock"></i>
                   <span>
-                    Пон - Пет: 08:00 - 19:00<br />
+                    Пон - Пет: 08:00 - 19:00
+                    <br />
                     Викенд: 09:00 - 15:00
                   </span>
                 </li>
