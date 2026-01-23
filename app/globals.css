@@ -4102,3 +4102,558 @@ img {
         grid-template-columns: 1fr;
     }
 }
+
+/* ===== Scroll to Top Button ===== */
+.scroll-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: var(--primary);
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(42, 157, 244, 0.4);
+    z-index: 999;
+}
+
+.scroll-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.scroll-to-top:hover {
+    background: var(--primary-dark);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(42, 157, 244, 0.5);
+}
+
+.scroll-to-top i {
+    color: var(--white);
+    font-size: 18px;
+}
+
+/* ===== Director Page - Modern Premium Design ===== */
+
+/* Director Hero Section */
+.director-hero {
+    position: relative;
+    height: 85vh;
+    min-height: 600px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.director-hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.director-hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+}
+
+.director-hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(42, 157, 244, 0.85) 0%, rgba(10, 37, 64, 0.75) 100%);
+    z-index: 2;
+}
+
+.director-hero-content {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    padding-top: 80px;
+}
+
+.director-hero-text {
+    max-width: 700px;
+}
+
+.director-badge {
+    display: inline-block;
+    padding: 8px 24px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50px;
+    color: var(--white);
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+}
+
+.director-hero h1 {
+    font-size: 56px;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 20px;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.director-subtitle {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.6;
+    font-weight: 400;
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    animation: bounce 2s infinite;
+}
+
+.scroll-indicator i {
+    font-size: 24px;
+    color: var(--white);
+}
+
+@keyframes bounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateX(-50%) translateY(0);
+    }
+
+    40% {
+        transform: translateX(-50%) translateY(-10px);
+    }
+
+    60% {
+        transform: translateX(-50%) translateY(-5px);
+    }
+}
+
+/* Director Info Cards Section */
+.director-info-section {
+    padding: 80px 0;
+    background: var(--gray-50);
+    margin-top: -60px;
+    position: relative;
+    z-index: 10;
+}
+
+.director-info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.director-info-card {
+    background: var(--white);
+    padding: 50px 35px;
+    border-radius: 16px;
+    text-align: center;
+    transition: var(--transition);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    position: relative;
+    overflow: hidden;
+}
+
+.director-info-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+}
+
+.director-info-card:hover::before {
+    transform: scaleX(1);
+}
+
+.director-info-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(42, 157, 244, 0.2);
+}
+
+.director-info-card.highlight {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: var(--white);
+}
+
+.director-info-card.highlight h3,
+.director-info-card.highlight p {
+    color: var(--white);
+}
+
+.director-info-card.highlight .info-card-icon {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.director-info-card.highlight .info-card-icon i {
+    color: var(--white);
+}
+
+.info-card-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, rgba(42, 157, 244, 0.1) 0%, rgba(42, 157, 244, 0.05) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 25px;
+    transition: var(--transition);
+}
+
+.director-info-card:hover .info-card-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.info-card-icon i {
+    font-size: 32px;
+    color: var(--primary);
+}
+
+.director-info-card h3 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--gray-800);
+    margin-bottom: 15px;
+}
+
+.director-info-card p {
+    font-size: 15px;
+    color: var(--gray-600);
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.btn-card {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 28px;
+    background: transparent;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-card:hover {
+    background: var(--primary);
+    color: var(--white);
+    transform: translateX(5px);
+}
+
+.director-info-card.highlight .btn-card {
+    border-color: var(--white);
+    color: var(--white);
+}
+
+.director-info-card.highlight .btn-card:hover {
+    background: var(--white);
+    color: var(--primary);
+}
+
+/* Director Message Section */
+.director-message-section {
+    padding: 100px 0;
+    background: var(--white);
+}
+
+.director-message-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+}
+
+.message-content {
+    padding-right: 20px;
+}
+
+.message-content h2 {
+    font-size: 38px;
+    font-weight: 700;
+    color: var(--gray-800);
+    line-height: 1.3;
+    margin-bottom: 30px;
+}
+
+.message-text {
+    margin-bottom: 40px;
+}
+
+.lead-text {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--gray-700);
+    line-height: 1.8;
+    margin-bottom: 25px;
+}
+
+.message-text p {
+    font-size: 16px;
+    color: var(--gray-600);
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+.message-signature {
+    margin-top: 40px;
+}
+
+.signature-line {
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary) 0%, transparent 100%);
+    margin-bottom: 15px;
+}
+
+.message-signature p {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--gray-800);
+    font-style: italic;
+}
+
+/* Modern Video Wrapper */
+.video-wrapper-modern {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+.video-wrapper-modern video {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.video-play-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(42, 157, 244, 0.8) 0%, rgba(10, 37, 64, 0.7) 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition);
+    z-index: 5;
+}
+
+.video-play-overlay:hover {
+    background: linear-gradient(135deg, rgba(42, 157, 244, 0.9) 0%, rgba(10, 37, 64, 0.8) 100%);
+}
+
+.play-button-large {
+    width: 90px;
+    height: 90px;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    border: 3px solid var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    transition: var(--transition);
+}
+
+.video-play-overlay:hover .play-button-large {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.35);
+}
+
+.play-button-large i {
+    font-size: 32px;
+    color: var(--white);
+    margin-left: 5px;
+}
+
+.video-play-overlay p {
+    color: var(--white);
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.video-caption {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 20px;
+    padding: 15px 20px;
+    background: var(--gray-50);
+    border-radius: 8px;
+}
+
+.video-caption i {
+    font-size: 18px;
+    color: var(--primary);
+}
+
+.video-caption span {
+    font-size: 14px;
+    color: var(--gray-600);
+    line-height: 1.5;
+}
+
+/* Quote Section */
+.director-quote-section {
+    padding: 100px 0;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.director-quote-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 500px;
+    height: 500px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+}
+
+.quote-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.quote-icon {
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 40px;
+}
+
+.quote-icon i {
+    font-size: 32px;
+    color: var(--white);
+}
+
+.quote-wrapper blockquote {
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--white);
+    line-height: 1.6;
+    font-style: italic;
+    margin-bottom: 40px;
+}
+
+.quote-author {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.author-line {
+    width: 60px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.5);
+    margin-bottom: 15px;
+}
+
+.quote-author p {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 600;
+}
+
+/* Responsive Design for Director Page */
+@media (max-width: 992px) {
+    .director-hero h1 {
+        font-size: 42px;
+    }
+
+    .director-info-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .director-message-grid {
+        grid-template-columns: 1fr;
+        gap: 50px;
+    }
+
+    .message-content {
+        padding-right: 0;
+    }
+
+    .quote-wrapper blockquote {
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 768px) {
+    .director-hero {
+        height: 70vh;
+        min-height: 500px;
+    }
+
+    .director-hero h1 {
+        font-size: 32px;
+    }
+
+    .director-subtitle {
+        font-size: 16px;
+    }
+
+    .message-content h2 {
+        font-size: 28px;
+    }
+
+    .quote-wrapper blockquote {
+        font-size: 18px;
+    }
+}

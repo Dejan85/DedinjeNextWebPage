@@ -125,7 +125,7 @@ export default function Header() {
                   <ul className="absolute top-full left-0 min-w-[220px] bg-white shadow-custom-xl rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 overflow-hidden">
                     <li>
                       <a
-                        href="#"
+                        href="/rec-direktora"
                         className="flex items-center gap-3 px-5 py-3.5 text-[13px] text-gray-700 font-medium border-b border-gray-100 hover:bg-gray-50 hover:text-primary hover:pl-6 transition-all"
                       >
                         <i className="fas fa-user-tie w-5 text-center text-sm text-gray-400"></i>{" "}

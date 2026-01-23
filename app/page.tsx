@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import HeroSlider from "@/components/HeroSlider";
+import ScrollToTop from "@/components/ScrollToTop";
 
 export default function Home() {
   useEffect(() => {
@@ -561,7 +562,7 @@ export default function Home() {
             </div>
             <div className="team-card">
               <div className="team-image">
-                <img src="https://images.unsplash.com/photo-1622253692010-333f2da6fd0d?w=400" alt="Др Милан Николић" />
+                <img src="/doctor-milan-nikolic.png" alt="Др Милан Николић" />
                 <div className="team-overlay">
                   <div className="team-social">
                     <a href="#"><i className="fab fa-facebook-f"></i></a>
@@ -938,6 +939,9 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* Scroll to Top Button */}
+      <ScrollToTop />
     </>
   );
 }
