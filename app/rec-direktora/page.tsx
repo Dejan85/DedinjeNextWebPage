@@ -1,27 +1,34 @@
-'use client';
+"use client";
 
-import { useState, useRef } from 'react';
-import Link from 'next/link';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import ScrollToTop from '@/components/ScrollToTop';
+import { useRef } from "react";
+import Link from "next/link";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import ScrollToTop from "@/components/ScrollToTop";
 
 export default function RecDirektoraPage() {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
   const playVideo = () => {
     if (videoRef.current) {
-      setIsVideoPlaying(true);
+      const overlay = videoRef.current.nextElementSibling as HTMLElement;
+      if (overlay) {
+        overlay.style.opacity = "0";
+        overlay.style.pointerEvents = "none";
+      }
       videoRef.current.play();
-      videoRef.current.setAttribute('controls', 'controls');
+      videoRef.current.setAttribute("controls", "controls");
     }
   };
 
   const handleVideoEnded = () => {
-    setIsVideoPlaying(false);
     if (videoRef.current) {
-      videoRef.current.removeAttribute('controls');
+      const overlay = videoRef.current.nextElementSibling as HTMLElement;
+      if (overlay) {
+        overlay.style.opacity = "1";
+        overlay.style.pointerEvents = "all";
+      }
+      videoRef.current.removeAttribute("controls");
     }
   };
 
@@ -38,8 +45,14 @@ export default function RecDirektoraPage() {
           <div className="container">
             <div className="director-hero-text">
               <span className="director-badge">Директор Института</span>
-              <h1>Академик проф. др<br />Милован М. Бојић</h1>
-              <p className="director-subtitle">Директор Института за кардиоваскуларне болести "Дедиње"</p>
+              <h1>
+                Академик проф. др
+                <br />
+                Милован М. Бојић
+              </h1>
+              <p className="director-subtitle">
+                Директор Института за кардиоваскуларне болести "Дедиње"
+              </p>
             </div>
           </div>
         </div>
@@ -95,23 +108,27 @@ export default function RecDirektoraPage() {
               <h2>Посвећеност изврсности у кардиоваскуларној медицини</h2>
               <div className="message-text">
                 <p className="lead-text">
-                  Обољења срца и крвних судова представљају најчешћи узрок обољевања и
-                  умирања у данашње време. Ово има огроман утицај на све области нашег живота у социјалном,
-                  психолошком, организационом, а поготову финансијском смислу.
+                  Обољења срца и крвних судова представљају најчешћи узрок
+                  обољевања и умирања у данашње време. Ово има огроман утицај на
+                  све области нашег живота у социјалном, психолошком,
+                  организационом, а поготову финансијском смислу.
                 </p>
 
                 <p>
-                  Наша обавеза је да обезбедимо врхунску услугу у домену кардиоваскуларне медицине уопште, а
-                  конкретно у области модерне кардиохируршке праксе. Ефикасне, квалитетне, у кратком року
-                  изведене кардиохируршке процедуре без значајних компликација, омогућавају да се болесници
-                  брзо и успешно опораве након операције и у кратком временском интервалу врате свом
-                  уобичајеном начину живота и професионалним активностима, чиме обезбеђују егзистенцију себи и
-                  својој породици.
+                  Наша обавеза је да обезбедимо врхунску услугу у домену
+                  кардиоваскуларне медицине уопште, а конкретно у области
+                  модерне кардиохируршке праксе. Ефикасне, квалитетне, у кратком
+                  року изведене кардиохируршке процедуре без значајних
+                  компликација, омогућавају да се болесници брзо и успешно
+                  опораве након операције и у кратком временском интервалу врате
+                  свом уобичајеном начину живота и професионалним активностима,
+                  чиме обезбеђују егзистенцију себи и својој породици.
                 </p>
 
                 <p>
-                  Наша Клиника обезбеђује потпуно заокружен систем ефикасне дијагностике, лечења и
-                  постоперативног опоравка за болеснике којима је потребна кардиохируршка интервенција.
+                  Наша Клиника обезбеђује потпуно заокружен систем ефикасне
+                  дијагностике, лечења и постоперативног опоравка за болеснике
+                  којима је потребна кардиохируршка интервенција.
                 </p>
               </div>
               <div className="message-signature">
@@ -121,23 +138,16 @@ export default function RecDirektoraPage() {
             </div>
             <div className="message-video">
               <div className="video-wrapper-modern">
-                <video 
+                <video
                   ref={videoRef}
-                  id="directorVideo" 
+                  id="directorVideo"
                   poster=""
                   onEnded={handleVideoEnded}
                 >
                   <source src="/videos/rec-direktora.mp4" type="video/mp4" />
                   Ваш претраживач не подржава видео таг.
                 </video>
-                <div 
-                  className="video-play-overlay" 
-                  onClick={playVideo}
-                  style={{
-                    opacity: isVideoPlaying ? 0 : 1,
-                    pointerEvents: isVideoPlaying ? 'none' : 'all'
-                  }}
-                >
+                <div className="video-play-overlay" onClick={playVideo}>
                   <div className="play-button-large">
                     <i className="fas fa-play"></i>
                   </div>
@@ -161,8 +171,9 @@ export default function RecDirektoraPage() {
               <i className="fas fa-quote-left"></i>
             </div>
             <blockquote>
-              "Наша посвећеност је да сваком пацијенту пружимо најбољу могућу негу, користећи најсавременије
-              методе и технологије у кардиоваскуларној медицини."
+              "Наша посвећеност је да сваком пацијенту пружимо најбољу могућу
+              негу, користећи најсавременије методе и технологије у
+              кардиоваскуларној медицини."
             </blockquote>
             <div className="quote-author">
               <div className="author-line"></div>
