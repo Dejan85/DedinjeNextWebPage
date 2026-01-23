@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import HeroSlider from "@/components/HeroSlider";
 
 export default function Home() {
   useEffect(() => {
@@ -151,22 +152,9 @@ export default function Home() {
         </header>
       </div>
 
-      {/* Hero Section */}
-      <section className="hero">
-        <div className="hero-background">
-          <img src="https://images.unsplash.com/photo-1551076805-e1869033e561?w=1920" alt="" />
-        </div>
-        <div className="hero-overlay"></div>
-        <div className="hero-content">
-          <div className="container">
-            <div className="hero-wrapper">
-              <h1>Водите рачуна о<br />свом здрављу</h1>
-              <p>У Институту Дедиње посвећени смо<br />дијагностици и лечењу кардиоваскуларних болести.</p>
-              <a href="#contact" className="hero-btn">ЗАКАЖИТЕ ПРЕГЛЕД</a>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Hero Section with Slider */}
+      <HeroSlider />
+
 
       {/* Info Boxes */}
       <section className="info-boxes">

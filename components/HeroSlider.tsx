@@ -5,59 +5,74 @@ import { useEffect } from "react";
 export default function HeroSlider() {
   useEffect(() => {
     // Initialize Swiper when component mounts
-    if (typeof window !== "undefined" && (window as any).Swiper) {
-      new (window as any).Swiper(".hero-slider", {
-        loop: true,
-        autoplay: {
-          delay: 5000,
-          disableOnInteraction: false,
-        },
-        pagination: {
-          el: ".swiper-pagination",
-          clickable: true,
-        },
-        navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
-        },
-      });
+    const initSwiper = () => {
+      if (typeof window !== "undefined" && (window as any).Swiper) {
+        new (window as any).Swiper(".hero-slider", {
+          slidesPerView: 1,
+          loop: true,
+          speed: 1000,
+          autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+          },
+          effect: "fade",
+          fadeEffect: {
+            crossFade: true,
+          },
+          navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+          },
+          pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+          },
+        });
+      }
+    };
+
+    // Wait for Swiper to load
+    if ((window as any).Swiper) {
+      initSwiper();
+    } else {
+      // If Swiper not loaded yet, wait for it
+      const checkSwiper = setInterval(() => {
+        if ((window as any).Swiper) {
+          initSwiper();
+          clearInterval(checkSwiper);
+        }
+      }, 100);
+
+      return () => clearInterval(checkSwiper);
     }
   }, []);
 
-  const overlayStyle = {
-    background: 'linear-gradient(135deg, rgba(42, 157, 244, 0.9) 0%, rgba(42, 157, 244, 0.5) 50%, transparent 100%)'
-  };
-
   return (
-    <section className="relative h-[1020px] overflow-hidden">
-      <div className="swiper hero-slider h-full">
+    <section className="hero">
+      <div className="swiper hero-slider">
         <div className="swiper-wrapper">
           {/* Slide 1 */}
-          <div className="swiper-slide relative">
-            <div className="absolute inset-0">
+          <div className="swiper-slide">
+            <div className="hero-background">
               <img
                 src="https://images.unsplash.com/photo-1551076805-e1869033e561?w=1920"
                 alt="Medical care"
-                className="w-full h-full object-cover"
               />
             </div>
-            <div className="absolute inset-0" style={overlayStyle}></div>
-            <div className="relative h-full flex items-center">
-              <div className="container mx-auto px-5 max-w-[1240px] pl-[30px]">
-                <div className="grid grid-cols-1 gap-[18px] justify-items-start">
-                  <h1 className="text-[68px] font-medium text-white leading-[1.1] mb-6">
+            <div className="hero-overlay"></div>
+            <div className="hero-content">
+              <div className="container">
+                <div className="hero-wrapper">
+                  <h1>
                     Водите рачуна о<br />
                     свом здрављу
                   </h1>
-                  <p className="text-lg text-white/90 leading-[1.7] max-w-[500px] mb-10">
+                  <p>
                     У Институту Дедиње посвећени смо
                     <br />
                     дијагностици и лечењу кардиоваскуларних болести.
                   </p>
-                  <a
-                    href="#contact"
-                    className="inline-block bg-white text-gray-800 font-bold text-[13px] uppercase tracking-[1.5px] px-10 py-[18px] rounded-full transition-all duration-300 shadow-[0_10px_30px_rgba(0,0,0,0.15)] hover:bg-gray-100 hover:-translate-y-1 hover:shadow-[0_15px_40px_rgba(0,0,0,0.2)]"
-                  >
+                  <a href="#contact" className="hero-btn">
                     ЗАКАЖИТЕ ПРЕГЛЕД
                   </a>
                 </div>
@@ -66,32 +81,28 @@ export default function HeroSlider() {
           </div>
 
           {/* Slide 2 */}
-          <div className="swiper-slide relative">
-            <div className="absolute inset-0">
+          <div className="swiper-slide">
+            <div className="hero-background">
               <img
                 src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=1920"
                 alt="Modern diagnostics"
-                className="w-full h-full object-cover"
               />
             </div>
-            <div className="absolute inset-0" style={overlayStyle}></div>
-            <div className="relative h-full flex items-center">
-              <div className="container mx-auto px-5 max-w-[1240px] pl-[30px]">
-                <div className="grid grid-cols-1 gap-[18px] justify-items-start">
-                  <h1 className="text-[68px] font-medium text-white leading-[1.1] mb-6">
+            <div className="hero-overlay"></div>
+            <div className="hero-content">
+              <div className="container">
+                <div className="hero-wrapper">
+                  <h1>
                     Најсавременија
                     <br />
                     дијагностика
                   </h1>
-                  <p className="text-lg text-white/90 leading-[1.7] max-w-[500px] mb-10">
+                  <p>
                     Користимо најновију технологију и опрему
                     <br />
                     за прецизну дијагностику и лечење.
                   </p>
-                  <a
-                    href="#services"
-                    className="inline-block bg-white text-gray-800 font-bold text-[13px] uppercase tracking-[1.5px] px-10 py-[18px] rounded-full transition-all duration-300 shadow-[0_10px_30px_rgba(0,0,0,0.15)] hover:bg-gray-100 hover:-translate-y-1 hover:shadow-[0_15px_40px_rgba(0,0,0,0.2)]"
-                  >
+                  <a href="#services" className="hero-btn">
                     ПОГЛЕДАЈ УСЛУГЕ
                   </a>
                 </div>
@@ -100,32 +111,28 @@ export default function HeroSlider() {
           </div>
 
           {/* Slide 3 */}
-          <div className="swiper-slide relative">
-            <div className="absolute inset-0">
+          <div className="swiper-slide">
+            <div className="hero-background">
               <img
                 src="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=1920"
                 alt="Medical team"
-                className="w-full h-full object-cover"
               />
             </div>
-            <div className="absolute inset-0" style={overlayStyle}></div>
-            <div className="relative h-full flex items-center">
-              <div className="container mx-auto px-5 max-w-[1240px] pl-[30px]">
-                <div className="grid grid-cols-1 gap-[18px] justify-items-start">
-                  <h1 className="text-[68px] font-medium text-white leading-[1.1] mb-6">
+            <div className="hero-overlay"></div>
+            <div className="hero-content">
+              <div className="container">
+                <div className="hero-wrapper">
+                  <h1>
                     Стручни тим
                     <br />
                     лекара
                   </h1>
-                  <p className="text-lg text-white/90 leading-[1.7] max-w-[500px] mb-10">
+                  <p>
                     Преко 200 врхунских специјалиста
                     <br />
                     брине о вашем здрављу.
                   </p>
-                  <a
-                    href="#team"
-                    className="inline-block bg-white text-gray-800 font-bold text-[13px] uppercase tracking-[1.5px] px-10 py-[18px] rounded-full transition-all duration-300 shadow-[0_10px_30px_rgba(0,0,0,0.15)] hover:bg-gray-100 hover:-translate-y-1 hover:shadow-[0_15px_40px_rgba(0,0,0,0.2)]"
-                  >
+                  <a href="#team" className="hero-btn">
                     УПОЗНАЈ ТИМ
                   </a>
                 </div>
@@ -135,23 +142,12 @@ export default function HeroSlider() {
         </div>
 
         {/* Navigation */}
-        <div className="swiper-button-next !text-white after:!text-3xl"></div>
-        <div className="swiper-button-prev !text-white after:!text-3xl"></div>
+        <div className="swiper-button-next"></div>
+        <div className="swiper-button-prev"></div>
 
         {/* Pagination */}
-        <div className="swiper-pagination !bottom-8"></div>
+        <div className="swiper-pagination"></div>
       </div>
-
-      <style jsx>{`
-        :global(.swiper-pagination-bullet) {
-          background: white;
-          opacity: 0.5;
-        }
-        :global(.swiper-pagination-bullet-active) {
-          background: white;
-          opacity: 1;
-        }
-      `}</style>
     </section>
   );
 }
