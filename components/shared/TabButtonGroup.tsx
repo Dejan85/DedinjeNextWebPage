@@ -21,7 +21,7 @@ export const TabButtonGroup: React.FC<TabButtonGroupProps> = ({
   className = "",
 }) => {
   return (
-    <div className={`tab-button-group ${className}`}>
+    <div className={`tab-buttons ${className}`}>
       {tabs.map((tab) => (
         <TabButton
           key={tab.id}

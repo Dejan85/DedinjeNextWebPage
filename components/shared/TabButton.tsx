@@ -17,7 +17,7 @@ export const TabButton: React.FC<TabButtonProps> = ({
 }) => {
   return (
     <button
-      className={`tab-button ${isActive ? "active" : ""} ${className}`}
+      className={`tab-btn ${isActive ? "active" : ""} ${className}`}
       onClick={onClick}
     >
       <i className={icon}></i>
