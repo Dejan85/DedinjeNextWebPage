@@ -5,6 +5,7 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
+import { HeroSection } from "@/components/shared/HeroSection";
 
 export default function RecDirektoraPage() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -36,30 +37,14 @@ export default function RecDirektoraPage() {
     <>
       <Header />
       {/* Director Hero Section */}
-      <section className="director-hero">
-        <div className="director-hero-bg">
-          <img src="/images/rec-direktora.jpg" alt="Директор Института" />
-        </div>
-        <div className="director-hero-overlay"></div>
-        <div className="director-hero-content">
-          <div className="container">
-            <div className="director-hero-text">
-              <span className="director-badge">Директор Института</span>
-              <h1>
-                Академик проф. др
-                <br />
-                Милован М. Бојић
-              </h1>
-              <p className="director-subtitle">
-                Директор Института за кардиоваскуларне болести "Дедиње"
-              </p>
-            </div>
-          </div>
-        </div>
-        <div className="scroll-indicator">
-          <i className="fas fa-chevron-down"></i>
-        </div>
-      </section>
+      <HeroSection
+        img="/images/rec-direktora.jpg"
+        imgAlt="Директор Института"
+        badge="Директор Института"
+        title="Академик проф. др<br />Милован М. Бојић"
+        subtitle='Директор Института за кардиоваскуларне болести "Дедиње"'
+        showScrollIndicator={true}
+      />
 
       {/* Director Info Cards */}
       <section className="director-info-section">
