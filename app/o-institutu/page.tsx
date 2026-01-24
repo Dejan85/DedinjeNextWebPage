@@ -5,6 +5,7 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
+import { HeroSection, StatCard } from "@/components/shared";
 
 export default function OInstitutu() {
   const [activeTab, setActiveTab] = useState("medicinski");
@@ -16,31 +17,14 @@ export default function OInstitutu() {
 
       <div className="institute-page">
         {/* Hero Section */}
-        <section className="hero-section hero-single">
-          <div className="hero-slide">
-            <div className="hero-bg">
-              <img src="/images/o_nama_image.png" alt="О институту" />
-            </div>
-            <div className="hero-overlay"></div>
-            <div className="container">
-              <div className="hero-content">
-                <nav className="breadcrumb">
-                  <Link href="/">Почетна</Link>
-                  <span>/</span>
-                  <span>О институту</span>
-                </nav>
-                <span className="hero-badge">О ИНСТИТУТУ</span>
-                <h1 className="hero-title">
-                  Ваш национални институт за срце и крвне судове
-                </h1>
-                <p className="hero-description">
-                  Водећа здравствена установа у региону са преко 65 година
-                  искуства у кардиоваскуларној медицини
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
+        <HeroSection
+          img="/images/o_nama_image.png"
+          imgAlt="О институту"
+          badge="О ИНСТИТУТУ"
+          title="Ваш национални институт за срце и крвне судове"
+          subtitle="Водећа здравствена установа у региону са преко 65 година искуства у кардиоваскуларној медицини"
+          showScrollIndicator={false}
+        />
 
         {/* Statistics Section */}
         <section className="institute-stats-section">
@@ -51,132 +35,78 @@ export default function OInstitutu() {
               <p>Преко шест деценија посвећености здрављу пацијената</p>
             </div>
             <div className="stats-grid-large">
-              <div className="stat-card">
-                <div className="stat-icon">
-                  <i className="fas fa-users"></i>
-                </div>
-                <div className="stat-info">
-                  <span className="stat-label">Преко</span>
-                  <h3 className="stat-value">74.000</h3>
-                  <p className="stat-description">болесника дана годишње</p>
-                </div>
-              </div>
-              <div className="stat-card">
-                <div className="stat-icon">
-                  <i className="fas fa-hospital-user"></i>
-                </div>
-                <div className="stat-info">
-                  <span className="stat-label">Преко</span>
-                  <h3 className="stat-value">15.900</h3>
-                  <p className="stat-description">
-                    лечених пацијентата годишње
-                  </p>
-                </div>
-              </div>
-              <div className="stat-card">
-                <div className="stat-icon">
-                  <i className="fas fa-heartbeat"></i>
-                </div>
-                <div className="stat-info">
-                  <span className="stat-label">Преко</span>
-                  <h3 className="stat-value">5.600</h3>
-                  <p className="stat-description">коронарографија годишње</p>
-                </div>
-              </div>
-              <div className="stat-card">
-                <div className="stat-icon">
-                  <i className="fas fa-procedures"></i>
-                </div>
-                <div className="stat-info">
-                  <span className="stat-label">Преко</span>
-                  <h3 className="stat-value">1.000</h3>
-                  <p className="stat-description">ЦФР, ИВУС, ОЦТ годишње</p>
-                </div>
-              </div>
-              <div className="stat-card">
-                <div className="stat-icon">
-                  <i className="fas fa-user-md"></i>
-                </div>
-                <div className="stat-info">
-                  <span className="stat-label">Over</span>
-                  <h3 className="stat-value">3.000</h3>
-                  <p className="stat-description">cardiac surgeries per year</p>
-                </div>
-              </div>
-              <div className="stat-card">
-                <div className="stat-icon">
-                  <i className="fas fa-stethoscope"></i>
-                </div>
-                <div className="stat-info">
-                  <span className="stat-label">Over</span>
-                  <h3 className="stat-value">1.750</h3>
-                  <p className="stat-description">
-                    vascular surgeries per year
-                  </p>
-                </div>
-              </div>
-              <div className="stat-card">
-                <div className="stat-icon">
-                  <i className="fas fa-heart"></i>
-                </div>
-                <div className="stat-info">
-                  <span className="stat-label">Over</span>
-                  <h3 className="stat-value">2.400</h3>
-                  <p className="stat-description">PCI procedures per year</p>
-                </div>
-              </div>
-              <div className="stat-card">
-                <div className="stat-icon">
-                  <i className="fas fa-bolt"></i>
-                </div>
-                <div className="stat-info">
-                  <span className="stat-label">Over</span>
-                  <h3 className="stat-value">3.020</h3>
-                  <p className="stat-description">
-                    electrophysiological procedures per year
-                  </p>
-                </div>
-              </div>
-              <div className="stat-card">
-                <div className="stat-icon">
-                  <i className="fas fa-clipboard-check"></i>
-                </div>
-                <div className="stat-info">
-                  <span className="stat-label">Преко</span>
-                  <h3 className="stat-value">270</h3>
-                  <p className="stat-description">ТАБИ процедура годишње</p>
-                </div>
-              </div>
-              <div className="stat-card">
-                <div className="stat-icon">
-                  <i className="fas fa-lungs"></i>
-                </div>
-                <div className="stat-info">
-                  <span className="stat-label">Преко</span>
-                  <h3 className="stat-value">60</h3>
-                  <p className="stat-description">ТЕВАР/ЕВАР годишње</p>
-                </div>
-              </div>
-              <div className="stat-card">
-                <div className="stat-icon">
-                  <i className="fas fa-heartbeat"></i>
-                </div>
-                <div className="stat-info">
-                  <span className="stat-label">Преко</span>
-                  <h3 className="stat-value">400</h3>
-                  <p className="stat-description">ПТА годишње</p>
-                </div>
-              </div>
-              <div className="stat-card">
-                <div className="stat-icon">
-                  <i className="fas fa-notes-medical"></i>
-                </div>
-                <div className="stat-info">
-                  <span className="stat-label">Преко</span>
-                  <h3 className="stat-value">236</h3>
-                  <p className="stat-description">биопсичких пастила</p>
-                </div>
-              </div>
+              <StatCard
+                icon="fas fa-users"
+                label="Преко"
+                value="74.000"
+                description="болесника дана годишње"
+              />
+              <StatCard
+                icon="fas fa-hospital-user"
+                label="Преко"
+                value="15.900"
+                description="лечених пацијентата годишње"
+              />
+              <StatCard
+                icon="fas fa-heartbeat"
+                label="Преко"
+                value="5.600"
+                description="коронарографија годишње"
+              />
+              <StatCard
+                icon="fas fa-procedures"
+                label="Преко"
+                value="1.000"
+                description="ЦФР, ИВУС, ОЦТ годишње"
+              />
+              <StatCard
+                icon="fas fa-user-md"
+                label="Over"
+                value="3.000"
+                description="cardiac surgeries per year"
+              />
+              <StatCard
+                icon="fas fa-stethoscope"
+                label="Over"
+                value="1.750"
+                description="vascular surgeries per year"
+              />
+              <StatCard
+                icon="fas fa-heart"
+                label="Over"
+                value="2.400"
+                description="PCI procedures per year"
+              />
+              <StatCard
+                icon="fas fa-bolt"
+                label="Over"
+                value="3.020"
+                description="electrophysiological procedures per year"
+              />
+              <StatCard
+                icon="fas fa-clipboard-check"
+                label="Преко"
+                value="270"
+                description="ТАБИ процедура годишње"
+              />
+              <StatCard
+                icon="fas fa-lungs"
+                label="Преко"
+                value="60"
+                description="ТЕВАР/ЕВАР годишње"
+              />
+              <StatCard
+                icon="fas fa-heartbeat"
+                label="Преко"
+                value="400"
+                description="ПТА годишње"
+              />
+              <StatCard
+                icon="fas fa-notes-medical"
+                label="Преко"
+                value="236"
+                description="биопсичких пастила"
+              />
             </div>
           </div>
         </section>
