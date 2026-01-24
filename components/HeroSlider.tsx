@@ -64,17 +64,12 @@ export default function HeroSlider() {
               <div className="container">
                 <div className="hero-wrapper">
                   <h1>
-                    Водите рачуна о<br />
-                    свом здрављу
+                    Ваш национални институт за срце и крвне судове
                   </h1>
                   <p>
-                    У Институту Дедиње посвећени смо
-                    <br />
-                    дијагностици и лечењу кардиоваскуларних болести.
+                    Водећа здравствена установа у региону са преко 65 година
+                    искуства у кардиоваскуларној медицини
                   </p>
-                  <a href="#contact" className="hero-btn">
-                    ЗАКАЖИТЕ ПРЕГЛЕД
-                  </a>
                 </div>
               </div>
             </div>
@@ -92,15 +87,10 @@ export default function HeroSlider() {
             <div className="hero-content">
               <div className="container">
                 <div className="hero-wrapper">
-                  <h1>
-                    Најсавременија
-                    <br />
-                    дијагностика
-                  </h1>
+                  <h1>Најсавременија дијагностика</h1>
                   <p>
-                    Користимо најновију технологију и опрему
-                    <br />
-                    за прецизну дијагностику и лечење.
+                    Користимо најновију технологију и опрему за прецизну
+                    дијагностику и лечење кардиоваскуларних обољења
                   </p>
                   <a href="#services" className="hero-btn">
                     ПОГЛЕДАЈ УСЛУГЕ
@@ -122,15 +112,10 @@ export default function HeroSlider() {
             <div className="hero-content">
               <div className="container">
                 <div className="hero-wrapper">
-                  <h1>
-                    Стручни тим
-                    <br />
-                    лекара
-                  </h1>
+                  <h1>Стручни тим лекара</h1>
                   <p>
-                    Преко 200 врхунских специјалиста
-                    <br />
-                    брине о вашем здрављу.
+                    Преко 200 врхунских специјалиста брине о вашем здрављу и
+                    посвећени су пружању најбоље могуће неге
                   </p>
                   <a href="#team" className="hero-btn">
                     УПОЗНАЈ ТИМ

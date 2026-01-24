@@ -84,12 +84,7 @@ export default function Header() {
                       </Link>
                     </li>
                     <li>
-                      <Link href="/biografija">
-                        <i className="fas fa-id-card"></i> Биографија
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href="#">
+                      <Link href="/o-institutu">
                         <i className="fas fa-building"></i> О институту
                       </Link>
                     </li>

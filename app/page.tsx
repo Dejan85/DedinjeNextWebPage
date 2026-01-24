@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import HeroSlider from "@/components/HeroSlider";
 import ScrollToTop from "@/components/ScrollToTop";
+import Button from "@/components/Button";
 
 // Stat Counter Component
 function StatCounter({
@@ -110,31 +111,31 @@ export default function Home() {
             </div>
             <div className="info-box">
               <div className="info-box-icon">
-                <i className="far fa-calendar-check"></i>
+                <i className="fas fa-hospital"></i>
               </div>
               <div className="info-box-content">
-                <h3>Распоред лекара</h3>
+                <h3>Наша одељења</h3>
                 <p>
-                  Проверите доступност наших специјалиста и закажите термин који
-                  вам највише одговара.
+                  Упознајте се са свим одељењима и услугама које наш институт
+                  нуди пацијентима.
                 </p>
                 <a href="#" className="info-box-link">
-                  Погледај распоред <i className="fas fa-arrow-right"></i>
+                  Погледај одељења <i className="fas fa-arrow-right"></i>
                 </a>
               </div>
             </div>
             <div className="info-box">
               <div className="info-box-icon">
-                <i className="fas fa-calendar-plus"></i>
+                <i className="fas fa-user-md"></i>
               </div>
               <div className="info-box-content">
-                <h3>Заказивање</h3>
+                <h3>Наш тим</h3>
                 <p>
-                  Први корак ка здрављу је заказивање прегледа. Јавите се
-                  телефоном или онлајн.
+                  Упознајте наше лекаре специјалисте и стручњаке који брину о
+                  вашем здрављу.
                 </p>
-                <a href="#contact" className="info-box-link">
-                  Закажи преглед <i className="fas fa-arrow-right"></i>
+                <a href="#" className="info-box-link">
+                  Упознајте тим <i className="fas fa-arrow-right"></i>
                 </a>
               </div>
             </div>
@@ -187,9 +188,9 @@ export default function Home() {
                   <span>24/7 хитна помоћ</span>
                 </div>
               </div>
-              <a href="#" className="btn-primary">
+              <Button href="#" variant="primary">
                 Сазнајте више о нама
-              </a>
+              </Button>
             </div>
             <div className="welcome-images">
               <div className="welcome-img-main">
@@ -451,16 +452,16 @@ export default function Home() {
             <div className="cta-content">
               <h2>Ваше здравље је наш приоритет</h2>
               <p>
-                Не чекајте - закажите преглед код наших специјалиста и направите
-                први корак ка бољем здрављу.
+                Контактирајте нас за више информација о нашим услугама и како
+                можемо помоћи вашем здрављу.
               </p>
               <div className="cta-buttons">
-                <a href="tel:0113601668" className="btn-white">
+                <Button href="tel:0113601668" variant="white">
                   <i className="fas fa-phone-alt"></i> Позовите нас
-                </a>
-                <a href="#contact" className="btn-outline-white">
-                  Закажите онлајн
-                </a>
+                </Button>
+                <Button href="#contact" variant="outline-white">
+                  Контактирајте нас
+                </Button>
               </div>
             </div>
           </div>
@@ -880,17 +881,17 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Parallax Appointment Section */}
+      {/* Parallax Contact Section */}
       <section className="parallax-section parallax-appointment">
         <div className="parallax-overlay dark"></div>
         <div className="parallax-content">
           <div className="container">
             <div className="appointment-wrapper">
               <div className="appointment-info">
-                <h2>Закажите преглед</h2>
+                <h2>Контактирајте нас</h2>
                 <p>
                   Попуните формулар и наш тим ће вас контактирати у најкраћем
-                  року ради потврде термина.
+                  року са свим потребним информацијама.
                 </p>
                 <div className="appointment-contact">
                   <div className="contact-item">
@@ -978,7 +979,7 @@ export default function Home() {
                     <label htmlFor="message">Додатне напомене</label>
                   </div>
                   <button type="submit" className="btn-submit">
-                    <span>Закажите преглед</span>
+                    <span>Пошаљите поруку</span>
                     <i className="fas fa-arrow-right"></i>
                   </button>
                 </form>
