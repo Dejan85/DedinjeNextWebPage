@@ -4,7 +4,12 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
-import { HeroSection, StatCard, ProfileTabs } from "@/components/shared";
+import {
+  HeroSection,
+  StatCard,
+  ProfileTabs,
+  VideoPlayer,
+} from "@/components/shared";
 
 export default function OInstitutu() {
   return (
@@ -22,6 +27,75 @@ export default function OInstitutu() {
           subtitle="Водећа здравствена установа у региону са преко 65 година искуства у кардиоваскуларној медицини"
           showScrollIndicator={false}
         />
+
+        {/* About Section */}
+        <section className="institute-about-section">
+          <div className="container">
+            <div className="about-grid">
+              <div className="about-content">
+                <span className="section-badge">О нама</span>
+                <h2>Институт за кардиоваскуларне болести Дедиње</h2>
+                <p className="lead">
+                  Институт за кардиоваскуларне болести Дедиње је национална
+                  референтна здравствена установа терцијалног нивоа из области
+                  кардиоваскуларних болести и специјализована установа за
+                  научноистраживачки рад.
+                </p>
+                <p>
+                  Од свог оснивања 1959. године, Институт је постао симбол
+                  изврсности у дијагностици, лечењу и рехабилитацији срчаних и
+                  васкуларних обољења. Са тимом од преко 200 високо
+                  квалификованих лекара специјалиста и најсавременијом
+                  медицинском опремом, пружамо услуге највишег квалитета.
+                </p>
+              </div>
+              <div className="about-image">
+                <div className="about-highlights">
+                  <div className="highlight-item">
+                    <div className="highlight-icon">
+                      <i className="fas fa-award"></i>
+                    </div>
+                    <div className="highlight-text">
+                      <h4>Национална референца</h4>
+                      <p>Водећа установа за КВБ у Србији</p>
+                    </div>
+                  </div>
+                  <div className="highlight-item">
+                    <div className="highlight-icon">
+                      <i className="fas fa-microscope"></i>
+                    </div>
+                    <div className="highlight-text">
+                      <h4>Научни рад</h4>
+                      <p>Специјализована за истраживања</p>
+                    </div>
+                  </div>
+                  <div className="highlight-item">
+                    <div className="highlight-icon">
+                      <i className="fas fa-user-graduate"></i>
+                    </div>
+                    <div className="highlight-text">
+                      <h4>Едукација</h4>
+                      <p>Центар за обуку специјалиста</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="about-badge">
+                  <span className="badge-year">1959</span>
+                  <span className="badge-text">Основан</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Video Section - Full Width */}
+            <div style={{ marginTop: "3rem", width: "100%" }}>
+              <VideoPlayer
+                videoSrc="/images/o-institutu.mp4"
+                overlayText="Погледајте видео"
+                caption="Видео презентација Института за кардиоваскуларне болести Дедиње"
+              />
+            </div>
+          </div>
+        </section>
 
         {/* Statistics Section */}
         <section className="institute-stats-section">
@@ -104,70 +178,6 @@ export default function OInstitutu() {
                 value="236"
                 description="биопсичких пастила"
               />
-            </div>
-          </div>
-        </section>
-
-        {/* About Section */}
-        <section className="institute-about-section">
-          <div className="container">
-            <div className="about-grid">
-              <div className="about-content">
-                <span className="section-badge">О нама</span>
-                <h2>Институт за кардиоваскуларне болести Дедиње</h2>
-                <p className="lead">
-                  Институт за кардиоваскуларне болести Дедиње је национална
-                  референтна здравствена установа терцијалног нивоа из области
-                  кардиоваскуларних болести и специјализована установа за
-                  научноистраживачки рад.
-                </p>
-                <p>
-                  Од свог оснивања 1959. године, Институт је постао симбол
-                  изврсности у дијагностици, лечењу и рехабилитацији срчаних и
-                  васкуларних обољења. Са тимом од преко 200 високо
-                  квалификованих лекара специјалиста и најсавременијом
-                  медицинском опремом, пружамо услуге највишег квалитета.
-                </p>
-                <div className="about-highlights">
-                  <div className="highlight-item">
-                    <div className="highlight-icon">
-                      <i className="fas fa-award"></i>
-                    </div>
-                    <div className="highlight-text">
-                      <h4>Национална референца</h4>
-                      <p>Водећа установа за КВБ у Србији</p>
-                    </div>
-                  </div>
-                  <div className="highlight-item">
-                    <div className="highlight-icon">
-                      <i className="fas fa-microscope"></i>
-                    </div>
-                    <div className="highlight-text">
-                      <h4>Научни рад</h4>
-                      <p>Специјализована за истраживања</p>
-                    </div>
-                  </div>
-                  <div className="highlight-item">
-                    <div className="highlight-icon">
-                      <i className="fas fa-user-graduate"></i>
-                    </div>
-                    <div className="highlight-text">
-                      <h4>Едукација</h4>
-                      <p>Центар за обуку специјалиста</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="about-image">
-                <img
-                  src="/images/institute-building.jpg"
-                  alt="Институт Дедиње"
-                />
-                <div className="about-badge">
-                  <span className="badge-year">1959</span>
-                  <span className="badge-text">Основан</span>
-                </div>
-              </div>
             </div>
           </div>
         </section>

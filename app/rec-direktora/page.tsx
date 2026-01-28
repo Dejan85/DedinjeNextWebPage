@@ -1,38 +1,12 @@
 "use client";
 
-import { useRef } from "react";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
-import { HeroSection } from "@/components/shared/HeroSection";
+import { HeroSection, VideoPlayer } from "@/components/shared";
 
 export default function RecDirektoraPage() {
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  const playVideo = () => {
-    if (videoRef.current) {
-      const overlay = videoRef.current.nextElementSibling as HTMLElement;
-      if (overlay) {
-        overlay.style.opacity = "0";
-        overlay.style.pointerEvents = "none";
-      }
-      videoRef.current.play();
-      videoRef.current.setAttribute("controls", "controls");
-    }
-  };
-
-  const handleVideoEnded = () => {
-    if (videoRef.current) {
-      const overlay = videoRef.current.nextElementSibling as HTMLElement;
-      if (overlay) {
-        overlay.style.opacity = "1";
-        overlay.style.pointerEvents = "all";
-      }
-      videoRef.current.removeAttribute("controls");
-    }
-  };
-
   return (
     <>
       <Header />
@@ -122,27 +96,11 @@ export default function RecDirektoraPage() {
               </div>
             </div>
             <div className="message-video">
-              <div className="video-wrapper-modern">
-                <video
-                  ref={videoRef}
-                  id="directorVideo"
-                  poster=""
-                  onEnded={handleVideoEnded}
-                >
-                  <source src="/videos/rec-direktora.mp4" type="video/mp4" />
-                  Ваш претраживач не подржава видео таг.
-                </video>
-                <div className="video-play-overlay" onClick={playVideo}>
-                  <div className="play-button-large">
-                    <i className="fas fa-play"></i>
-                  </div>
-                  <p>Погледајте видео поруку</p>
-                </div>
-              </div>
-              <div className="video-caption">
-                <i className="fas fa-video"></i>
-                <span>Видео порука директора о визији и мисији Института</span>
-              </div>
+              <VideoPlayer
+                videoSrc="/videos/rec-direktora.mp4"
+                overlayText="Погледајте видео поруку"
+                caption="Видео порука директора о визији и мисији Института"
+              />
             </div>
           </div>
         </div>
