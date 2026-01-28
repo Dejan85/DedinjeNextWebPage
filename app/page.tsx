@@ -13,6 +13,7 @@ import DepartmentCard from "@/components/DepartmentCard";
 import TeamCard from "@/components/TeamCard";
 import TestimonialCard from "@/components/TestimonialCard";
 import NewsCard from "@/components/NewsCard";
+import WelcomeFeature from "@/components/WelcomeFeature";
 
 export default function Home() {
   return (
@@ -81,22 +82,22 @@ export default function Home() {
                 чине нас првим избором за хиљаде пацијената сваке године.
               </p>
               <div className="welcome-features">
-                <div className="welcome-feature">
-                  <i className="fas fa-check-circle"></i>
-                  <span>Најсавременија опрема</span>
-                </div>
-                <div className="welcome-feature">
-                  <i className="fas fa-check-circle"></i>
-                  <span>Стручни тим лекара</span>
-                </div>
-                <div className="welcome-feature">
-                  <i className="fas fa-check-circle"></i>
-                  <span>Комплетна дијагностика</span>
-                </div>
-                <div className="welcome-feature">
-                  <i className="fas fa-check-circle"></i>
-                  <span>24/7 хитна помоћ</span>
-                </div>
+                <WelcomeFeature
+                  icon="fas fa-check-circle"
+                  text="Најсавременија опрема"
+                />
+                <WelcomeFeature
+                  icon="fas fa-check-circle"
+                  text="Стручни тим лекара"
+                />
+                <WelcomeFeature
+                  icon="fas fa-check-circle"
+                  text="Комплетна дијагностика"
+                />
+                <WelcomeFeature
+                  icon="fas fa-check-circle"
+                  text="24/7 хитна помоћ"
+                />
               </div>
               <Button href="#" variant="primary">
                 Сазнајте више о нама
@@ -338,119 +339,50 @@ export default function Home() {
             <p>Искусни лекари посвећени вашем здрављу</p>
           </div>
           <div className="team-grid">
-            <div className="team-card">
-              <div className="team-image">
-                <img
-                  src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400"
-                  alt="Др Марко Јовановић"
-                />
-                <div className="team-overlay">
-                  <div className="team-social">
-                    <a href="#">
-                      <i className="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="#">
-                      <i className="fab fa-linkedin-in"></i>
-                    </a>
-                    <a href="#">
-                      <i className="fas fa-envelope"></i>
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div className="team-info">
-                <h4>Др Марко Јовановић</h4>
-                <span className="team-role">Кардиохирург</span>
-                <p>
-                  Специјалиста са 20+ година искуства у комплексним
-                  кардиохируршким интервенцијама.
-                </p>
-              </div>
-            </div>
-            <div className="team-card">
-              <div className="team-image">
-                <img
-                  src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400"
-                  alt="Др Ана Петровић"
-                />
-                <div className="team-overlay">
-                  <div className="team-social">
-                    <a href="#">
-                      <i className="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="#">
-                      <i className="fab fa-linkedin-in"></i>
-                    </a>
-                    <a href="#">
-                      <i className="fas fa-envelope"></i>
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div className="team-info">
-                <h4>Др Ана Петровић</h4>
-                <span className="team-role">Кардиолог</span>
-                <p>
-                  Водећи специјалиста за неинвазивну кардиолошку дијагностику и
-                  превенцију.
-                </p>
-              </div>
-            </div>
-            <div className="team-card">
-              <div className="team-image">
-                <img src="/doctor-milan-nikolic.png" alt="Др Милан Николић" />
-                <div className="team-overlay">
-                  <div className="team-social">
-                    <a href="#">
-                      <i className="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="#">
-                      <i className="fab fa-linkedin-in"></i>
-                    </a>
-                    <a href="#">
-                      <i className="fas fa-envelope"></i>
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div className="team-info">
-                <h4>Др Милан Николић</h4>
-                <span className="team-role">Васкуларни хирург</span>
-                <p>
-                  Експерт за хируршко лечење болести крвних судова и аортне
-                  патологије.
-                </p>
-              </div>
-            </div>
-            <div className="team-card">
-              <div className="team-image">
-                <img
-                  src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=400"
-                  alt="Др Јелена Стојковић"
-                />
-                <div className="team-overlay">
-                  <div className="team-social">
-                    <a href="#">
-                      <i className="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="#">
-                      <i className="fab fa-linkedin-in"></i>
-                    </a>
-                    <a href="#">
-                      <i className="fas fa-envelope"></i>
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div className="team-info">
-                <h4>Др Јелена Стојковић</h4>
-                <span className="team-role">Анестезиолог</span>
-                <p>
-                  Специјалиста за кардиоанестезију са богатим искуством у
-                  интензивној нези.
-                </p>
-              </div>
-            </div>
+            <TeamCard
+              image="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400"
+              name="Др Марко Јовановић"
+              role="Кардиохирург"
+              description="Специјалиста са 20+ година искуства у комплексним кардиохируршким интервенцијама."
+              socialLinks={[
+                { platform: "facebook", url: "#" },
+                { platform: "linkedin", url: "#" },
+                { platform: "email", url: "#" },
+              ]}
+            />
+            <TeamCard
+              image="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400"
+              name="Др Ана Петровић"
+              role="Кардиолог"
+              description="Водећи специјалиста за неинвазивну кардиолошку дијагностику и превенцију."
+              socialLinks={[
+                { platform: "facebook", url: "#" },
+                { platform: "linkedin", url: "#" },
+                { platform: "email", url: "#" },
+              ]}
+            />
+            <TeamCard
+              image="/doctor-milan-nikolic.png"
+              name="Др Милан Николић"
+              role="Васкуларни хирург"
+              description="Експерт за хируршко лечење болести крвних судова и аортне патологије."
+              socialLinks={[
+                { platform: "facebook", url: "#" },
+                { platform: "linkedin", url: "#" },
+                { platform: "email", url: "#" },
+              ]}
+            />
+            <TeamCard
+              image="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=400"
+              name="Др Јелена Стојковић"
+              role="Анестезиолог"
+              description="Специјалиста за кардиоанестезију са богатим искуством у интензивној нези."
+              socialLinks={[
+                { platform: "facebook", url: "#" },
+                { platform: "linkedin", url: "#" },
+                { platform: "email", url: "#" },
+              ]}
+            />
           </div>
           <div className="team-cta">
             <a href="#" className="btn-primary">
@@ -468,79 +400,24 @@ export default function Home() {
             <h2>Шта кажу наши пацијенти</h2>
           </div>
           <div className="testimonials-slider">
-            <div className="testimonial-card">
-              <div className="testimonial-content">
-                <div className="quote-icon">
-                  <i className="fas fa-quote-left"></i>
-                </div>
-                <p>
-                  Захваљујући тиму на Дедињу, данас водим потпуно нормалан
-                  живот. Операција је протекла без компликација, а
-                  постоперативна нега је била на највишем нивоу. Неизмерно сам
-                  захвалан.
-                </p>
-                <div className="testimonial-author">
-                  <div className="author-avatar">
-                    <img
-                      src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100"
-                      alt="Петар М."
-                    />
-                  </div>
-                  <div className="author-info">
-                    <h5>Петар Миловановић</h5>
-                    <span>Пацијент, Кардиохирургија</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="testimonial-card">
-              <div className="testimonial-content">
-                <div className="quote-icon">
-                  <i className="fas fa-quote-left"></i>
-                </div>
-                <p>
-                  Професионалност и хуманост особља на Дедињу су ме одушевили.
-                  Од првог прегледа до завршетка лечења осећала сам се сигурно и
-                  збринуто. Топло препоручујем.
-                </p>
-                <div className="testimonial-author">
-                  <div className="author-avatar">
-                    <img
-                      src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100"
-                      alt="Марија С."
-                    />
-                  </div>
-                  <div className="author-info">
-                    <h5>Марија Станковић</h5>
-                    <span>Пацијенткиња, Кардиологија</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="testimonial-card">
-              <div className="testimonial-content">
-                <div className="quote-icon">
-                  <i className="fas fa-quote-left"></i>
-                </div>
-                <p>
-                  Након уградње стентова осећам се као нов човек. Др Јовановић и
-                  његов тим су истински професионалци. Брза интервенција ми је
-                  спасила живот.
-                </p>
-                <div className="testimonial-author">
-                  <div className="author-avatar">
-                    <img
-                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100"
-                      alt="Зоран Т."
-                    />
-                  </div>
-                  <div className="author-info">
-                    <h5>Зоран Томић</h5>
-                    <span>Пацијент, Интервентна кардиологија</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <TestimonialCard
+              quote="Захваљујући тиму на Дедињу, данас водим потпуно нормалан живот. Операција је протекла без компликација, а постоперативна нега је била на највишем нивоу. Неизмерно сам захвалан."
+              authorName="Петар Миловановић"
+              authorRole="Пацијент, Кардиохирургија"
+              authorImage="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100"
+            />
+            <TestimonialCard
+              quote="Професионалност и хуманост особља на Дедињу су ме одушевили. Од првог прегледа до завршетка лечења осећала сам се сигурно и збринуто. Топло препоручујем."
+              authorName="Марија Станковић"
+              authorRole="Пацијенткиња, Кардиологија"
+              authorImage="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100"
+            />
+            <TestimonialCard
+              quote="Након уградње стентова осећам се као нов човек. Др Јовановић и његов тим су истински професионалци. Брза интервенција ми је спасила живот."
+              authorName="Зоран Томић"
+              authorRole="Пацијент, Интервентна кардиологија"
+              authorImage="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100"
+            />
           </div>
           <div className="testimonials-nav">
             <button className="testimonial-prev">
@@ -567,92 +444,41 @@ export default function Home() {
             <p>Будите у току са дешавањима на Институту</p>
           </div>
           <div className="news-grid">
-            <div className="news-card large">
-              <div className="news-image">
-                <img
-                  src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800"
-                  alt="News"
-                />
-                <div className="news-category">Иновације</div>
-              </div>
-              <div className="news-content">
-                <div className="news-meta">
-                  <span>
-                    <i className="far fa-calendar-alt"></i> 15. јануар 2026
-                  </span>
-                  <span>
-                    <i className="far fa-user"></i> Медицински тим
-                  </span>
-                </div>
-                <h3>Нова метода минимално инвазивне кардиохирургије</h3>
-                <p>
-                  Институт Дедиње уводи најновију технологију за минимално
-                  инвазивне операције срца која значајно скраћује време опоравка
-                  пацијената.
-                </p>
-                <a href="#" className="news-link">
-                  Прочитајте више <i className="fas fa-arrow-right"></i>
-                </a>
-              </div>
-            </div>
+            <NewsCard
+              image="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800"
+              category="Иновације"
+              date="15. јануар 2026"
+              author="Медицински тим"
+              title="Нова метода минимално инвазивне кардиохирургије"
+              description="Институт Дедиње уводи најновију технологију за минимално инвазивне операције срца која значајно скраћује време опоравка пацијената."
+              linkHref="#"
+              size="large"
+            />
             <div className="news-sidebar">
-              <div className="news-card small">
-                <div className="news-image">
-                  <img
-                    src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=400"
-                    alt="News"
-                  />
-                </div>
-                <div className="news-content">
-                  <div className="news-meta">
-                    <span>
-                      <i className="far fa-calendar-alt"></i> 10. јануар 2026
-                    </span>
-                  </div>
-                  <h4>Бесплатни кардиолошки прегледи</h4>
-                  <a href="#" className="news-link">
-                    Сазнајте више <i className="fas fa-arrow-right"></i>
-                  </a>
-                </div>
-              </div>
-              <div className="news-card small">
-                <div className="news-image">
-                  <img
-                    src="https://images.unsplash.com/photo-1579154204601-01588f351e67?w=400"
-                    alt="News"
-                  />
-                </div>
-                <div className="news-content">
-                  <div className="news-meta">
-                    <span>
-                      <i className="far fa-calendar-alt"></i> 5. јануар 2026
-                    </span>
-                  </div>
-                  <h4>Нова савремена опрема на одељењу</h4>
-                  <a href="#" className="news-link">
-                    Сазнајте више <i className="fas fa-arrow-right"></i>
-                  </a>
-                </div>
-              </div>
-              <div className="news-card small">
-                <div className="news-image">
-                  <img
-                    src="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=400"
-                    alt="News"
-                  />
-                </div>
-                <div className="news-content">
-                  <div className="news-meta">
-                    <span>
-                      <i className="far fa-calendar-alt"></i> 1. јануар 2026
-                    </span>
-                  </div>
-                  <h4>Успешна 10.000 операција у 2025.</h4>
-                  <a href="#" className="news-link">
-                    Сазнајте више <i className="fas fa-arrow-right"></i>
-                  </a>
-                </div>
-              </div>
+              <NewsCard
+                image="https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=400"
+                category="Акције"
+                date="10. јануар 2026"
+                title="Бесплатни кардиолошки прегледи"
+                linkHref="#"
+                size="small"
+              />
+              <NewsCard
+                image="https://images.unsplash.com/photo-1579154204601-01588f351e67?w=400"
+                category="Опрема"
+                date="5. јануар 2026"
+                title="Нова савремена опрема на одељењу"
+                linkHref="#"
+                size="small"
+              />
+              <NewsCard
+                image="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=400"
+                category="Успех"
+                date="1. јануар 2026"
+                title="Успешна 10.000 операција у 2025."
+                linkHref="#"
+                size="small"
+              />
             </div>
           </div>
         </div>
