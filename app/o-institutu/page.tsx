@@ -9,7 +9,10 @@ import {
   StatCard,
   ProfileTabs,
   VideoPlayer,
+  HighlightItem,
+  ValueCard,
 } from "@/components/shared";
+import { Heading, Text, Badge } from "@/components/typography";
 
 export default function OInstitutu() {
   return (
@@ -33,55 +36,41 @@ export default function OInstitutu() {
           <div className="container">
             <div className="about-grid">
               <div className="about-content">
-                <span className="section-badge">О нама</span>
-                <h2>Институт за кардиоваскуларне болести Дедиње</h2>
-                <p className="lead">
-                  Институт за кардиоваскуларне болести Дедиње је национална
-                  референтна здравствена установа терцијалног нивоа из области
-                  кардиоваскуларних болести и специјализована установа за
-                  научноистраживачки рад.
-                </p>
-                <p>
-                  Од свог оснивања 1959. године, Институт је постао симбол
-                  изврсности у дијагностици, лечењу и рехабилитацији срчаних и
-                  васкуларних обољења. Са тимом од преко 200 високо
-                  квалификованих лекара специјалиста и најсавременијом
-                  медицинском опремом, пружамо услуге највишег квалитета.
-                </p>
+                <Badge variant="primary" text="О нама" />
+                <Heading
+                  variant="h2"
+                  text="Институт за кардиоваскуларне болести Дедиње"
+                />
+                <Text
+                  variant="lead"
+                  text="Институт за кардиоваскуларне болести Дедиње је национална референтна здравствена установа терцијалног нивоа из области кардиоваскуларних болести и специјализована установа за научноистраживачки рад."
+                />
+                <Text
+                  variant="body"
+                  text="Од свог оснивања 1959. године, Институт је постао симбол изврсности у дијагностици, лечењу и рехабилитацији срчаних и васкуларних обољења. Са тимом од преко 200 високо квалификованих лекара специјалиста и најсавременијом медицинском опремом, пружамо услуге највишег квалитета."
+                />
               </div>
               <div className="about-image">
                 <div className="about-highlights">
-                  <div className="highlight-item">
-                    <div className="highlight-icon">
-                      <i className="fas fa-award"></i>
-                    </div>
-                    <div className="highlight-text">
-                      <h4>Национална референца</h4>
-                      <p>Водећа установа за КВБ у Србији</p>
-                    </div>
-                  </div>
-                  <div className="highlight-item">
-                    <div className="highlight-icon">
-                      <i className="fas fa-microscope"></i>
-                    </div>
-                    <div className="highlight-text">
-                      <h4>Научни рад</h4>
-                      <p>Специјализована за истраживања</p>
-                    </div>
-                  </div>
-                  <div className="highlight-item">
-                    <div className="highlight-icon">
-                      <i className="fas fa-user-graduate"></i>
-                    </div>
-                    <div className="highlight-text">
-                      <h4>Едукација</h4>
-                      <p>Центар за обуку специјалиста</p>
-                    </div>
-                  </div>
+                  <HighlightItem
+                    icon="fas fa-award"
+                    title="Национална референца"
+                    description="Водећа установа за КВБ у Србији"
+                  />
+                  <HighlightItem
+                    icon="fas fa-microscope"
+                    title="Научни рад"
+                    description="Специјализована за истраживања"
+                  />
+                  <HighlightItem
+                    icon="fas fa-user-graduate"
+                    title="Едукација"
+                    description="Центар за обуку специјалиста"
+                  />
                 </div>
                 <div className="about-badge">
-                  <span className="badge-year">1959</span>
-                  <span className="badge-text">Основан</span>
+                  <Text as="span" className="badge-year" text="1959" />
+                  <Text as="span" className="badge-text" text="Основан" />
                 </div>
               </div>
             </div>
@@ -101,9 +90,9 @@ export default function OInstitutu() {
         <section className="institute-stats-section">
           <div className="container">
             <div className="stats-header">
-              <span className="section-badge">Наши резултати</span>
-              <h2>Бројке које говоре о нама</h2>
-              <p>Преко шест деценија посвећености здрављу пацијената</p>
+              <Badge variant="primary" text="Наши резултати" />
+              <Heading variant="h2" text="Бројке које говоре о нама" />
+              <Text text="Преко шест деценија посвећености здрављу пацијената" />
             </div>
             <div className="stats-grid-large">
               <StatCard
@@ -186,9 +175,9 @@ export default function OInstitutu() {
         <section className="management-section">
           <div className="container">
             <div className="section-header-center">
-              <span className="section-badge">Управа</span>
-              <h2>Управа Института</h2>
-              <p>Искусни професионалци који воде наш институт</p>
+              <Badge variant="primary" text="Управа" />
+              <Heading variant="h2" text="Управа Института" />
+              <Text text="Искусни професионалци који воде наш институт" />
             </div>
 
             <ProfileTabs
@@ -246,71 +235,41 @@ export default function OInstitutu() {
         <section className="values-section">
           <div className="container">
             <div className="section-header-center">
-              <span className="section-badge">Наше вредности</span>
-              <h2>Оно у шта верујемо</h2>
-              <p>Принципи који воде наш рад сваког дана</p>
+              <Badge variant="primary" text="Наше вредности" />
+              <Heading variant="h2" text="Оно у шта верујемо" />
+              <Text text="Принципи који воде наш рад сваког дана" />
             </div>
             <div className="values-grid">
-              <div className="value-card">
-                <div className="value-icon">
-                  <i className="fas fa-heart"></i>
-                </div>
-                <h3>Посвећеност пацијенту</h3>
-                <p>
-                  Здравље и добробит наших пацијената су у центру свега што
-                  радимо. Пружамо персонализовану негу са поштовањем и пажњом.
-                </p>
-              </div>
-              <div className="value-card">
-                <div className="value-icon">
-                  <i className="fas fa-graduation-cap"></i>
-                </div>
-                <h3>Стручност и изврсност</h3>
-                <p>
-                  Континуирано усавршавамо наше вештине и знање како бисмо
-                  пружили најбољу могућу здравствену заштиту на светском нивоу.
-                </p>
-              </div>
-              <div className="value-card">
-                <div className="value-icon">
-                  <i className="fas fa-lightbulb"></i>
-                </div>
-                <h3>Иновације</h3>
-                <p>
-                  Усвајамо најсавременије технологије и методе лечења, будући
-                  пионири у примени нових третмана и процедура.
-                </p>
-              </div>
-              <div className="value-card">
-                <div className="value-icon">
-                  <i className="fas fa-users"></i>
-                </div>
-                <h3>Тимски рад</h3>
-                <p>
-                  Мултидисциплинарни приступ и сарадња стручњака различитих
-                  специјалности обезбеђују оптималне резултате лечења.
-                </p>
-              </div>
-              <div className="value-card">
-                <div className="value-icon">
-                  <i className="fas fa-shield-alt"></i>
-                </div>
-                <h3>Безбедност</h3>
-                <p>
-                  Безбедност пацијената је наш најважнији приоритет. Поштујемо
-                  највише стандарде квалитета и безбедности у свим процедурама.
-                </p>
-              </div>
-              <div className="value-card">
-                <div className="value-icon">
-                  <i className="fas fa-handshake"></i>
-                </div>
-                <h3>Интегритет</h3>
-                <p>
-                  Поступамо са интегритетом, транспарентношћу и етичношћу у свим
-                  аспектима нашег рада и односа са пацијентима.
-                </p>
-              </div>
+              <ValueCard
+                icon="fas fa-heart"
+                title="Посвећеност пацијенту"
+                description="Здравље и добробит наших пацијената су у центру свега што радимо. Пружамо персонализовану негу са поштовањем и пажњом."
+              />
+              <ValueCard
+                icon="fas fa-graduation-cap"
+                title="Стручност и изврсност"
+                description="Континуирано усавршавамо наше вештине и знање како бисмо пружили најбољу могућу здравствену заштиту на светском нивоу."
+              />
+              <ValueCard
+                icon="fas fa-lightbulb"
+                title="Иновације"
+                description="Усвајамо најсавременије технологије и методе лечења, будући пионири у примени нових третмана и процедура."
+              />
+              <ValueCard
+                icon="fas fa-users"
+                title="Тимски рад"
+                description="Мултидисциплинарни приступ и сарадња стручњака различитих специјалности обезбеђују оптималне резултате лечења."
+              />
+              <ValueCard
+                icon="fas fa-shield-alt"
+                title="Безбедност"
+                description="Безбедност пацијената је наш најважнији приоритет. Поштујемо највише стандарде квалитета и безбедности у свим процедурама."
+              />
+              <ValueCard
+                icon="fas fa-handshake"
+                title="Интегритет"
+                description="Поступамо са интегритетом, транспарентношћу и етичношћу у свим аспектима нашег рада и односа са пацијентима."
+              />
             </div>
           </div>
         </section>
@@ -319,11 +278,8 @@ export default function OInstitutu() {
         <section className="institute-cta-section">
           <div className="container">
             <div className="cta-content">
-              <h2>Контактирајте нас данас</h2>
-              <p>
-                Наш тим стручњака је спреман да вам пружи све потребне
-                информације
-              </p>
+              <Heading variant="h2" text="Контактирајте нас данас" />
+              <Text text="Наш тим стручњака је спреман да вам пружи све потребне информације" />
               <div className="cta-buttons">
                 <Link href="/kontakt" className="btn-primary">
                   <i className="fas fa-phone"></i>

@@ -22,3 +22,5 @@ export { default as TeamCard } from "./TeamCard";
 export { default as TestimonialCard } from "./TestimonialCard";
 export { default as WelcomeFeature } from "./WelcomeFeature";
 export { default as PartnerLogo } from "./PartnerLogo";
+export { default as HighlightItem } from "./HighlightItem";
+export { default as ValueCard } from "./ValueCard";

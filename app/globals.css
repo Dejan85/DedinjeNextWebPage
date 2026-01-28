@@ -5686,10 +5686,11 @@ img {
 }
 
 .about-highlights {
-    margin-top: 40px;
     display: flex;
     flex-direction: column;
     gap: 25px;
+    height: 100%;
+    justify-content: center;
 }
 
 .highlight-item {
