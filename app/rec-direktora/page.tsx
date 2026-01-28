@@ -1,10 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import ScrollToTop from "@/components/ScrollToTop";
-import { HeroSection, VideoPlayer } from "@/components/shared";
+import {
+  Header,
+  Footer,
+  ScrollToTop,
+  HeroSection,
+  VideoPlayer,
+} from "@/components/shared";
 
 export default function RecDirektoraPage() {
   return (

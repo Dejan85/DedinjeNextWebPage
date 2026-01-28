@@ -1,20 +1,22 @@
 "use client";
 
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import HeroSlider from "@/components/HeroSlider";
-import ScrollToTop from "@/components/ScrollToTop";
-import Button from "@/components/Button";
-import Image from "@/components/Image";
-import InfoBox from "@/components/InfoBox";
-import StatCounter from "@/components/StatCounter";
-import ServiceCard from "@/components/ServiceCard";
-import FeatureItem from "@/components/FeatureItem";
-import DepartmentCard from "@/components/DepartmentCard";
-import TeamCard from "@/components/TeamCard";
-import TestimonialCard from "@/components/TestimonialCard";
-import NewsCard from "@/components/NewsCard";
-import WelcomeFeature from "@/components/WelcomeFeature";
+import {
+  Header,
+  Footer,
+  HeroSlider,
+  ScrollToTop,
+  Button,
+  Image,
+  InfoBox,
+  StatCounter,
+  ServiceCard,
+  FeatureItem,
+  DepartmentCard,
+  TeamCard,
+  TestimonialCard,
+  NewsCard,
+  WelcomeFeature,
+} from "@/components/shared";
 import { Heading, Text, Badge } from "@/components/typography";
 
 export default function Home() {

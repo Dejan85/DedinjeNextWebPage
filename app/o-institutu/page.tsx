@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import ScrollToTop from "@/components/ScrollToTop";
 import {
+  Header,
+  Footer,
+  ScrollToTop,
   HeroSection,
   StatCard,
   ProfileTabs,

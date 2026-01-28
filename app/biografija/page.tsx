@@ -2,9 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import ScrollToTop from "@/components/ScrollToTop";
+import { Header, Footer, ScrollToTop } from "@/components/shared";
 
 export default function BiografijaPage() {
   const [activeTab, setActiveTab] = useState("professional-path");

@@ -1,4 +1,4 @@
-import Image from "@/components/Image";
+import Image from "./Image";
 
 interface NewsCardProps {
   image: string;
@@ -24,7 +24,12 @@ export default function NewsCard({
   return (
     <div className={`news-card ${size}`}>
       <div className="news-image">
-        <Image src={image} alt={title} width={size === "large" ? 800 : 400} height={size === "large" ? 500 : 300} />
+        <Image
+          src={image}
+          alt={title}
+          width={size === "large" ? 800 : 400}
+          height={size === "large" ? 500 : 300}
+        />
         {size === "large" && <div className="news-category">{category}</div>}
       </div>
       <div className="news-content">

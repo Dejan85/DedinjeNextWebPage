@@ -1,4 +1,4 @@
-import Image from "@/components/Image";
+import Image from "./Image";
 
 interface DepartmentCardProps {
   image: string;
