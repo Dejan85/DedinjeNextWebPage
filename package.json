@@ -10,7 +10,9 @@
     "lint": "eslint",
     "sanity:dev": "sanity dev",
     "sanity:deploy": "sanity deploy",
-    "sanity:manage": "sanity manage"
+    "sanity:manage": "sanity manage",
+    "migrate:hero": "tsx scripts/migrate-hero.ts",
+    "migrate:settings": "tsx scripts/migrate-site-settings.ts"
   },
   "dependencies": {
     "@sanity/image-url": "^1.1.0",
@@ -29,8 +31,10 @@
     "@types/react-dom": "^19",
     "babel-plugin-react-compiler": "1.0.0",
     "cross-env": "^7.0.3",
+    "dotenv": "^16.4.7",
     "eslint": "^9",
     "eslint-config-next": "16.1.4",
+    "tsx": "^4.19.2",
     "typescript": "^5"
   }
 }
