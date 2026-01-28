@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Header,
   Footer,
@@ -18,14 +16,20 @@ import {
   WelcomeFeature,
 } from "@/components/shared";
 import { Heading, Text, Badge } from "@/components/typography";
+import { client } from "@/sanity/lib/client";
+import { HOMEPAGE_QUERY } from "@/sanity/lib/queries";
 
-export default function Home() {
+export default async function Home() {
+  // Fetch hero slides from Sanity
+  const homepage = await client.fetch(HOMEPAGE_QUERY);
+  const heroSlides = homepage?.pageBuilder || [];
+
   return (
     <>
       <Header />
 
       {/* Hero Section with Slider */}
-      <HeroSlider />
+      <HeroSlider slides={heroSlides} />
 
       {/* Info Boxes */}
       <section className="info-boxes">

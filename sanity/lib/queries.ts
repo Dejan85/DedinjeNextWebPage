@@ -17,6 +17,29 @@ export const PAGE_BY_SLUG_QUERY = groq`
   }
 `;
 
+// Homepage sa Hero slides
+export const HOMEPAGE_QUERY = groq`
+  *[_type == "page" && _id == "homepage"][0] {
+    _id,
+    title,
+    pageBuilder[] {
+      _type,
+      heading,
+      subheading,
+      image {
+        asset-> {
+          _id,
+          url
+        }
+      },
+      cta {
+        text,
+        link
+      }
+    }
+  }
+`;
+
 // Doctors
 export const DOCTORS_QUERY = groq`
   *[_type == "doctor"] | order(order asc) {

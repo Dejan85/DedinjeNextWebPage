@@ -4,36 +4,73 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "./Image";
 
-const slides = [
-  {
-    id: 1,
-    image: "https://images.unsplash.com/photo-1551076805-e1869033e561?w=1920",
-    title: "Ваш национални институт за срце и крвне судове",
-    description:
-      "Водећа здравствена установа у региону са преко 65 година искуства у кардиоваскуларној медицини",
-    showButton: false,
-  },
-  {
-    id: 2,
-    image:
-      "https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=1920",
-    title: "Најсавременија дијагностика",
-    description:
-      "Користимо најновију технологију и опрему за прецизну дијагностику и лечење кардиоваскуларних обољења",
-    showButton: true,
-  },
-  {
-    id: 3,
-    image:
-      "https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=1920",
-    title: "Тим стручњака на вашој услузи",
-    description:
-      "Преко 200 лекара специјалиста посвећених вашем здрављу и опоравку",
-    showButton: false,
-  },
-];
+interface HeroSlide {
+  _type: string;
+  heading?: string;
+  subheading?: string;
+  image?: {
+    asset?: {
+      _id: string;
+      url: string;
+    };
+  };
+  cta?: {
+    text: string;
+    link: string;
+  };
+}
 
-export default function HeroSlider() {
+interface HeroSliderProps {
+  slides?: HeroSlide[];
+}
+
+export default function HeroSlider({ slides: sanitySlides }: HeroSliderProps) {
+  // Fallback na hardcoded slides ako nema Sanity podataka
+  const defaultSlides = [
+    {
+      _type: "hero",
+      image: {
+        asset: {
+          _id: "default-1",
+          url: "https://images.unsplash.com/photo-1551076805-e1869033e561?w=1920",
+        },
+      },
+      heading: "Ваш национални институт за срце и крвне судове",
+      subheading:
+        "Водећа здравствена установа у региону са преко 65 година искуства у кардиоваскуларној медицини",
+    },
+    {
+      _type: "hero",
+      image: {
+        asset: {
+          _id: "default-2",
+          url: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=1920",
+        },
+      },
+      heading: "Најсавременија дијагностика",
+      subheading:
+        "Користимо најновију технологију и опрему за прецизну дијагностику и лечење кардиоваскуларних обољења",
+      cta: {
+        text: "ПОГЛЕДАЈ УСЛУГЕ",
+        link: "#services",
+      },
+    },
+    {
+      _type: "hero",
+      image: {
+        asset: {
+          _id: "default-3",
+          url: "https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=1920",
+        },
+      },
+      heading: "Тим стручњака на вашој услузи",
+      subheading:
+        "Преко 200 лекара специјалиста посвећених вашем здрављу и опоравку",
+    },
+  ];
+
+  const slides =
+    sanitySlides && sanitySlides.length > 0 ? sanitySlides : defaultSlides;
   const [currentSlide, setCurrentSlide] = useState(0);
   const [direction, setDirection] = useState(0);
 
@@ -101,8 +138,8 @@ export default function HeroSlider() {
           >
             <div className="hero-background">
               <Image
-                src={slides[currentSlide].image}
-                alt={slides[currentSlide].title}
+                src={slides[currentSlide].image?.asset?.url || ""}
+                alt={slides[currentSlide].heading || "Hero image"}
                 fill
                 priority
                 objectFit="cover"
@@ -117,24 +154,24 @@ export default function HeroSlider() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3, duration: 0.6 }}
                   >
-                    {slides[currentSlide].title}
+                    {slides[currentSlide].heading}
                   </motion.h1>
                   <motion.p
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5, duration: 0.6 }}
                   >
-                    {slides[currentSlide].description}
+                    {slides[currentSlide].subheading}
                   </motion.p>
-                  {slides[currentSlide].showButton && (
+                  {slides[currentSlide].cta && (
                     <motion.a
-                      href="#services"
+                      href={slides[currentSlide].cta?.link || "#"}
                       className="hero-btn"
                       initial={{ opacity: 0, y: 30 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.7, duration: 0.6 }}
                     >
-                      ПОГЛЕДАЈ УСЛУГЕ
+                      {slides[currentSlide].cta?.text}
                     </motion.a>
                   )}
                 </div>
