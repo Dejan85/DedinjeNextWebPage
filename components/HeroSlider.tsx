@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "@/components/Image";
 
 const slides = [
   {
@@ -99,9 +100,12 @@ export default function HeroSlider() {
             }}
           >
             <div className="hero-background">
-              <img
+              <Image
                 src={slides[currentSlide].image}
                 alt={slides[currentSlide].title}
+                fill
+                priority
+                objectFit="cover"
               />
             </div>
             <div className="hero-overlay"></div>

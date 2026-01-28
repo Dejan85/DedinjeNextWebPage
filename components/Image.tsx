@@ -1,3 +1,5 @@
+import NextImage from "next/image";
+
 interface ImageProps {
   src: string;
   alt: string;
@@ -18,33 +20,39 @@ export default function Image({
   height,
   fill = false,
   className = "",
+  priority = false,
+  quality = 85,
+  sizes,
   objectFit = "cover",
 }: ImageProps) {
-  // Ako je fill true, koristimo CSS za fill efekat
   if (fill) {
     return (
-      <img
+      <NextImage
         src={src}
         alt={alt}
+        fill
         className={className}
-        style={{
-          position: "absolute",
-          width: "100%",
-          height: "100%",
-          objectFit: objectFit,
-          inset: 0,
-        }}
+        priority={priority}
+        quality={quality}
+        sizes={sizes}
+        style={{ objectFit }}
       />
     );
   }
 
+  const imageWidth = width || 800;
+  const imageHeight = height || 600;
+
   return (
-    <img
+    <NextImage
       src={src}
       alt={alt}
-      width={width}
-      height={height}
+      width={imageWidth}
+      height={imageHeight}
       className={className}
+      priority={priority}
+      quality={quality}
+      sizes={sizes}
       style={{ objectFit }}
     />
   );
