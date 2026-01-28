@@ -3,6 +3,7 @@ export { StatCard } from "./StatCard";
 export { TabButton } from "./TabButton";
 export { TabButtonGroup } from "./TabButtonGroup";
 export { ProfileTabs } from "./ProfileTabs";
+export { ContentTabs } from "./ContentTabs";
 export { VideoPlayer } from "./VideoPlayer";
 export { default as Button } from "./Button";
 export { default as DepartmentCard } from "./DepartmentCard";
