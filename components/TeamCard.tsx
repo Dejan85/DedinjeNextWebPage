@@ -1,3 +1,5 @@
+import Image from "@/components/Image";
+
 interface SocialLink {
   platform: "facebook" | "linkedin" | "email";
   url: string;
@@ -27,7 +29,7 @@ export default function TeamCard({
   return (
     <div className="team-card">
       <div className="team-image">
-        <img src={image} alt={name} />
+        <Image src={image} alt={name} width={400} height={500} />
         <div className="team-overlay">
           <div className="team-social">
             {socialLinks.map((link, index) => (

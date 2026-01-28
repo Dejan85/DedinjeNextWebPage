@@ -1,3 +1,5 @@
+import Image from "@/components/Image";
+
 interface DepartmentCardProps {
   image: string;
   title: string;
@@ -14,7 +16,7 @@ export default function DepartmentCard({
   return (
     <div className="department-card">
       <div className="department-image">
-        <img src={image} alt={title} />
+        <Image src={image} alt={title} width={600} height={400} />
         <div className="department-overlay">
           <a href={linkHref} className="department-link">
             <i className="fas fa-plus"></i>

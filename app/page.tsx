@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import HeroSlider from "@/components/HeroSlider";
 import ScrollToTop from "@/components/ScrollToTop";
 import Button from "@/components/Button";
+import Image from "@/components/Image";
 import InfoBox from "@/components/InfoBox";
 import StatCounter from "@/components/StatCounter";
 import ServiceCard from "@/components/ServiceCard";
@@ -14,6 +15,7 @@ import TeamCard from "@/components/TeamCard";
 import TestimonialCard from "@/components/TestimonialCard";
 import NewsCard from "@/components/NewsCard";
 import WelcomeFeature from "@/components/WelcomeFeature";
+import { Heading, Text, Badge } from "@/components/typography";
 
 export default function Home() {
   return (
@@ -69,18 +71,20 @@ export default function Home() {
         <div className="container">
           <div className="welcome-grid">
             <div className="welcome-content">
-              <span className="section-badge">Добродошли</span>
-              <h2>Институт за кардиоваскуларне болести Дедиње</h2>
-              <p className="lead">
-                Водећа здравствена установа у региону специјализована за
-                дијагностику, лечење и рехабилитацију кардиоваскуларних обољења.
-              </p>
-              <p>
-                Са више од 65 година искуства и преко 200 лекара специјалиста,
-                Институт Дедиње представља симбол изврсности у кардиоваскуларној
-                медицини. Наша посвећеност пацијентима и константно усавршавање
-                чине нас првим избором за хиљаде пацијената сваке године.
-              </p>
+              <Badge variant="primary" text="Добродошли" />
+              <Heading
+                variant="h2"
+                size="lg"
+                text="Институт за кардиоваскуларне болести Дедиње"
+              />
+              <Text
+                variant="lead"
+                text="Водећа здравствена установа у региону специјализована за дијагностику, лечење и рехабилитацију кардиоваскуларних обољења."
+              />
+              <Text
+                variant="body"
+                text="Са више од 65 година искуства и преко 200 лекара специјалиста, Институт Дедиње представља симбол изврсности у кардиоваскуларној медицини. Наша посвећеност пацијентима и константно усавршавање чине нас првим избором за хиљаде пацијената сваке године."
+              />
               <div className="welcome-features">
                 <WelcomeFeature
                   icon="fas fa-check-circle"
@@ -105,20 +109,24 @@ export default function Home() {
             </div>
             <div className="welcome-images">
               <div className="welcome-img-main">
-                <img
+                <Image
                   src="https://images.unsplash.com/photo-1551190822-a9333d879b1f?w=800"
                   alt="Medical team"
+                  width={800}
+                  height={600}
                 />
               </div>
               <div className="welcome-img-secondary">
-                <img
+                <Image
                   src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=400"
                   alt="Medical equipment"
+                  width={400}
+                  height={300}
                 />
               </div>
               <div className="experience-badge">
-                <span className="exp-number">65+</span>
-                <span className="exp-text">Година искуства</span>
+                <Text text="65+" as="span" className="exp-number" />
+                <Text text="Година искуства" as="span" className="exp-text" />
               </div>
             </div>
           </div>
@@ -131,8 +139,11 @@ export default function Home() {
         <div className="parallax-content">
           <div className="container">
             <div className="stats-intro">
-              <h2>Бројке које говоре</h2>
-              <p>Наши резултати су доказ посвећености и стручности</p>
+              <Heading variant="h2" color="light" text="Бројке које говоре" />
+              <Text
+                color="light"
+                text="Наши резултати су доказ посвећености и стручности"
+              />
             </div>
             <div className="stats-grid">
               <StatCounter
@@ -164,12 +175,17 @@ export default function Home() {
       <section className="services-section">
         <div className="container">
           <div className="section-header centered">
-            <span className="section-badge">Наше услуге</span>
-            <h2>Комплетна кардиоваскуларна нега</h2>
-            <p>
-              Пружамо широк спектар услуга од дијагностике до хируршких
-              интервенција
-            </p>
+            <Badge variant="primary" text="Наше услуге" />
+            <Heading
+              variant="h2"
+              align="center"
+              text="Комплетна кардиоваскуларна нега"
+            />
+            <Text
+              color="muted"
+              align="center"
+              text="Пружамо широк спектар услуга од дијагностике до хируршких интервенција"
+            />
           </div>
           <div className="services-grid">
             <ServiceCard
@@ -221,12 +237,12 @@ export default function Home() {
         <div className="container">
           <div className="features-wrapper">
             <div className="features-content">
-              <span className="section-badge">Зашто ми</span>
-              <h2>По чему смо другачији</h2>
-              <p>
-                Институт Дедиње комбинује дугогодишње искуство са
-                најсавременијом технологијом како би пружио најбољу могућу негу.
-              </p>
+              <Badge variant="primary" text="Зашто ми" />
+              <Heading variant="h2" text="По чему смо другачији" />
+              <Text
+                variant="body"
+                text="Институт Дедиње комбинује дугогодишње искуство са најсавременијом технологијом како би пружио најбољу могућу негу."
+              />
               <div className="features-list">
                 <FeatureItem
                   icon="fas fa-user-md"
@@ -251,15 +267,17 @@ export default function Home() {
               </div>
             </div>
             <div className="features-image">
-              <img
+              <Image
                 src="https://images.unsplash.com/photo-1551076805-e1869033e561?w=800"
                 alt="Modern medical equipment"
+                width={800}
+                height={600}
               />
               <div className="features-image-overlay">
                 <div className="play-button">
                   <i className="fas fa-play"></i>
                 </div>
-                <span>Погледајте видео о нама</span>
+                <Text text="Погледајте видео о нама" as="span" />
               </div>
             </div>
           </div>
@@ -272,11 +290,15 @@ export default function Home() {
         <div className="parallax-content">
           <div className="container">
             <div className="cta-content">
-              <h2>Ваше здравље је наш приоритет</h2>
-              <p>
-                Контактирајте нас за више информација о нашим услугама и како
-                можемо помоћи вашем здрављу.
-              </p>
+              <Heading
+                variant="h2"
+                color="light"
+                text="Ваше здравље је наш приоритет"
+              />
+              <Text
+                color="light"
+                text="Контактирајте нас за више информација о нашим услугама и како можемо помоћи вашем здрављу."
+              />
               <div className="cta-buttons">
                 <Button href="tel:0113601668" variant="white">
                   <i className="fas fa-phone-alt"></i> Позовите нас
@@ -294,12 +316,17 @@ export default function Home() {
       <section className="departments-section">
         <div className="container">
           <div className="section-header centered">
-            <span className="section-badge">Одељења</span>
-            <h2>Наша специјализована одељења</h2>
-            <p>
-              Свако одељење посвећено је одређеној области кардиоваскуларне
-              медицине
-            </p>
+            <Badge variant="primary" text="Одељења" />
+            <Heading
+              variant="h2"
+              align="center"
+              text="Наша специјализована одељења"
+            />
+            <Text
+              color="muted"
+              align="center"
+              text="Свако одељење посвећено је одређеној области кардиоваскуларне медицине"
+            />
           </div>
           <div className="departments-grid">
             <DepartmentCard
@@ -334,9 +361,17 @@ export default function Home() {
       <section className="team-section">
         <div className="container">
           <div className="section-header centered">
-            <span className="section-badge">Наш тим</span>
-            <h2>Упознајте наше стручњаке</h2>
-            <p>Искусни лекари посвећени вашем здрављу</p>
+            <Badge variant="primary" text="Наш тим" />
+            <Heading
+              variant="h2"
+              align="center"
+              text="Упознајте наше стручњаке"
+            />
+            <Text
+              color="muted"
+              align="center"
+              text="Искусни лекари посвећени вашем здрављу"
+            />
           </div>
           <div className="team-grid">
             <TeamCard
@@ -396,8 +431,13 @@ export default function Home() {
       <section className="testimonials-section">
         <div className="container">
           <div className="section-header centered light">
-            <span className="section-badge">Искуства</span>
-            <h2>Шта кажу наши пацијенти</h2>
+            <Badge variant="light" text="Искуства" />
+            <Heading
+              variant="h2"
+              color="light"
+              align="center"
+              text="Шта кажу наши пацијенти"
+            />
           </div>
           <div className="testimonials-slider">
             <TestimonialCard
@@ -439,9 +479,13 @@ export default function Home() {
       <section className="news-section">
         <div className="container">
           <div className="section-header centered">
-            <span className="section-badge">Новости</span>
-            <h2>Најновије вести</h2>
-            <p>Будите у току са дешавањима на Институту</p>
+            <Badge variant="primary" text="Новости" />
+            <Heading variant="h2" align="center" text="Најновије вести" />
+            <Text
+              color="muted"
+              align="center"
+              text="Будите у току са дешавањима на Институту"
+            />
           </div>
           <div className="news-grid">
             <NewsCard
@@ -491,19 +535,19 @@ export default function Home() {
           <div className="container">
             <div className="appointment-wrapper">
               <div className="appointment-info">
-                <h2>Контактирајте нас</h2>
-                <p>
-                  Попуните формулар и наш тим ће вас контактирати у најкраћем
-                  року са свим потребним информацијама.
-                </p>
+                <Heading variant="h2" color="light" text="Контактирајте нас" />
+                <Text
+                  color="light"
+                  text="Попуните формулар и наш тим ће вас контактирати у најкраћем року са свим потребним информацијама."
+                />
                 <div className="appointment-contact">
                   <div className="contact-item">
                     <div className="contact-icon">
                       <i className="fas fa-phone-alt"></i>
                     </div>
                     <div className="contact-text">
-                      <span>Телефон</span>
-                      <strong>011 3601 668</strong>
+                      <Text text="Телефон" as="span" />
+                      <Text text="011 3601 668" as="strong" />
                     </div>
                   </div>
                   <div className="contact-item">
@@ -511,8 +555,8 @@ export default function Home() {
                       <i className="fas fa-envelope"></i>
                     </div>
                     <div className="contact-text">
-                      <span>Е-пошта</span>
-                      <strong>info@ikvbd.rs</strong>
+                      <Text text="Е-пошта" as="span" />
+                      <Text text="info@ikvbd.rs" as="strong" />
                     </div>
                   </div>
                   <div className="contact-item">
@@ -520,8 +564,8 @@ export default function Home() {
                       <i className="fas fa-map-marker-alt"></i>
                     </div>
                     <div className="contact-text">
-                      <span>Адреса</span>
-                      <strong>Хероја Милана Тепића 1</strong>
+                      <Text text="Адреса" as="span" />
+                      <Text text="Хероја Милана Тепића 1" as="strong" />
                     </div>
                   </div>
                 </div>
@@ -582,7 +626,7 @@ export default function Home() {
                     <label htmlFor="message">Додатне напомене</label>
                   </div>
                   <button type="submit" className="btn-submit">
-                    <span>Пошаљите поруку</span>
+                    <Text text="Пошаљите поруку" as="span" />
                     <i className="fas fa-arrow-right"></i>
                   </button>
                 </form>
@@ -596,28 +640,32 @@ export default function Home() {
       <section className="partners-section">
         <div className="container">
           <div className="section-header centered">
-            <h3>Сертификати и партнерства</h3>
+            <Heading
+              variant="h3"
+              align="center"
+              text="Сертификати и партнерства"
+            />
           </div>
           <div className="partners-slider">
             <div className="partner-logo">
               <i className="fas fa-hospital"></i>
-              <span>ISO 9001</span>
+              <Text text="ISO 9001" as="span" />
             </div>
             <div className="partner-logo">
               <i className="fas fa-certificate"></i>
-              <span>JCI Акредитација</span>
+              <Text text="JCI Акредитација" as="span" />
             </div>
             <div className="partner-logo">
               <i className="fas fa-award"></i>
-              <span>Европски стандарди</span>
+              <Text text="Европски стандарди" as="span" />
             </div>
             <div className="partner-logo">
               <i className="fas fa-shield-alt"></i>
-              <span>Здравствена заштита</span>
+              <Text text="Здравствена заштита" as="span" />
             </div>
             <div className="partner-logo">
               <i className="fas fa-heart"></i>
-              <span>Кардио центар</span>
+              <Text text="Кардио центар" as="span" />
             </div>
           </div>
         </div>

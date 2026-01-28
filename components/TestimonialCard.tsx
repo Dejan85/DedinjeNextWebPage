@@ -1,3 +1,5 @@
+import Image from "@/components/Image";
+
 interface TestimonialCardProps {
   quote: string;
   authorName: string;
@@ -20,7 +22,7 @@ export default function TestimonialCard({
         <p>{quote}</p>
         <div className="testimonial-author">
           <div className="author-avatar">
-            <img src={authorImage} alt={authorName} />
+            <Image src={authorImage} alt={authorName} width={100} height={100} />
           </div>
           <div className="author-info">
             <h5>{authorName}</h5>

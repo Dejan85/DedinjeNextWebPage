@@ -1,16 +1,14 @@
-import { ReactNode } from "react";
-
 interface TextProps {
-  children: ReactNode;
+  text: string;
   variant?: "body" | "lead" | "small" | "caption" | "meta";
   color?: "default" | "muted" | "light" | "primary";
   align?: "left" | "center" | "right";
   className?: string;
-  as?: "p" | "span" | "div";
+  as?: "p" | "span" | "div" | "strong";
 }
 
 export default function Text({
-  children,
+  text,
   variant = "body",
   color = "default",
   align = "left",
@@ -42,5 +40,5 @@ export default function Text({
 
   const classes = `font-opensans ${variantClasses[variant]} ${colorClasses[color]} ${alignClasses[align]} ${className}`;
 
-  return <Tag className={classes}>{children}</Tag>;
+  return <Tag className={classes}>{text}</Tag>;
 }

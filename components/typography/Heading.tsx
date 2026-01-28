@@ -1,7 +1,5 @@
-import { ReactNode } from "react";
-
 interface HeadingProps {
-  children: ReactNode;
+  text: string;
   variant?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
   size?: "xl" | "lg" | "md" | "sm" | "xs";
   color?: "dark" | "light" | "primary";
@@ -10,7 +8,7 @@ interface HeadingProps {
 }
 
 export default function Heading({
-  children,
+  text,
   variant = "h2",
   size,
   color = "dark",
@@ -54,5 +52,5 @@ export default function Heading({
 
   const classes = `font-roboto font-semibold leading-tight ${finalSize} ${colorClasses[color]} ${alignClasses[align]} ${className}`;
 
-  return <Tag className={classes}>{children}</Tag>;
+  return <Tag className={classes}>{text}</Tag>;
 }

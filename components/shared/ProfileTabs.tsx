@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { TabButtonGroup } from "./TabButtonGroup";
 
@@ -58,7 +57,7 @@ export const ProfileTabs: React.FC<ProfileTabsProps> = ({
               className="management-card"
             >
               <div className="management-image">
-                <Image
+                <img
                   src={activeProfile.image}
                   alt={activeProfile.imageAlt}
                   width={500}
