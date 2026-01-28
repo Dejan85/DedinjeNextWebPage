@@ -1,13 +1,15 @@
 "use client";
 
-import Link from "next/link";
 import {
   Header,
   Footer,
   ScrollToTop,
   HeroSection,
   VideoPlayer,
+  InfoCard,
+  PartnerLogo,
 } from "@/components/shared";
+import { Heading, Text, Badge } from "@/components/typography";
 
 export default function RecDirektoraPage() {
   return (
@@ -27,36 +29,28 @@ export default function RecDirektoraPage() {
       <section className="director-info-section">
         <div className="container">
           <div className="director-info-grid">
-            <div className="director-info-card">
-              <div className="info-card-icon">
-                <i className="fas fa-user-graduate"></i>
-              </div>
-              <h3>Биографија</h3>
-              <p>Упознајте се са каријером и достигнућима нашег директора</p>
-              <Link href="/biografija" className="btn-card">
-                Прочитајте више <i className="fas fa-arrow-right"></i>
-              </Link>
-            </div>
-            <div className="director-info-card">
-              <div className="info-card-icon">
-                <i className="fas fa-book-open"></i>
-              </div>
-              <h3>Библиографија</h3>
-              <p>Преглед научних радова и публикација</p>
-              <Link href="/bibliografija" className="btn-card">
-                Погледајте <i className="fas fa-arrow-right"></i>
-              </Link>
-            </div>
-            <div className="director-info-card highlight">
-              <div className="info-card-icon">
-                <i className="fas fa-award"></i>
-              </div>
-              <h3>Достигнућа</h3>
-              <p>Награде и признања у области кардиоваскуларне медицине</p>
-              <Link href="/dostignuca" className="btn-card">
-                Сазнајте више <i className="fas fa-arrow-right"></i>
-              </Link>
-            </div>
+            <InfoCard
+              icon="fas fa-user-graduate"
+              title="Биографија"
+              description="Упознајте се са каријером и достигнућима нашег директора"
+              buttonText="Прочитајте више"
+              buttonHref="/biografija"
+            />
+            <InfoCard
+              icon="fas fa-book-open"
+              title="Библиографија"
+              description="Преглед научних радова и публикација"
+              buttonText="Погледајте"
+              buttonHref="/bibliografija"
+            />
+            <InfoCard
+              icon="fas fa-award"
+              title="Достигнућа"
+              description="Награде и признања у области кардиоваскуларне медицине"
+              buttonText="Сазнајте више"
+              buttonHref="/dostignuca"
+              highlight={true}
+            />
           </div>
         </div>
       </section>
@@ -66,36 +60,30 @@ export default function RecDirektoraPage() {
         <div className="container">
           <div className="director-message-grid">
             <div className="message-content">
-              <span className="section-badge">Реч директора</span>
-              <h2>Посвећеност изврсности у кардиоваскуларној медицини</h2>
+              <Badge variant="primary" text="Реч директора" />
+              <Heading
+                variant="h2"
+                text="Посвећеност изврсности у кардиоваскуларној медицини"
+              />
               <div className="message-text">
-                <p className="lead-text">
-                  Обољења срца и крвних судова представљају најчешћи узрок
-                  обољевања и умирања у данашње време. Ово има огроман утицај на
-                  све области нашег живота у социјалном, психолошком,
-                  организационом, а поготову финансијском смислу.
-                </p>
+                <Text
+                  variant="lead"
+                  text="Обољења срца и крвних судова представљају најчешћи узрок обољевања и умирања у данашње време. Ово има огроман утицај на све области нашег живота у социјалном, психолошком, организационом, а поготову финансијском смислу."
+                />
 
-                <p>
-                  Наша обавеза је да обезбедимо врхунску услугу у домену
-                  кардиоваскуларне медицине уопште, а конкретно у области
-                  модерне кардиохируршке праксе. Ефикасне, квалитетне, у кратком
-                  року изведене кардиохируршке процедуре без значајних
-                  компликација, омогућавају да се болесници брзо и успешно
-                  опораве након операције и у кратком временском интервалу врате
-                  свом уобичајеном начину живота и професионалним активностима,
-                  чиме обезбеђују егзистенцију себи и својој породици.
-                </p>
+                <Text
+                  variant="body"
+                  text="Наша обавеза је да обезбедимо врхунску услугу у домену кардиоваскуларне медицине уопште, а конкретно у области модерне кардиохируршке праксе. Ефикасне, квалитетне, у кратком року изведене кардиохируршке процедуре без значајних компликација, омогућавају да се болесници брзо и успешно опораве након операције и у кратком временском интервалу врате свом уобичајеном начину живота и професионалним активностима, чиме обезбеђују егзистенцију себи и својој породици."
+                />
 
-                <p>
-                  Наша Клиника обезбеђује потпуно заокружен систем ефикасне
-                  дијагностике, лечења и постоперативног опоравка за болеснике
-                  којима је потребна кардиохируршка интервенција.
-                </p>
+                <Text
+                  variant="body"
+                  text="Наша Клиника обезбеђује потпуно заокружен систем ефикасне дијагностике, лечења и постоперативног опоравка за болеснике којима је потребна кардиохируршка интервенција."
+                />
               </div>
               <div className="message-signature">
                 <div className="signature-line"></div>
-                <p>Академик проф. др Милован М. Бојић</p>
+                <Text text="Академик проф. др Милован М. Бојић" />
               </div>
             </div>
             <div className="message-video">
@@ -116,14 +104,13 @@ export default function RecDirektoraPage() {
             <div className="quote-icon">
               <i className="fas fa-quote-left"></i>
             </div>
-            <blockquote>
-              "Наша посвећеност је да сваком пацијенту пружимо најбољу могућу
-              негу, користећи најсавременије методе и технологије у
-              кардиоваскуларној медицини."
-            </blockquote>
+            <Text
+              as="blockquote"
+              text="Наша посвећеност је да сваком пацијенту пружимо најбољу могућу негу, користећи најсавременије методе и технологије у кардиоваскуларној медицини."
+            />
             <div className="quote-author">
               <div className="author-line"></div>
-              <p>Академик проф. др Милован М. Бојић</p>
+              <Text text="Академик проф. др Милован М. Бојић" />
             </div>
           </div>
         </div>
@@ -133,29 +120,18 @@ export default function RecDirektoraPage() {
       <section className="partners-section">
         <div className="container">
           <div className="section-header centered">
-            <h3>Сертификати и партнерства</h3>
+            <Heading
+              variant="h3"
+              align="center"
+              text="Сертификати и партнерства"
+            />
           </div>
           <div className="partners-slider">
-            <div className="partner-logo">
-              <i className="fas fa-hospital"></i>
-              <span>ISO 9001</span>
-            </div>
-            <div className="partner-logo">
-              <i className="fas fa-certificate"></i>
-              <span>JCI Акредитација</span>
-            </div>
-            <div className="partner-logo">
-              <i className="fas fa-award"></i>
-              <span>Европски стандарди</span>
-            </div>
-            <div className="partner-logo">
-              <i className="fas fa-shield-alt"></i>
-              <span>Здравствена заштита</span>
-            </div>
-            <div className="partner-logo">
-              <i className="fas fa-heart"></i>
-              <span>Кардио центар</span>
-            </div>
+            <PartnerLogo icon="fas fa-hospital" text="ISO 9001" />
+            <PartnerLogo icon="fas fa-certificate" text="JCI Акредитација" />
+            <PartnerLogo icon="fas fa-award" text="Европски стандарди" />
+            <PartnerLogo icon="fas fa-shield-alt" text="Здравствена заштита" />
+            <PartnerLogo icon="fas fa-heart" text="Кардио центар" />
           </div>
         </div>
       </section>

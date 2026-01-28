@@ -4,7 +4,7 @@ interface TextProps {
   color?: "default" | "muted" | "light" | "primary";
   align?: "left" | "center" | "right";
   className?: string;
-  as?: "p" | "span" | "div" | "strong";
+  as?: "p" | "span" | "div" | "strong" | "blockquote";
 }
 
 export default function Text({
