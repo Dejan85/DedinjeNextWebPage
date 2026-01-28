@@ -1,80 +1,18 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import HeroSlider from "@/components/HeroSlider";
 import ScrollToTop from "@/components/ScrollToTop";
 import Button from "@/components/Button";
 import InfoBox from "@/components/InfoBox";
-
-// Stat Counter Component
-function StatCounter({
-  target,
-  label,
-  icon,
-}: {
-  target: number;
-  label: string;
-  icon: string;
-}) {
-  const [count, setCount] = useState(0);
-  const [isVisible, setIsVisible] = useState(false);
-  const counterRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && !isVisible) {
-            setIsVisible(true);
-          }
-        });
-      },
-      { threshold: 0.5 },
-    );
-
-    if (counterRef.current) {
-      observer.observe(counterRef.current);
-    }
-
-    return () => {
-      if (counterRef.current) {
-        observer.unobserve(counterRef.current);
-      }
-    };
-  }, [isVisible]);
-
-  useEffect(() => {
-    if (!isVisible) return;
-
-    const duration = 2000;
-    const step = target / (duration / 16);
-    let current = 0;
-
-    const animate = () => {
-      current += step;
-      if (current < target) {
-        setCount(Math.floor(current));
-        requestAnimationFrame(animate);
-      } else {
-        setCount(target);
-      }
-    };
-
-    animate();
-  }, [isVisible, target]);
-
-  return (
-    <div className="stat-item" ref={counterRef}>
-      <div className="stat-icon">
-        <i className={icon}></i>
-      </div>
-      <div className="stat-number">{count.toLocaleString()}</div>
-      <div className="stat-label">{label}</div>
-    </div>
-  );
-}
+import StatCounter from "@/components/StatCounter";
+import ServiceCard from "@/components/ServiceCard";
+import FeatureItem from "@/components/FeatureItem";
+import DepartmentCard from "@/components/DepartmentCard";
+import TeamCard from "@/components/TeamCard";
+import TestimonialCard from "@/components/TestimonialCard";
+import NewsCard from "@/components/NewsCard";
 
 export default function Home() {
   return (
@@ -233,111 +171,46 @@ export default function Home() {
             </p>
           </div>
           <div className="services-grid">
-            <div className="service-card">
-              <div className="service-icon-wrapper">
-                <div className="service-icon">
-                  <i className="fas fa-heart"></i>
-                </div>
-              </div>
-              <h3>Кардиохирургија</h3>
-              <p>
-                Хируршко лечење болести срца укључујући коронарни бајпас, замену
-                и реконструкцију срчаних залистака, операције аорте.
-              </p>
-              <ul className="service-list">
-                <li>
-                  <i className="fas fa-angle-right"></i> Коронарни бајпас
-                </li>
-                <li>
-                  <i className="fas fa-angle-right"></i> Замена залистака
-                </li>
-                <li>
-                  <i className="fas fa-angle-right"></i> Операције аорте
-                </li>
-              </ul>
-              <a href="#" className="service-link">
-                Сазнајте више <i className="fas fa-long-arrow-alt-right"></i>
-              </a>
-            </div>
-            <div className="service-card featured">
-              <div className="featured-badge">Најтраженије</div>
-              <div className="service-icon-wrapper">
-                <div className="service-icon">
-                  <i className="fas fa-stethoscope"></i>
-                </div>
-              </div>
-              <h3>Кардиологија</h3>
-              <p>
-                Комплетна дијагностика и нехируршко лечење болести срца. Модерна
-                опрема за прецизну дијагнозу.
-              </p>
-              <ul className="service-list">
-                <li>
-                  <i className="fas fa-angle-right"></i> Ехокардиографија
-                </li>
-                <li>
-                  <i className="fas fa-angle-right"></i> ЕКГ и Холтер
-                </li>
-                <li>
-                  <i className="fas fa-angle-right"></i> Стрес тестови
-                </li>
-              </ul>
-              <a href="#" className="service-link">
-                Сазнајте више <i className="fas fa-long-arrow-alt-right"></i>
-              </a>
-            </div>
-            <div className="service-card">
-              <div className="service-icon-wrapper">
-                <div className="service-icon">
-                  <i className="fas fa-x-ray"></i>
-                </div>
-              </div>
-              <h3>Васкуларна хирургија</h3>
-              <p>
-                Хируршко лечење болести крвних судова укључујући аорту,
-                каротидне и периферне артерије.
-              </p>
-              <ul className="service-list">
-                <li>
-                  <i className="fas fa-angle-right"></i> Операције аорте
-                </li>
-                <li>
-                  <i className="fas fa-angle-right"></i> Каротидна хирургија
-                </li>
-                <li>
-                  <i className="fas fa-angle-right"></i> Периферна хирургија
-                </li>
-              </ul>
-              <a href="#" className="service-link">
-                Сазнајте више <i className="fas fa-long-arrow-alt-right"></i>
-              </a>
-            </div>
-            <div className="service-card">
-              <div className="service-icon-wrapper">
-                <div className="service-icon">
-                  <i className="fas fa-procedures"></i>
-                </div>
-              </div>
-              <h3>Интервентна кардиологија</h3>
-              <p>
-                Минимално инвазивне процедуре за лечење срчаних обољења без
-                отворене хирургије.
-              </p>
-              <ul className="service-list">
-                <li>
-                  <i className="fas fa-angle-right"></i> Уградња стентова
-                </li>
-                <li>
-                  <i className="fas fa-angle-right"></i> Ангиопластика
-                </li>
-                <li>
-                  <i className="fas fa-angle-right"></i> Катетеризација
-                </li>
-              </ul>
-              <a href="#" className="service-link">
-                Сазнајте више <i className="fas fa-long-arrow-alt-right"></i>
-              </a>
-            </div>
+            <ServiceCard
+              icon="fas fa-heart"
+              title="Кардиохирургија"
+              description="Хируршко лечење болести срца укључујући коронарни бајпас, замену и реконструкцију срчаних залистака, операције аорте."
+              features={[
+                "Коронарни бајпас",
+                "Замена залистака",
+                "Операције аорте",
+              ]}
+              linkHref="#"
+            />
+
+            <ServiceCard
+              icon="fas fa-stethoscope"
+              title="Кардиологија"
+              description="Комплетна дијагностика и нехируршко лечење болести срца. Модерна опрема за прецизну дијагнозу."
+              features={["Ехокардиографија", "ЕКГ и Холтер", "Стрес тестови"]}
+              linkHref="#"
+              featured={true}
+            />
+
+            <ServiceCard
+              icon="fas fa-x-ray"
+              title="Васкуларна хирургија"
+              description="Хируршко лечење болести крвних судова укључујући аорту, каротидне и периферне артерије."
+              features={[
+                "Операције аорте",
+                "Каротидна хирургија",
+                "Периферна хирургија",
+              ]}
+              linkHref="#"
+            />
+
+            <ServiceCard
+              icon="fas fa-procedures"
+              title="Интервентна кардиологија"
+              description="Минимално инвазивне процедуре за лечење срчаних обољења без отворене хирургије."
+              features={["Уградња стентова", "Ангиопластика", "Катетеризација"]}
+              linkHref="#"
+            />
           </div>
         </div>
       </section>
@@ -354,50 +227,26 @@ export default function Home() {
                 најсавременијом технологијом како би пружио најбољу могућу негу.
               </p>
               <div className="features-list">
-                <div className="feature-item">
-                  <div className="feature-icon">
-                    <i className="fas fa-user-md"></i>
-                  </div>
-                  <div className="feature-text">
-                    <h4>Врхунски стручњаци</h4>
-                    <p>
-                      Тим од преко 200 лекара специјалиста са међународним
-                      искуством.
-                    </p>
-                  </div>
-                </div>
-                <div className="feature-item">
-                  <div className="feature-icon">
-                    <i className="fas fa-microscope"></i>
-                  </div>
-                  <div className="feature-text">
-                    <h4>Најмодернија опрема</h4>
-                    <p>
-                      Користимо најновију медицинску технологију за прецизну
-                      дијагностику.
-                    </p>
-                  </div>
-                </div>
-                <div className="feature-item">
-                  <div className="feature-icon">
-                    <i className="fas fa-clock"></i>
-                  </div>
-                  <div className="feature-text">
-                    <h4>Брза дијагностика</h4>
-                    <p>
-                      Резултати у најкраћем могућем року за правовремено лечење.
-                    </p>
-                  </div>
-                </div>
-                <div className="feature-item">
-                  <div className="feature-icon">
-                    <i className="fas fa-hand-holding-heart"></i>
-                  </div>
-                  <div className="feature-text">
-                    <h4>Индивидуални приступ</h4>
-                    <p>Сваки пацијент добија персонализован план лечења.</p>
-                  </div>
-                </div>
+                <FeatureItem
+                  icon="fas fa-user-md"
+                  title="Врхунски стручњаци"
+                  description="Тим од преко 200 лекара специјалиста са међународним искуством."
+                />
+                <FeatureItem
+                  icon="fas fa-microscope"
+                  title="Најмодернија опрема"
+                  description="Користимо најновију медицинску технологију за прецизну дијагностику."
+                />
+                <FeatureItem
+                  icon="fas fa-clock"
+                  title="Брза дијагностика"
+                  description="Резултати у најкраћем могућем року за правовремено лечење."
+                />
+                <FeatureItem
+                  icon="fas fa-hand-holding-heart"
+                  title="Индивидуални приступ"
+                  description="Сваки пацијент добија персонализован план лечења."
+                />
               </div>
             </div>
             <div className="features-image">
@@ -452,74 +301,30 @@ export default function Home() {
             </p>
           </div>
           <div className="departments-grid">
-            <div className="department-card">
-              <div className="department-image">
-                <img
-                  src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600"
-                  alt="Cardiac Surgery"
-                />
-                <div className="department-overlay">
-                  <a href="#" className="department-link">
-                    <i className="fas fa-plus"></i>
-                  </a>
-                </div>
-              </div>
-              <div className="department-info">
-                <h4>Одељење за кардиохирургију</h4>
-                <p>Комплексне хируршке интервенције на срцу</p>
-              </div>
-            </div>
-            <div className="department-card">
-              <div className="department-image">
-                <img
-                  src="https://images.unsplash.com/photo-1530497610245-94d3c16cda28?w=600"
-                  alt="Cardiology"
-                />
-                <div className="department-overlay">
-                  <a href="#" className="department-link">
-                    <i className="fas fa-plus"></i>
-                  </a>
-                </div>
-              </div>
-              <div className="department-info">
-                <h4>Одељење за кардиологију</h4>
-                <p>Дијагностика и нехируршко лечење</p>
-              </div>
-            </div>
-            <div className="department-card">
-              <div className="department-image">
-                <img
-                  src="https://images.unsplash.com/photo-1516549655169-df83a0774514?w=600"
-                  alt="ICU"
-                />
-                <div className="department-overlay">
-                  <a href="#" className="department-link">
-                    <i className="fas fa-plus"></i>
-                  </a>
-                </div>
-              </div>
-              <div className="department-info">
-                <h4>Интензивна нега</h4>
-                <p>24/7 мониторинг критичних пацијената</p>
-              </div>
-            </div>
-            <div className="department-card">
-              <div className="department-image">
-                <img
-                  src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600"
-                  alt="Rehabilitation"
-                />
-                <div className="department-overlay">
-                  <a href="#" className="department-link">
-                    <i className="fas fa-plus"></i>
-                  </a>
-                </div>
-              </div>
-              <div className="department-info">
-                <h4>Рехабилитација</h4>
-                <p>Постоперативни опоравак и терапија</p>
-              </div>
-            </div>
+            <DepartmentCard
+              image="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600"
+              title="Одељење за кардиохирургију"
+              description="Комплексне хируршке интервенције на срцу"
+              linkHref="#"
+            />
+            <DepartmentCard
+              image="https://images.unsplash.com/photo-1530497610245-94d3c16cda28?w=600"
+              title="Одељење за кардиологију"
+              description="Дијагностика и нехируршко лечење"
+              linkHref="#"
+            />
+            <DepartmentCard
+              image="https://images.unsplash.com/photo-1516549655169-df83a0774514?w=600"
+              title="Интензивна нега"
+              description="24/7 мониторинг критичних пацијената"
+              linkHref="#"
+            />
+            <DepartmentCard
+              image="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600"
+              title="Рехабилитација"
+              description="Постоперативни опоравак и терапија"
+              linkHref="#"
+            />
           </div>
         </div>
       </section>
