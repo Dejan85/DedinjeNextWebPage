@@ -7,13 +7,21 @@
     "build": "next build",
     "build:static": "cross-env BUILD_STATIC=true next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "sanity:dev": "sanity dev",
+    "sanity:deploy": "sanity deploy",
+    "sanity:manage": "sanity manage"
   },
   "dependencies": {
+    "@sanity/image-url": "^1.1.0",
+    "@sanity/vision": "^5.7.0",
     "framer-motion": "^12.29.0",
     "next": "16.1.4",
+    "next-sanity": "^12.0.14",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "sanity": "^5.7.0",
+    "styled-components": "^6.3.8"
   },
   "devDependencies": {
     "@types/node": "^20",
