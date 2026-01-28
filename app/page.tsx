@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import HeroSlider from "@/components/HeroSlider";
 import ScrollToTop from "@/components/ScrollToTop";
 import Button from "@/components/Button";
+import InfoBox from "@/components/InfoBox";
 
 // Stat Counter Component
 function StatCounter({
@@ -87,68 +88,39 @@ export default function Home() {
       <section className="info-boxes">
         <div className="container">
           <div className="info-boxes-grid">
-            <div className="info-box">
-              <div className="info-box-icon">
-                <i className="far fa-clock"></i>
-              </div>
-              <div className="info-box-content">
-                <h3>Радно време</h3>
-                <div className="schedule">
-                  <div className="schedule-row">
-                    <span>Пон - Пет</span>
-                    <span>08:00 - 19:00</span>
-                  </div>
-                  <div className="schedule-row">
-                    <span>Субота</span>
-                    <span>09:00 - 17:00</span>
-                  </div>
-                  <div className="schedule-row">
-                    <span>Недеља</span>
-                    <span>09:00 - 15:00</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="info-box">
-              <div className="info-box-icon">
-                <i className="fas fa-hospital"></i>
-              </div>
-              <div className="info-box-content">
-                <h3>Наша одељења</h3>
-                <p>
-                  Упознајте се са свим одељењима и услугама које наш институт
-                  нуди пацијентима.
-                </p>
-                <a href="#" className="info-box-link">
-                  Погледај одељења <i className="fas fa-arrow-right"></i>
-                </a>
-              </div>
-            </div>
-            <div className="info-box">
-              <div className="info-box-icon">
-                <i className="fas fa-user-md"></i>
-              </div>
-              <div className="info-box-content">
-                <h3>Наш тим</h3>
-                <p>
-                  Упознајте наше лекаре специјалисте и стручњаке који брину о
-                  вашем здрављу.
-                </p>
-                <a href="#" className="info-box-link">
-                  Упознајте тим <i className="fas fa-arrow-right"></i>
-                </a>
-              </div>
-            </div>
-            <div className="info-box emergency">
-              <div className="info-box-icon">
-                <i className="fas fa-ambulance"></i>
-              </div>
-              <div className="info-box-content">
-                <h3>Хитни случајеви</h3>
-                <div className="emergency-phone">011 3601 600</div>
-                <p>Доступни 24/7 за хитне случајеве</p>
-              </div>
-            </div>
+            <InfoBox
+              icon="far fa-clock"
+              title="Радно време"
+              schedule={[
+                { days: "Пон - Пет", hours: "08:00 - 19:00" },
+                { days: "Субота", hours: "09:00 - 17:00" },
+                { days: "Недеља", hours: "09:00 - 15:00" },
+              ]}
+            />
+
+            <InfoBox
+              icon="fas fa-hospital"
+              title="Наша одељења"
+              description="Упознајте се са свим одељењима и услугама које наш институт нуди пацијентима."
+              linkText="Погледај одељења"
+              linkHref="#"
+            />
+
+            <InfoBox
+              icon="fas fa-user-md"
+              title="Наш тим"
+              description="Упознајте наше лекаре специјалисте и стручњаке који брину о вашем здрављу."
+              linkText="Упознајте тим"
+              linkHref="#"
+            />
+
+            <InfoBox
+              icon="fas fa-ambulance"
+              title="Хитни случајеви"
+              emergencyPhone="011 3601 600"
+              emergencyNote="Доступни 24/7 за хитне случајеве"
+              className="emergency"
+            />
           </div>
         </div>
       </section>
