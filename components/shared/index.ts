@@ -25,3 +25,5 @@ export { default as WelcomeFeature } from "./WelcomeFeature";
 export { default as PartnerLogo } from "./PartnerLogo";
 export { default as HighlightItem } from "./HighlightItem";
 export { default as ValueCard } from "./ValueCard";
+export { default as PublicationItem } from "./PublicationItem";
+export { default as StatItem } from "./StatItem";

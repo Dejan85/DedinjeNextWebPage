@@ -1,5 +1,6 @@
 interface TextProps {
-  text: string;
+  text?: string;
+  children?: React.ReactNode;
   variant?: "body" | "lead" | "small" | "caption" | "meta";
   color?: "default" | "muted" | "light" | "primary";
   align?: "left" | "center" | "right";
@@ -9,6 +10,7 @@ interface TextProps {
 
 export default function Text({
   text,
+  children,
   variant = "body",
   color = "default",
   align = "left",
@@ -40,5 +42,5 @@ export default function Text({
 
   const classes = `font-opensans ${variantClasses[variant]} ${colorClasses[color]} ${alignClasses[align]} ${className}`;
 
-  return <Tag className={classes}>{text}</Tag>;
+  return <Tag className={classes}>{children || text}</Tag>;
 }
