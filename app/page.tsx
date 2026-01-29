@@ -29,6 +29,7 @@ import type {
   TestimonialsSection,
   NewsSection,
   ContactSection,
+  PartnersSection,
   InfoBox as InfoBoxType,
   WelcomeFeature as WelcomeFeatureType,
   StatItem,
@@ -89,6 +90,11 @@ export default async function Home() {
   const contactSection = pageBuilder.find(
     (section) => section._type === "contactSection",
   ) as ContactSection | undefined;
+
+  const partnersSection = pageBuilder.find(
+    (section) => section._type === "partnersSection",
+  ) as PartnersSection | undefined;
+
   return (
     <>
       <Header />
@@ -688,39 +694,27 @@ export default async function Home() {
       )}
 
       {/* Partners Section */}
-      <section className="partners-section">
-        <div className="container">
-          <div className="section-header centered">
-            <Heading
-              variant="h3"
-              align="center"
-              text="Сертификати и партнерства"
-            />
-          </div>
-          <div className="partners-slider">
-            <div className="partner-logo">
-              <i className="fas fa-hospital"></i>
-              <Text text="ISO 9001" as="span" />
+      {partnersSection && (
+        <section className="partners-section">
+          <div className="container">
+            <div className="section-header centered">
+              <Heading
+                variant="h3"
+                align="center"
+                text={partnersSection.heading}
+              />
             </div>
-            <div className="partner-logo">
-              <i className="fas fa-certificate"></i>
-              <Text text="JCI Акредитација" as="span" />
-            </div>
-            <div className="partner-logo">
-              <i className="fas fa-award"></i>
-              <Text text="Европски стандарди" as="span" />
-            </div>
-            <div className="partner-logo">
-              <i className="fas fa-shield-alt"></i>
-              <Text text="Здравствена заштита" as="span" />
-            </div>
-            <div className="partner-logo">
-              <i className="fas fa-heart"></i>
-              <Text text="Кардио центар" as="span" />
+            <div className="partners-slider">
+              {partnersSection.partners.map((partner) => (
+                <div key={partner._key} className="partner-logo">
+                  {partner.icon && <i className={partner.icon}></i>}
+                  <Text text={partner.name} as="span" />
+                </div>
+              ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       <Footer />
 

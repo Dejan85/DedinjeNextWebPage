@@ -1,6 +1,27 @@
 import Link from "next/link";
+import { client } from "@/sanity/lib/client";
+import { FOOTER_QUERY } from "@/sanity/lib/queries";
+import type { Footer as FooterType } from "@/sanity/types";
 
-export default function Footer() {
+export default async function Footer() {
+  let footer: FooterType | null = null;
+
+  try {
+    footer = await client.fetch(FOOTER_QUERY);
+  } catch (error) {
+    console.error("Error fetching footer:", error);
+  }
+
+  // Fallback values if Sanity data is not available
+  const instituteName = footer?.instituteName || "ДЕДИЊЕ";
+  const instituteSubtitle = footer?.instituteSubtitle || "Институт за КВБ";
+  const description =
+    footer?.description ||
+    "Институт за кардиоваскуларне болести Дедиње је водећа здравствена установа у региону специјализована за дијагностику и лечење болести срца и крвних судова.";
+  const copyright =
+    footer?.copyright ||
+    "© 2026 Институт за кардиоваскуларне болести Дедиње. Сва права задржана.";
+
   return (
     <footer className="footer">
       <div className="footer-top">
@@ -15,132 +36,167 @@ export default function Footer() {
                   />
                 </div>
                 <div className="logo-text">
-                  <span className="logo-name">ДЕДИЊЕ</span>
-                  <span className="logo-subtitle">Институт за КВБ</span>
+                  <span className="logo-name">{instituteName}</span>
+                  <span className="logo-subtitle">{instituteSubtitle}</span>
                 </div>
               </div>
-              <p>
-                Институт за кардиоваскуларне болести Дедиње је водећа
-                здравствена установа у региону специјализована за дијагностику и
-                лечење болести срца и крвних судова.
-              </p>
-              <div className="footer-social">
-                <a href="#" aria-label="Facebook">
-                  <i className="fab fa-facebook-f"></i>
-                </a>
-                <a href="#" aria-label="Twitter">
-                  <i className="fab fa-twitter"></i>
-                </a>
-                <a href="#" aria-label="Instagram">
-                  <i className="fab fa-instagram"></i>
-                </a>
-                <a href="#" aria-label="LinkedIn">
-                  <i className="fab fa-linkedin-in"></i>
-                </a>
-                <a href="#" aria-label="YouTube">
-                  <i className="fab fa-youtube"></i>
-                </a>
+              <p>{description}</p>
+              {footer?.socialLinks && (
+                <div className="footer-social">
+                  {footer.socialLinks.facebook && (
+                    <a
+                      href={footer.socialLinks.facebook}
+                      aria-label="Facebook"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <i className="fab fa-facebook-f"></i>
+                    </a>
+                  )}
+                  {footer.socialLinks.twitter && (
+                    <a
+                      href={footer.socialLinks.twitter}
+                      aria-label="Twitter"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <i className="fab fa-twitter"></i>
+                    </a>
+                  )}
+                  {footer.socialLinks.instagram && (
+                    <a
+                      href={footer.socialLinks.instagram}
+                      aria-label="Instagram"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <i className="fab fa-instagram"></i>
+                    </a>
+                  )}
+                  {footer.socialLinks.linkedin && (
+                    <a
+                      href={footer.socialLinks.linkedin}
+                      aria-label="LinkedIn"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <i className="fab fa-linkedin-in"></i>
+                    </a>
+                  )}
+                  {footer.socialLinks.youtube && (
+                    <a
+                      href={footer.socialLinks.youtube}
+                      aria-label="YouTube"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <i className="fab fa-youtube"></i>
+                    </a>
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* Quick Links */}
+            {footer?.quickLinks && footer.quickLinks.links.length > 0 && (
+              <div className="footer-col">
+                <h4>{footer.quickLinks.heading}</h4>
+                <ul>
+                  {footer.quickLinks.links.map((link) => (
+                    <li key={link._key}>
+                      <Link href={link.href}>{link.title}</Link>
+                    </li>
+                  ))}
+                </ul>
               </div>
-            </div>
-            <div className="footer-col">
-              <h4>Брзи линкови</h4>
-              <ul>
-                <li>
-                  <Link href="/rec-direktora">Реч директора</Link>
-                </li>
-                <li>
-                  <Link href="/biografija">Биографија</Link>
-                </li>
-                <li>
-                  <a href="#">О нама</a>
-                </li>
-                <li>
-                  <a href="#">Услуге</a>
-                </li>
-                <li>
-                  <a href="#">Одељења</a>
-                </li>
-                <li>
-                  <a href="#">Наш тим</a>
-                </li>
-                <li>
-                  <a href="#">Новости</a>
-                </li>
-                <li>
-                  <a href="#">Контакт</a>
-                </li>
-              </ul>
-            </div>
-            <div className="footer-col">
-              <h4>Услуге</h4>
-              <ul>
-                <li>
-                  <a href="#">Кардиохирургија</a>
-                </li>
-                <li>
-                  <a href="#">Кардиологија</a>
-                </li>
-                <li>
-                  <a href="#">Васкуларна хирургија</a>
-                </li>
-                <li>
-                  <a href="#">Интервентна кардиологија</a>
-                </li>
-                <li>
-                  <a href="#">Рехабилитација</a>
-                </li>
-                <li>
-                  <a href="#">Дијагностика</a>
-                </li>
-              </ul>
-            </div>
-            <div className="footer-col contact">
-              <h4>Контакт</h4>
-              <ul className="footer-contact">
-                <li>
-                  <i className="fas fa-map-marker-alt"></i>
-                  <span>
-                    Хероја Милана Тепића 1<br />
-                    11040 Београд, Србија
-                  </span>
-                </li>
-                <li>
-                  <i className="fas fa-phone-alt"></i>
-                  <span>
-                    011 3601 668
-                    <br />
-                    011 3601 669
-                  </span>
-                </li>
-                <li>
-                  <i className="fas fa-envelope"></i>
-                  <span>info@ikvbd.rs</span>
-                </li>
-                <li>
-                  <i className="fas fa-clock"></i>
-                  <span>
-                    Пон - Пет: 08:00 - 19:00
-                    <br />
-                    Викенд: 09:00 - 15:00
-                  </span>
-                </li>
-              </ul>
-            </div>
+            )}
+
+            {/* Services */}
+            {footer?.services && footer.services.links.length > 0 && (
+              <div className="footer-col">
+                <h4>{footer.services.heading}</h4>
+                <ul>
+                  {footer.services.links.map((link) => (
+                    <li key={link._key}>
+                      <Link href={link.href}>{link.title}</Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {/* Contact */}
+            {footer?.contact && (
+              <div className="footer-col contact">
+                <h4>{footer.contact.heading}</h4>
+                <ul className="footer-contact">
+                  {(footer.contact.address || footer.contact.city) && (
+                    <li>
+                      <i className="fas fa-map-marker-alt"></i>
+                      <span>
+                        {footer.contact.address && (
+                          <>
+                            {footer.contact.address}
+                            <br />
+                          </>
+                        )}
+                        {footer.contact.city}
+                      </span>
+                    </li>
+                  )}
+                  {(footer.contact.phone1 || footer.contact.phone2) && (
+                    <li>
+                      <i className="fas fa-phone-alt"></i>
+                      <span>
+                        {footer.contact.phone1}
+                        {footer.contact.phone2 && (
+                          <>
+                            <br />
+                            {footer.contact.phone2}
+                          </>
+                        )}
+                      </span>
+                    </li>
+                  )}
+                  {footer.contact.email && (
+                    <li>
+                      <i className="fas fa-envelope"></i>
+                      <span>{footer.contact.email}</span>
+                    </li>
+                  )}
+                  {footer.contact.workingHours && (
+                    <li>
+                      <i className="fas fa-clock"></i>
+                      <span>
+                        {footer.contact.workingHours.weekdays && (
+                          <>
+                            {footer.contact.workingHours.weekdays}
+                            <br />
+                          </>
+                        )}
+                        {footer.contact.workingHours.weekend}
+                      </span>
+                    </li>
+                  )}
+                </ul>
+              </div>
+            )}
           </div>
         </div>
       </div>
       <div className="footer-bottom">
         <div className="container">
           <div className="footer-bottom-content">
-            <p>
-              &copy; 2026 Институт за кардиоваскуларне болести Дедиње. Сва права
-              задржана.
-            </p>
-            <div className="footer-links">
-              <a href="#">Политика приватности</a>
-              <a href="#">Услови коришћења</a>
-              <a href="#">Карта сајта</a>
-            </div>
+            <p>{copyright}</p>
+            {footer?.legalLinks && footer.legalLinks.length > 0 && (
+              <div className="footer-links">
+                {footer.legalLinks.map((link) => (
+                  <Link key={link._key} href={link.href}>
+                    {link.title}
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>

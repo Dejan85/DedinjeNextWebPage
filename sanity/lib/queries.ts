@@ -251,6 +251,15 @@ export const HOMEPAGE_QUERY = groq`
           submitButtonText
         },
         departments
+      },
+      // PartnersSection fields
+      _type == "partnersSection" => {
+        heading,
+        partners[] {
+          _key,
+          icon,
+          name
+        }
       }
     }
   }
@@ -421,5 +430,60 @@ export const NAVIGATION_QUERY = groq`
   *[_type == "navigation"][0] {
     mainMenu,
     footerMenu
+  }
+`;
+
+export const FOOTER_QUERY = groq`
+  *[_type == "footer"][0] {
+    logo {
+      asset-> {
+        _id,
+        url
+      }
+    },
+    instituteName,
+    instituteSubtitle,
+    description,
+    socialLinks {
+      facebook,
+      twitter,
+      instagram,
+      linkedin,
+      youtube
+    },
+    quickLinks {
+      heading,
+      links[] {
+        _key,
+        title,
+        href
+      }
+    },
+    services {
+      heading,
+      links[] {
+        _key,
+        title,
+        href
+      }
+    },
+    contact {
+      heading,
+      address,
+      city,
+      phone1,
+      phone2,
+      email,
+      workingHours {
+        weekdays,
+        weekend
+      }
+    },
+    copyright,
+    legalLinks[] {
+      _key,
+      title,
+      href
+    }
   }
 `;

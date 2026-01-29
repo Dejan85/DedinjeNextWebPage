@@ -81,6 +81,10 @@ export default defineType({
           title: "📞 Kontakt sekcija",
         },
         {
+          type: "partnersSection",
+          title: "🤝 Partneri sekcija",
+        },
+        {
           type: "contentBlock",
           title: "📝 Sadržaj blok",
         },

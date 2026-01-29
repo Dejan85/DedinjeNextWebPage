@@ -12,6 +12,7 @@
     "sanity:deploy": "sanity deploy",
     "sanity:manage": "sanity manage",
     "migrate:all": "tsx scripts/migrate-all.ts",
+    "migrate:footer": "tsx scripts/migrate-footer.ts",
     "check:homepage": "tsx scripts/check-homepage.ts"
   },
   "dependencies": {

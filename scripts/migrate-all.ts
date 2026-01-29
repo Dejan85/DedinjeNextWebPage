@@ -866,9 +866,52 @@ async function migrateAll() {
     console.log("═══════════════════════════════════════════════\n");
 
     // ============================================
-    // 14. KOMBNOVANI PAGE BUILDER
+    // 14. KREIRAJ PARTNERS SECTION
     // ============================================
-    console.log("📝 KORAK 14: Kreiranje Homepage dokumenta...\n");
+    console.log("🤝 KORAK 14: Kreiranje Partners sekcije...\n");
+
+    const partnersSection = {
+      _type: "partnersSection",
+      _key: "partners-section",
+      heading: "Сертификати и партнерства",
+      partners: [
+        {
+          _key: "partner-1",
+          icon: "fas fa-hospital",
+          name: "ISO 9001",
+        },
+        {
+          _key: "partner-2",
+          icon: "fas fa-certificate",
+          name: "JCI Акредитација",
+        },
+        {
+          _key: "partner-3",
+          icon: "fas fa-award",
+          name: "Европски стандарди",
+        },
+        {
+          _key: "partner-4",
+          icon: "fas fa-shield-alt",
+          name: "Здравствена заштита",
+        },
+        {
+          _key: "partner-5",
+          icon: "fas fa-heart",
+          name: "Кардио центар",
+        },
+      ],
+    };
+
+    console.log(
+      `  ✅ Kreirana Partners sekcija sa ${partnersSection.partners.length} partnera`,
+    );
+    console.log("═══════════════════════════════════════════════\n");
+
+    // ============================================
+    // 15. KOMBNOVANI PAGE BUILDER
+    // ============================================
+    console.log("📝 KORAK 15: Kreiranje Homepage dokumenta...\n");
 
     const pageBuilder = [
       ...heroSlides,
@@ -883,6 +926,7 @@ async function migrateAll() {
       testimonialsSection,
       newsSection,
       contactSection,
+      partnersSection,
     ];
 
     const homepage = {
@@ -933,6 +977,9 @@ async function migrateAll() {
     );
     console.log(`  📰 News Sekcija: 1 (${newsSection.news.length} vesti)`);
     console.log(`  📞 Contact Sekcija: 1`);
+    console.log(
+      `  🤝 Partners Sekcija: 1 (${partnersSection.partners.length} partnera)`,
+    );
     console.log(
       `  📸 Ukupno slika: ${heroImageIds.length + 3 + departmentImageIds.length + teamImageIds.length + testimonialImageIds.length + newsImageIds.length}`,
     );

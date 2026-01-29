@@ -10,6 +10,7 @@ import testimonial from "./documents/testimonial";
 // Singletons
 import siteSettings from "./singletons/siteSettings";
 import navigation from "./singletons/navigation";
+import footer from "./singletons/footer";
 
 // Objects
 import hero from "./objects/hero";
@@ -28,11 +29,13 @@ import teamSection from "./objects/teamSection";
 import testimonialsSection from "./objects/testimonialsSection";
 import newsSection from "./objects/newsSection";
 import contactSection from "./objects/contactSection";
+import partnersSection from "./objects/partnersSection";
 
 export const schemaTypes = [
   // Singletons
   siteSettings,
   navigation,
+  footer,
 
   // Documents
   page,
@@ -60,4 +63,5 @@ export const schemaTypes = [
   testimonialsSection,
   newsSection,
   contactSection,
+  partnersSection,
 ];

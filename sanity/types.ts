@@ -216,6 +216,53 @@ export interface Navigation {
   }>;
 }
 
+export interface FooterLink {
+  _key: string;
+  title: string;
+  href: string;
+}
+
+export interface FooterLinkSection {
+  heading: string;
+  links: FooterLink[];
+}
+
+export interface FooterContact {
+  heading: string;
+  address?: string;
+  city?: string;
+  phone1?: string;
+  phone2?: string;
+  email?: string;
+  workingHours?: {
+    weekdays?: string;
+    weekend?: string;
+  };
+}
+
+export interface FooterSocialLinks {
+  facebook?: string;
+  twitter?: string;
+  instagram?: string;
+  linkedin?: string;
+  youtube?: string;
+}
+
+export interface Footer {
+  _id: string;
+  _type: "footer";
+  logo?: SanityImage;
+  instituteName?: string;
+  instituteSubtitle?: string;
+  description?: string;
+  socialLinks?: FooterSocialLinks;
+  quickLinks?: FooterLinkSection;
+  services?: FooterLinkSection;
+  contact?: FooterContact;
+  copyright?: string;
+  legalLinks?: FooterLink[];
+}
+
 // Page Builder Block Types
 export interface HeroBlock {
   _type: "hero";
@@ -472,4 +519,17 @@ export interface ContactSection {
   contactInfo?: ContactInfo;
   formFields?: FormFields;
   departments?: string[];
+}
+
+export interface PartnerItem {
+  _key: string;
+  icon?: string;
+  name: string;
+}
+
+export interface PartnersSection {
+  _type: "partnersSection";
+  _key: string;
+  heading: string;
+  partners: PartnerItem[];
 }
