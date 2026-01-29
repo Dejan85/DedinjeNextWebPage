@@ -3,14 +3,25 @@ import { client } from "@/sanity/lib/client";
 import { FOOTER_QUERY } from "@/sanity/lib/queries";
 import type { Footer as FooterType } from "@/sanity/types";
 
-export default async function Footer() {
-  let footer: FooterType | null = null;
-
+async function getFooterData() {
   try {
-    footer = await client.fetch(FOOTER_QUERY);
+    const footer = await client.fetch<FooterType>(
+      FOOTER_QUERY,
+      {},
+      {
+        cache: "force-cache",
+        next: { revalidate: 3600 }, // Revalidate every hour
+      },
+    );
+    return footer;
   } catch (error) {
     console.error("Error fetching footer:", error);
+    return null;
   }
+}
+
+export default async function Footer() {
+  const footer = await getFooterData();
 
   // Fallback values if Sanity data is not available
   const instituteName = footer?.instituteName || "ДЕДИЊЕ";
