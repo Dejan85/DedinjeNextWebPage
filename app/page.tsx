@@ -24,6 +24,7 @@ import type {
   ServicesSection,
   WhyChooseUsSection,
   CtaSection,
+  DepartmentsSection,
   InfoBox as InfoBoxType,
   WelcomeFeature as WelcomeFeatureType,
   StatItem,
@@ -69,6 +70,9 @@ export default async function Home() {
   const ctaSection = pageBuilder.find((item) => item._type === "ctaSection") as
     | CtaSection
     | undefined;
+  const departmentsSection = pageBuilder.find(
+    (item) => item._type === "departmentsSection",
+  ) as DepartmentsSection | undefined;
 
   return (
     <>
@@ -336,49 +340,39 @@ export default async function Home() {
       )}
 
       {/* Departments Section */}
-      <section className="departments-section">
-        <div className="container">
-          <div className="section-header centered">
-            <Badge variant="primary" text="Одељења" />
-            <Heading
-              variant="h2"
-              align="center"
-              text="Наша специјализована одељења"
-            />
-            <Text
-              color="muted"
-              align="center"
-              text="Свако одељење посвећено је одређеној области кардиоваскуларне медицине"
-            />
+      {departmentsSection && (
+        <section className="departments-section">
+          <div className="container">
+            <div className="section-header centered">
+              <Badge variant="primary" text={departmentsSection.badge} />
+              <Heading
+                variant="h2"
+                align="center"
+                text={departmentsSection.heading}
+              />
+              <Text
+                color="muted"
+                align="center"
+                text={departmentsSection.subheading}
+              />
+            </div>
+            <div className="departments-grid">
+              {departmentsSection.departments?.map((dept) => (
+                <DepartmentCard
+                  key={dept._key}
+                  image={
+                    ("url" in dept.image.asset ? dept.image.asset.url : "") ||
+                    ""
+                  }
+                  title={dept.title}
+                  description={dept.description}
+                  linkHref={dept.linkHref}
+                />
+              ))}
+            </div>
           </div>
-          <div className="departments-grid">
-            <DepartmentCard
-              image="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600"
-              title="Одељење за кардиохирургију"
-              description="Комплексне хируршке интервенције на срцу"
-              linkHref="#"
-            />
-            <DepartmentCard
-              image="https://images.unsplash.com/photo-1530497610245-94d3c16cda28?w=600"
-              title="Одељење за кардиологију"
-              description="Дијагностика и нехируршко лечење"
-              linkHref="#"
-            />
-            <DepartmentCard
-              image="https://images.unsplash.com/photo-1516549655169-df83a0774514?w=600"
-              title="Интензивна нега"
-              description="24/7 мониторинг критичних пацијената"
-              linkHref="#"
-            />
-            <DepartmentCard
-              image="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600"
-              title="Рехабилитација"
-              description="Постоперативни опоравак и терапија"
-              linkHref="#"
-            />
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Team Section */}
       <section className="team-section">

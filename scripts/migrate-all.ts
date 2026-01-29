@@ -25,6 +25,12 @@ const imageUrls = {
   },
   whyChooseUs:
     "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=1200",
+  departments: [
+    "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600",
+    "https://images.unsplash.com/photo-1530497610245-94d3c16cda28?w=600",
+    "https://images.unsplash.com/photo-1516549655169-df83a0774514?w=600",
+    "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600",
+  ],
 };
 
 function downloadImage(url: string): Promise<Buffer> {
@@ -82,6 +88,13 @@ async function migrateAll() {
     const whyChooseUsImageId = await uploadImage(
       imageUrls.whyChooseUs,
       "why-choose-us.jpg",
+    );
+
+    console.log("\n  📷 Departments slike:");
+    const departmentImageIds = await Promise.all(
+      imageUrls.departments.map((url, index) =>
+        uploadImage(url, `department-${index + 1}.jpg`),
+      ),
     );
 
     console.log("\n✅ Sve slike upload-ovane!\n");
@@ -467,9 +480,80 @@ async function migrateAll() {
     console.log("═══════════════════════════════════════════════\n");
 
     // ============================================
-    // 9. KOMBNOVANI PAGE BUILDER
+    // 9. KREIRAJ DEPARTMENTS SECTION
     // ============================================
-    console.log("📝 KORAK 9: Kreiranje Homepage dokumenta...\n");
+    console.log("🏥 KORAK 9: Kreiranje Departments sekcije...\n");
+
+    const departmentsSection = {
+      _type: "departmentsSection",
+      _key: "departments-1",
+      badge: "Одељења",
+      heading: "Наша специјализована одељења",
+      subheading:
+        "Свако одељење посвећено је одређеној области кардиоваскуларне медицине",
+      departments: [
+        {
+          _key: "dept-1",
+          image: {
+            _type: "image",
+            asset: {
+              _type: "reference",
+              _ref: departmentImageIds[0],
+            },
+          },
+          title: "Одељење за кардиохирургију",
+          description: "Комплексне хируршке интервенције на срцу",
+          linkHref: "#",
+        },
+        {
+          _key: "dept-2",
+          image: {
+            _type: "image",
+            asset: {
+              _type: "reference",
+              _ref: departmentImageIds[1],
+            },
+          },
+          title: "Одељење за кардиологију",
+          description: "Дијагностика и нехируршко лечење",
+          linkHref: "#",
+        },
+        {
+          _key: "dept-3",
+          image: {
+            _type: "image",
+            asset: {
+              _type: "reference",
+              _ref: departmentImageIds[2],
+            },
+          },
+          title: "Интензивна нега",
+          description: "24/7 мониторинг критичних пацијената",
+          linkHref: "#",
+        },
+        {
+          _key: "dept-4",
+          image: {
+            _type: "image",
+            asset: {
+              _type: "reference",
+              _ref: departmentImageIds[3],
+            },
+          },
+          title: "Рехабилитација",
+          description: "Постоперативни опоравак и терапија",
+          linkHref: "#",
+        },
+      ],
+    };
+
+    console.log(`  ✅ Kreirana Departments sekcija`);
+    console.log("═══════════════════════════════════════════════\n");
+
+    // ============================================
+    // 10. KOMBNOVANI PAGE BUILDER
+    // ============================================
+    console.log("📝 KORAK 10: Kreiranje Homepage dokumenta...\n");
 
     const pageBuilder = [
       ...heroSlides,
@@ -479,6 +563,7 @@ async function migrateAll() {
       servicesSection,
       whyChooseUsSection,
       ctaSection,
+      departmentsSection,
     ];
 
     const homepage = {
@@ -518,7 +603,12 @@ async function migrateAll() {
       `  ⭐ Why Choose Us Sekcija: 1 (${whyChooseUsSection.features.length} features)`,
     );
     console.log(`  � CTA Sekcija: 1 (${ctaSection.buttons.length} dugmeta)`);
-    console.log(`  �📸 Ukupno slika: ${heroImageIds.length + 3}`);
+    console.log(
+      `  🏥 Departments Sekcija: 1 (${departmentsSection.departments.length} odeljenja)`,
+    );
+    console.log(
+      `  📸 Ukupno slika: ${heroImageIds.length + 3 + departmentImageIds.length}`,
+    );
     console.log(`  📝 Ukupno elemenata: ${pageBuilder.length}\n`);
 
     console.log("═══════════════════════════════════════════════\n");

@@ -364,3 +364,20 @@ export interface CtaSection {
   bodyText?: string;
   buttons: CtaButton[];
 }
+
+export interface DepartmentCard {
+  _key: string;
+  image: SanityImage;
+  title: string;
+  description: string;
+  linkHref: string;
+}
+
+export interface DepartmentsSection {
+  _type: "departmentsSection";
+  _key: string;
+  badge: string;
+  heading: string;
+  subheading: string;
+  departments: DepartmentCard[];
+}

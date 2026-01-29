@@ -61,6 +61,10 @@ export default defineType({
           title: "📢 CTA sekcija",
         },
         {
+          type: "departmentsSection",
+          title: "🏥 Odeljenja sekcija",
+        },
+        {
           type: "contentBlock",
           title: "📝 Sadržaj blok",
         },

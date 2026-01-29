@@ -23,6 +23,7 @@ import statsSection from "./objects/statsSection";
 import servicesSection from "./objects/servicesSection";
 import whyChooseUsSection from "./objects/whyChooseUsSection";
 import ctaSection from "./objects/ctaSection";
+import departmentsSection from "./objects/departmentsSection";
 
 export const schemaTypes = [
   // Singletons
@@ -50,4 +51,5 @@ export const schemaTypes = [
   servicesSection,
   whyChooseUsSection,
   ctaSection,
+  departmentsSection,
 ];

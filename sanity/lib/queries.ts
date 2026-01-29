@@ -146,6 +146,24 @@ export const HOMEPAGE_QUERY = groq`
           variant,
           icon
         }
+      },
+      // DepartmentsSection fields
+      _type == "departmentsSection" => {
+        badge,
+        heading,
+        subheading,
+        departments[] {
+          _key,
+          image {
+            asset-> {
+              _id,
+              url
+            }
+          },
+          title,
+          description,
+          linkHref
+        }
       }
     }
   }
