@@ -4,6 +4,7 @@ export default defineType({
   name: "hero",
   title: "Hero sekcija",
   type: "object",
+  icon: () => "🎯",
   fields: [
     defineField({
       name: "heading",

@@ -17,24 +17,105 @@ export const PAGE_BY_SLUG_QUERY = groq`
   }
 `;
 
-// Homepage sa Hero slides
+// Homepage sa Hero slides i Info Boxes
 export const HOMEPAGE_QUERY = groq`
   *[_type == "page" && _id == "homepage"][0] {
     _id,
     title,
     pageBuilder[] {
       _type,
-      heading,
-      subheading,
-      image {
-        asset-> {
-          _id,
-          url
+      // Hero fields
+      _type == "hero" => {
+        heading,
+        subheading,
+        image {
+          asset-> {
+            _id,
+            url
+          }
+        },
+        cta {
+          text,
+          link
         }
       },
-      cta {
-        text,
-        link
+      // InfoBox fields
+      _type == "infoBox" => {
+        icon,
+        title,
+        variant,
+        description,
+        linkText,
+        linkHref,
+        schedule[] {
+          days,
+          hours
+        },
+        emergencyPhone,
+        emergencyNote
+      },
+      // WelcomeSection fields
+      _type == "welcomeSection" => {
+        badge,
+        heading,
+        leadText,
+        bodyText,
+        features[] {
+          _key,
+          icon,
+          text
+        },
+        ctaButton {
+          text,
+          link
+        },
+        image {
+          asset-> {
+            _id,
+            url
+          }
+        },
+        secondaryImage {
+          asset-> {
+            _id,
+            url
+          }
+        },
+        imageBadge {
+          number,
+          text
+        }
+      },
+      // StatsSection fields
+      _type == "statsSection" => {
+        heading,
+        subheading,
+        stats[] {
+          _key,
+          icon,
+          number,
+          label
+        }
+      },
+      // ServicesSection fields
+      _type == "servicesSection" => {
+        badge,
+        heading,
+        subheading,
+        services[] {
+          _key,
+          icon,
+          title,
+          description,
+          featured,
+          features[] {
+            _key,
+            text,
+            link
+          },
+          ctaText,
+          ctaLink
+        }
       }
     }
   }

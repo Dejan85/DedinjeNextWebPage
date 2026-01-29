@@ -11,8 +11,8 @@
     "sanity:dev": "sanity dev",
     "sanity:deploy": "sanity deploy",
     "sanity:manage": "sanity manage",
-    "migrate:hero": "tsx scripts/migrate-hero.ts",
-    "migrate:settings": "tsx scripts/migrate-site-settings.ts"
+    "migrate:all": "tsx scripts/migrate-all.ts",
+    "check:homepage": "tsx scripts/check-homepage.ts"
   },
   "dependencies": {
     "@sanity/image-url": "^1.1.0",

@@ -230,12 +230,25 @@ export interface ContentBlock {
   layout?: "text-only" | "text-image-right" | "text-image-left" | "two-columns";
 }
 
+export interface ScheduleItem {
+  days: string;
+  hours: string;
+}
+
 export interface InfoBox {
   _type: "infoBox";
-  icon?: string;
-  title?: string;
+  icon: string;
+  title: string;
+  variant: "regular" | "schedule" | "emergency";
+  // Regular variant
   description?: string;
-  link?: string;
+  linkText?: string;
+  linkHref?: string;
+  // Schedule variant
+  schedule?: ScheduleItem[];
+  // Emergency variant
+  emergencyPhone?: string;
+  emergencyNote?: string;
 }
 
 export interface StatItem {
@@ -243,4 +256,71 @@ export interface StatItem {
   number: number;
   label: string;
   icon?: string;
+}
+
+export interface WelcomeFeature {
+  _key: string;
+  icon: string;
+  text: string;
+}
+
+export interface WelcomeSection {
+  _type: "welcomeSection";
+  _key: string;
+  badge: string;
+  heading: string;
+  leadText: string;
+  bodyText: string;
+  features: WelcomeFeature[];
+  ctaButton?: {
+    text: string;
+    link: string;
+  };
+  image: SanityImage;
+  secondaryImage?: SanityImage;
+  imageBadge?: {
+    number: string;
+    text: string;
+  };
+}
+
+export interface StatItem {
+  _key: string;
+  icon: string;
+  number: string;
+  label: string;
+}
+
+export interface StatsSection {
+  _type: "statsSection";
+  _key: string;
+  heading: string;
+  subheading: string;
+  stats: StatItem[];
+}
+
+export interface ServiceFeature {
+  _key?: string;
+  text: string;
+  link?: string;
+}
+
+export interface Service {
+  _key?: string;
+  icon: string;
+  title: string;
+  description: string;
+  featured: boolean;
+  features: ServiceFeature[];
+  ctaText?: string;
+  ctaLink?: string;
+}
+
+export interface ServicesSection {
+  _type: "servicesSection";
+  _key: string;
+  badge: string;
+  heading: string;
+  subheading: string;
+  services: Service[];
 }

@@ -18,6 +18,9 @@ import timeline from "./objects/timeline";
 import seoMetadata from "./objects/seoMetadata";
 import infoBox from "./objects/infoBox";
 import statItem from "./objects/statItem";
+import welcomeSection from "./objects/welcomeSection";
+import statsSection from "./objects/statsSection";
+import servicesSection from "./objects/servicesSection";
 
 export const schemaTypes = [
   // Singletons
@@ -40,4 +43,7 @@ export const schemaTypes = [
   seoMetadata,
   infoBox,
   statItem,
+  welcomeSection,
+  statsSection,
+  servicesSection,
 ];

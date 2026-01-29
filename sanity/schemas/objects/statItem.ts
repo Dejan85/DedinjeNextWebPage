@@ -4,6 +4,7 @@ export default defineType({
   name: "statItem",
   title: "Statistika",
   type: "object",
+  icon: () => "📊",
   fields: [
     defineField({
       name: "number",
@@ -27,7 +28,14 @@ export default defineType({
   preview: {
     select: {
       title: "label",
-      subtitle: "number",
+      number: "number",
+      icon: "icon",
+    },
+    prepare({ title, number, icon }) {
+      return {
+        title: `📊 ${number || 0} - ${title || "Statistika"}`,
+        subtitle: icon || "Bez ikone",
+      };
     },
   },
 });

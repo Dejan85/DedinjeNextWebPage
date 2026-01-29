@@ -20,9 +20,22 @@ import { client } from "@/sanity/lib/client";
 import { HOMEPAGE_QUERY } from "@/sanity/lib/queries";
 
 export default async function Home() {
-  // Fetch hero slides from Sanity
+  // Fetch homepage data from Sanity
   const homepage = await client.fetch(HOMEPAGE_QUERY);
-  const heroSlides = homepage?.pageBuilder || [];
+  const pageBuilder = homepage?.pageBuilder || [];
+
+  // Separate different section types
+  const heroSlides = pageBuilder.filter((item: any) => item._type === "hero");
+  const infoBoxes = pageBuilder.filter((item: any) => item._type === "infoBox");
+  const welcomeSection = pageBuilder.find(
+    (item: any) => item._type === "welcomeSection",
+  );
+  const statsSection = pageBuilder.find(
+    (item: any) => item._type === "statsSection",
+  );
+  const servicesSection = pageBuilder.find(
+    (item: any) => item._type === "servicesSection",
+  );
 
   return (
     <>
@@ -35,208 +48,155 @@ export default async function Home() {
       <section className="info-boxes">
         <div className="container">
           <div className="info-boxes-grid">
-            <InfoBox
-              icon="far fa-clock"
-              title="Радно време"
-              schedule={[
-                { days: "Пон - Пет", hours: "08:00 - 19:00" },
-                { days: "Субота", hours: "09:00 - 17:00" },
-                { days: "Недеља", hours: "09:00 - 15:00" },
-              ]}
-            />
-
-            <InfoBox
-              icon="fas fa-hospital"
-              title="Наша одељења"
-              description="Упознајте се са свим одељењима и услугама које наш институт нуди пацијентима."
-              linkText="Погледај одељења"
-              linkHref="#"
-            />
-
-            <InfoBox
-              icon="fas fa-user-md"
-              title="Наш тим"
-              description="Упознајте наше лекаре специјалисте и стручњаке који брину о вашем здрављу."
-              linkText="Упознајте тим"
-              linkHref="#"
-            />
-
-            <InfoBox
-              icon="fas fa-ambulance"
-              title="Хитни случајеви"
-              emergencyPhone="011 3601 600"
-              emergencyNote="Доступни 24/7 за хитне случајеве"
-              className="emergency"
-            />
+            {infoBoxes.map((box: any, index: number) => (
+              <InfoBox
+                key={index}
+                icon={box.icon}
+                title={box.title}
+                schedule={box.schedule}
+                description={box.description}
+                linkText={box.linkText}
+                linkHref={box.linkHref}
+                emergencyPhone={box.emergencyPhone}
+                emergencyNote={box.emergencyNote}
+                className={
+                  box.variant === "emergency" ? "emergency" : undefined
+                }
+              />
+            ))}
           </div>
         </div>
       </section>
 
       {/* Welcome Section */}
-      <section className="welcome-section">
-        <div className="container">
-          <div className="welcome-grid">
-            <div className="welcome-content">
-              <Badge variant="primary" text="Добродошли" />
-              <Heading
-                variant="h2"
-                size="lg"
-                text="Институт за кардиоваскуларне болести Дедиње"
-              />
-              <Text
-                variant="lead"
-                text="Водећа здравствена установа у региону специјализована за дијагностику, лечење и рехабилитацију кардиоваскуларних обољења."
-              />
-              <Text
-                variant="body"
-                text="Са више од 65 година искуства и преко 200 лекара специјалиста, Институт Дедиње представља симбол изврсности у кардиоваскуларној медицини. Наша посвећеност пацијентима и константно усавршавање чине нас првим избором за хиљаде пацијената сваке године."
-              />
-              <div className="welcome-features">
-                <WelcomeFeature
-                  icon="fas fa-check-circle"
-                  text="Најсавременија опрема"
-                />
-                <WelcomeFeature
-                  icon="fas fa-check-circle"
-                  text="Стручни тим лекара"
-                />
-                <WelcomeFeature
-                  icon="fas fa-check-circle"
-                  text="Комплетна дијагностика"
-                />
-                <WelcomeFeature
-                  icon="fas fa-check-circle"
-                  text="24/7 хитна помоћ"
-                />
+      {welcomeSection && (
+        <section className="welcome-section">
+          <div className="container">
+            <div className="welcome-grid">
+              <div className="welcome-content">
+                <Badge variant="primary" text={welcomeSection.badge} />
+                <Heading variant="h2" size="lg" text={welcomeSection.heading} />
+                <Text variant="lead" text={welcomeSection.leadText} />
+                <Text variant="body" text={welcomeSection.bodyText} />
+                <div className="welcome-features">
+                  {welcomeSection.features?.map((feature: any) => (
+                    <WelcomeFeature
+                      key={feature._key}
+                      icon={feature.icon}
+                      text={feature.text}
+                    />
+                  ))}
+                </div>
+                {welcomeSection.ctaButton && (
+                  <Button
+                    href={welcomeSection.ctaButton.link}
+                    variant="primary"
+                  >
+                    {welcomeSection.ctaButton.text}
+                  </Button>
+                )}
               </div>
-              <Button href="#" variant="primary">
-                Сазнајте више о нама
-              </Button>
-            </div>
-            <div className="welcome-images">
-              <div className="welcome-img-main">
-                <Image
-                  src="https://images.unsplash.com/photo-1551190822-a9333d879b1f?w=800"
-                  alt="Medical team"
-                  width={800}
-                  height={600}
-                />
-              </div>
-              <div className="welcome-img-secondary">
-                <Image
-                  src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=400"
-                  alt="Medical equipment"
-                  width={400}
-                  height={300}
-                />
-              </div>
-              <div className="experience-badge">
-                <Text text="65+" as="span" className="exp-number" />
-                <Text text="Година искуства" as="span" className="exp-text" />
+              <div className="welcome-images">
+                <div className="welcome-img-main">
+                  <Image
+                    src={welcomeSection.image?.asset?.url || ""}
+                    alt={welcomeSection.heading}
+                    width={800}
+                    height={600}
+                  />
+                </div>
+                {welcomeSection.secondaryImage?.asset?.url && (
+                  <div className="welcome-img-secondary">
+                    <Image
+                      src={welcomeSection.secondaryImage.asset.url}
+                      alt="Medical equipment"
+                      width={400}
+                      height={300}
+                    />
+                  </div>
+                )}
+                {welcomeSection.imageBadge && (
+                  <div className="experience-badge">
+                    <Text
+                      text={welcomeSection.imageBadge.number}
+                      as="span"
+                      className="exp-number"
+                    />
+                    <Text
+                      text={welcomeSection.imageBadge.text}
+                      as="span"
+                      className="exp-text"
+                    />
+                  </div>
+                )}
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Parallax Stats Section */}
-      <section className="parallax-section parallax-stats">
-        <div className="parallax-overlay"></div>
-        <div className="parallax-content">
-          <div className="container">
-            <div className="stats-intro">
-              <Heading variant="h2" color="light" text="Бројке које говоре" />
-              <Text
-                color="light"
-                text="Наши резултати су доказ посвећености и стручности"
-              />
-            </div>
-            <div className="stats-grid">
-              <StatCounter
-                target={15000}
-                label="Операција годишње"
-                icon="fas fa-heartbeat"
-              />
-              <StatCounter
-                target={200}
-                label="Лекара специјалиста"
-                icon="fas fa-user-md"
-              />
-              <StatCounter
-                target={65}
-                label="Година искуства"
-                icon="fas fa-award"
-              />
-              <StatCounter
-                target={50000}
-                label="Задовољних пацијената"
-                icon="fas fa-smile"
-              />
+      {statsSection && (
+        <section className="parallax-section parallax-stats">
+          <div className="parallax-overlay"></div>
+          <div className="parallax-content">
+            <div className="container">
+              <div className="stats-intro">
+                <Heading
+                  variant="h2"
+                  color="light"
+                  text={statsSection.heading}
+                />
+                <Text color="light" text={statsSection.subheading} />
+              </div>
+              <div className="stats-grid">
+                {statsSection.stats?.map((stat: any) => (
+                  <StatCounter
+                    key={stat._key}
+                    target={parseInt(stat.number.replace(/[^0-9]/g, ""))}
+                    label={stat.label}
+                    icon={stat.icon}
+                  />
+                ))}
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Services Section */}
-      <section className="services-section">
-        <div className="container">
-          <div className="section-header centered">
-            <Badge variant="primary" text="Наше услуге" />
-            <Heading
-              variant="h2"
-              align="center"
-              text="Комплетна кардиоваскуларна нега"
-            />
-            <Text
-              color="muted"
-              align="center"
-              text="Пружамо широк спектар услуга од дијагностике до хируршких интервенција"
-            />
+      {servicesSection && (
+        <section className="services-section">
+          <div className="container">
+            <div className="section-header centered">
+              <Badge variant="primary" text={servicesSection.badge} />
+              <Heading
+                variant="h2"
+                align="center"
+                text={servicesSection.heading}
+              />
+              <Text
+                color="muted"
+                align="center"
+                text={servicesSection.subheading}
+              />
+            </div>
+            <div className="services-grid">
+              {servicesSection.services?.map((service: any) => (
+                <ServiceCard
+                  key={service._key}
+                  icon={service.icon}
+                  title={service.title}
+                  description={service.description}
+                  features={service.features?.map((f: any) => f.text) || []}
+                  linkHref={service.ctaLink || "#"}
+                  featured={service.featured}
+                />
+              ))}
+            </div>
           </div>
-          <div className="services-grid">
-            <ServiceCard
-              icon="fas fa-heart"
-              title="Кардиохирургија"
-              description="Хируршко лечење болести срца укључујући коронарни бајпас, замену и реконструкцију срчаних залистака, операције аорте."
-              features={[
-                "Коронарни бајпас",
-                "Замена залистака",
-                "Операције аорте",
-              ]}
-              linkHref="#"
-            />
-
-            <ServiceCard
-              icon="fas fa-stethoscope"
-              title="Кардиологија"
-              description="Комплетна дијагностика и нехируршко лечење болести срца. Модерна опрема за прецизну дијагнозу."
-              features={["Ехокардиографија", "ЕКГ и Холтер", "Стрес тестови"]}
-              linkHref="#"
-              featured={true}
-            />
-
-            <ServiceCard
-              icon="fas fa-x-ray"
-              title="Васкуларна хирургија"
-              description="Хируршко лечење болести крвних судова укључујући аорту, каротидне и периферне артерије."
-              features={[
-                "Операције аорте",
-                "Каротидна хирургија",
-                "Периферна хирургија",
-              ]}
-              linkHref="#"
-            />
-
-            <ServiceCard
-              icon="fas fa-procedures"
-              title="Интервентна кардиологија"
-              description="Минимално инвазивне процедуре за лечење срчаних обољења без отворене хирургије."
-              features={["Уградња стентова", "Ангиопластика", "Катетеризација"]}
-              linkHref="#"
-            />
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Features Section */}
       <section className="features-section">

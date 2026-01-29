@@ -4,6 +4,7 @@ export default defineType({
   name: "contentBlock",
   title: "Sadržaj blok",
   type: "object",
+  icon: () => "📝",
   fields: [
     defineField({
       name: "heading",
@@ -72,10 +73,36 @@ export default defineType({
   preview: {
     select: {
       title: "heading",
+      layout: "layout",
+      content: "content",
     },
-    prepare({ title }) {
+    prepare({ title, layout, content }) {
+      const layoutLabels: Record<string, string> = {
+        "text-only": "Samo tekst",
+        "text-image-right": "Tekst + slika desno",
+        "text-image-left": "Tekst + slika levo",
+        "two-columns": "2 kolone",
+      };
+
+      // Izvuci tekst iz content-a ako postoji
+      let contentPreview = "";
+      if (content && content.length > 0) {
+        const firstBlock = content.find(
+          (block: any) => block._type === "block",
+        );
+        if (firstBlock && firstBlock.children && firstBlock.children[0]) {
+          contentPreview = firstBlock.children[0].text?.substring(0, 60) || "";
+          if (contentPreview.length >= 60) contentPreview += "...";
+        }
+      }
+
+      const subtitle = contentPreview
+        ? `${layoutLabels[layout] || layout} • ${contentPreview}`
+        : layoutLabels[layout] || layout || "Layout nije definisan";
+
       return {
-        title: title || "Sadržaj blok",
+        title: `📝 ${title || "Sadržaj blok"}`,
+        subtitle: subtitle,
       };
     },
   },

@@ -32,10 +32,34 @@ export default defineType({
       title: "Sadržaj stranice",
       type: "array",
       of: [
-        { type: "hero" },
-        { type: "contentBlock" },
-        { type: "infoBox" },
-        { type: "statItem" },
+        {
+          type: "hero",
+          title: "🎯 Hero sekcija",
+        },
+        {
+          type: "infoBox",
+          title: "📦 Info kutija",
+        },
+        {
+          type: "welcomeSection",
+          title: "👋 Dobrodošli sekcija",
+        },
+        {
+          type: "statsSection",
+          title: "📊 Statistika sekcija",
+        },
+        {
+          type: "servicesSection",
+          title: "💊 Usluge sekcija",
+        },
+        {
+          type: "contentBlock",
+          title: "📝 Sadržaj blok",
+        },
+        {
+          type: "statItem",
+          title: "📊 Statistika",
+        },
       ],
     }),
     defineField({
