@@ -134,6 +134,18 @@ export const HOMEPAGE_QUERY = groq`
             url
           }
         }
+      },
+      // CtaSection fields
+      _type == "ctaSection" => {
+        heading,
+        bodyText,
+        buttons[] {
+          _key,
+          text,
+          link,
+          variant,
+          icon
+        }
       }
     }
   }

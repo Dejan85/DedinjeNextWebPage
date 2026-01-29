@@ -435,9 +435,41 @@ async function migrateAll() {
     console.log("═══════════════════════════════════════════════\n");
 
     // ============================================
-    // 8. KOMBNOVANI PAGE BUILDER
+    // 8. KREIRAJ CTA SECTION
     // ============================================
-    console.log("📝 KORAK 8: Kreiranje Homepage dokumenta...\n");
+    console.log("📢 KORAK 8: Kreiranje CTA (Call to Action) sekcije...\n");
+
+    const ctaSection = {
+      _type: "ctaSection",
+      _key: "cta-1",
+      heading: "Ваше здравље је наш приоритет",
+      bodyText:
+        "Контактирајте нас за више информација о нашим услугама и како можемо помоћи вашем здрављу.",
+      buttons: [
+        {
+          _key: "cta-button-1",
+          text: "ПОЗОВИТЕ НАС",
+          link: "tel:0113601600",
+          variant: "primary",
+          icon: "fas fa-phone",
+        },
+        {
+          _key: "cta-button-2",
+          text: "КОНТАКТИРАЈТЕ НАС",
+          link: "#contact",
+          variant: "secondary",
+          icon: "",
+        },
+      ],
+    };
+
+    console.log(`  ✅ Kreirana CTA sekcija`);
+    console.log("═══════════════════════════════════════════════\n");
+
+    // ============================================
+    // 9. KOMBNOVANI PAGE BUILDER
+    // ============================================
+    console.log("📝 KORAK 9: Kreiranje Homepage dokumenta...\n");
 
     const pageBuilder = [
       ...heroSlides,
@@ -446,6 +478,7 @@ async function migrateAll() {
       statsSection,
       servicesSection,
       whyChooseUsSection,
+      ctaSection,
     ];
 
     const homepage = {
@@ -484,7 +517,8 @@ async function migrateAll() {
     console.log(
       `  ⭐ Why Choose Us Sekcija: 1 (${whyChooseUsSection.features.length} features)`,
     );
-    console.log(`  📸 Ukupno slika: ${heroImageIds.length + 3}`);
+    console.log(`  � CTA Sekcija: 1 (${ctaSection.buttons.length} dugmeta)`);
+    console.log(`  �📸 Ukupno slika: ${heroImageIds.length + 3}`);
     console.log(`  📝 Ukupno elemenata: ${pageBuilder.length}\n`);
 
     console.log("═══════════════════════════════════════════════\n");

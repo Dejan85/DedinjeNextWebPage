@@ -23,6 +23,7 @@ import type {
   StatsSection,
   ServicesSection,
   WhyChooseUsSection,
+  CtaSection,
   InfoBox as InfoBoxType,
   WelcomeFeature as WelcomeFeatureType,
   StatItem,
@@ -65,6 +66,9 @@ export default async function Home() {
   const whyChooseUsSection = pageBuilder.find(
     (item) => item._type === "whyChooseUsSection",
   ) as WhyChooseUsSection | undefined;
+  const ctaSection = pageBuilder.find((item) => item._type === "ctaSection") as
+    | CtaSection
+    | undefined;
 
   return (
     <>
@@ -293,33 +297,43 @@ export default async function Home() {
         </section>
       )}
 
-      {/* Parallax CTA Section */}
-      <section className="parallax-section parallax-cta">
-        <div className="parallax-overlay gradient"></div>
-        <div className="parallax-content">
-          <div className="container">
-            <div className="cta-content">
-              <Heading
-                variant="h2"
-                color="light"
-                text="Ваше здравље је наш приоритет"
-              />
-              <Text
-                color="light"
-                text="Контактирајте нас за више информација о нашим услугама и како можемо помоћи вашем здрављу."
-              />
-              <div className="cta-buttons">
-                <Button href="tel:0113601668" variant="white">
-                  <i className="fas fa-phone-alt"></i> Позовите нас
-                </Button>
-                <Button href="#contact" variant="outline-white">
-                  Контактирајте нас
-                </Button>
+      {/* CTA Section */}
+      {ctaSection && (
+        <section className="parallax-section parallax-cta">
+          <div className="parallax-overlay gradient"></div>
+          <div className="parallax-content">
+            <div className="container">
+              <div className="cta-content">
+                <Heading variant="h2" color="light" text={ctaSection.heading} />
+                {ctaSection.bodyText && (
+                  <Text color="light" text={ctaSection.bodyText} />
+                )}
+                <div className="cta-buttons">
+                  {ctaSection.buttons?.map((button) => {
+                    const variantMap: Record<string, string> = {
+                      primary: "white",
+                      secondary: "outline-white",
+                      outline: "outline-white",
+                    };
+                    const btnVariant = variantMap[button.variant || "primary"];
+
+                    return (
+                      <Button
+                        key={button._key}
+                        href={button.link}
+                        variant={btnVariant as any}
+                      >
+                        {button.icon && <i className={button.icon}></i>}
+                        {button.text}
+                      </Button>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Departments Section */}
       <section className="departments-section">

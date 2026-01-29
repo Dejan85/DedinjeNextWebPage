@@ -348,3 +348,19 @@ export interface WhyChooseUsSection {
   features: WhyChooseUsFeature[];
   image: SanityImage;
 }
+
+export interface CtaButton {
+  _key: string;
+  text: string;
+  link: string;
+  variant?: "primary" | "secondary" | "outline";
+  icon?: string;
+}
+
+export interface CtaSection {
+  _type: "ctaSection";
+  _key: string;
+  heading: string;
+  bodyText?: string;
+  buttons: CtaButton[];
+}
