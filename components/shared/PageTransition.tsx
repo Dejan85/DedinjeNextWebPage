@@ -2,10 +2,23 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 
 export default function PageTransition({ children }: { children: ReactNode }) {
   const pathname = usePathname();
+
+  // Scroll na vrh pri promeni rute i pri inicijalnom učitavanju
+  useEffect(() => {
+    // Isključi automatski scroll restoration
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+    
+    // Forsiraj scroll na vrh
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }, [pathname]);
 
   // Kreiraj grid od kockica
   const tiles = Array.from({ length: 50 }, (_, i) => i);

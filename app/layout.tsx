@@ -18,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="sr" suppressHydrationWarning>
+    <html lang="sr" suppressHydrationWarning style={{ scrollBehavior: 'auto' }}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
