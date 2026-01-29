@@ -703,3 +703,102 @@ export interface AboutPage {
   cta: AboutCta;
   seo: AboutSeo;
 }
+
+// Biography Page Types
+export interface BiographyPageHeader {
+  title: string;
+  subtitle: string;
+}
+
+export interface BiographyHighlight {
+  _key: string;
+  icon: string;
+  title: string;
+  description: string;
+}
+
+export interface BiographyIntro {
+  image: SanityImage;
+  name: string;
+  position: string;
+  shortBio: string;
+  highlights: BiographyHighlight[];
+}
+
+export interface BiographyTimelineItem {
+  _key: string;
+  year: string;
+  title: string;
+  institution: string;
+  description: string;
+}
+
+export interface BiographyProfessionalPath {
+  badge: string;
+  heading: string;
+  timeline: BiographyTimelineItem[];
+}
+
+export interface BiographyQualification {
+  _key: string;
+  icon: string;
+  degree: string;
+  institution: string;
+  year: string;
+  description: string;
+}
+
+export interface BiographyAdditionalInfo {
+  _key: string;
+  title: string;
+  content: string;
+}
+
+export interface BiographyAcademicQualifications {
+  badge: string;
+  heading: string;
+  qualifications: BiographyQualification[];
+  additionalInfo: BiographyAdditionalInfo[];
+}
+
+export interface BiographySection {
+  _key: string;
+  heading: string;
+  paragraphs: string[];
+}
+
+export interface BiographyFull {
+  sections: BiographySection[];
+  pdfDownloadUrl: string;
+  pdfButtonText: string;
+}
+
+export interface BiographyCtaButton {
+  _key: string;
+  text: string;
+  href: string;
+  variant: "primary" | "outline";
+}
+
+export interface BiographyCta {
+  heading: string;
+  buttons: BiographyCtaButton[];
+}
+
+export interface BiographySeo {
+  title: string;
+  description: string;
+  keywords: string[];
+}
+
+export interface BiographyPage {
+  _id: string;
+  _type: "biographyPage";
+  pageHeader: BiographyPageHeader;
+  intro: BiographyIntro;
+  professionalPath: BiographyProfessionalPath;
+  academicQualifications: BiographyAcademicQualifications;
+  fullBiography: BiographyFull;
+  cta: BiographyCta;
+  seo: BiographySeo;
+}

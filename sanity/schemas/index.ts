@@ -13,6 +13,7 @@ import navigation from "./singletons/navigation";
 import footer from "./singletons/footer";
 import directorPage from "./singletons/directorPage";
 import aboutPage from "./singletons/aboutPage";
+import biographyPage from "./singletons/biographyPage";
 
 // Objects
 import hero from "./objects/hero";
@@ -40,6 +41,7 @@ export const schemaTypes = [
   footer,
   directorPage,
   aboutPage,
+  biographyPage,
 
   // Documents
   page,

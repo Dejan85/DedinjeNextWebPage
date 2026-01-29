@@ -636,3 +636,81 @@ export const ABOUT_PAGE_QUERY = groq`
     }
   }
 `;
+
+// Biography Page Query
+export const BIOGRAPHY_PAGE_QUERY = groq`
+  *[_type == "biographyPage"][0] {
+    pageHeader {
+      title,
+      subtitle
+    },
+    intro {
+      image {
+        asset-> {
+          _id,
+          url
+        }
+      },
+      name,
+      position,
+      shortBio,
+      highlights[] {
+        _key,
+        icon,
+        title,
+        description
+      }
+    },
+    professionalPath {
+      badge,
+      heading,
+      timeline[] {
+        _key,
+        year,
+        title,
+        institution,
+        description
+      }
+    },
+    academicQualifications {
+      badge,
+      heading,
+      qualifications[] {
+        _key,
+        icon,
+        degree,
+        institution,
+        year,
+        description
+      },
+      additionalInfo[] {
+        _key,
+        title,
+        content
+      }
+    },
+    fullBiography {
+      sections[] {
+        _key,
+        heading,
+        paragraphs
+      },
+      pdfDownloadUrl,
+      pdfButtonText
+    },
+    cta {
+      heading,
+      buttons[] {
+        _key,
+        text,
+        href,
+        variant
+      }
+    },
+    seo {
+      title,
+      description,
+      keywords
+    }
+  }
+`;
