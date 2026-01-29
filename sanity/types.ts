@@ -446,3 +446,30 @@ export interface NewsSection {
   subheading: string;
   news: NewsItem[];
 }
+
+export interface ContactInfo {
+  phone?: string;
+  email?: string;
+  address?: string;
+}
+
+export interface FormFields {
+  namePlaceholder?: string;
+  emailPlaceholder?: string;
+  phonePlaceholder?: string;
+  departmentLabel?: string;
+  dateLabel?: string;
+  timeLabel?: string;
+  notesPlaceholder?: string;
+  submitButtonText?: string;
+}
+
+export interface ContactSection {
+  _type: "contactSection";
+  _key: string;
+  heading: string;
+  subheading?: string;
+  contactInfo?: ContactInfo;
+  formFields?: FormFields;
+  departments?: string[];
+}

@@ -77,6 +77,10 @@ export default defineType({
           title: "📰 Vesti sekcija",
         },
         {
+          type: "contactSection",
+          title: "📞 Kontakt sekcija",
+        },
+        {
           type: "contentBlock",
           title: "📝 Sadržaj blok",
         },

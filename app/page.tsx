@@ -28,6 +28,7 @@ import type {
   TeamSection,
   TestimonialsSection,
   NewsSection,
+  ContactSection,
   InfoBox as InfoBoxType,
   WelcomeFeature as WelcomeFeatureType,
   StatItem,
@@ -85,7 +86,9 @@ export default async function Home() {
   const newsSection = pageBuilder.find(
     (item) => item._type === "newsSection",
   ) as NewsSection | undefined;
-
+  const contactSection = pageBuilder.find(
+    (section) => section._type === "contactSection",
+  ) as ContactSection | undefined;
   return (
     <>
       <Header />
@@ -532,112 +535,157 @@ export default async function Home() {
       )}
 
       {/* Parallax Contact Section */}
-      <section className="parallax-section parallax-appointment">
-        <div className="parallax-overlay dark"></div>
-        <div className="parallax-content">
-          <div className="container">
-            <div className="appointment-wrapper">
-              <div className="appointment-info">
-                <Heading variant="h2" color="light" text="Контактирајте нас" />
-                <Text
-                  color="light"
-                  text="Попуните формулар и наш тим ће вас контактирати у најкраћем року са свим потребним информацијама."
-                />
-                <div className="appointment-contact">
-                  <div className="contact-item">
-                    <div className="contact-icon">
-                      <i className="fas fa-phone-alt"></i>
+      {contactSection && (
+        <section className="parallax-section parallax-appointment">
+          <div className="parallax-overlay dark"></div>
+          <div className="parallax-content">
+            <div className="container">
+              <div className="appointment-wrapper">
+                <div className="appointment-info">
+                  <Heading
+                    variant="h2"
+                    color="light"
+                    text={contactSection.heading}
+                  />
+                  {contactSection.subheading && (
+                    <Text color="light" text={contactSection.subheading} />
+                  )}
+                  {contactSection.contactInfo && (
+                    <div className="appointment-contact">
+                      {contactSection.contactInfo.phone && (
+                        <div className="contact-item">
+                          <div className="contact-icon">
+                            <i className="fas fa-phone-alt"></i>
+                          </div>
+                          <div className="contact-text">
+                            <Text text="Телефон" as="span" />
+                            <Text
+                              text={contactSection.contactInfo.phone}
+                              as="strong"
+                            />
+                          </div>
+                        </div>
+                      )}
+                      {contactSection.contactInfo.email && (
+                        <div className="contact-item">
+                          <div className="contact-icon">
+                            <i className="fas fa-envelope"></i>
+                          </div>
+                          <div className="contact-text">
+                            <Text text="Е-пошта" as="span" />
+                            <Text
+                              text={contactSection.contactInfo.email}
+                              as="strong"
+                            />
+                          </div>
+                        </div>
+                      )}
+                      {contactSection.contactInfo.address && (
+                        <div className="contact-item">
+                          <div className="contact-icon">
+                            <i className="fas fa-map-marker-alt"></i>
+                          </div>
+                          <div className="contact-text">
+                            <Text text="Адреса" as="span" />
+                            <Text
+                              text={contactSection.contactInfo.address}
+                              as="strong"
+                            />
+                          </div>
+                        </div>
+                      )}
                     </div>
-                    <div className="contact-text">
-                      <Text text="Телефон" as="span" />
-                      <Text text="011 3601 668" as="strong" />
-                    </div>
-                  </div>
-                  <div className="contact-item">
-                    <div className="contact-icon">
-                      <i className="fas fa-envelope"></i>
-                    </div>
-                    <div className="contact-text">
-                      <Text text="Е-пошта" as="span" />
-                      <Text text="info@ikvbd.rs" as="strong" />
-                    </div>
-                  </div>
-                  <div className="contact-item">
-                    <div className="contact-icon">
-                      <i className="fas fa-map-marker-alt"></i>
-                    </div>
-                    <div className="contact-text">
-                      <Text text="Адреса" as="span" />
-                      <Text text="Хероја Милана Тепића 1" as="strong" />
-                    </div>
-                  </div>
+                  )}
                 </div>
-              </div>
-              <div className="appointment-form-wrapper" id="contact">
-                <form className="appointment-form">
-                  <div className="form-row">
-                    <div className="form-group">
-                      <input type="text" id="name" required />
-                      <label htmlFor="name">Име и презиме</label>
+                <div className="appointment-form-wrapper" id="contact">
+                  <form className="appointment-form">
+                    <div className="form-row">
+                      <div className="form-group">
+                        <input type="text" id="name" required />
+                        <label htmlFor="name">
+                          {contactSection.formFields?.namePlaceholder ||
+                            "Име и презиме"}
+                        </label>
+                      </div>
+                      <div className="form-group">
+                        <input type="email" id="email" required />
+                        <label htmlFor="email">
+                          {contactSection.formFields?.emailPlaceholder ||
+                            "Е-пошта"}
+                        </label>
+                      </div>
                     </div>
-                    <div className="form-group">
-                      <input type="email" id="email" required />
-                      <label htmlFor="email">Е-пошта</label>
+                    <div className="form-row">
+                      <div className="form-group">
+                        <input type="tel" id="phone" required />
+                        <label htmlFor="phone">
+                          {contactSection.formFields?.phonePlaceholder ||
+                            "Телефон"}
+                        </label>
+                      </div>
+                      <div className="form-group">
+                        <select id="department" required>
+                          <option value="" disabled></option>
+                          {contactSection.departments?.map((dept, index) => (
+                            <option key={index} value={dept}>
+                              {dept}
+                            </option>
+                          ))}
+                        </select>
+                        <label htmlFor="department">
+                          {contactSection.formFields?.departmentLabel ||
+                            "Одељење"}
+                        </label>
+                      </div>
                     </div>
-                  </div>
-                  <div className="form-row">
-                    <div className="form-group">
-                      <input type="tel" id="phone" required />
-                      <label htmlFor="phone">Телефон</label>
+                    <div className="form-row">
+                      <div className="form-group">
+                        <input type="date" id="date" required />
+                        <label htmlFor="date" className="date-label">
+                          {contactSection.formFields?.dateLabel ||
+                            "Жељени датум"}
+                        </label>
+                      </div>
+                      <div className="form-group">
+                        <select id="time" required>
+                          <option value="" disabled></option>
+                          <option value="09:00">09:00</option>
+                          <option value="10:00">10:00</option>
+                          <option value="11:00">11:00</option>
+                          <option value="12:00">12:00</option>
+                          <option value="14:00">14:00</option>
+                          <option value="15:00">15:00</option>
+                          <option value="16:00">16:00</option>
+                        </select>
+                        <label htmlFor="time">
+                          {contactSection.formFields?.timeLabel || "Време"}
+                        </label>
+                      </div>
                     </div>
-                    <div className="form-group">
-                      <select id="department" required>
-                        <option value="" disabled></option>
-                        <option value="cardiology">Кардиологија</option>
-                        <option value="cardiac-surgery">Кардиохирургија</option>
-                        <option value="vascular">Васкуларна хирургија</option>
-                        <option value="interventional">
-                          Интервентна кардиологија
-                        </option>
-                      </select>
-                      <label htmlFor="department">Одељење</label>
-                    </div>
-                  </div>
-                  <div className="form-row">
-                    <div className="form-group">
-                      <input type="date" id="date" required />
-                      <label htmlFor="date" className="date-label">
-                        Жељени датум
+                    <div className="form-group full">
+                      <textarea id="message" rows={3}></textarea>
+                      <label htmlFor="message">
+                        {contactSection.formFields?.notesPlaceholder ||
+                          "Додатне напомене"}
                       </label>
                     </div>
-                    <div className="form-group">
-                      <select id="time" required>
-                        <option value="" disabled></option>
-                        <option value="09:00">09:00</option>
-                        <option value="10:00">10:00</option>
-                        <option value="11:00">11:00</option>
-                        <option value="12:00">12:00</option>
-                        <option value="14:00">14:00</option>
-                        <option value="15:00">15:00</option>
-                        <option value="16:00">16:00</option>
-                      </select>
-                      <label htmlFor="time">Време</label>
-                    </div>
-                  </div>
-                  <div className="form-group full">
-                    <textarea id="message" rows={3}></textarea>
-                    <label htmlFor="message">Додатне напомене</label>
-                  </div>
-                  <button type="submit" className="btn-submit">
-                    <Text text="Пошаљите поруку" as="span" />
-                    <i className="fas fa-arrow-right"></i>
-                  </button>
-                </form>
+                    <button type="submit" className="btn-submit">
+                      <Text
+                        text={
+                          contactSection.formFields?.submitButtonText ||
+                          "Пошаљите поруку"
+                        }
+                        as="span"
+                      />
+                      <i className="fas fa-arrow-right"></i>
+                    </button>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Partners Section */}
       <section className="partners-section">

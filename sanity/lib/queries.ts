@@ -230,6 +230,27 @@ export const HOMEPAGE_QUERY = groq`
           linkHref,
           size
         }
+      },
+      // ContactSection fields
+      _type == "contactSection" => {
+        heading,
+        subheading,
+        contactInfo {
+          phone,
+          email,
+          address
+        },
+        formFields {
+          namePlaceholder,
+          emailPlaceholder,
+          phonePlaceholder,
+          departmentLabel,
+          dateLabel,
+          timeLabel,
+          notesPlaceholder,
+          submitButtonText
+        },
+        departments
       }
     }
   }

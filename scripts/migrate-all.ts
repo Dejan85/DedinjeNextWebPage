@@ -827,9 +827,48 @@ async function migrateAll() {
     console.log("═══════════════════════════════════════════════\n");
 
     // ============================================
-    // 13. KOMBNOVANI PAGE BUILDER
+    // 13. KREIRAJ CONTACT SECTION
     // ============================================
-    console.log("📝 KORAK 13: Kreiranje Homepage dokumenta...\n");
+    console.log("📞 KORAK 13: Kreiranje Contact sekcije...\n");
+
+    const contactSection = {
+      _type: "contactSection",
+      _key: "contact-section",
+      heading: "Контактирајте нас",
+      subheading:
+        "Попуните формулар и наш тим ће вас контактирати у најкраћем року са свим потребним информацијама.",
+      contactInfo: {
+        phone: "011 3601 668",
+        email: "info@ikvbd.rs",
+        address: "Херој Милана Тепића 1",
+      },
+      formFields: {
+        namePlaceholder: "Име и презиме",
+        emailPlaceholder: "E-пошта",
+        phonePlaceholder: "Телефон",
+        departmentLabel: "Одељење",
+        dateLabel: "Датум",
+        timeLabel: "Време",
+        notesPlaceholder: "Додатне напомене",
+        submitButtonText: "ПОШАЉИТЕ ПОРУКУ",
+      },
+      departments: [
+        "Кардиологија",
+        "Кардиохирургија",
+        "Васкуларна хирургија",
+        "Интензивна нега",
+        "Дијагностика",
+        "Рехабилитација",
+      ],
+    };
+
+    console.log(`  ✅ Kreirana Contact sekcija`);
+    console.log("═══════════════════════════════════════════════\n");
+
+    // ============================================
+    // 14. KOMBNOVANI PAGE BUILDER
+    // ============================================
+    console.log("📝 KORAK 14: Kreiranje Homepage dokumenta...\n");
 
     const pageBuilder = [
       ...heroSlides,
@@ -843,6 +882,7 @@ async function migrateAll() {
       teamSection,
       testimonialsSection,
       newsSection,
+      contactSection,
     ];
 
     const homepage = {
@@ -892,6 +932,7 @@ async function migrateAll() {
       `  � Testimonials Sekcija: 1 (${testimonialsSection.testimonials.length} testimonijala)`,
     );
     console.log(`  📰 News Sekcija: 1 (${newsSection.news.length} vesti)`);
+    console.log(`  📞 Contact Sekcija: 1`);
     console.log(
       `  📸 Ukupno slika: ${heroImageIds.length + 3 + departmentImageIds.length + teamImageIds.length + testimonialImageIds.length + newsImageIds.length}`,
     );
