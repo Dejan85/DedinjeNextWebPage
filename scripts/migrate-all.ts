@@ -31,6 +31,12 @@ const imageUrls = {
     "https://images.unsplash.com/photo-1516549655169-df83a0774514?w=600",
     "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600",
   ],
+  team: [
+    "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400",
+    "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400",
+    "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400",
+    "https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=400",
+  ],
 };
 
 function downloadImage(url: string): Promise<Buffer> {
@@ -94,6 +100,13 @@ async function migrateAll() {
     const departmentImageIds = await Promise.all(
       imageUrls.departments.map((url, index) =>
         uploadImage(url, `department-${index + 1}.jpg`),
+      ),
+    );
+
+    console.log("\n  📷 Team slike:");
+    const teamImageIds = await Promise.all(
+      imageUrls.team.map((url, index) =>
+        uploadImage(url, `team-${index + 1}.jpg`),
       ),
     );
 
@@ -551,9 +564,107 @@ async function migrateAll() {
     console.log("═══════════════════════════════════════════════\n");
 
     // ============================================
-    // 10. KOMBNOVANI PAGE BUILDER
+    // 10. KREIRAJ TEAM SECTION
     // ============================================
-    console.log("📝 KORAK 10: Kreiranje Homepage dokumenta...\n");
+    console.log("👥 KORAK 10: Kreiranje Team sekcije...\n");
+
+    const teamSection = {
+      _type: "teamSection",
+      _key: "team-1",
+      badge: "Наш тим",
+      heading: "Упознајте наше стручњаке",
+      subheading: "Искусни лекари посвећени вашем здрављу",
+      team: [
+        {
+          _key: "team-member-1",
+          image: {
+            _type: "image",
+            asset: {
+              _type: "reference",
+              _ref: teamImageIds[0],
+            },
+          },
+          name: "Др Марко Јовановић",
+          role: "Кардиохирург",
+          description:
+            "Специјалиста са 20+ година искуства у комплексним кардиохируршким интервенцијама.",
+          socialLinks: [
+            { _key: "social-1-1", platform: "facebook", url: "#" },
+            { _key: "social-1-2", platform: "linkedin", url: "#" },
+            { _key: "social-1-3", platform: "email", url: "#" },
+          ],
+        },
+        {
+          _key: "team-member-2",
+          image: {
+            _type: "image",
+            asset: {
+              _type: "reference",
+              _ref: teamImageIds[1],
+            },
+          },
+          name: "Др Ана Петровић",
+          role: "Кардиолог",
+          description:
+            "Водећи специјалиста за неинвазивну кардиолошку дијагностику и превенцију.",
+          socialLinks: [
+            { _key: "social-2-1", platform: "facebook", url: "#" },
+            { _key: "social-2-2", platform: "linkedin", url: "#" },
+            { _key: "social-2-3", platform: "email", url: "#" },
+          ],
+        },
+        {
+          _key: "team-member-3",
+          image: {
+            _type: "image",
+            asset: {
+              _type: "reference",
+              _ref: teamImageIds[2],
+            },
+          },
+          name: "Др Милан Николић",
+          role: "Васкуларни хирург",
+          description:
+            "Експерт за хируршко лечење болести крвних судова и аортне патологије.",
+          socialLinks: [
+            { _key: "social-3-1", platform: "facebook", url: "#" },
+            { _key: "social-3-2", platform: "linkedin", url: "#" },
+            { _key: "social-3-3", platform: "email", url: "#" },
+          ],
+        },
+        {
+          _key: "team-member-4",
+          image: {
+            _type: "image",
+            asset: {
+              _type: "reference",
+              _ref: teamImageIds[3],
+            },
+          },
+          name: "Др Јелена Стојковић",
+          role: "Анестезиолог",
+          description:
+            "Специјалиста за кардиоанестезију са богатим искуством у интензивној нези.",
+          socialLinks: [
+            { _key: "social-4-1", platform: "facebook", url: "#" },
+            { _key: "social-4-2", platform: "linkedin", url: "#" },
+            { _key: "social-4-3", platform: "email", url: "#" },
+          ],
+        },
+      ],
+      ctaButton: {
+        text: "Сви наши лекари",
+        link: "#team",
+      },
+    };
+
+    console.log(`  ✅ Kreirana Team sekcija`);
+    console.log("═══════════════════════════════════════════════\n");
+
+    // ============================================
+    // 11. KOMBNOVANI PAGE BUILDER
+    // ============================================
+    console.log("📝 KORAK 11: Kreiranje Homepage dokumenta...\n");
 
     const pageBuilder = [
       ...heroSlides,
@@ -564,6 +675,7 @@ async function migrateAll() {
       whyChooseUsSection,
       ctaSection,
       departmentsSection,
+      teamSection,
     ];
 
     const homepage = {
@@ -607,7 +719,10 @@ async function migrateAll() {
       `  🏥 Departments Sekcija: 1 (${departmentsSection.departments.length} odeljenja)`,
     );
     console.log(
-      `  📸 Ukupno slika: ${heroImageIds.length + 3 + departmentImageIds.length}`,
+      `  👥 Team Sekcija: 1 (${teamSection.team.length} članova tima)`,
+    );
+    console.log(
+      `  📸 Ukupno slika: ${heroImageIds.length + 3 + departmentImageIds.length + teamImageIds.length}`,
     );
     console.log(`  📝 Ukupno elemenata: ${pageBuilder.length}\n`);
 

@@ -164,6 +164,33 @@ export const HOMEPAGE_QUERY = groq`
           description,
           linkHref
         }
+      },
+      // TeamSection fields
+      _type == "teamSection" => {
+        badge,
+        heading,
+        subheading,
+        team[] {
+          _key,
+          image {
+            asset-> {
+              _id,
+              url
+            }
+          },
+          name,
+          role,
+          description,
+          socialLinks[] {
+            _key,
+            platform,
+            url
+          }
+        },
+        ctaButton {
+          text,
+          link
+        }
       }
     }
   }

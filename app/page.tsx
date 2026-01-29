@@ -25,6 +25,7 @@ import type {
   WhyChooseUsSection,
   CtaSection,
   DepartmentsSection,
+  TeamSection,
   InfoBox as InfoBoxType,
   WelcomeFeature as WelcomeFeatureType,
   StatItem,
@@ -73,6 +74,9 @@ export default async function Home() {
   const departmentsSection = pageBuilder.find(
     (item) => item._type === "departmentsSection",
   ) as DepartmentsSection | undefined;
+  const teamSection = pageBuilder.find(
+    (item) => item._type === "teamSection",
+  ) as TeamSection | undefined;
 
   return (
     <>
@@ -375,74 +379,48 @@ export default async function Home() {
       )}
 
       {/* Team Section */}
-      <section className="team-section">
-        <div className="container">
-          <div className="section-header centered">
-            <Badge variant="primary" text="Наш тим" />
-            <Heading
-              variant="h2"
-              align="center"
-              text="Упознајте наше стручњаке"
-            />
-            <Text
-              color="muted"
-              align="center"
-              text="Искусни лекари посвећени вашем здрављу"
-            />
+      {teamSection && (
+        <section className="team-section">
+          <div className="container">
+            <div className="section-header centered">
+              <Badge variant="primary" text={teamSection.badge} />
+              <Heading
+                variant="h2"
+                align="center"
+                text={teamSection.heading}
+              />
+              <Text
+                color="muted"
+                align="center"
+                text={teamSection.subheading}
+              />
+            </div>
+            <div className="team-grid">
+              {teamSection.team?.map((member) => (
+                <TeamCard
+                  key={member._key}
+                  image={
+                    ("url" in member.image.asset
+                      ? member.image.asset.url
+                      : "") || ""
+                  }
+                  name={member.name}
+                  role={member.role}
+                  description={member.description}
+                  socialLinks={member.socialLinks}
+                />
+              ))}
+            </div>
+            {teamSection.ctaButton && (
+              <div className="team-cta">
+                <a href={teamSection.ctaButton.link} className="btn-primary">
+                  {teamSection.ctaButton.text}
+                </a>
+              </div>
+            )}
           </div>
-          <div className="team-grid">
-            <TeamCard
-              image="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400"
-              name="Др Марко Јовановић"
-              role="Кардиохирург"
-              description="Специјалиста са 20+ година искуства у комплексним кардиохируршким интервенцијама."
-              socialLinks={[
-                { platform: "facebook", url: "#" },
-                { platform: "linkedin", url: "#" },
-                { platform: "email", url: "#" },
-              ]}
-            />
-            <TeamCard
-              image="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400"
-              name="Др Ана Петровић"
-              role="Кардиолог"
-              description="Водећи специјалиста за неинвазивну кардиолошку дијагностику и превенцију."
-              socialLinks={[
-                { platform: "facebook", url: "#" },
-                { platform: "linkedin", url: "#" },
-                { platform: "email", url: "#" },
-              ]}
-            />
-            <TeamCard
-              image="/doctor-milan-nikolic.png"
-              name="Др Милан Николић"
-              role="Васкуларни хирург"
-              description="Експерт за хируршко лечење болести крвних судова и аортне патологије."
-              socialLinks={[
-                { platform: "facebook", url: "#" },
-                { platform: "linkedin", url: "#" },
-                { platform: "email", url: "#" },
-              ]}
-            />
-            <TeamCard
-              image="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=400"
-              name="Др Јелена Стојковић"
-              role="Анестезиолог"
-              description="Специјалиста за кардиоанестезију са богатим искуством у интензивној нези."
-              socialLinks={[
-                { platform: "facebook", url: "#" },
-                { platform: "linkedin", url: "#" },
-                { platform: "email", url: "#" },
-              ]}
-            />
-          </div>
-          <div className="team-cta">
-            <a href="#" className="btn-primary">
-              Упознајте цео тим
-            </a>
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Testimonials Section */}
       <section className="testimonials-section">

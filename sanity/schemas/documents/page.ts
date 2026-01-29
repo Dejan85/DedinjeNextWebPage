@@ -65,6 +65,10 @@ export default defineType({
           title: "🏥 Odeljenja sekcija",
         },
         {
+          type: "teamSection",
+          title: "👥 Tim sekcija",
+        },
+        {
           type: "contentBlock",
           title: "📝 Sadržaj blok",
         },

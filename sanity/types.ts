@@ -381,3 +381,31 @@ export interface DepartmentsSection {
   subheading: string;
   departments: DepartmentCard[];
 }
+
+export interface SocialLink {
+  _key: string;
+  platform: string;
+  url: string;
+}
+
+export interface TeamMember {
+  _key: string;
+  image: SanityImage;
+  name: string;
+  role: string;
+  description: string;
+  socialLinks?: SocialLink[];
+}
+
+export interface TeamSection {
+  _type: "teamSection";
+  _key: string;
+  badge: string;
+  heading: string;
+  subheading: string;
+  team: TeamMember[];
+  ctaButton?: {
+    text: string;
+    link: string;
+  };
+}
