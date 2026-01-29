@@ -30,8 +30,29 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# environment variables & secrets
+.env
+.env.local
+.env*.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+.env.*
+
+# allow example env files
+!.env.example
+!.env.local.example
+
+# sanity
+.sanity
+sanity.cli.local.ts
+
+# API keys and tokens
+*.key
+credentials.json
+service-account.json
+*.token
 
 # vercel
 .vercel

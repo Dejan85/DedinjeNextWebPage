@@ -116,6 +116,24 @@ export const HOMEPAGE_QUERY = groq`
           ctaText,
           ctaLink
         }
+      },
+      // WhyChooseUsSection fields
+      _type == "whyChooseUsSection" => {
+        badge,
+        heading,
+        subheading,
+        features[] {
+          _key,
+          icon,
+          title,
+          description
+        },
+        image {
+          asset-> {
+            _id,
+            url
+          }
+        }
       }
     }
   }

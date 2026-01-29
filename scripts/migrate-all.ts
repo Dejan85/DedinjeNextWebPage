@@ -23,6 +23,8 @@ const imageUrls = {
     secondary:
       "https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=400",
   },
+  whyChooseUs:
+    "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=1200",
 };
 
 function downloadImage(url: string): Promise<Buffer> {
@@ -74,6 +76,12 @@ async function migrateAll() {
     const welcomeSecondaryImageId = await uploadImage(
       imageUrls.welcome.secondary,
       "welcome-secondary.jpg",
+    );
+
+    console.log("\n  📷 Why Choose Us slika:");
+    const whyChooseUsImageId = await uploadImage(
+      imageUrls.whyChooseUs,
+      "why-choose-us.jpg",
     );
 
     console.log("\n✅ Sve slike upload-ovane!\n");
@@ -374,9 +382,62 @@ async function migrateAll() {
     console.log("═══════════════════════════════════════════════\n");
 
     // ============================================
-    // 7. KOMBNOVANI PAGE BUILDER
+    // 7. KREIRAJ WHY CHOOSE US SECTION
     // ============================================
-    console.log("📝 KORAK 7: Kreiranje Homepage dokumenta...\n");
+    console.log("⭐ KORAK 7: Kreiranje Why Choose Us sekcije...\n");
+
+    const whyChooseUsSection = {
+      _type: "whyChooseUsSection",
+      _key: "why-choose-us-1",
+      badge: "Зашто ми",
+      heading: "По чему смо другачији",
+      subheading:
+        "Институт Дедиње комбинује дугогодишње искуство са најсавременијом технологијом како би пружио најбољу могућу негу.",
+      features: [
+        {
+          _key: "why-feature-1",
+          icon: "fas fa-user-md",
+          title: "Врхунски стручњаци",
+          description:
+            "Тим од преко 200 лекара специјалиста са међународним искуством.",
+        },
+        {
+          _key: "why-feature-2",
+          icon: "fas fa-microscope",
+          title: "Најмодернија опрема",
+          description:
+            "Користимо најновију медицинску технологију за прецизну дијагностику.",
+        },
+        {
+          _key: "why-feature-3",
+          icon: "fas fa-clock",
+          title: "Брза дијагностика",
+          description:
+            "Резултати у најкраћем могућем року за правовремено лечење.",
+        },
+        {
+          _key: "why-feature-4",
+          icon: "fas fa-hand-holding-heart",
+          title: "Индивидуални приступ",
+          description: "Сваки пацијент добија персонализован план лечења.",
+        },
+      ],
+      image: {
+        _type: "image",
+        asset: {
+          _type: "reference",
+          _ref: whyChooseUsImageId,
+        },
+      },
+    };
+
+    console.log(`  ✅ Kreirana Why Choose Us sekcija`);
+    console.log("═══════════════════════════════════════════════\n");
+
+    // ============================================
+    // 8. KOMBNOVANI PAGE BUILDER
+    // ============================================
+    console.log("📝 KORAK 8: Kreiranje Homepage dokumenta...\n");
 
     const pageBuilder = [
       ...heroSlides,
@@ -384,6 +445,7 @@ async function migrateAll() {
       welcomeSection,
       statsSection,
       servicesSection,
+      whyChooseUsSection,
     ];
 
     const homepage = {
@@ -419,7 +481,10 @@ async function migrateAll() {
     console.log(
       `  💊 Services Sekcija: 1 (${servicesSection.services.length} usluge)`,
     );
-    console.log(`  📸 Ukupno slika: ${heroImageIds.length + 2}`);
+    console.log(
+      `  ⭐ Why Choose Us Sekcija: 1 (${whyChooseUsSection.features.length} features)`,
+    );
+    console.log(`  📸 Ukupno slika: ${heroImageIds.length + 3}`);
     console.log(`  📝 Ukupno elemenata: ${pageBuilder.length}\n`);
 
     console.log("═══════════════════════════════════════════════\n");

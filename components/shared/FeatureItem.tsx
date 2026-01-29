@@ -9,10 +9,17 @@ export default function FeatureItem({
   title,
   description,
 }: FeatureItemProps) {
+  // Check if icon is a Font Awesome class or emoji
+  const isFontAwesome = icon.includes("fa-") || icon.includes("fas ");
+
   return (
     <div className="feature-item">
       <div className="feature-icon">
-        <i className={icon}></i>
+        {isFontAwesome ? (
+          <i className={icon}></i>
+        ) : (
+          <span className="emoji-icon">{icon}</span>
+        )}
       </div>
       <div className="feature-text">
         <h4>{title}</h4>

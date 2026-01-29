@@ -331,3 +331,20 @@ export interface ServicesSection {
   subheading: string;
   services: ServiceCardItem[];
 }
+
+export interface WhyChooseUsFeature {
+  _key: string;
+  icon: string;
+  title: string;
+  description: string;
+}
+
+export interface WhyChooseUsSection {
+  _type: "whyChooseUsSection";
+  _key: string;
+  badge: string;
+  heading: string;
+  subheading: string;
+  features: WhyChooseUsFeature[];
+  image: SanityImage;
+}

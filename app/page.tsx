@@ -22,10 +22,12 @@ import type {
   WelcomeSection,
   StatsSection,
   ServicesSection,
+  WhyChooseUsSection,
   InfoBox as InfoBoxType,
   WelcomeFeature as WelcomeFeatureType,
   StatItem,
   ServiceCardItem,
+  WhyChooseUsFeature,
 } from "@/sanity/types";
 
 interface PageBuilder {
@@ -52,6 +54,9 @@ export default async function Home() {
   const servicesSection = pageBuilder.find(
     (item) => item._type === "servicesSection",
   ) as ServicesSection | undefined;
+  const whyChooseUsSection = pageBuilder.find(
+    (item) => item._type === "whyChooseUsSection",
+  ) as WhyChooseUsSection | undefined;
 
   return (
     <>
@@ -222,57 +227,46 @@ export default async function Home() {
         </section>
       )}
 
-      {/* Features Section */}
-      <section className="features-section">
-        <div className="container">
-          <div className="features-wrapper">
-            <div className="features-content">
-              <Badge variant="primary" text="Зашто ми" />
-              <Heading variant="h2" text="По чему смо другачији" />
-              <Text
-                variant="body"
-                text="Институт Дедиње комбинује дугогодишње искуство са најсавременијом технологијом како би пружио најбољу могућу негу."
-              />
-              <div className="features-list">
-                <FeatureItem
-                  icon="fas fa-user-md"
-                  title="Врхунски стручњаци"
-                  description="Тим од преко 200 лекара специјалиста са међународним искуством."
-                />
-                <FeatureItem
-                  icon="fas fa-microscope"
-                  title="Најмодернија опрема"
-                  description="Користимо најновију медицинску технологију за прецизну дијагностику."
-                />
-                <FeatureItem
-                  icon="fas fa-clock"
-                  title="Брза дијагностика"
-                  description="Резултати у најкраћем могућем року за правовремено лечење."
-                />
-                <FeatureItem
-                  icon="fas fa-hand-holding-heart"
-                  title="Индивидуални приступ"
-                  description="Сваки пацијент добија персонализован план лечења."
-                />
-              </div>
-            </div>
-            <div className="features-image">
-              <Image
-                src="https://images.unsplash.com/photo-1551076805-e1869033e561?w=800"
-                alt="Modern medical equipment"
-                width={800}
-                height={600}
-              />
-              <div className="features-image-overlay">
-                <div className="play-button">
-                  <i className="fas fa-play"></i>
+      {/* Why Choose Us Section */}
+      {whyChooseUsSection && (
+        <section className="features-section">
+          <div className="container">
+            <div className="features-wrapper">
+              <div className="features-content">
+                <Badge variant="primary" text={whyChooseUsSection.badge} />
+                <Heading variant="h2" text={whyChooseUsSection.heading} />
+                <Text variant="body" text={whyChooseUsSection.subheading} />
+                <div className="features-list">
+                  {whyChooseUsSection.features?.map(
+                    (feature: WhyChooseUsFeature) => (
+                      <FeatureItem
+                        key={feature._key}
+                        icon={feature.icon}
+                        title={feature.title}
+                        description={feature.description}
+                      />
+                    ),
+                  )}
                 </div>
-                <Text text="Погледајте видео о нама" as="span" />
+              </div>
+              <div className="features-image">
+                {whyChooseUsSection.image && (
+                  <Image
+                    src={
+                      ("url" in whyChooseUsSection.image.asset
+                        ? whyChooseUsSection.image.asset.url
+                        : "") || ""
+                    }
+                    alt={whyChooseUsSection.heading}
+                    width={800}
+                    height={600}
+                  />
+                )}
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Parallax CTA Section */}
       <section className="parallax-section parallax-cta">

@@ -53,6 +53,10 @@ export default defineType({
           title: "💊 Usluge sekcija",
         },
         {
+          type: "whyChooseUsSection",
+          title: "⭐ Zašto mi sekcija",
+        },
+        {
           type: "contentBlock",
           title: "📝 Sadržaj blok",
         },
