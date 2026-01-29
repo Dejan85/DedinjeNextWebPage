@@ -533,3 +533,68 @@ export interface PartnersSection {
   heading: string;
   partners: PartnerItem[];
 }
+
+// Director Page Types
+export interface DirectorHero {
+  image?: SanityImage;
+  badge: string;
+  title: string;
+  subtitle: string;
+  showScrollIndicator?: boolean;
+}
+
+export interface DirectorInfoCard {
+  _key: string;
+  icon: string;
+  title: string;
+  description: string;
+  buttonText: string;
+  buttonHref: string;
+  highlight?: boolean;
+}
+
+export interface DirectorMessageParagraph {
+  _key: string;
+  text: string;
+  variant: "lead" | "body";
+}
+
+export interface DirectorMessage {
+  badge: string;
+  heading: string;
+  paragraphs: DirectorMessageParagraph[];
+  signature: string;
+  videoSrc?: string;
+  videoOverlayText?: string;
+  videoCaption?: string;
+}
+
+export interface DirectorQuote {
+  text: string;
+  author: string;
+}
+
+export interface DirectorPartnerItem {
+  _key: string;
+  icon: string;
+  text: string;
+}
+
+export interface DirectorPartners {
+  heading: string;
+  items: DirectorPartnerItem[];
+}
+
+export interface DirectorSeo {
+  title: string;
+  description: string;
+}
+
+export interface DirectorPage {
+  hero: DirectorHero;
+  infoCards: DirectorInfoCard[];
+  message: DirectorMessage;
+  quote: DirectorQuote;
+  partners: DirectorPartners;
+  seo: DirectorSeo;
+}

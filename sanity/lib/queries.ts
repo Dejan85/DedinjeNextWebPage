@@ -487,3 +487,59 @@ export const FOOTER_QUERY = groq`
     }
   }
 `;
+
+// Director Page Query
+export const DIRECTOR_PAGE_QUERY = groq`
+  *[_type == "directorPage"][0] {
+    hero {
+      image {
+        asset-> {
+          _id,
+          url
+        }
+      },
+      badge,
+      title,
+      subtitle,
+      showScrollIndicator
+    },
+    infoCards[] {
+      _key,
+      icon,
+      title,
+      description,
+      buttonText,
+      buttonHref,
+      highlight
+    },
+    message {
+      badge,
+      heading,
+      paragraphs[] {
+        _key,
+        text,
+        variant
+      },
+      signature,
+      videoSrc,
+      videoOverlayText,
+      videoCaption
+    },
+    quote {
+      text,
+      author
+    },
+    partners {
+      heading,
+      items[] {
+        _key,
+        icon,
+        text
+      }
+    },
+    seo {
+      title,
+      description
+    }
+  }
+`;

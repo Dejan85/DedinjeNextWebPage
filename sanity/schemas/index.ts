@@ -11,6 +11,7 @@ import testimonial from "./documents/testimonial";
 import siteSettings from "./singletons/siteSettings";
 import navigation from "./singletons/navigation";
 import footer from "./singletons/footer";
+import directorPage from "./singletons/directorPage";
 
 // Objects
 import hero from "./objects/hero";
@@ -36,6 +37,7 @@ export const schemaTypes = [
   siteSettings,
   navigation,
   footer,
+  directorPage,
 
   // Documents
   page,
