@@ -2,9 +2,6 @@
 
 import Link from "next/link";
 import {
-  Header,
-  Footer,
-  ScrollToTop,
   HeroSection,
   StatCard,
   ProfileTabs,
@@ -17,9 +14,6 @@ import { Heading, Text, Badge } from "@/components/typography";
 export default function OInstitutu() {
   return (
     <>
-      <Header />
-      <ScrollToTop />
-
       <div className="institute-page">
         {/* Hero Section */}
         <HeroSection
@@ -294,8 +288,6 @@ export default function OInstitutu() {
           </div>
         </section>
       </div>
-
-      <Footer />
     </>
   );
 }

@@ -1,21 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import {
-  Header,
-  Footer,
-  ScrollToTop,
-  HighlightItem,
-  Image,
-  ContentTabs,
-} from "@/components/shared";
+import { HighlightItem, Image, ContentTabs } from "@/components/shared";
 import { Heading, Text, Badge } from "@/components/typography";
 
 export default function BiografijaPage() {
   return (
     <>
-      <Header />
-
       {/* Page Header */}
       <section className="page-header-simple">
         <div className="container">
@@ -407,9 +398,6 @@ export default function BiografijaPage() {
           </div>
         </div>
       </section>
-
-      <Footer />
-      <ScrollToTop />
     </>
   );
 }

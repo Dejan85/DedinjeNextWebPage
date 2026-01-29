@@ -1,20 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import {
-  Header,
-  Footer,
-  ScrollToTop,
-  PublicationItem,
-  StatItem,
-} from "@/components/shared";
+import { PublicationItem, StatItem } from "@/components/shared";
 import { Heading, Text } from "@/components/typography";
 
 export default function BibliografijaPage() {
   return (
     <>
-      <Header />
-
       {/* Page Header */}
       <section className="page-header-simple">
         <div className="container">
@@ -304,9 +296,6 @@ export default function BibliografijaPage() {
           </div>
         </div>
       </section>
-
-      <Footer />
-      <ScrollToTop />
     </>
   );
 }

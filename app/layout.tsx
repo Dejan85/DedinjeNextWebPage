@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Script from "next/script";
+import Header from "@/components/shared/Header";
+import Footer from "@/components/shared/Footer";
+import ScrollToTop from "@/components/shared/ScrollToTop";
 
 export const metadata: Metadata = {
   title: "Институт Дедиње - Кардиоваскуларне болести",
@@ -18,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="sr" suppressHydrationWarning style={{ scrollBehavior: 'auto' }}>
+    <html lang="sr" suppressHydrationWarning style={{ scrollBehavior: "auto" }}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
@@ -40,7 +43,10 @@ export default function RootLayout({
         />
       </head>
       <body suppressHydrationWarning>
+        <Header />
         {children}
+        <Footer />
+        <ScrollToTop />
         <Script
           src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"
           strategy="afterInteractive"

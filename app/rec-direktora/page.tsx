@@ -1,9 +1,6 @@
 "use client";
 
 import {
-  Header,
-  Footer,
-  ScrollToTop,
   HeroSection,
   VideoPlayer,
   InfoCard,
@@ -14,7 +11,6 @@ import { Heading, Text, Badge } from "@/components/typography";
 export default function RecDirektoraPage() {
   return (
     <>
-      <Header />
       {/* Director Hero Section */}
       <HeroSection
         img="/images/rec-direktora.jpg"
@@ -135,8 +131,6 @@ export default function RecDirektoraPage() {
           </div>
         </div>
       </section>
-      <Footer />
-      <ScrollToTop />
     </>
   );
 }

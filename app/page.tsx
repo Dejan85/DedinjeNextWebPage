@@ -1,8 +1,5 @@
 import {
-  Header,
-  Footer,
   HeroSlider,
-  ScrollToTop,
   Button,
   Image,
   InfoBox,
@@ -97,8 +94,6 @@ export default async function Home() {
 
   return (
     <>
-      <Header />
-
       {/* Sanity Error Warning (Development only) */}
       {sanityError && process.env.NODE_ENV === "development" && (
         <div
@@ -728,11 +723,6 @@ export default async function Home() {
           </div>
         </section>
       )}
-
-      <Footer />
-
-      {/* Scroll to Top Button */}
-      <ScrollToTop />
     </>
   );
 }
