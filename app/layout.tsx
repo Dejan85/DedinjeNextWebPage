@@ -6,6 +6,10 @@ export const metadata: Metadata = {
   title: "Институт Дедиње - Кардиоваскуларне болести",
   description:
     "Институт за кардиоваскуларне болести Дедиње је водећа здравствена установа у региону",
+  icons: {
+    icon: "/images/logo dedinje.png",
+    apple: "/images/logo dedinje.png",
+  },
 };
 
 export default function RootLayout({
