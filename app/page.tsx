@@ -340,13 +340,15 @@ export default async function Home() {
                       secondary: "outline-white",
                       outline: "outline-white",
                     };
-                    const btnVariant = variantMap[button.variant || "primary"];
+                    const btnVariant = variantMap[
+                      button.variant || "primary"
+                    ] as "primary" | "white" | "outline-white" | "hero";
 
                     return (
                       <Button
                         key={button._key}
                         href={button.link}
-                        variant={btnVariant as any}
+                        variant={btnVariant}
                       >
                         {button.icon && <i className={button.icon}></i>}
                         {button.text}
@@ -420,7 +422,18 @@ export default async function Home() {
                   name={member.name}
                   role={member.role}
                   description={member.description}
-                  socialLinks={member.socialLinks}
+                  socialLinks={member.socialLinks?.filter(
+                    (
+                      link,
+                    ): link is {
+                      _key: string;
+                      platform: "facebook" | "linkedin" | "email";
+                      url: string;
+                    } =>
+                      link.platform === "facebook" ||
+                      link.platform === "linkedin" ||
+                      link.platform === "email",
+                  )}
                 />
               ))}
             </div>
