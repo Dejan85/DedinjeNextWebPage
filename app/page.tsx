@@ -27,6 +27,7 @@ import type {
   DepartmentsSection,
   TeamSection,
   TestimonialsSection,
+  NewsSection,
   InfoBox as InfoBoxType,
   WelcomeFeature as WelcomeFeatureType,
   StatItem,
@@ -81,6 +82,9 @@ export default async function Home() {
   const testimonialsSection = pageBuilder.find(
     (item) => item._type === "testimonialsSection",
   ) as TestimonialsSection | undefined;
+  const newsSection = pageBuilder.find(
+    (item) => item._type === "newsSection",
+  ) as NewsSection | undefined;
 
   return (
     <>
@@ -471,57 +475,61 @@ export default async function Home() {
       )}
 
       {/* News Section */}
-      <section className="news-section">
-        <div className="container">
-          <div className="section-header centered">
-            <Badge variant="primary" text="Новости" />
-            <Heading variant="h2" align="center" text="Најновије вести" />
-            <Text
-              color="muted"
-              align="center"
-              text="Будите у току са дешавањима на Институту"
-            />
-          </div>
-          <div className="news-grid">
-            <NewsCard
-              image="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800"
-              category="Иновације"
-              date="15. јануар 2026"
-              author="Медицински тим"
-              title="Нова метода минимално инвазивне кардиохирургије"
-              description="Институт Дедиње уводи најновију технологију за минимално инвазивне операције срца која значајно скраћује време опоравка пацијената."
-              linkHref="#"
-              size="large"
-            />
-            <div className="news-sidebar">
-              <NewsCard
-                image="https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=400"
-                category="Акције"
-                date="10. јануар 2026"
-                title="Бесплатни кардиолошки прегледи"
-                linkHref="#"
-                size="small"
-              />
-              <NewsCard
-                image="https://images.unsplash.com/photo-1579154204601-01588f351e67?w=400"
-                category="Опрема"
-                date="5. јануар 2026"
-                title="Нова савремена опрема на одељењу"
-                linkHref="#"
-                size="small"
-              />
-              <NewsCard
-                image="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=400"
-                category="Успех"
-                date="1. јануар 2026"
-                title="Успешна 10.000 операција у 2025."
-                linkHref="#"
-                size="small"
+      {newsSection && (
+        <section className="news-section">
+          <div className="container">
+            <div className="section-header centered">
+              <Badge variant="primary" text={newsSection.badge} />
+              <Heading variant="h2" align="center" text={newsSection.heading} />
+              <Text
+                color="muted"
+                align="center"
+                text={newsSection.subheading}
               />
             </div>
+            <div className="news-grid">
+              {newsSection.news
+                ?.filter((item) => item.size === "large")
+                .slice(0, 1)
+                .map((item) => (
+                  <NewsCard
+                    key={item._key}
+                    image={
+                      ("url" in item.image.asset ? item.image.asset.url : "") ||
+                      ""
+                    }
+                    category={item.category}
+                    date={item.date}
+                    author={item.author}
+                    title={item.title}
+                    description={item.description}
+                    linkHref={item.linkHref}
+                    size="large"
+                  />
+                ))}
+              <div className="news-sidebar">
+                {newsSection.news
+                  ?.filter((item) => item.size === "small")
+                  .map((item) => (
+                    <NewsCard
+                      key={item._key}
+                      image={
+                        ("url" in item.image.asset
+                          ? item.image.asset.url
+                          : "") || ""
+                      }
+                      category={item.category}
+                      date={item.date}
+                      title={item.title}
+                      linkHref={item.linkHref}
+                      size="small"
+                    />
+                  ))}
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Parallax Contact Section */}
       <section className="parallax-section parallax-appointment">

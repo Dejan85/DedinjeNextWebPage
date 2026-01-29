@@ -42,6 +42,12 @@ const imageUrls = {
     "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100",
     "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100",
   ],
+  news: [
+    "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800",
+    "https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=400",
+    "https://images.unsplash.com/photo-1579154204601-01588f351e67?w=400",
+    "https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=400",
+  ],
 };
 
 function downloadImage(url: string): Promise<Buffer> {
@@ -119,6 +125,13 @@ async function migrateAll() {
     const testimonialImageIds = await Promise.all(
       imageUrls.testimonials.map((url, index) =>
         uploadImage(url, `testimonial-${index + 1}.jpg`),
+      ),
+    );
+
+    console.log("\n  📷 News slike:");
+    const newsImageIds = await Promise.all(
+      imageUrls.news.map((url, index) =>
+        uploadImage(url, `news-${index + 1}.jpg`),
       ),
     );
 
@@ -733,9 +746,90 @@ async function migrateAll() {
     console.log("═══════════════════════════════════════════════\n");
 
     // ============================================
-    // 12. KOMBNOVANI PAGE BUILDER
+    // 12. KREIRAJ NEWS SECTION
     // ============================================
-    console.log("📝 KORAK 12: Kreiranje Homepage dokumenta...\n");
+    console.log("📰 KORAK 12: Kreiranje News sekcije...\n");
+
+    const newsSection = {
+      _type: "newsSection",
+      _key: "news-1",
+      badge: "Новости",
+      heading: "Најновије вести",
+      subheading: "Будите у току са дешавањима на Институту",
+      news: [
+        {
+          _key: "news-1",
+          image: {
+            _type: "image",
+            asset: {
+              _type: "reference",
+              _ref: newsImageIds[0],
+            },
+          },
+          category: "Иновације",
+          date: "15. јануар 2026",
+          author: "Медицински тим",
+          title: "Нова метода минимално инвазивне кардиохирургије",
+          description:
+            "Институт Дедиње уводи најновију технологију за минимално инвазивне операције срца која значајно скраћује време опоравка пацијената.",
+          linkHref: "#",
+          size: "large",
+        },
+        {
+          _key: "news-2",
+          image: {
+            _type: "image",
+            asset: {
+              _type: "reference",
+              _ref: newsImageIds[1],
+            },
+          },
+          category: "Акције",
+          date: "10. јануар 2026",
+          title: "Бесплатни кардиолошки прегледи",
+          linkHref: "#",
+          size: "small",
+        },
+        {
+          _key: "news-3",
+          image: {
+            _type: "image",
+            asset: {
+              _type: "reference",
+              _ref: newsImageIds[2],
+            },
+          },
+          category: "Опрема",
+          date: "5. јануар 2026",
+          title: "Нова савремена опрема на одељењу",
+          linkHref: "#",
+          size: "small",
+        },
+        {
+          _key: "news-4",
+          image: {
+            _type: "image",
+            asset: {
+              _type: "reference",
+              _ref: newsImageIds[3],
+            },
+          },
+          category: "Успех",
+          date: "1. јануар 2026",
+          title: "Успешна 10.000 операција у 2025.",
+          linkHref: "#",
+          size: "small",
+        },
+      ],
+    };
+
+    console.log(`  ✅ Kreirana News sekcija`);
+    console.log("═══════════════════════════════════════════════\n");
+
+    // ============================================
+    // 13. KOMBNOVANI PAGE BUILDER
+    // ============================================
+    console.log("📝 KORAK 13: Kreiranje Homepage dokumenta...\n");
 
     const pageBuilder = [
       ...heroSlides,
@@ -748,6 +842,7 @@ async function migrateAll() {
       departmentsSection,
       teamSection,
       testimonialsSection,
+      newsSection,
     ];
 
     const homepage = {
@@ -796,8 +891,9 @@ async function migrateAll() {
     console.log(
       `  � Testimonials Sekcija: 1 (${testimonialsSection.testimonials.length} testimonijala)`,
     );
+    console.log(`  📰 News Sekcija: 1 (${newsSection.news.length} vesti)`);
     console.log(
-      `  📸 Ukupno slika: ${heroImageIds.length + 3 + departmentImageIds.length + teamImageIds.length + testimonialImageIds.length}`,
+      `  📸 Ukupno slika: ${heroImageIds.length + 3 + departmentImageIds.length + teamImageIds.length + testimonialImageIds.length + newsImageIds.length}`,
     );
     console.log(`  📝 Ukupno elemenata: ${pageBuilder.length}\n`);
 

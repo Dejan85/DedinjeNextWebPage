@@ -208,6 +208,28 @@ export const HOMEPAGE_QUERY = groq`
             }
           }
         }
+      },
+      // NewsSection fields
+      _type == "newsSection" => {
+        badge,
+        heading,
+        subheading,
+        news[] {
+          _key,
+          image {
+            asset-> {
+              _id,
+              url
+            }
+          },
+          category,
+          date,
+          author,
+          title,
+          description,
+          linkHref,
+          size
+        }
       }
     }
   }

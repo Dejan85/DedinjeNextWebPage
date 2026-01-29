@@ -425,3 +425,24 @@ export interface TestimonialsSection {
   heading: string;
   testimonials: TestimonialItem[];
 }
+
+export interface NewsItem {
+  _key: string;
+  image: SanityImage;
+  category: string;
+  date: string;
+  author?: string;
+  title: string;
+  description?: string;
+  linkHref: string;
+  size?: "large" | "small";
+}
+
+export interface NewsSection {
+  _type: "newsSection";
+  _key: string;
+  badge: string;
+  heading: string;
+  subheading: string;
+  news: NewsItem[];
+}
