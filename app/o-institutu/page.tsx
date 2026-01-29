@@ -166,7 +166,11 @@ export default async function OInstitutu() {
                   ))}
                 </div>
                 <div className="about-badge">
-                  <Text as="span" className="badge-year" text={about.foundedYear} />
+                  <Text
+                    as="span"
+                    className="badge-year"
+                    text={about.foundedYear}
+                  />
                   <Text as="span" className="badge-text" text="Основан" />
                 </div>
               </div>
@@ -219,7 +223,10 @@ export default async function OInstitutu() {
                 <Text text={management.subtitle} />
               </div>
 
-              <ProfileTabs profiles={profilesForTabs} defaultTab={profilesForTabs[0]?.id} />
+              <ProfileTabs
+                profiles={profilesForTabs}
+                defaultTab={profilesForTabs[0]?.id}
+              />
             </div>
           </section>
         )}
