@@ -19,7 +19,7 @@ async function migrateDirectorPage() {
     const directorPage = {
       _type: "directorPage",
       _id: "directorPage",
-      
+
       // Hero Section
       hero: {
         badge: "Директор Института",
@@ -35,7 +35,8 @@ async function migrateDirectorPage() {
           _key: "info-1",
           icon: "fas fa-user-graduate",
           title: "Биографија",
-          description: "Упознајте се са каријером и достигнућима нашег директора",
+          description:
+            "Упознајте се са каријером и достигнућима нашег директора",
           buttonText: "Прочитајте више",
           buttonHref: "/biografija",
           highlight: false,
@@ -127,8 +128,10 @@ async function migrateDirectorPage() {
 
       // SEO
       seo: {
-        title: "Реч директора - Академик проф. др Милован М. Бојић | Институт Дедиње",
-        description: "Упознајте се са визијом и мисијом директора Института за кардиоваскуларне болести Дедиње - академика проф. др Милована М. Бојића.",
+        title:
+          "Реч директора - Академик проф. др Милован М. Бојић | Институт Дедиње",
+        description:
+          "Упознајте се са визијом и мисијом директора Института за кардиоваскуларне болести Дедиње - академика проф. др Милована М. Бојића.",
       },
     };
 
@@ -142,7 +145,6 @@ async function migrateDirectorPage() {
     console.log("   2. Иди на 'Реч директора'");
     console.log("   3. Upload слику у Hero > Image поље");
     console.log("   4. Публикуј промене\n");
-
   } catch (error) {
     console.error("❌ Грешка приликом миграције:", error);
     process.exit(1);

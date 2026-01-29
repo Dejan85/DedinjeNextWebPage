@@ -106,7 +106,9 @@ export default async function RecDirektoraPage() {
   };
 
   // Get image URL if exists
-  const heroImageUrl = hero.image ? urlFor(hero.image).width(1920).url() : "/images/rec-direktora.jpg";
+  const heroImageUrl = hero.image
+    ? urlFor(hero.image).width(1920).url()
+    : "/images/rec-direktora.jpg";
 
   return (
     <>

@@ -24,4 +24,3 @@ export async function generateMetadata(): Promise<Metadata> {
       "Упознајте се са визијом и мисијом директора Института за кардиоваскуларне болести Дедиње",
   };
 }
-

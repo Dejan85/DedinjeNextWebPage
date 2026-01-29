@@ -543,3 +543,96 @@ export const DIRECTOR_PAGE_QUERY = groq`
     }
   }
 `;
+
+// About Page Query
+export const ABOUT_PAGE_QUERY = groq`
+  *[_type == "aboutPage"][0] {
+    hero {
+      image {
+        asset-> {
+          _id,
+          url
+        }
+      },
+      badge,
+      title,
+      subtitle,
+      showScrollIndicator
+    },
+    about {
+      badge,
+      heading,
+      leadText,
+      bodyText,
+      highlights[] {
+        _key,
+        icon,
+        title,
+        description
+      },
+      foundedYear,
+      videoSrc,
+      videoOverlayText,
+      videoCaption
+    },
+    statistics {
+      badge,
+      heading,
+      subtitle,
+      stats[] {
+        _key,
+        icon,
+        label,
+        value,
+        description
+      }
+    },
+    management {
+      badge,
+      heading,
+      subtitle,
+      profiles[] {
+        _key,
+        id,
+        icon,
+        tabText,
+        image {
+          asset-> {
+            _id,
+            url
+          }
+        },
+        name,
+        title,
+        bioTitle,
+        bioParagraphs
+      }
+    },
+    values {
+      badge,
+      heading,
+      subtitle,
+      items[] {
+        _key,
+        icon,
+        title,
+        description
+      }
+    },
+    cta {
+      heading,
+      text,
+      buttons[] {
+        _key,
+        text,
+        href,
+        icon,
+        variant
+      }
+    },
+    seo {
+      title,
+      description
+    }
+  }
+`;

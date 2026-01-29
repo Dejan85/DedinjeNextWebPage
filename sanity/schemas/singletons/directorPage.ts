@@ -153,7 +153,8 @@ export default defineType({
                 prepare({ text, variant }) {
                   return {
                     title: text?.substring(0, 60) + "...",
-                    subtitle: variant === "lead" ? "Lead paragraf" : "Body paragraf",
+                    subtitle:
+                      variant === "lead" ? "Lead paragraf" : "Body paragraf",
                   };
                 },
               },

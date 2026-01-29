@@ -14,6 +14,7 @@
     "migrate:all": "tsx scripts/migrate-all.ts",
     "migrate:footer": "tsx scripts/migrate-footer.ts",
     "migrate:director": "tsx scripts/migrate-director.ts",
+    "migrate:about": "tsx scripts/migrate-about.ts",
     "check:homepage": "tsx scripts/check-homepage.ts"
   },
   "dependencies": {

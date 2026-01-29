@@ -12,6 +12,7 @@ import siteSettings from "./singletons/siteSettings";
 import navigation from "./singletons/navigation";
 import footer from "./singletons/footer";
 import directorPage from "./singletons/directorPage";
+import aboutPage from "./singletons/aboutPage";
 
 // Objects
 import hero from "./objects/hero";
@@ -38,6 +39,7 @@ export const schemaTypes = [
   navigation,
   footer,
   directorPage,
+  aboutPage,
 
   // Documents
   page,

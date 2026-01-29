@@ -598,3 +598,108 @@ export interface DirectorPage {
   partners: DirectorPartners;
   seo: DirectorSeo;
 }
+
+// About Page Types
+export interface AboutHero {
+  image?: SanityImage;
+  badge: string;
+  title: string;
+  subtitle: string;
+  showScrollIndicator?: boolean;
+}
+
+export interface AboutHighlight {
+  _key: string;
+  icon: string;
+  title: string;
+  description: string;
+}
+
+export interface AboutSection {
+  badge: string;
+  heading: string;
+  leadText: string;
+  bodyText: string;
+  highlights: AboutHighlight[];
+  foundedYear: string;
+  videoSrc?: string;
+  videoOverlayText?: string;
+  videoCaption?: string;
+}
+
+export interface AboutStat {
+  _key: string;
+  icon: string;
+  label: string;
+  value: string;
+  description: string;
+}
+
+export interface AboutStatistics {
+  badge: string;
+  heading: string;
+  subtitle: string;
+  stats: AboutStat[];
+}
+
+export interface AboutProfile {
+  _key: string;
+  id: string;
+  icon: string;
+  tabText: string;
+  image?: SanityImage;
+  name: string;
+  title: string;
+  bioTitle: string;
+  bioParagraphs: string[];
+}
+
+export interface AboutManagement {
+  badge: string;
+  heading: string;
+  subtitle: string;
+  profiles: AboutProfile[];
+}
+
+export interface AboutValue {
+  _key: string;
+  icon: string;
+  title: string;
+  description: string;
+}
+
+export interface AboutValues {
+  badge: string;
+  heading: string;
+  subtitle: string;
+  items: AboutValue[];
+}
+
+export interface AboutCtaButton {
+  _key: string;
+  text: string;
+  href: string;
+  icon: string;
+  variant: "primary" | "secondary";
+}
+
+export interface AboutCta {
+  heading: string;
+  text: string;
+  buttons: AboutCtaButton[];
+}
+
+export interface AboutSeo {
+  title: string;
+  description: string;
+}
+
+export interface AboutPage {
+  hero: AboutHero;
+  about: AboutSection;
+  statistics: AboutStatistics;
+  management: AboutManagement;
+  values: AboutValues;
+  cta: AboutCta;
+  seo: AboutSeo;
+}
