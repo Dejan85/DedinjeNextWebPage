@@ -36,9 +36,17 @@ interface PageBuilder {
 }
 
 export default async function Home() {
-  // Fetch homepage data from Sanity
-  const homepage = await client.fetch(HOMEPAGE_QUERY);
-  const pageBuilder: PageBuilder[] = homepage?.pageBuilder || [];
+  // Fetch homepage data from Sanity with fallback
+  let pageBuilder: PageBuilder[] = [];
+  let sanityError = false;
+
+  try {
+    const homepage = await client.fetch(HOMEPAGE_QUERY);
+    pageBuilder = homepage?.pageBuilder || [];
+  } catch (error) {
+    console.error("⚠️ Sanity fetch failed, using fallback:", error);
+    sanityError = true;
+  }
 
   // Separate different section types
   const heroSlides = pageBuilder.filter((item) => item._type === "hero");
@@ -61,6 +69,23 @@ export default async function Home() {
   return (
     <>
       <Header />
+
+      {/* Sanity Error Warning (Development only) */}
+      {sanityError && process.env.NODE_ENV === "development" && (
+        <div
+          style={{
+            background: "#fff3cd",
+            border: "1px solid #ffc107",
+            padding: "15px",
+            textAlign: "center",
+            color: "#856404",
+            fontWeight: "600",
+          }}
+        >
+          ⚠️ Sanity CMS nije dostupan. Pokreni: <code>npm run sanity:dev</code>{" "}
+          ili <code>npm run migrate:all</code>
+        </div>
+      )}
 
       {/* Hero Section with Slider */}
       <HeroSlider slides={heroSlides} />
