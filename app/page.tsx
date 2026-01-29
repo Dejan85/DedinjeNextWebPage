@@ -18,24 +18,40 @@ import {
 import { Heading, Text, Badge } from "@/components/typography";
 import { client } from "@/sanity/lib/client";
 import { HOMEPAGE_QUERY } from "@/sanity/lib/queries";
+import type {
+  WelcomeSection,
+  StatsSection,
+  ServicesSection,
+  InfoBox as InfoBoxType,
+  WelcomeFeature as WelcomeFeatureType,
+  StatItem,
+  ServiceCardItem,
+} from "@/sanity/types";
+
+interface PageBuilder {
+  _type: string;
+  _key?: string;
+}
 
 export default async function Home() {
   // Fetch homepage data from Sanity
   const homepage = await client.fetch(HOMEPAGE_QUERY);
-  const pageBuilder = homepage?.pageBuilder || [];
+  const pageBuilder: PageBuilder[] = homepage?.pageBuilder || [];
 
   // Separate different section types
-  const heroSlides = pageBuilder.filter((item: any) => item._type === "hero");
-  const infoBoxes = pageBuilder.filter((item: any) => item._type === "infoBox");
+  const heroSlides = pageBuilder.filter((item) => item._type === "hero");
+  const infoBoxes = pageBuilder.filter(
+    (item) => item._type === "infoBox",
+  ) as InfoBoxType[];
   const welcomeSection = pageBuilder.find(
-    (item: any) => item._type === "welcomeSection",
-  );
+    (item) => item._type === "welcomeSection",
+  ) as WelcomeSection | undefined;
   const statsSection = pageBuilder.find(
-    (item: any) => item._type === "statsSection",
-  );
+    (item) => item._type === "statsSection",
+  ) as StatsSection | undefined;
   const servicesSection = pageBuilder.find(
-    (item: any) => item._type === "servicesSection",
-  );
+    (item) => item._type === "servicesSection",
+  ) as ServicesSection | undefined;
 
   return (
     <>
@@ -48,9 +64,9 @@ export default async function Home() {
       <section className="info-boxes">
         <div className="container">
           <div className="info-boxes-grid">
-            {infoBoxes.map((box: any, index: number) => (
+            {infoBoxes.map((box, index) => (
               <InfoBox
-                key={index}
+                key={box._key || index}
                 icon={box.icon}
                 title={box.title}
                 schedule={box.schedule}
@@ -79,13 +95,15 @@ export default async function Home() {
                 <Text variant="lead" text={welcomeSection.leadText} />
                 <Text variant="body" text={welcomeSection.bodyText} />
                 <div className="welcome-features">
-                  {welcomeSection.features?.map((feature: any) => (
-                    <WelcomeFeature
-                      key={feature._key}
-                      icon={feature.icon}
-                      text={feature.text}
-                    />
-                  ))}
+                  {welcomeSection.features?.map(
+                    (feature: WelcomeFeatureType) => (
+                      <WelcomeFeature
+                        key={feature._key}
+                        icon={feature.icon}
+                        text={feature.text}
+                      />
+                    ),
+                  )}
                 </div>
                 {welcomeSection.ctaButton && (
                   <Button
@@ -99,22 +117,28 @@ export default async function Home() {
               <div className="welcome-images">
                 <div className="welcome-img-main">
                   <Image
-                    src={welcomeSection.image?.asset?.url || ""}
+                    src={
+                      ("url" in welcomeSection.image.asset
+                        ? welcomeSection.image.asset.url
+                        : "") || ""
+                    }
                     alt={welcomeSection.heading}
                     width={800}
                     height={600}
                   />
                 </div>
-                {welcomeSection.secondaryImage?.asset?.url && (
-                  <div className="welcome-img-secondary">
-                    <Image
-                      src={welcomeSection.secondaryImage.asset.url}
-                      alt="Medical equipment"
-                      width={400}
-                      height={300}
-                    />
-                  </div>
-                )}
+                {welcomeSection.secondaryImage &&
+                  "url" in welcomeSection.secondaryImage.asset &&
+                  welcomeSection.secondaryImage.asset.url && (
+                    <div className="welcome-img-secondary">
+                      <Image
+                        src={welcomeSection.secondaryImage.asset.url}
+                        alt="Medical equipment"
+                        width={400}
+                        height={300}
+                      />
+                    </div>
+                  )}
                 {welcomeSection.imageBadge && (
                   <div className="experience-badge">
                     <Text
@@ -150,12 +174,12 @@ export default async function Home() {
                 <Text color="light" text={statsSection.subheading} />
               </div>
               <div className="stats-grid">
-                {statsSection.stats?.map((stat: any) => (
+                {statsSection.stats?.map((stat: StatItem) => (
                   <StatCounter
                     key={stat._key}
-                    target={parseInt(stat.number.replace(/[^0-9]/g, ""))}
+                    target={parseInt(stat.number.replace(/[^0-9]/g, ""), 10)}
                     label={stat.label}
-                    icon={stat.icon}
+                    icon={stat.icon || ""}
                   />
                 ))}
               </div>
@@ -182,13 +206,13 @@ export default async function Home() {
               />
             </div>
             <div className="services-grid">
-              {servicesSection.services?.map((service: any) => (
+              {servicesSection.services?.map((service: ServiceCardItem) => (
                 <ServiceCard
-                  key={service._key}
+                  key={service._key || service.title}
                   icon={service.icon}
                   title={service.title}
                   description={service.description}
-                  features={service.features?.map((f: any) => f.text) || []}
+                  features={service.features?.map((f) => f.text) || []}
                   linkHref={service.ctaLink || "#"}
                   featured={service.featured}
                 />

@@ -2,10 +2,16 @@
 
 export interface SanityImage {
   _type: "image";
-  asset: {
-    _ref: string;
-    _type: "reference";
-  };
+  asset:
+    | {
+        _ref: string;
+        _type: "reference";
+        url?: string; // Added for fetched images
+      }
+    | {
+        _id: string;
+        url: string;
+      };
   hotspot?: {
     x: number;
     y: number;
@@ -237,6 +243,7 @@ export interface ScheduleItem {
 
 export interface InfoBox {
   _type: "infoBox";
+  _key?: string;
   icon: string;
   title: string;
   variant: "regular" | "schedule" | "emergency";
@@ -252,10 +259,10 @@ export interface InfoBox {
 }
 
 export interface StatItem {
-  _type: "statItem";
-  number: number;
+  _key: string;
+  icon: string;
+  number: string; // Changed from number to string
   label: string;
-  icon?: string;
 }
 
 export interface WelcomeFeature {
@@ -305,13 +312,13 @@ export interface ServiceFeature {
   link?: string;
 }
 
-export interface Service {
+export interface ServiceCardItem {
   _key?: string;
   icon: string;
   title: string;
   description: string;
   featured: boolean;
-  features: ServiceFeature[];
+  features?: ServiceFeature[];
   ctaText?: string;
   ctaLink?: string;
 }
@@ -322,5 +329,5 @@ export interface ServicesSection {
   badge: string;
   heading: string;
   subheading: string;
-  services: Service[];
+  services: ServiceCardItem[];
 }
