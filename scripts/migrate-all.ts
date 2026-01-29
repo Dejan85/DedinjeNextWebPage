@@ -37,6 +37,11 @@ const imageUrls = {
     "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400",
     "https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=400",
   ],
+  testimonials: [
+    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100",
+    "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100",
+    "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100",
+  ],
 };
 
 function downloadImage(url: string): Promise<Buffer> {
@@ -107,6 +112,13 @@ async function migrateAll() {
     const teamImageIds = await Promise.all(
       imageUrls.team.map((url, index) =>
         uploadImage(url, `team-${index + 1}.jpg`),
+      ),
+    );
+
+    console.log("\n  📷 Testimonials slike:");
+    const testimonialImageIds = await Promise.all(
+      imageUrls.testimonials.map((url, index) =>
+        uploadImage(url, `testimonial-${index + 1}.jpg`),
       ),
     );
 
@@ -662,9 +674,68 @@ async function migrateAll() {
     console.log("═══════════════════════════════════════════════\n");
 
     // ============================================
-    // 11. KOMBNOVANI PAGE BUILDER
+    // 11. KREIRAJ TESTIMONIALS SECTION
     // ============================================
-    console.log("📝 KORAK 11: Kreiranje Homepage dokumenta...\n");
+    console.log("💬 KORAK 11: Kreiranje Testimonials sekcije...\n");
+
+    const testimonialsSection = {
+      _type: "testimonialsSection",
+      _key: "testimonials-1",
+      badge: "Искуства",
+      heading: "Шта кажу наши пацијенти",
+      testimonials: [
+        {
+          _key: "testimonial-1",
+          quote:
+            "Захваљујући тиму на Дедињу, данас водим потпуно нормалан живот. Операција је протекла без компликација, а постоперативна нега је била на највишем нивоу. Неизмерно сам захвалан.",
+          authorName: "Петар Миловановић",
+          authorRole: "Пацијент, Кардиохирургија",
+          authorImage: {
+            _type: "image",
+            asset: {
+              _type: "reference",
+              _ref: testimonialImageIds[0],
+            },
+          },
+        },
+        {
+          _key: "testimonial-2",
+          quote:
+            "Професионалност и хуманост особља на Дедињу су ме одушевили. Од првог прегледа до завршетка лечења осећала сам се сигурно и збринуто. Топло препоручујем.",
+          authorName: "Марија Станковић",
+          authorRole: "Пацијенткиња, Кардиологија",
+          authorImage: {
+            _type: "image",
+            asset: {
+              _type: "reference",
+              _ref: testimonialImageIds[1],
+            },
+          },
+        },
+        {
+          _key: "testimonial-3",
+          quote:
+            "Након уградње стентова осећам се као нов човек. Др Јовановић и његов тим су истински професионалци. Брза интервенција ми је спасила живот.",
+          authorName: "Зоран Томић",
+          authorRole: "Пацијент, Интервентна кардиологија",
+          authorImage: {
+            _type: "image",
+            asset: {
+              _type: "reference",
+              _ref: testimonialImageIds[2],
+            },
+          },
+        },
+      ],
+    };
+
+    console.log(`  ✅ Kreirana Testimonials sekcija`);
+    console.log("═══════════════════════════════════════════════\n");
+
+    // ============================================
+    // 12. KOMBNOVANI PAGE BUILDER
+    // ============================================
+    console.log("📝 KORAK 12: Kreiranje Homepage dokumenta...\n");
 
     const pageBuilder = [
       ...heroSlides,
@@ -676,6 +747,7 @@ async function migrateAll() {
       ctaSection,
       departmentsSection,
       teamSection,
+      testimonialsSection,
     ];
 
     const homepage = {
@@ -722,7 +794,10 @@ async function migrateAll() {
       `  👥 Team Sekcija: 1 (${teamSection.team.length} članova tima)`,
     );
     console.log(
-      `  📸 Ukupno slika: ${heroImageIds.length + 3 + departmentImageIds.length + teamImageIds.length}`,
+      `  � Testimonials Sekcija: 1 (${testimonialsSection.testimonials.length} testimonijala)`,
+    );
+    console.log(
+      `  📸 Ukupno slika: ${heroImageIds.length + 3 + departmentImageIds.length + teamImageIds.length + testimonialImageIds.length}`,
     );
     console.log(`  📝 Ukupno elemenata: ${pageBuilder.length}\n`);
 

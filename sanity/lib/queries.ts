@@ -191,6 +191,23 @@ export const HOMEPAGE_QUERY = groq`
           text,
           link
         }
+      },
+      // TestimonialsSection fields
+      _type == "testimonialsSection" => {
+        badge,
+        heading,
+        testimonials[] {
+          _key,
+          quote,
+          authorName,
+          authorRole,
+          authorImage {
+            asset-> {
+              _id,
+              url
+            }
+          }
+        }
       }
     }
   }

@@ -409,3 +409,19 @@ export interface TeamSection {
     link: string;
   };
 }
+
+export interface TestimonialItem {
+  _key: string;
+  quote: string;
+  authorName: string;
+  authorRole: string;
+  authorImage: SanityImage;
+}
+
+export interface TestimonialsSection {
+  _type: "testimonialsSection";
+  _key: string;
+  badge: string;
+  heading: string;
+  testimonials: TestimonialItem[];
+}

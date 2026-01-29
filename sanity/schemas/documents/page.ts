@@ -69,6 +69,10 @@ export default defineType({
           title: "👥 Tim sekcija",
         },
         {
+          type: "testimonialsSection",
+          title: "💬 Testimonijali sekcija",
+        },
+        {
           type: "contentBlock",
           title: "📝 Sadržaj blok",
         },

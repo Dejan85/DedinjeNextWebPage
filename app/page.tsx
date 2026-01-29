@@ -26,6 +26,7 @@ import type {
   CtaSection,
   DepartmentsSection,
   TeamSection,
+  TestimonialsSection,
   InfoBox as InfoBoxType,
   WelcomeFeature as WelcomeFeatureType,
   StatItem,
@@ -77,6 +78,9 @@ export default async function Home() {
   const teamSection = pageBuilder.find(
     (item) => item._type === "teamSection",
   ) as TeamSection | undefined;
+  const testimonialsSection = pageBuilder.find(
+    (item) => item._type === "testimonialsSection",
+  ) as TestimonialsSection | undefined;
 
   return (
     <>
@@ -384,11 +388,7 @@ export default async function Home() {
           <div className="container">
             <div className="section-header centered">
               <Badge variant="primary" text={teamSection.badge} />
-              <Heading
-                variant="h2"
-                align="center"
-                text={teamSection.heading}
-              />
+              <Heading variant="h2" align="center" text={teamSection.heading} />
               <Text
                 color="muted"
                 align="center"
@@ -423,52 +423,52 @@ export default async function Home() {
       )}
 
       {/* Testimonials Section */}
-      <section className="testimonials-section">
-        <div className="container">
-          <div className="section-header centered light">
-            <Badge variant="light" text="Искуства" />
-            <Heading
-              variant="h2"
-              color="light"
-              align="center"
-              text="Шта кажу наши пацијенти"
-            />
-          </div>
-          <div className="testimonials-slider">
-            <TestimonialCard
-              quote="Захваљујући тиму на Дедињу, данас водим потпуно нормалан живот. Операција је протекла без компликација, а постоперативна нега је била на највишем нивоу. Неизмерно сам захвалан."
-              authorName="Петар Миловановић"
-              authorRole="Пацијент, Кардиохирургија"
-              authorImage="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100"
-            />
-            <TestimonialCard
-              quote="Професионалност и хуманост особља на Дедињу су ме одушевили. Од првог прегледа до завршетка лечења осећала сам се сигурно и збринуто. Топло препоручујем."
-              authorName="Марија Станковић"
-              authorRole="Пацијенткиња, Кардиологија"
-              authorImage="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100"
-            />
-            <TestimonialCard
-              quote="Након уградње стентова осећам се као нов човек. Др Јовановић и његов тим су истински професионалци. Брза интервенција ми је спасила живот."
-              authorName="Зоран Томић"
-              authorRole="Пацијент, Интервентна кардиологија"
-              authorImage="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100"
-            />
-          </div>
-          <div className="testimonials-nav">
-            <button className="testimonial-prev">
-              <i className="fas fa-chevron-left"></i>
-            </button>
-            <div className="testimonials-dots">
-              <span className="dot active"></span>
-              <span className="dot"></span>
-              <span className="dot"></span>
+      {testimonialsSection && (
+        <section className="testimonials-section">
+          <div className="container">
+            <div className="section-header centered light">
+              <Badge variant="light" text={testimonialsSection.badge} />
+              <Heading
+                variant="h2"
+                color="light"
+                align="center"
+                text={testimonialsSection.heading}
+              />
             </div>
-            <button className="testimonial-next">
-              <i className="fas fa-chevron-right"></i>
-            </button>
+            <div className="testimonials-slider">
+              {testimonialsSection.testimonials?.map((testimonial) => (
+                <TestimonialCard
+                  key={testimonial._key}
+                  quote={testimonial.quote}
+                  authorName={testimonial.authorName}
+                  authorRole={testimonial.authorRole}
+                  authorImage={
+                    ("url" in testimonial.authorImage.asset
+                      ? testimonial.authorImage.asset.url
+                      : "") || ""
+                  }
+                />
+              ))}
+            </div>
+            <div className="testimonials-nav">
+              <button className="testimonial-prev">
+                <i className="fas fa-chevron-left"></i>
+              </button>
+              <div className="testimonials-dots">
+                {testimonialsSection.testimonials?.map((_, index) => (
+                  <span
+                    key={index}
+                    className={`dot ${index === 0 ? "active" : ""}`}
+                  ></span>
+                ))}
+              </div>
+              <button className="testimonial-next">
+                <i className="fas fa-chevron-right"></i>
+              </button>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* News Section */}
       <section className="news-section">
