@@ -714,3 +714,51 @@ export const BIOGRAPHY_PAGE_QUERY = groq`
     }
   }
 `;
+
+export const BIBLIOGRAPHY_PAGE_QUERY = groq`
+  *[_type == "bibliographyPage"][0] {
+    pageHeader {
+      breadcrumbs[] {
+        _key,
+        label,
+        href
+      },
+      title,
+      subtitle
+    },
+    introduction {
+      heading,
+      description,
+      stats[] {
+        _key,
+        label,
+        value
+      }
+    },
+    categories[] {
+      _key,
+      categoryId,
+      icon,
+      title,
+      description,
+      publications[] {
+        _key,
+        number,
+        text
+      },
+      collapsible,
+      initiallyExpanded
+    },
+    download {
+      heading,
+      description,
+      buttonText,
+      fileUrl
+    },
+    seo {
+      title,
+      description,
+      keywords
+    }
+  }
+`;

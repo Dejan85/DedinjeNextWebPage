@@ -802,3 +802,62 @@ export interface BiographyPage {
   cta: BiographyCta;
   seo: BiographySeo;
 }
+
+// Bibliography Page Types
+export interface BibliographyPageHeader {
+  breadcrumbs: { _key: string; label: string; href: string }[];
+  title: string;
+  subtitle: string;
+}
+
+export interface BibliographyStat {
+  _key: string;
+  value: string;
+  label: string;
+}
+
+export interface BibliographyIntroduction {
+  heading: string;
+  description: string;
+  stats: BibliographyStat[];
+}
+
+export interface BibliographyPublication {
+  _key: string;
+  number: number;
+  text: string;
+}
+
+export interface BibliographyCategory {
+  _key: string;
+  categoryId: string;
+  icon: string;
+  title: string;
+  description: string;
+  publications: BibliographyPublication[];
+  collapsible: boolean;
+  initiallyExpanded: boolean;
+}
+
+export interface BibliographyDownload {
+  heading: string;
+  description: string;
+  buttonText: string;
+  fileUrl: string;
+}
+
+export interface BibliographySeo {
+  title: string;
+  description: string;
+  keywords: string[];
+}
+
+export interface BibliographyPage {
+  _id: string;
+  _type: "bibliographyPage";
+  pageHeader: BibliographyPageHeader;
+  introduction: BibliographyIntroduction;
+  categories: BibliographyCategory[];
+  download: BibliographyDownload;
+  seo: BibliographySeo;
+}

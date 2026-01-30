@@ -123,7 +123,10 @@ export default async function OInstitutu() {
     let profileImageUrl = "/images/default-profile.jpg"; // Default fallback
     if (profile.image) {
       try {
-        const generatedUrl = urlFor(profile.image).width(400).url();
+        const generatedUrl = urlFor(profile.image)
+          .width(800)
+          .height(1000)
+          .url();
         if (generatedUrl) {
           profileImageUrl = generatedUrl;
         }

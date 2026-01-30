@@ -84,12 +84,7 @@ export default async function BiografijaPage() {
         <div className="container">
           <div className="biography-intro">
             <div className="intro-image">
-              <Image
-                src={imageUrl}
-                alt={intro.name}
-                width={600}
-                height={800}
-              />
+              <Image src={imageUrl} alt={intro.name} width={600} height={800} />
             </div>
             <div className="intro-content">
               <Heading variant="h2" text={intro.name} />
@@ -238,9 +233,7 @@ export default async function BiografijaPage() {
                   key={button._key}
                   href={button.href}
                   className={
-                    button.variant === "primary"
-                      ? "btn-primary"
-                      : "btn-outline"
+                    button.variant === "primary" ? "btn-primary" : "btn-outline"
                   }
                 >
                   {button.text}
@@ -253,4 +246,3 @@ export default async function BiografijaPage() {
     </>
   );
 }
-

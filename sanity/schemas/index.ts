@@ -14,6 +14,7 @@ import footer from "./singletons/footer";
 import directorPage from "./singletons/directorPage";
 import aboutPage from "./singletons/aboutPage";
 import biographyPage from "./singletons/biographyPage";
+import bibliographyPage from "./singletons/bibliographyPage";
 
 // Objects
 import hero from "./objects/hero";
@@ -42,6 +43,7 @@ export const schemaTypes = [
   directorPage,
   aboutPage,
   biographyPage,
+  bibliographyPage,
 
   // Documents
   page,

@@ -69,7 +69,7 @@ export const ProfileTabs: React.FC<ProfileTabsProps> = ({
                     width: "100%",
                     height: "100%",
                     objectFit: "cover",
-                    objectPosition: "center top",
+                    objectPosition: "center",
                   }}
                 />
               </div>
