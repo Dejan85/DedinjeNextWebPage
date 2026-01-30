@@ -124,7 +124,7 @@ export default function Header() {
                   </ul>
                 </li>
                 <li>
-                  <Link href="#">ТИМ</Link>
+                  <Link href="/klinike">КЛИНИКЕ</Link>
                 </li>
                 <li className="has-dropdown">
                   <button type="button">
