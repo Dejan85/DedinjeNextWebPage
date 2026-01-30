@@ -49,9 +49,18 @@ export default async function BiografijaPage() {
     buttons: [],
   };
 
-  const imageUrl = intro.image
-    ? urlFor(intro.image).width(600).height(800).url()
-    : "/images/rec-direktora.jpg";
+  // Generate image URL with proper fallback
+  let imageUrl = "/images/rec-direktora.jpg";
+  if (intro.image) {
+    try {
+      const generatedUrl = urlFor(intro.image).width(600).height(800).url();
+      if (generatedUrl) {
+        imageUrl = generatedUrl;
+      }
+    } catch (error) {
+      console.error("Error generating image URL:", error);
+    }
+  }
 
   return (
     <>

@@ -119,17 +119,31 @@ export default async function OInstitutu() {
     : "/images/o_nama_image.png";
 
   // Transform profiles for ProfileTabs component
-  const profilesForTabs = management.profiles.map((profile) => ({
-    id: profile.id,
-    icon: profile.icon,
-    tabText: profile.tabText,
-    image: profile.image ? urlFor(profile.image).width(400).url() : "",
-    imageAlt: profile.name,
-    name: profile.name,
-    title: profile.title,
-    bioTitle: profile.bioTitle,
-    bioParagraphs: profile.bioParagraphs,
-  }));
+  const profilesForTabs = management.profiles.map((profile) => {
+    let profileImageUrl = "/images/default-profile.jpg"; // Default fallback
+    if (profile.image) {
+      try {
+        const generatedUrl = urlFor(profile.image).width(400).url();
+        if (generatedUrl) {
+          profileImageUrl = generatedUrl;
+        }
+      } catch (error) {
+        console.error("Error generating profile image URL:", error);
+      }
+    }
+
+    return {
+      id: profile.id,
+      icon: profile.icon,
+      tabText: profile.tabText,
+      image: profileImageUrl,
+      imageAlt: profile.name,
+      name: profile.name,
+      title: profile.title,
+      bioTitle: profile.bioTitle,
+      bioParagraphs: profile.bioParagraphs,
+    };
+  });
 
   return (
     <>
