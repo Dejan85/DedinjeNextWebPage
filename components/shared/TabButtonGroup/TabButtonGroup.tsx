@@ -1,5 +1,5 @@
 import React from "react";
-import { TabButton } from "./TabButton";
+import { TabButton } from "../TabButton/TabButton";
 
 interface Tab {
   id: string;

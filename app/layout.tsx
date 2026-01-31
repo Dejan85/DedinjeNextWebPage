@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Script from "next/script";
-import Header from "@/components/shared/Header";
-import Footer from "@/components/shared/Footer";
-import ScrollToTop from "@/components/shared/ScrollToTop";
+import Header from "@/components/shared/Header/Header";
+import Footer from "@/components/shared/Footer/Footer";
+import ScrollToTop from "@/components/shared/ScrollToTop/ScrollToTop";
 
 export const metadata: Metadata = {
   title: "Институт Дедиње - Кардиоваскуларне болести",

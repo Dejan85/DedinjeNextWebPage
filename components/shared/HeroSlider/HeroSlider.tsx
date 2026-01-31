@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Image from "./Image";
+import Image from "../Image/Image";
 
 interface HeroSlide {
   _type: string;

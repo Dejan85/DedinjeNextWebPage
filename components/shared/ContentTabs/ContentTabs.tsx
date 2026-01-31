@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, ReactNode } from "react";
-import { TabButtonGroup } from "./TabButtonGroup";
+import { TabButtonGroup } from "../TabButtonGroup/TabButtonGroup";
 
 interface Tab {
   id: string;

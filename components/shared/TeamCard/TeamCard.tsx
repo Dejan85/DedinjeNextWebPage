@@ -1,4 +1,4 @@
-import Image from "./Image";
+import Image from "../Image/Image";
 
 interface SocialLink {
   platform: "facebook" | "linkedin" | "email";

@@ -1,5 +1,5 @@
 import { Heading, Text } from "@/components/typography";
-import Button from "./Button";
+import Button from "../Button/Button";
 
 interface InfoCardProps {
   icon: string;
