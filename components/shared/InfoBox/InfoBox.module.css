@@ -1,0 +1,106 @@
+/* Info Box Component Styles */
+.infoBox {
+    padding: 40px 30px;
+    background: var(--white);
+    position: relative;
+    transition: var(--transition);
+    border-right: 1px solid var(--gray-100);
+}
+
+.infoBox:last-child {
+    border-right: none;
+}
+
+.infoBox:hover {
+    background: var(--gray-50);
+}
+
+.infoBox.emergency {
+    background: var(--primary);
+}
+
+.infoBox.emergency:hover {
+    background: var(--primary-dark);
+}
+
+.infoBoxIcon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.infoBoxIcon i {
+    font-size: 24px;
+    color: var(--white);
+}
+
+.infoBox.emergency .infoBoxIcon {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.infoBoxContent h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--gray-800);
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.infoBox.emergency .infoBoxContent h3,
+.infoBox.emergency .infoBoxContent p {
+    color: var(--white);
+}
+
+.infoBoxContent p {
+    font-size: 14px;
+    color: var(--gray-500);
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.infoBoxLink {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--primary);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.infoBoxLink:hover {
+    color: var(--primary-dark);
+    gap: 12px;
+}
+
+.schedule {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.scheduleRow {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: var(--gray-600);
+    padding-bottom: 8px;
+    border-bottom: 1px dashed var(--gray-200);
+}
+
+.scheduleRow:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.emergencyPhone {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--white);
+    margin: 10px 0;
+}

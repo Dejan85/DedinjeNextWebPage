@@ -1,7 +1,8 @@
-import Link from 'next/link';
-import { ComponentProps } from 'react';
+import Link from "next/link";
+import { ComponentProps } from "react";
+import styles from "./Button.module.css";
 
-type ButtonVariant = 'primary' | 'white' | 'outline-white' | 'hero';
+type ButtonVariant = "primary" | "white" | "outline-white" | "hero";
 
 type ButtonBaseProps = {
   variant?: ButtonVariant;
@@ -10,7 +11,7 @@ type ButtonBaseProps = {
 };
 
 type ButtonAsButton = ButtonBaseProps &
-  Omit<ComponentProps<'button'>, keyof ButtonBaseProps> & {
+  Omit<ComponentProps<"button">, keyof ButtonBaseProps> & {
     href?: undefined;
   };
 
@@ -22,16 +23,16 @@ type ButtonAsLink = ButtonBaseProps &
 type ButtonProps = ButtonAsButton | ButtonAsLink;
 
 export default function Button({
-  variant = 'primary',
-  className = '',
+  variant = "primary",
+  className = "",
   children,
   ...props
 }: ButtonProps) {
   const variantClasses: Record<ButtonVariant, string> = {
-    primary: 'btn-primary',
-    white: 'btn-white',
-    'outline-white': 'btn-outline-white',
-    hero: 'hero-btn',
+    primary: styles.btnPrimary,
+    white: styles.btnWhite,
+    "outline-white": styles.btnOutlineWhite,
+    hero: styles.heroBtn,
   };
 
   const combinedClassName = `${variantClasses[variant]} ${className}`.trim();

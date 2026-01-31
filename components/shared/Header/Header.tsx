@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import styles from "./Header.module.css";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -17,45 +18,47 @@ export default function Header() {
 
   return (
     <>
-      <div className={`main-header fixed ${isScrolled ? "scrolled" : ""}`}>
+      <div
+        className={`${styles.mainHeader} fixed ${isScrolled ? styles.scrolled : ""}`}
+      >
         {/* Top Bar */}
-        <div className="top-bar">
+        <div className={styles.topBar}>
           <div className="container">
             <button
-              className="mobile-toggle"
+              className={styles.mobileToggle}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label="Мені"
             >
               <i className="fas fa-bars"></i>
             </button>
-            <div className="top-bar-content">
-              <Link href="/" className="logo">
-                <div className="logo-icon">
+            <div className={styles.topBarContent}>
+              <Link href="/" className={styles.logo}>
+                <div className={styles.logoIcon}>
                   <img
                     src="/images/logo dedinje.png"
                     alt="Institut Dedinje Logo"
                   />
                 </div>
-                <div className="logo-text">
-                  <span className="logo-name">ДЕДИЊЕ</span>
-                  <span className="logo-subtitle">Институт за КВБ</span>
+                <div className={styles.logoText}>
+                  <span className={styles.logoName}>ДЕДИЊЕ</span>
+                  <span className={styles.logoSubtitle}>Институт за КВБ</span>
                 </div>
               </Link>
-              <div className="top-bar-info">
-                <div className="info-item">
-                  <div className="info-icon">
+              <div className={styles.topBarInfo}>
+                <div className={styles.infoItem}>
+                  <div className={styles.infoIcon}>
                     <i className="fas fa-phone-alt"></i>
                   </div>
-                  <div className="info-text">
+                  <div className={styles.infoText}>
                     <span>011 3601 668</span>
                     <span>011 3601 669</span>
                   </div>
                 </div>
-                <div className="info-item">
-                  <div className="info-icon">
+                <div className={styles.infoItem}>
+                  <div className={styles.infoIcon}>
                     <i className="fas fa-map-marker-alt"></i>
                   </div>
-                  <div className="info-text">
+                  <div className={styles.infoText}>
                     <span>Хероја Милана Тепића 1</span>
                     <span>11040 Београд, Србија</span>
                   </div>
@@ -66,18 +69,18 @@ export default function Header() {
         </div>
 
         {/* Navigation */}
-        <header className="header">
+        <header className={styles.header}>
           <div className="container">
-            <nav className="main-nav">
-              <ul className="nav-menu">
+            <nav className={styles.mainNav}>
+              <ul className={styles.navMenu}>
                 <li>
                   <Link href="/">ПОЧЕТНА</Link>
                 </li>
-                <li className="has-dropdown">
+                <li className={styles.hasDropdown}>
                   <button type="button">
                     О НАМА <i className="fas fa-chevron-down"></i>
                   </button>
-                  <ul className="dropdown">
+                  <ul className={styles.dropdown}>
                     <li>
                       <Link href="/rec-direktora">
                         <i className="fas fa-user-tie"></i> Реч директора
@@ -126,11 +129,11 @@ export default function Header() {
                 <li>
                   <Link href="/klinike">КЛИНИКЕ</Link>
                 </li>
-                <li className="has-dropdown">
+                <li className={styles.hasDropdown}>
                   <button type="button">
                     СТРАНИЦЕ <i className="fas fa-chevron-down"></i>
                   </button>
-                  <ul className="dropdown">
+                  <ul className={styles.dropdown}>
                     <li>
                       <Link href="#">Историјат</Link>
                     </li>
@@ -151,11 +154,11 @@ export default function Header() {
                 <li>
                   <Link href="#">РАСПОРЕД</Link>
                 </li>
-                <li className="has-dropdown">
+                <li className={styles.hasDropdown}>
                   <button type="button">
                     ГАЛЕРИЈА <i className="fas fa-chevron-down"></i>
                   </button>
-                  <ul className="dropdown">
+                  <ul className={styles.dropdown}>
                     <li>
                       <Link href="#">Фото галерија</Link>
                     </li>
@@ -164,11 +167,11 @@ export default function Header() {
                     </li>
                   </ul>
                 </li>
-                <li className="has-dropdown">
+                <li className={styles.hasDropdown}>
                   <button type="button">
                     БЛОГ <i className="fas fa-chevron-down"></i>
                   </button>
-                  <ul className="dropdown">
+                  <ul className={styles.dropdown}>
                     <li>
                       <Link href="#">Новости</Link>
                     </li>
@@ -181,7 +184,7 @@ export default function Header() {
                   <Link href="#">КОНТАКТ</Link>
                 </li>
               </ul>
-              <button className="nav-search">
+              <button className={styles.navSearch}>
                 <i className="fas fa-search"></i>
               </button>
             </nav>
@@ -192,7 +195,7 @@ export default function Header() {
       {/* Mobile Menu Backdrop */}
       {isMobileMenuOpen && (
         <div
-          className="backdrop show"
+          className={`${styles.backdrop} ${styles.show}`}
           onClick={() => setIsMobileMenuOpen(false)}
         ></div>
       )}

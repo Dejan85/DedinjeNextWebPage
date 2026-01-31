@@ -1,4 +1,5 @@
 import Image from "../Image/Image";
+import styles from "./DepartmentCard.module.css";
 
 interface DepartmentCardProps {
   image: string;
@@ -14,16 +15,16 @@ export default function DepartmentCard({
   linkHref,
 }: DepartmentCardProps) {
   return (
-    <div className="department-card">
-      <div className="department-image">
+    <div className={styles.departmentCard}>
+      <div className={styles.departmentImage}>
         <Image src={image} alt={title} width={600} height={400} />
-        <div className="department-overlay">
-          <a href={linkHref} className="department-link">
+        <div className={styles.departmentOverlay}>
+          <a href={linkHref} className={styles.departmentLink}>
             <i className="fas fa-plus"></i>
           </a>
         </div>
       </div>
-      <div className="department-info">
+      <div className={styles.departmentInfo}>
         <h4>{title}</h4>
         <p>{description}</p>
       </div>

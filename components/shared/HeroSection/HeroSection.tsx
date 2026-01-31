@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "./HeroSection.module.css";
 
 interface HeroSectionProps {
   img: string;
@@ -18,22 +19,22 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   showScrollIndicator = true,
 }) => {
   return (
-    <section className="director-hero">
-      <div className="director-hero-bg">
+    <section className={styles.directorHero}>
+      <div className={styles.directorHeroBg}>
         <img src={img} alt={imgAlt} />
       </div>
-      <div className="director-hero-overlay"></div>
-      <div className="director-hero-content">
+      <div className={styles.directorHeroOverlay}></div>
+      <div className={styles.directorHeroContent}>
         <div className="container">
-          <div className="director-hero-text">
-            {badge && <span className="director-badge">{badge}</span>}
+          <div className={styles.directorHeroText}>
+            {badge && <span className={styles.directorBadge}>{badge}</span>}
             <h1 dangerouslySetInnerHTML={{ __html: title }} />
-            {subtitle && <p className="director-subtitle">{subtitle}</p>}
+            {subtitle && <p className={styles.directorSubtitle}>{subtitle}</p>}
           </div>
         </div>
       </div>
       {showScrollIndicator && (
-        <div className="scroll-indicator">
+        <div className={styles.scrollIndicator}>
           <i className="fas fa-chevron-down"></i>
         </div>
       )}

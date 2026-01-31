@@ -1,0 +1,29 @@
+/* Stat Item Component Styles */
+.statItem {
+    text-align: center;
+    padding: 25px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-darker));
+    border-radius: 16px;
+    color: white;
+    transition: all 0.3s ease;
+    cursor: default;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.statItem:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 12px 30px rgba(0, 82, 204, 0.25);
+    background: linear-gradient(135deg, #005fcc, #003d80);
+}
+
+.statValue {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.statLabel {
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0.9;
+}

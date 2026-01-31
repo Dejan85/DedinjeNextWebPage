@@ -1,3 +1,5 @@
+import styles from "./WelcomeFeature.module.css";
+
 interface WelcomeFeatureProps {
   icon: string;
   text: string;
@@ -5,7 +7,7 @@ interface WelcomeFeatureProps {
 
 export default function WelcomeFeature({ icon, text }: WelcomeFeatureProps) {
   return (
-    <div className="welcome-feature">
+    <div className={styles.welcomeFeature}>
       <i className={icon}></i>
       <span>{text}</span>
     </div>

@@ -1,0 +1,41 @@
+/* Publication Item Component Styles */
+.publicationItem {
+    display: flex;
+    gap: 20px;
+    padding: 25px;
+    background: var(--gray-50);
+    border-radius: 12px;
+    border-left: 4px solid var(--primary);
+    transition: var(--transition);
+}
+
+.publicationItem:hover {
+    background: white;
+    box-shadow: var(--shadow-md);
+    transform: translateX(5px);
+}
+
+.pubNumber {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--primary);
+    flex-shrink: 0;
+    min-width: 35px;
+}
+
+.pubContent {
+    flex: 1;
+}
+
+.pubContent p {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--gray-700);
+    margin: 0;
+}
+
+.pubContent em {
+    color: var(--primary);
+    font-style: italic;
+    font-weight: 600;
+}

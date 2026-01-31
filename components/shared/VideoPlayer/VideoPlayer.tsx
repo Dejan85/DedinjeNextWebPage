@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useState } from "react";
+import styles from "./VideoPlayer.module.css";
 
 interface VideoPlayerProps {
   videoSrc: string;
@@ -37,7 +38,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
 
   return (
     <div className={className}>
-      <div className="video-wrapper-modern">
+      <div className={styles.videoWrapperModern}>
         <video
           ref={videoRef}
           poster={poster}
@@ -50,7 +51,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
           Ваш претраживач не подржава видео таг.
         </video>
         <div
-          className="video-play-overlay"
+          className={styles.videoPlayOverlay}
           onClick={playVideo}
           style={{
             opacity: isPlaying ? 0 : 1,
@@ -60,14 +61,14 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
             pointerEvents: isPlaying ? "none" : "all",
           }}
         >
-          <div className="play-button-large">
+          <div className={styles.playButtonLarge}>
             <i className="fas fa-play"></i>
           </div>
           <p>{overlayText}</p>
         </div>
       </div>
       {caption && (
-        <div className="video-caption">
+        <div className={styles.videoCaption}>
           <i className="fas fa-video"></i>
           <span>{caption}</span>
         </div>

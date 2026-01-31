@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import styles from "./StatCounter.module.css";
 
 interface StatCounterProps {
   target: number;
@@ -57,12 +58,12 @@ export default function StatCounter({ target, label, icon }: StatCounterProps) {
   }, [isVisible, target]);
 
   return (
-    <div className="stat-item" ref={counterRef}>
-      <div className="stat-icon">
+    <div className={styles.statItem} ref={counterRef}>
+      <div className={styles.statIcon}>
         <i className={icon}></i>
       </div>
-      <div className="stat-number">{count.toLocaleString()}</div>
-      <div className="stat-label">{label}</div>
+      <div className={styles.statNumber}>{count.toLocaleString()}</div>
+      <div className={styles.statLabel}>{label}</div>
     </div>
   );
 }

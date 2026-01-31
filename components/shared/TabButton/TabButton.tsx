@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "./TabButton.module.css";
 
 interface TabButtonProps {
   icon: string;
@@ -17,7 +18,7 @@ export const TabButton: React.FC<TabButtonProps> = ({
 }) => {
   return (
     <button
-      className={`tab-btn ${isActive ? "active" : ""} ${className}`}
+      className={`${styles.tabBtn} ${isActive ? styles.active : ""} ${className}`}
       onClick={onClick}
     >
       <i className={icon}></i>

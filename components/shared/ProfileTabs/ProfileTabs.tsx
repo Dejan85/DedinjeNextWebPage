@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { TabButtonGroup } from "../TabButtonGroup/TabButtonGroup";
+import styles from "./ProfileTabs.module.css";
 
 interface Profile {
   id: string;
@@ -41,14 +42,14 @@ export const ProfileTabs: React.FC<ProfileTabsProps> = ({
   const activeProfile = profiles.find((profile) => profile.id === activeTab);
 
   return (
-    <div className={`management-tabs ${className}`}>
+    <div className={`${styles.managementTabs} ${className}`}>
       <TabButtonGroup
         tabs={tabs}
         activeTab={activeTab}
         onTabChange={setActiveTab}
       />
 
-      <div className="tab-content">
+      <div className={styles.tabContent}>
         <AnimatePresence mode="wait">
           {activeProfile && (
             <motion.div
@@ -57,9 +58,9 @@ export const ProfileTabs: React.FC<ProfileTabsProps> = ({
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="management-card"
+              className={styles.managementCard}
             >
-              <div className="management-image">
+              <div className={styles.managementImage}>
                 <Image
                   src={activeProfile.image}
                   alt={activeProfile.imageAlt}
@@ -73,10 +74,10 @@ export const ProfileTabs: React.FC<ProfileTabsProps> = ({
                   }}
                 />
               </div>
-              <div className="management-info">
+              <div className={styles.managementInfo}>
                 <h3>{activeProfile.name}</h3>
-                <p className="management-title">{activeProfile.title}</p>
-                <div className="management-bio">
+                <p className={styles.managementTitle}>{activeProfile.title}</p>
+                <div className={styles.managementBio}>
                   {activeProfile.bioTitle && <h4>{activeProfile.bioTitle}</h4>}
                   {activeProfile.bioParagraphs.map((paragraph, index) => (
                     <p

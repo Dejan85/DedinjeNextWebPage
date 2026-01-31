@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "../Image/Image";
+import styles from "./HeroSlider.module.css";
 
 interface HeroSlide {
   _type: string;
@@ -116,8 +117,8 @@ export default function HeroSlider({ slides: sanitySlides }: HeroSliderProps) {
   };
 
   return (
-    <section className="hero">
-      <div className="hero-slider-wrapper">
+    <section className={styles.hero}>
+      <div className={styles.heroSliderWrapper}>
         <AnimatePresence initial={false} custom={direction}>
           <motion.div
             key={currentSlide}
@@ -136,7 +137,7 @@ export default function HeroSlider({ slides: sanitySlides }: HeroSliderProps) {
               height: "100%",
             }}
           >
-            <div className="hero-background">
+            <div className={styles.heroBackground}>
               <Image
                 src={slides[currentSlide].image?.asset?.url || ""}
                 alt={slides[currentSlide].heading || "Hero image"}
@@ -145,10 +146,10 @@ export default function HeroSlider({ slides: sanitySlides }: HeroSliderProps) {
                 objectFit="cover"
               />
             </div>
-            <div className="hero-overlay"></div>
-            <div className="hero-content">
+            <div className={styles.heroOverlay}></div>
+            <div className={styles.heroContent}>
               <div className="container">
-                <div className="hero-wrapper">
+                <div className={styles.heroWrapper}>
                   <motion.h1
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -166,7 +167,7 @@ export default function HeroSlider({ slides: sanitySlides }: HeroSliderProps) {
                   {slides[currentSlide].cta && (
                     <motion.a
                       href={slides[currentSlide].cta?.link || "#"}
-                      className="hero-btn"
+                      className={styles.heroBtn}
                       initial={{ opacity: 0, y: 30 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.7, duration: 0.6 }}
@@ -182,14 +183,14 @@ export default function HeroSlider({ slides: sanitySlides }: HeroSliderProps) {
 
         {/* Navigation Arrows */}
         <button
-          className="swiper-button-prev"
+          className={styles.swiperButtonPrev}
           onClick={prevSlide}
           aria-label="Previous slide"
         >
           <i className="fas fa-chevron-left"></i>
         </button>
         <button
-          className="swiper-button-next"
+          className={styles.swiperButtonNext}
           onClick={nextSlide}
           aria-label="Next slide"
         >
@@ -197,11 +198,11 @@ export default function HeroSlider({ slides: sanitySlides }: HeroSliderProps) {
         </button>
 
         {/* Pagination Dots */}
-        <div className="swiper-pagination">
+        <div className={styles.swiperPagination}>
           {slides.map((_, index) => (
             <button
               key={index}
-              className={`swiper-pagination-bullet ${index === currentSlide ? "swiper-pagination-bullet-active" : ""}`}
+              className={`${styles.swiperPaginationBullet} ${index === currentSlide ? styles.swiperPaginationBulletActive : ""}`}
               onClick={() => goToSlide(index)}
               aria-label={`Go to slide ${index + 1}`}
             />

@@ -1,4 +1,5 @@
 import { Text } from "@/components/typography";
+import styles from "./PartnerLogo.module.css";
 
 interface PartnerLogoProps {
   icon: string;
@@ -7,7 +8,7 @@ interface PartnerLogoProps {
 
 export default function PartnerLogo({ icon, text }: PartnerLogoProps) {
   return (
-    <div className="partner-logo">
+    <div className={styles.partnerLogo}>
       <i className={icon}></i>
       <Text text={text} as="span" />
     </div>

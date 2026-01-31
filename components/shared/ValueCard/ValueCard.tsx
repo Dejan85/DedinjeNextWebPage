@@ -1,4 +1,5 @@
 import { Heading, Text } from "@/components/typography";
+import styles from "./ValueCard.module.css";
 
 interface ValueCardProps {
   icon: string;
@@ -12,8 +13,8 @@ export default function ValueCard({
   description,
 }: ValueCardProps) {
   return (
-    <div className="value-card">
-      <div className="value-icon">
+    <div className={styles.valueCard}>
+      <div className={styles.valueIcon}>
         <i className={icon}></i>
       </div>
       <Heading variant="h3" text={title} />

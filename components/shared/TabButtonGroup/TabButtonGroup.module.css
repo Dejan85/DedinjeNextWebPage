@@ -1,0 +1,14 @@
+.tabButtons {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 50px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+    .tabButtons {
+        flex-direction: column;
+        gap: 12px;
+    }
+}

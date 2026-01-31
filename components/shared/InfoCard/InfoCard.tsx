@@ -1,5 +1,6 @@
 import { Heading, Text } from "@/components/typography";
 import Button from "../Button/Button";
+import styles from "./InfoCard.module.css";
 
 interface InfoCardProps {
   icon: string;
@@ -19,8 +20,10 @@ export default function InfoCard({
   highlight = false,
 }: InfoCardProps) {
   return (
-    <div className={`director-info-card ${highlight ? "highlight" : ""}`}>
-      <div className="info-card-icon">
+    <div
+      className={`${styles.directorInfoCard} ${highlight ? styles.highlight : ""}`}
+    >
+      <div className={styles.infoCardIcon}>
         <i className={icon}></i>
       </div>
       <Heading variant="h3" text={title} />

@@ -1,4 +1,5 @@
 import { Text } from "@/components/typography";
+import styles from "./PublicationItem.module.css";
 
 interface PublicationItemProps {
   number: number | string;
@@ -26,9 +27,9 @@ export default function PublicationItem({
   };
 
   return (
-    <div className={`publication-item ${className}`}>
-      <span className="pub-number">{number}.</span>
-      <div className="pub-content">
+    <div className={`${styles.publicationItem} ${className}`}>
+      <span className={styles.pubNumber}>{number}.</span>
+      <div className={styles.pubContent}>
         <Text variant="body">{parseText(text)}</Text>
       </div>
     </div>

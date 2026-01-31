@@ -1,4 +1,5 @@
 import Image from "../Image/Image";
+import styles from "./NewsCard.module.css";
 
 interface NewsCardProps {
   image: string;
@@ -22,18 +23,22 @@ export default function NewsCard({
   size = "large",
 }: NewsCardProps) {
   return (
-    <div className={`news-card ${size}`}>
-      <div className="news-image">
+    <div
+      className={`${styles.newsCard} ${size === "large" ? styles.large : styles.small}`}
+    >
+      <div className={styles.newsImage}>
         <Image
           src={image}
           alt={title}
           width={size === "large" ? 800 : 400}
           height={size === "large" ? 500 : 300}
         />
-        {size === "large" && <div className="news-category">{category}</div>}
+        {size === "large" && (
+          <div className={styles.newsCategory}>{category}</div>
+        )}
       </div>
-      <div className="news-content">
-        <div className="news-meta">
+      <div className={styles.newsContent}>
+        <div className={styles.newsMeta}>
           <span>
             <i className="far fa-calendar-alt"></i> {date}
           </span>
@@ -45,7 +50,7 @@ export default function NewsCard({
         </div>
         {size === "large" ? <h3>{title}</h3> : <h4>{title}</h4>}
         {description && <p>{description}</p>}
-        <a href={linkHref} className="news-link">
+        <a href={linkHref} className={styles.newsLink}>
           {size === "large" ? "Прочитајте више" : "Сазнајте више"}{" "}
           <i className="fas fa-arrow-right"></i>
         </a>

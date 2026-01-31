@@ -2,6 +2,7 @@
 
 import { useState, ReactNode } from "react";
 import { TabButtonGroup } from "../TabButtonGroup/TabButtonGroup";
+import styles from "./ContentTabs.module.css";
 
 interface Tab {
   id: string;
@@ -39,12 +40,12 @@ export const ContentTabs: React.FC<ContentTabsProps> = ({
         onTabChange={setActiveTab}
       />
 
-      <div className="tab-content">
+      <div className={styles.tabContent}>
         {tabs.map((tab) => (
           <div
             key={tab.id}
             id={tab.id}
-            className={`bio-tab-content ${activeTab === tab.id ? "active" : ""}`}
+            className={`${styles.bioTabContent} ${activeTab === tab.id ? styles.active : ""}`}
           >
             {activeTab === tab.id && tab.content}
           </div>

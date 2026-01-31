@@ -1,0 +1,34 @@
+/* Highlight Item Component Styles */
+.highlightItem {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    background: var(--gray-50);
+    border-radius: 12px;
+    transition: var(--transition);
+}
+
+.highlightItem:hover {
+    background: var(--white);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.highlightIcon {
+    width: 60px;
+    height: 60px;
+    min-width: 60px;
+    background: linear-gradient(135deg, rgba(42, 157, 244, 0.1) 0%, rgba(42, 157, 244, 0.05) 100%);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.highlightIcon i {
+    font-size: 28px;
+    color: var(--primary);
+}
+
+.highlightText {
+    flex: 1;
+}

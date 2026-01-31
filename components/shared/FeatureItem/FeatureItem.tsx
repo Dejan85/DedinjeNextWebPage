@@ -1,3 +1,5 @@
+import styles from "./FeatureItem.module.css";
+
 interface FeatureItemProps {
   icon: string;
   title: string;
@@ -13,15 +15,15 @@ export default function FeatureItem({
   const isFontAwesome = icon.includes("fa-") || icon.includes("fas ");
 
   return (
-    <div className="feature-item">
-      <div className="feature-icon">
+    <div className={styles.featureItem}>
+      <div className={styles.featureIcon}>
         {isFontAwesome ? (
           <i className={icon}></i>
         ) : (
-          <span className="emoji-icon">{icon}</span>
+          <span className={styles.emojiIcon}>{icon}</span>
         )}
       </div>
-      <div className="feature-text">
+      <div className={styles.featureText}>
         <h4>{title}</h4>
         <p>{description}</p>
       </div>

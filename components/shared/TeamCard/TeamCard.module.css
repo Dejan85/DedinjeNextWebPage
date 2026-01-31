@@ -1,0 +1,95 @@
+.teamCard {
+    background: var(--white);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+.teamCard:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-xl);
+}
+
+.teamImage {
+    position: relative;
+    height: 300px;
+    overflow: hidden;
+}
+
+.teamImage img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition-slow);
+}
+
+.teamCard:hover .teamImage img {
+    transform: scale(1.05);
+}
+
+.teamOverlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(42, 157, 244, 0.95) 0%, transparent 60%);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 20px;
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.teamCard:hover .teamOverlay {
+    opacity: 1;
+}
+
+.teamSocial {
+    display: flex;
+    gap: 10px;
+}
+
+.teamSocial a {
+    width: 40px;
+    height: 40px;
+    background: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    transition: var(--transition);
+}
+
+.teamSocial a:hover {
+    background: var(--primary);
+    color: var(--white);
+    transform: translateY(-5px);
+}
+
+.teamInfo {
+    padding: 25px;
+    text-align: center;
+}
+
+.teamInfo h4 {
+    font-size: 20px;
+    margin-bottom: 5px;
+    color: var(--gray-800);
+}
+
+.teamRole {
+    display: block;
+    font-size: 13px;
+    color: var(--primary);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+}
+
+.teamInfo p {
+    font-size: 14px;
+    color: var(--gray-500);
+    line-height: 1.6;
+}

@@ -1,0 +1,17 @@
+/* Welcome Feature Component Styles */
+.welcomeFeature {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.welcomeFeature i {
+    color: var(--accent);
+    font-size: 18px;
+}
+
+.welcomeFeature span {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--gray-700);
+}

@@ -1,3 +1,5 @@
+import styles from "./ServiceCard.module.css";
+
 interface ServiceCardProps {
   icon: string;
   title: string;
@@ -18,23 +20,23 @@ export default function ServiceCard({
   featuredLabel = "Најтраженије",
 }: ServiceCardProps) {
   return (
-    <div className={`service-card ${featured ? "featured" : ""}`}>
-      {featured && <div className="featured-badge">{featuredLabel}</div>}
-      <div className="service-icon-wrapper">
-        <div className="service-icon">
+    <div className={`${styles.serviceCard} ${featured ? styles.featured : ""}`}>
+      {featured && <div className={styles.featuredBadge}>{featuredLabel}</div>}
+      <div className={styles.serviceIconWrapper}>
+        <div className={styles.serviceIcon}>
           <i className={icon}></i>
         </div>
       </div>
       <h3>{title}</h3>
       <p>{description}</p>
-      <ul className="service-list">
+      <ul className={styles.serviceList}>
         {features.map((feature, index) => (
           <li key={index}>
             <i className="fas fa-angle-right"></i> {feature}
           </li>
         ))}
       </ul>
-      <a href={linkHref} className="service-link">
+      <a href={linkHref} className={styles.serviceLink}>
         Сазнајте више <i className="fas fa-long-arrow-alt-right"></i>
       </a>
     </div>

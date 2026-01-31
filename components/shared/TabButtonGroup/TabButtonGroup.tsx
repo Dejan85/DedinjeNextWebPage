@@ -1,5 +1,6 @@
 import React from "react";
 import { TabButton } from "../TabButton/TabButton";
+import styles from "./TabButtonGroup.module.css";
 
 interface Tab {
   id: string;
@@ -21,7 +22,7 @@ export const TabButtonGroup: React.FC<TabButtonGroupProps> = ({
   className = "",
 }) => {
   return (
-    <div className={`tab-buttons ${className}`}>
+    <div className={`${styles.tabButtons} ${className}`}>
       {tabs.map((tab) => (
         <TabButton
           key={tab.id}

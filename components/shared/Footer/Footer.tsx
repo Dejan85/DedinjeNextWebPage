@@ -2,6 +2,7 @@ import Link from "next/link";
 import { client } from "@/sanity/lib/client";
 import { FOOTER_QUERY } from "@/sanity/lib/queries";
 import type { Footer as FooterType } from "@/sanity/types";
+import styles from "./Footer.module.css";
 
 async function getFooterData() {
   try {
@@ -34,26 +35,28 @@ export default async function Footer() {
     "© 2026 Институт за кардиоваскуларне болести Дедиње. Сва права задржана.";
 
   return (
-    <footer className="footer">
-      <div className="footer-top">
+    <footer className={styles.footer}>
+      <div className={styles.footerTop}>
         <div className="container">
-          <div className="footer-grid">
+          <div className={styles.footerGrid}>
             <div className="footer-col about">
-              <div className="footer-logo">
-                <div className="logo-icon">
+              <div className={styles.footerLogo}>
+                <div className={styles.logoIcon}>
                   <img
                     src="/images/logo dedinje.png"
                     alt="Institut Dedinje Logo"
                   />
                 </div>
-                <div className="logo-text">
-                  <span className="logo-name">{instituteName}</span>
-                  <span className="logo-subtitle">{instituteSubtitle}</span>
+                <div className={styles.logoText}>
+                  <span className={styles.logoName}>{instituteName}</span>
+                  <span className={styles.logoSubtitle}>
+                    {instituteSubtitle}
+                  </span>
                 </div>
               </div>
               <p>{description}</p>
               {footer?.socialLinks && (
-                <div className="footer-social">
+                <div className={styles.footerSocial}>
                   {footer.socialLinks.facebook && (
                     <a
                       href={footer.socialLinks.facebook}
@@ -140,7 +143,7 @@ export default async function Footer() {
             {footer?.contact && (
               <div className="footer-col contact">
                 <h4>{footer.contact.heading}</h4>
-                <ul className="footer-contact">
+                <ul className={styles.footerContact}>
                   {(footer.contact.address || footer.contact.city) && (
                     <li>
                       <i className="fas fa-map-marker-alt"></i>
@@ -195,12 +198,12 @@ export default async function Footer() {
           </div>
         </div>
       </div>
-      <div className="footer-bottom">
+      <div className={styles.footerBottom}>
         <div className="container">
-          <div className="footer-bottom-content">
+          <div className={styles.footerBottomContent}>
             <p>{copyright}</p>
             {footer?.legalLinks && footer.legalLinks.length > 0 && (
-              <div className="footer-links">
+              <div className={styles.footerLinks}>
                 {footer.legalLinks.map((link) => (
                   <Link key={link._key} href={link.href}>
                     {link.title}

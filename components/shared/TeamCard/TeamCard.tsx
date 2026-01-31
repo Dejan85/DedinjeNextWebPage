@@ -1,4 +1,5 @@
 import Image from "../Image/Image";
+import styles from "./TeamCard.module.css";
 
 interface SocialLink {
   platform: "facebook" | "linkedin" | "email";
@@ -27,11 +28,11 @@ export default function TeamCard({
   socialLinks = [],
 }: TeamCardProps) {
   return (
-    <div className="team-card">
-      <div className="team-image">
+    <div className={styles.teamCard}>
+      <div className={styles.teamImage}>
         <Image src={image} alt={name} width={400} height={500} />
-        <div className="team-overlay">
-          <div className="team-social">
+        <div className={styles.teamOverlay}>
+          <div className={styles.teamSocial}>
             {socialLinks.map((link, index) => (
               <a key={index} href={link.url}>
                 <i className={socialIcons[link.platform]}></i>
@@ -40,9 +41,9 @@ export default function TeamCard({
           </div>
         </div>
       </div>
-      <div className="team-info">
+      <div className={styles.teamInfo}>
         <h4>{name}</h4>
-        <span className="team-role">{role}</span>
+        <span className={styles.teamRole}>{role}</span>
         <p>{description}</p>
       </div>
     </div>

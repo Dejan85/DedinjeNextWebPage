@@ -1,4 +1,5 @@
 import Image from "../Image/Image";
+import styles from "./TestimonialCard.module.css";
 
 interface TestimonialCardProps {
   quote: string;
@@ -14,14 +15,14 @@ export default function TestimonialCard({
   authorImage,
 }: TestimonialCardProps) {
   return (
-    <div className="testimonial-card">
-      <div className="testimonial-content">
-        <div className="quote-icon">
+    <div className={styles.testimonialCard}>
+      <div className={styles.testimonialContent}>
+        <div className={styles.quoteIcon}>
           <i className="fas fa-quote-left"></i>
         </div>
         <p>{quote}</p>
-        <div className="testimonial-author">
-          <div className="author-avatar">
+        <div className={styles.testimonialAuthor}>
+          <div className={styles.authorAvatar}>
             <Image
               src={authorImage}
               alt={authorName}
@@ -29,7 +30,7 @@ export default function TestimonialCard({
               height={100}
             />
           </div>
-          <div className="author-info">
+          <div className={styles.authorInfo}>
             <h5>{authorName}</h5>
             <span>{authorRole}</span>
           </div>

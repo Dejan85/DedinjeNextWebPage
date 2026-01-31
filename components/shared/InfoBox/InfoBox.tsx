@@ -1,3 +1,5 @@
+import styles from "./InfoBox.module.css";
+
 interface ScheduleRow {
   days: string;
   hours: string;
@@ -27,18 +29,18 @@ export default function InfoBox({
   className = "",
 }: InfoBoxProps) {
   return (
-    <div className={`info-box ${className}`}>
-      <div className="info-box-icon">
+    <div className={`${styles.infoBox} ${className}`}>
+      <div className={styles.infoBoxIcon}>
         <i className={icon}></i>
       </div>
-      <div className="info-box-content">
+      <div className={styles.infoBoxContent}>
         <h3>{title}</h3>
 
         {/* Schedule section */}
         {schedule && (
-          <div className="schedule">
+          <div className={styles.schedule}>
             {schedule.map((row, index) => (
-              <div key={index} className="schedule-row">
+              <div key={index} className={styles.scheduleRow}>
                 <span>{row.days}</span>
                 <span>{row.hours}</span>
               </div>
@@ -52,14 +54,14 @@ export default function InfoBox({
         {/* Emergency phone section */}
         {emergencyPhone && (
           <>
-            <div className="emergency-phone">{emergencyPhone}</div>
+            <div className={styles.emergencyPhone}>{emergencyPhone}</div>
             {emergencyNote && <p>{emergencyNote}</p>}
           </>
         )}
 
         {/* Link section */}
         {linkText && linkHref && (
-          <a href={linkHref} className="info-box-link">
+          <a href={linkHref} className={styles.infoBoxLink}>
             {linkText} <i className="fas fa-arrow-right"></i>
           </a>
         )}

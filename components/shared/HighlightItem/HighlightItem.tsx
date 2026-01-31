@@ -1,4 +1,5 @@
 import { Heading, Text } from "@/components/typography";
+import styles from "./HighlightItem.module.css";
 
 interface HighlightItemProps {
   icon: string;
@@ -12,11 +13,11 @@ export default function HighlightItem({
   description,
 }: HighlightItemProps) {
   return (
-    <div className="highlight-item">
-      <div className="highlight-icon">
+    <div className={styles.highlightItem}>
+      <div className={styles.highlightIcon}>
         <i className={icon}></i>
       </div>
-      <div className="highlight-text">
+      <div className={styles.highlightText}>
         <Heading variant="h4" text={title} />
         <Text text={description} />
       </div>

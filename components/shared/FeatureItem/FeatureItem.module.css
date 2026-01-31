@@ -1,0 +1,48 @@
+/* Feature Item Component Styles */
+.featureItem {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.featureIcon {
+    width: 60px;
+    height: 60px;
+    min-width: 60px;
+    background: linear-gradient(135deg, rgba(42, 157, 244, 0.1) 0%, rgba(42, 157, 244, 0.05) 100%);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.featureItem:hover .featureIcon {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+}
+
+.featureIcon i {
+    font-size: 24px;
+    color: var(--primary);
+    transition: var(--transition);
+}
+
+.featureItem:hover .featureIcon i {
+    color: var(--white);
+}
+
+.emojiIcon {
+    font-size: 24px;
+}
+
+.featureText h4 {
+    font-size: 18px;
+    margin-bottom: 8px;
+    color: var(--gray-800);
+}
+
+.featureText p {
+    font-size: 14px;
+    color: var(--gray-500);
+    line-height: 1.6;
+}

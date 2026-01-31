@@ -1,0 +1,32 @@
+/* Value Card Component Styles */
+.valueCard {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: var(--shadow-sm);
+    border: 2px solid var(--gray-100);
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.valueCard:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary);
+}
+
+.valueIcon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-darker));
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 25px;
+}
+
+.valueIcon i {
+    font-size: 36px;
+    color: white;
+}

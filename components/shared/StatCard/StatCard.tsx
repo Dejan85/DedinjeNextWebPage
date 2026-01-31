@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "./StatCard.module.css";
 
 interface StatCardProps {
   icon: string;
@@ -16,14 +17,14 @@ export const StatCard: React.FC<StatCardProps> = ({
   className = "",
 }) => {
   return (
-    <div className={`stat-card ${className}`}>
-      <div className="stat-icon">
+    <div className={`${styles.statCard} ${className}`}>
+      <div className={styles.statIcon}>
         <i className={icon}></i>
       </div>
-      <div className="stat-info">
-        {label && <span className="stat-label">{label}</span>}
-        <h3 className="stat-value">{value}</h3>
-        <p className="stat-description">{description}</p>
+      <div className={styles.statInfo}>
+        {label && <span className={styles.statLabel}>{label}</span>}
+        <h3 className={styles.statValue}>{value}</h3>
+        <p className={styles.statDescription}>{description}</p>
       </div>
     </div>
   );

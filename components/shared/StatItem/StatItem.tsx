@@ -1,4 +1,5 @@
 import { Text } from "@/components/typography";
+import styles from "./StatItem.module.css";
 
 interface StatItemProps {
   value: string | number;
@@ -12,9 +13,9 @@ export default function StatItem({
   className = "",
 }: StatItemProps) {
   return (
-    <div className={`stat-item ${className}`}>
-      <div className="stat-value">{value}</div>
-      <Text text={label} variant="small" className="stat-label" />
+    <div className={`${styles.statItem} ${className}`}>
+      <div className={styles.statValue}>{value}</div>
+      <Text text={label} variant="small" className={styles.statLabel} />
     </div>
   );
 }
