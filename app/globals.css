@@ -1336,12 +1336,6 @@ img {
     .cta-buttons {
         flex-direction: column;
     }
-
-    .cta-buttons .btn-white,
-    .cta-buttons .btn-outline-white {
-        width: 100%;
-        justify-content: center;
-    }
 }
 
 /* ===== Hero Slider Styles ===== */
@@ -3395,32 +3389,6 @@ img {
     z-index: 10;
 }
 
-.btn-download {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 16px 32px;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    color: var(--primary);
-    border-radius: 50px;
-    font-size: 15px;
-    font-weight: 700;
-    transition: var(--transition);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-}
-
-.btn-download:hover {
-    background: rgba(255, 255, 255, 1);
-    transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
-}
-
-.btn-download i {
-    font-size: 18px;
-}
-
 .intro-content h2 {
     font-size: 32px;
     color: var(--gray-900);
@@ -3800,41 +3768,6 @@ img {
     flex-wrap: wrap;
 }
 
-.btn-primary {
-    display: inline-block;
-    padding: 16px 35px;
-    background: white;
-    color: var(--primary);
-    border-radius: 8px;
-    font-size: 15px;
-    font-weight: 600;
-    transition: var(--transition);
-    box-shadow: var(--shadow-md);
-}
-
-.btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-lg);
-}
-
-.btn-outline {
-    display: inline-block;
-    padding: 16px 35px;
-    background: transparent;
-    color: white;
-    border: 2px solid white;
-    border-radius: 8px;
-    font-size: 15px;
-    font-weight: 600;
-    transition: var(--transition);
-}
-
-.btn-outline:hover {
-    background: white;
-    color: var(--primary);
-    transform: translateY(-3px);
-}
-
 /* Responsive Biography */
 @media (max-width: 968px) {
     .biography-intro {
@@ -3871,12 +3804,6 @@ img {
     .cta-buttons-simple {
         flex-direction: column;
         align-items: center;
-    }
-
-    .btn-primary,
-    .btn-outline {
-        width: 100%;
-        max-width: 300px;
     }
 
     .bio-text-block {
@@ -4107,20 +4034,6 @@ img {
     margin-top: 60px;
     padding-top: 60px;
     border-top: 2px solid var(--gray-200);
-}
-
-.btn-download-full {
-    display: inline-flex;
-    align-items: center;
-    gap: 15px;
-    padding: 20px 40px;
-    background: linear-gradient(135deg, #e74c3c, #c0392b);
-    color: white;
-    border-radius: 50px;
-    font-size: 16px;
-    font-weight: 700;
-    transition: var(--transition);
-    box-shadow: 0 10px 30px rgba(231, 76, 60, 0.3);
 }
 
 /* ===================================
@@ -4579,46 +4492,6 @@ img {
     flex-wrap: wrap;
 }
 
-.cta-buttons .btn-primary {
-    background: white;
-    color: var(--primary);
-    padding: 18px 36px;
-    border-radius: 50px;
-    font-size: 16px;
-    font-weight: 700;
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    transition: all 0.3s ease;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-}
-
-.cta-buttons .btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-}
-
-.cta-buttons .btn-secondary {
-    background: rgba(255, 255, 255, 0.15);
-    color: white;
-    padding: 18px 36px;
-    border-radius: 50px;
-    font-size: 16px;
-    font-weight: 700;
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-}
-
-.cta-buttons .btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.25);
-    border-color: white;
-    transform: translateY(-3px);
-}
-
 /* Responsive */
 @media (max-width: 1024px) {
     .about-grid {
@@ -4751,21 +4624,6 @@ img {
         flex-direction: column;
         gap: 15px;
     }
-
-    .cta-buttons .btn-primary,
-    .cta-buttons .btn-secondary {
-        width: 100%;
-        justify-content: center;
-    }
-}
-
-.btn-download-full:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 40px rgba(231, 76, 60, 0.4);
-}
-
-.btn-download-full i {
-    font-size: 22px;
 }
 
 /* Clinics Cards Grid */
