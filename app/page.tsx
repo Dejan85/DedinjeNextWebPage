@@ -434,9 +434,9 @@ export default async function Home() {
             </div>
             {teamSection.ctaButton && (
               <div className="team-cta">
-                <a href={teamSection.ctaButton.link} className="btn-primary">
+                <Button variant="primary" href={teamSection.ctaButton.link}>
                   {teamSection.ctaButton.text}
-                </a>
+                </Button>
               </div>
             )}
           </div>
@@ -683,7 +683,7 @@ export default async function Home() {
                           "Додатне напомене"}
                       </label>
                     </div>
-                    <button type="submit" className="btn-submit">
+                    <Button variant="submit" type="submit">
                       <Text
                         text={
                           contactSection.formFields?.submitButtonText ||
@@ -692,7 +692,7 @@ export default async function Home() {
                         as="span"
                       />
                       <i className="fas fa-arrow-right"></i>
-                    </button>
+                    </Button>
                   </form>
                 </div>
               </div>

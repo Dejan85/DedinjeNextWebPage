@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { HighlightItem, Image, ContentTabs } from "@/components/shared";
+import { HighlightItem, Image, ContentTabs, Button } from "@/components/shared";
 import { Heading, Text, Badge } from "@/components/typography";
 import { client } from "@/sanity/lib/client";
 import { BIOGRAPHY_PAGE_QUERY } from "@/sanity/lib/queries";
@@ -204,14 +204,13 @@ export default async function BiografijaPage() {
 
                     {fullBiography.pdfDownloadUrl && (
                       <div className="text-center mt-5">
-                        <a
+                        <Button
+                          variant="download"
                           href={fullBiography.pdfDownloadUrl}
-                          className="btn-download"
-                          download
                         >
                           <i className="fas fa-file-download"></i>{" "}
                           {fullBiography.pdfButtonText}
-                        </a>
+                        </Button>
                       </div>
                     )}
                   </div>

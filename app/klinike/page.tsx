@@ -5,6 +5,7 @@ import {
   StatCard,
   InfoCard,
   ClinicCard,
+  Button,
 } from "@/components/shared";
 import { Heading, Text, Badge } from "@/components/typography";
 
@@ -177,13 +178,13 @@ export default async function KlinikePage() {
               />
               <Text text="Наш тим стручњака је спреман да одговори на сва ваша питања и помогне вам да пронађете одговарајућу клинику за ваше потребе" />
               <div className="cta-buttons">
-                <Link href="/kontakt" className="btn-primary">
+                <Button variant="primary" href="/kontakt">
                   <i className="fas fa-phone"></i>
                   Контактирајте нас
-                </Link>
-                <Link href="/o-institutu" className="btn-secondary">
+                </Button>
+                <Button variant="secondary" href="/o-institutu">
                   <i className="fas fa-info-circle"></i>О Институту
-                </Link>
+                </Button>
               </div>
             </div>
           </div>

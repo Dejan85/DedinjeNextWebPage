@@ -496,70 +496,6 @@ img {
 }
 
 /* ===== Buttons ===== */
-.btn-primary {
-    display: inline-block;
-    padding: 16px 35px;
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-    color: var(--white);
-    font-size: 13px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: var(--transition);
-    box-shadow: 0 10px 30px rgba(42, 157, 244, 0.3);
-}
-
-.btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 40px rgba(42, 157, 244, 0.4);
-}
-
-.btn-white {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 16px 35px;
-    background: var(--white);
-    color: var(--primary);
-    font-size: 13px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: var(--transition);
-    box-shadow: var(--shadow-lg);
-}
-
-.btn-white:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-xl);
-}
-
-.btn-outline-white {
-    display: inline-block;
-    padding: 16px 35px;
-    background: transparent;
-    color: var(--white);
-    font-size: 13px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    border-radius: 50px;
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.btn-outline-white:hover {
-    background: var(--white);
-    color: var(--primary);
-    border-color: var(--white);
-}
 
 /* ===== Parallax Sections - Simple Fixed Background ===== */
 .parallax-section {
@@ -1067,31 +1003,6 @@ img {
     top: 0;
     font-size: 12px;
     color: var(--primary);
-}
-
-.btn-submit {
-    width: 100%;
-    padding: 18px 40px;
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-    color: var(--white);
-    font-size: 14px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    transition: var(--transition);
-    box-shadow: 0 10px 30px rgba(42, 157, 244, 0.3);
-}
-
-.btn-submit:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 40px rgba(42, 157, 244, 0.4);
 }
 
 /* ===== Partners Section ===== */
@@ -2137,25 +2048,6 @@ img {
     text-align: center;
 }
 
-.btn-download {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 14px 30px;
-    background: var(--primary);
-    color: var(--white);
-    border-radius: 8px;
-    font-weight: 600;
-    transition: var(--transition);
-    box-shadow: 0 4px 15px rgba(42, 157, 244, 0.3);
-}
-
-.btn-download:hover {
-    background: var(--primary-dark);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(42, 157, 244, 0.4);
-}
-
 .intro-content h2 {
     font-size: 32px;
     font-weight: 700;
@@ -2469,24 +2361,6 @@ img {
 .stat-label-simple {
     font-size: 14px;
     color: var(--gray-600);
-}
-
-.btn-download-small {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 24px;
-    background: var(--primary);
-    color: var(--white);
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    transition: var(--transition);
-}
-
-.btn-download-small:hover {
-    background: var(--primary-dark);
-    transform: translateY(-2px);
 }
 
 .bibliography-section {
@@ -2926,22 +2800,6 @@ img {
     justify-content: center;
     gap: 20px;
     flex-wrap: wrap;
-}
-
-.btn-outline {
-    display: inline-block;
-    padding: 14px 32px;
-    background: transparent;
-    border: 2px solid var(--primary);
-    color: var(--primary);
-    border-radius: 8px;
-    font-weight: 600;
-    transition: var(--transition);
-}
-
-.btn-outline:hover {
-    background: var(--primary);
-    color: var(--white);
 }
 
 /* Responsive */

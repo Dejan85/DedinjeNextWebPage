@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { PublicationItem, StatItem } from "@/components/shared";
+import { PublicationItem, StatItem, Button } from "@/components/shared";
 import { Heading, Text } from "@/components/typography";
 import { client } from "@/sanity/lib/client";
 import { BIBLIOGRAPHY_PAGE_QUERY } from "@/sanity/lib/queries";
@@ -156,10 +156,10 @@ export default async function BibliografijaPage() {
 
           {/* Download Button */}
           <div className="download-section">
-            <a href={download.fileUrl} download className="btn-download-full">
+            <Button variant="download-full" href={download.fileUrl}>
               <i className="fas fa-file-pdf"></i>
               {download.buttonText}
-            </a>
+            </Button>
           </div>
         </div>
       </section>

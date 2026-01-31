@@ -6,6 +6,7 @@ import {
   VideoPlayer,
   HighlightItem,
   ValueCard,
+  Button,
 } from "@/components/shared";
 import { Heading, Text, Badge } from "@/components/typography";
 import { client } from "@/sanity/lib/client";
@@ -279,14 +280,14 @@ export default async function OInstitutu() {
               <Text text={cta.text} />
               <div className="cta-buttons">
                 {cta.buttons.map((button) => (
-                  <Link
+                  <Button
                     key={button._key}
                     href={button.href}
-                    className={`btn-${button.variant}`}
+                    variant={button.variant as any}
                   >
                     <i className={button.icon}></i>
                     {button.text}
-                  </Link>
+                  </Button>
                 ))}
               </div>
             </div>

@@ -2,7 +2,18 @@ import Link from "next/link";
 import { ComponentProps } from "react";
 import styles from "./Button.module.css";
 
-type ButtonVariant = "primary" | "white" | "outline-white" | "hero";
+type ButtonVariant =
+  | "primary"
+  | "white"
+  | "outline-white"
+  | "hero"
+  | "secondary"
+  | "submit"
+  | "download"
+  | "download-small"
+  | "download-full"
+  | "outline"
+  | "card";
 
 type ButtonBaseProps = {
   variant?: ButtonVariant;
@@ -33,6 +44,13 @@ export default function Button({
     white: styles.btnWhite,
     "outline-white": styles.btnOutlineWhite,
     hero: styles.heroBtn,
+    secondary: styles.btnSecondary,
+    submit: styles.btnSubmit,
+    download: styles.btnDownload,
+    "download-small": styles.btnDownloadSmall,
+    "download-full": styles.btnDownloadFull,
+    outline: styles.btnOutline,
+    card: styles.btnCard,
   };
 
   const combinedClassName = `${variantClasses[variant]} ${className}`.trim();
