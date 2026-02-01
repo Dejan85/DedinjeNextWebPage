@@ -1840,78 +1840,6 @@ img {
     gap: 25px;
 }
 
-.publication-item {
-    display: flex;
-    gap: 20px;
-    padding: 25px;
-    background: var(--white);
-    border-radius: 12px;
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.06);
-    transition: var(--transition);
-}
-
-.publication-item:hover {
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-    transform: translateX(5px);
-}
-
-.publication-number {
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--primary);
-    min-width: 30px;
-}
-
-.publication-content h3 {
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--gray-800);
-    margin-bottom: 10px;
-    line-height: 1.4;
-}
-
-.publication-authors {
-    font-size: 14px;
-    color: var(--gray-700);
-    margin-bottom: 8px;
-}
-
-.publication-journal {
-    font-size: 14px;
-    color: var(--gray-600);
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.publication-journal i {
-    color: var(--primary);
-}
-
-.publication-description {
-    font-size: 14px;
-    color: var(--gray-600);
-    line-height: 1.6;
-    margin-top: 10px;
-}
-
-.publication-meta {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.publication-tag {
-    display: inline-block;
-    padding: 4px 12px;
-    background: var(--gray-100);
-    color: var(--gray-700);
-    border-radius: 4px;
-    font-size: 12px;
-    font-weight: 600;
-}
-
 /* Achievements Page */
 .achievements-hero {
     padding: 160px 0 60px;
@@ -3051,43 +2979,6 @@ img {
     display: flex;
     flex-direction: column;
     gap: 25px;
-}
-
-.publication-item {
-    display: flex;
-    gap: 20px;
-    padding: 25px;
-    background: var(--gray-50);
-    border-radius: 12px;
-    border-left: 4px solid var(--primary);
-    transition: var(--transition);
-}
-
-.publication-item:hover {
-    background: white;
-    box-shadow: var(--shadow-md);
-    transform: translateX(5px);
-}
-
-.pub-number {
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--primary);
-    flex-shrink: 0;
-    min-width: 35px;
-}
-
-.pub-content p {
-    font-size: 15px;
-    line-height: 1.8;
-    color: var(--gray-700);
-    margin: 0;
-}
-
-.pub-content em {
-    color: var(--primary);
-    font-style: italic;
-    font-weight: 600;
 }
 
 .show-more-wrapper {
