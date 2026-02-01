@@ -13,6 +13,7 @@ import {
   WelcomeFeature,
   Section,
   Container,
+  PartnerLogo,
 } from "@/components/shared";
 import { Heading, Text, Badge } from "@/components/typography";
 import { client } from "@/sanity/lib/client";
@@ -716,10 +717,11 @@ export default async function Home() {
             </div>
             <div className="partners-slider">
               {partnersSection.partners.map((partner) => (
-                <div key={partner._key} className="partner-logo">
-                  {partner.icon && <i className={partner.icon}></i>}
-                  <Text text={partner.name} as="span" />
-                </div>
+                <PartnerLogo
+                  key={partner._key}
+                  icon={partner.icon || ""}
+                  text={partner.name}
+                />
               ))}
             </div>
           </Container>

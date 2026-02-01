@@ -888,32 +888,6 @@ img {
     flex-wrap: wrap;
 }
 
-.partner-logo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    opacity: 0.5;
-    transition: var(--transition);
-    cursor: pointer;
-}
-
-.partner-logo:hover {
-    opacity: 1;
-}
-
-.partner-logo i {
-    font-size: 36px;
-    color: var(--gray-400);
-}
-
-.partner-logo span {
-    font-size: 11px;
-    color: var(--gray-500);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
 /* ===== Animations ===== */
 [data-aos] {
     opacity: 0;
