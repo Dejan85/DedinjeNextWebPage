@@ -1764,39 +1764,6 @@ img {
     gap: 20px;
 }
 
-.highlight-item {
-    display: flex;
-    gap: 20px;
-    padding: 20px;
-    background: var(--gray-50);
-    border-radius: 12px;
-    transition: var(--transition);
-}
-
-.highlight-item:hover {
-    background: var(--white);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-}
-
-.highlight-item i {
-    font-size: 28px;
-    color: var(--primary);
-    min-width: 40px;
-}
-
-.highlight-item strong {
-    display: block;
-    font-size: 16px;
-    color: var(--gray-800);
-    margin-bottom: 5px;
-}
-
-.highlight-item p {
-    font-size: 14px;
-    color: var(--gray-600);
-    margin: 0;
-}
-
 /* Timeline */
 .timeline-section {
     margin-bottom: 80px;
@@ -2847,35 +2814,6 @@ img {
     margin-top: 30px;
 }
 
-.highlight-item {
-    display: flex;
-    align-items: start;
-    gap: 20px;
-    padding: 20px;
-    background: var(--gray-50);
-    border-radius: 12px;
-    border-left: 3px solid var(--primary);
-}
-
-.highlight-item i {
-    font-size: 24px;
-    color: var(--primary);
-    margin-top: 5px;
-}
-
-.highlight-item strong {
-    display: block;
-    font-size: 16px;
-    color: var(--gray-900);
-    margin-bottom: 5px;
-}
-
-.highlight-item p {
-    font-size: 14px;
-    color: var(--gray-600);
-    margin: 0;
-}
-
 /* Biography Tabs */
 .bio-tabs-wrapper {
     display: flex;
@@ -3676,41 +3614,6 @@ img {
     gap: 25px;
     height: 100%;
     justify-content: center;
-}
-
-.highlight-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 20px;
-}
-
-.highlight-icon {
-    width: 55px;
-    height: 55px;
-    background: linear-gradient(135deg, var(--primary), var(--primary-darker));
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
-
-.highlight-icon i {
-    font-size: 24px;
-    color: white;
-}
-
-.highlight-text h4 {
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--gray-900);
-    margin-bottom: 5px;
-}
-
-.highlight-text p {
-    font-size: 15px;
-    color: var(--gray-600);
-    margin: 0;
 }
 
 .about-image {
