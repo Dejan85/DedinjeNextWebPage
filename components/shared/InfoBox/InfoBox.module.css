@@ -104,3 +104,15 @@
     color: var(--white);
     margin: 10px 0;
 }
+
+@media (max-width: 1024px) {
+    .infoBox {
+        border-bottom: 1px solid var(--gray-100);
+    }
+}
+
+@media (max-width: 768px) {
+    .infoBox {
+        border-right: none;
+    }
+}
