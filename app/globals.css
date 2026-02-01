@@ -3449,70 +3449,7 @@ img {
     color: var(--gray-600);
 }
 
-.management-tabs {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.management-card {
-    background: white;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: var(--shadow-lg);
-    display: grid;
-    grid-template-columns: 400px 1fr;
-    gap: 0;
-}
-
-.management-image {
-    background: var(--gray-200);
-    height: 100%;
-}
-
-.management-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-.management-info {
-    padding: 50px;
-}
-
-.management-info h3 {
-    font-size: 32px;
-    font-weight: 800;
-    color: var(--gray-900);
-    margin-bottom: 10px;
-}
-
-.management-title {
-    font-size: 18px;
-    color: var(--primary);
-    font-weight: 600;
-    margin-bottom: 30px;
-}
-
-.management-bio h4 {
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--gray-900);
-    margin-bottom: 20px;
-    margin-top: 30px;
-}
-
-.management-bio p {
-    font-size: 15px;
-    color: var(--gray-600);
-    line-height: 1.8;
-    margin-bottom: 15px;
-}
-
-.management-bio strong {
-    color: var(--primary);
-    font-weight: 700;
-}
+/* management-tabs/card/image/info/title/bio styles live in ProfileTabs.module.css */
 
 /* Values Section */
 .values-section {
@@ -3580,14 +3517,6 @@ img {
     .about-grid {
         grid-template-columns: 1fr;
         gap: 50px;
-    }
-
-    .management-card {
-        grid-template-columns: 1fr;
-    }
-
-    .management-image {
-        height: 400px;
     }
 
     .stats-grid-large {
@@ -3673,18 +3602,6 @@ img {
 
     .about-image img {
         height: 350px;
-    }
-
-    .management-info {
-        padding: 30px 20px;
-    }
-
-    .management-info h3 {
-        font-size: 24px;
-    }
-
-    .management-title {
-        font-size: 16px;
     }
 
     .values-grid {
