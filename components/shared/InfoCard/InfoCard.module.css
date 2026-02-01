@@ -30,21 +30,21 @@
     box-shadow: 0 15px 40px rgba(42, 157, 244, 0.2);
 }
 
-.directorInfoCard.highlight {
+.highlight {
     background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
     color: var(--white);
 }
 
-.directorInfoCard.highlight h3,
-.directorInfoCard.highlight p {
+.highlight h3,
+.highlight p {
     color: var(--white);
 }
 
-.directorInfoCard.highlight .infoCardIcon {
+.highlight .infoCardIcon {
     background: rgba(255, 255, 255, 0.2);
 }
 
-.directorInfoCard.highlight .infoCardIcon i {
+.highlight .infoCardIcon i {
     color: var(--white);
 }
 
