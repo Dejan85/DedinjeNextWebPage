@@ -1,4 +1,5 @@
 import styles from "./ServiceCard.module.css";
+import { Heading, Link, Text } from "@/components/typography";
 
 interface ServiceCardProps {
   icon: string;
@@ -27,8 +28,8 @@ export default function ServiceCard({
           <i className={icon}></i>
         </div>
       </div>
-      <h3>{title}</h3>
-      <p>{description}</p>
+      <Heading variant="h3" text={title} />
+      <Text text={description} />
       <ul className={styles.serviceList}>
         {features.map((feature, index) => (
           <li key={index}>
@@ -36,9 +37,9 @@ export default function ServiceCard({
           </li>
         ))}
       </ul>
-      <a href={linkHref} className={styles.serviceLink}>
+      <Link href={linkHref} className={styles.serviceLink}>
         Сазнајте више <i className="fas fa-long-arrow-alt-right"></i>
-      </a>
+      </Link>
     </div>
   );
 }

@@ -923,14 +923,6 @@ img {
     .departments-grid {
         grid-template-columns: repeat(2, 1fr);
     }
-
-    .service-card.featured {
-        transform: none;
-    }
-
-    .service-card.featured:hover {
-        transform: translateY(-10px);
-    }
 }
 
 @media (max-width: 1024px) {
