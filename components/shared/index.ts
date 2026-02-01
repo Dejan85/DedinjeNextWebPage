@@ -1,6 +1,8 @@
 export { HeroSection } from "./HeroSection/HeroSection";
 export { StatCard } from "./StatCard/StatCard";
 export { ClinicCard } from "./ClinicCard/ClinicCard";
+export { ClinicCardGrid } from "./ClinicCardGrid/ClinicCardGrid";
+export { ClinicSection } from "./ClinicSection/ClinicSection";
 export { TabButton } from "./TabButton/TabButton";
 export { TabButtonGroup } from "./TabButtonGroup/TabButtonGroup";
 export { ProfileTabs } from "./ProfileTabs/ProfileTabs";

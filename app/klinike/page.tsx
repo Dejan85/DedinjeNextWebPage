@@ -5,6 +5,8 @@ import {
   StatCard,
   InfoCard,
   ClinicCard,
+  ClinicCardGrid,
+  ClinicSection,
   Button,
 } from "@/components/shared";
 import { Heading, Text, Badge } from "@/components/typography";
@@ -51,7 +53,7 @@ export default async function KlinikePage() {
         </section>
 
         {/* Clinics Grid Section */}
-        <section className="clinics-modern-section">
+        <ClinicSection>
           <div className="container">
             <div className="section-header-center">
               <Badge variant="primary" text="Наше клинике" />
@@ -59,7 +61,7 @@ export default async function KlinikePage() {
               <Text text="Изаберите клинику која вам је потребна и сазнајте више о услугама" />
             </div>
 
-            <div className="clinics-cards-grid">
+            <ClinicCardGrid>
               <ClinicCard
                 icon="fas fa-heart-pulse"
                 title="Клиника за кардиохирургију"
@@ -164,9 +166,9 @@ export default async function KlinikePage() {
                 subtitle="Трансфузиона медицина"
                 href="#"
               />
-            </div>
+            </ClinicCardGrid>
           </div>
-        </section>
+        </ClinicSection>
 
         {/* CTA Section */}
         <section className="institute-cta-section">
