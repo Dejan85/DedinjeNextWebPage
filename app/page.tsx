@@ -11,6 +11,7 @@ import {
   TestimonialCard,
   NewsCard,
   WelcomeFeature,
+  Section,
 } from "@/components/shared";
 import { Heading, Text, Badge } from "@/components/typography";
 import { client } from "@/sanity/lib/client";
@@ -244,7 +245,7 @@ export default async function Home() {
 
       {/* Services Section */}
       {servicesSection && (
-        <section className="services-section">
+        <Section padding="large" background="gray">
           <div className="container">
             <div className="section-header centered">
               <Badge variant="primary" text={servicesSection.badge} />
@@ -273,12 +274,12 @@ export default async function Home() {
               ))}
             </div>
           </div>
-        </section>
+        </Section>
       )}
 
       {/* Why Choose Us Section */}
       {whyChooseUsSection && (
-        <section className="features-section">
+        <Section padding="large" background="white">
           <div className="container">
             <div className="features-wrapper">
               <div className="features-content">
@@ -314,7 +315,7 @@ export default async function Home() {
               </div>
             </div>
           </div>
-        </section>
+        </Section>
       )}
 
       {/* CTA Section */}
@@ -359,7 +360,7 @@ export default async function Home() {
 
       {/* Departments Section */}
       {departmentsSection && (
-        <section className="departments-section">
+        <Section padding="large" background="gray">
           <div className="container">
             <div className="section-header centered">
               <Badge variant="primary" text={departmentsSection.badge} />
@@ -389,12 +390,12 @@ export default async function Home() {
               ))}
             </div>
           </div>
-        </section>
+        </Section>
       )}
 
       {/* Team Section */}
       {teamSection && (
-        <section className="team-section">
+        <Section padding="large" background="white">
           <div className="container">
             <div className="section-header centered">
               <Badge variant="primary" text={teamSection.badge} />
@@ -440,7 +441,7 @@ export default async function Home() {
               </div>
             )}
           </div>
-        </section>
+        </Section>
       )}
 
       {/* Testimonials Section */}

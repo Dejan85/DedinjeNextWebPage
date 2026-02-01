@@ -1,12 +1,9 @@
-import Link from "next/link";
 import {
   HeroSection,
   VideoPlayer,
-  StatCard,
-  InfoCard,
   ClinicCard,
   ClinicCardGrid,
-  ClinicSection,
+  Section,
   Button,
 } from "@/components/shared";
 import { Heading, Text, Badge } from "@/components/typography";
@@ -53,7 +50,7 @@ export default async function KlinikePage() {
         </section>
 
         {/* Clinics Grid Section */}
-        <ClinicSection>
+        <Section padding="medium" background="gray">
           <div className="container">
             <div className="section-header-center">
               <Badge variant="primary" text="Наше клинике" />
@@ -168,7 +165,7 @@ export default async function KlinikePage() {
               />
             </ClinicCardGrid>
           </div>
-        </ClinicSection>
+        </Section>
 
         {/* CTA Section */}
         <section className="institute-cta-section">

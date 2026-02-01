@@ -1,0 +1,29 @@
+.section {
+    width: 100%;
+}
+
+/* Padding variants */
+.paddingSmall {
+    padding: 60px 0;
+}
+
+.paddingMedium {
+    padding: 80px 0;
+}
+
+.paddingLarge {
+    padding: 120px 0;
+}
+
+/* Background variants */
+.backgroundWhite {
+    background: var(--white);
+}
+
+.backgroundGray {
+    background: var(--gray-50);
+}
+
+.backgroundNone {
+    background: transparent;
+}

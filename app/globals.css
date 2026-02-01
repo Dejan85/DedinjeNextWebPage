@@ -659,11 +659,6 @@ img {
 }
 
 /* ===== Services Section ===== */
-.services-section {
-    padding: 120px 0;
-    background: var(--gray-50);
-}
-
 .services-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -671,11 +666,6 @@ img {
 }
 
 /* ===== Features Section ===== */
-.features-section {
-    padding: 120px 0;
-    background: var(--white);
-}
-
 .features-wrapper {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -762,11 +752,6 @@ img {
 }
 
 /* ===== Departments Section ===== */
-.departments-section {
-    padding: 120px 0;
-    background: var(--gray-50);
-}
-
 .departments-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -774,11 +759,6 @@ img {
 }
 
 /* ===== Team Section ===== */
-.team-section {
-    padding: 120px 0;
-    background: var(--white);
-}
-
 .team-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);

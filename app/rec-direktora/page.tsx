@@ -3,6 +3,7 @@ import {
   VideoPlayer,
   InfoCard,
   PartnerLogo,
+  Section,
 } from "@/components/shared";
 import { Heading, Text, Badge } from "@/components/typography";
 import { client } from "@/sanity/lib/client";
@@ -123,7 +124,11 @@ export default async function RecDirektoraPage() {
       />
 
       {/* Director Info Cards */}
-      <section className="director-info-section">
+      <Section
+        padding="medium"
+        background="gray"
+        className="director-info-section"
+      >
         <div className="container">
           <div className="director-info-grid">
             {infoCards.map((card) => (
@@ -139,7 +144,7 @@ export default async function RecDirektoraPage() {
             ))}
           </div>
         </div>
-      </section>
+      </Section>
 
       {/* Director Message Section */}
       <section className="director-message-section">
