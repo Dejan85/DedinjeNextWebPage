@@ -3451,23 +3451,6 @@ img {
         gap: 20px;
     }
 
-    .stat-card {
-        padding: 25px 20px;
-    }
-
-    .stat-card .stat-icon {
-        width: 60px;
-        height: 60px;
-    }
-
-    .stat-card .stat-icon i {
-        font-size: 28px;
-    }
-
-    .stat-card .stat-value {
-        font-size: 32px;
-    }
-
     .institute-about-section,
     .management-section,
     .values-section {

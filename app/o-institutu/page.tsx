@@ -1,4 +1,4 @@
-import Link from "next/link";
+import type { ComponentProps } from "react";
 import {
   HeroSection,
   StatCard,
@@ -18,16 +18,37 @@ import { generateMetadata } from "./metadata";
 
 export { generateMetadata };
 
+type ButtonVariant = NonNullable<ComponentProps<typeof Button>["variant"]>;
+
+const BUTTON_VARIANTS = new Set<ButtonVariant>([
+  "primary",
+  "white",
+  "outline-white",
+  "hero",
+  "secondary",
+  "submit",
+  "download",
+  "download-small",
+  "download-full",
+  "outline",
+  "card",
+]);
+
+function toButtonVariant(value: unknown): ButtonVariant {
+  if (typeof value === "string" && BUTTON_VARIANTS.has(value as ButtonVariant)) {
+    return value as ButtonVariant;
+  }
+  return "primary";
+}
+
 export default async function OInstitutu() {
   // Fetch data from Sanity
   let aboutData: AboutPage | null = null;
-  let sanityError = false;
 
   try {
     aboutData = await client.fetch<AboutPage>(ABOUT_PAGE_QUERY);
   } catch (error) {
     console.error("⚠️ Sanity fetch failed:", error);
-    sanityError = true;
   }
 
   // Fallback data
@@ -284,9 +305,9 @@ export default async function OInstitutu() {
                   <Button
                     key={button._key}
                     href={button.href}
-                    variant={button.variant as any}
+                    variant={toButtonVariant(button.variant)}
                   >
-                    <i className={button.icon}></i>
+                    {button.icon && <i className={button.icon}></i>}
                     {button.text}
                   </Button>
                 ))}

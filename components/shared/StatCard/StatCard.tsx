@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./StatCard.module.css";
+import { Heading, Text } from "@/components/typography";
 
 interface StatCardProps {
   icon: string;
@@ -22,9 +23,17 @@ export const StatCard: React.FC<StatCardProps> = ({
         <i className={icon}></i>
       </div>
       <div className={styles.statInfo}>
-        {label && <span className={styles.statLabel}>{label}</span>}
-        <h3 className={styles.statValue}>{value}</h3>
-        <p className={styles.statDescription}>{description}</p>
+        {label && (
+          <Text
+            as="span"
+            variant="meta"
+            color="muted"
+            text={label}
+            className={styles.statLabel}
+          />
+        )}
+        <Heading variant="h3" text={value} className={styles.statValue} />
+        <Text text={description} className={styles.statDescription} />
       </div>
     </div>
   );
