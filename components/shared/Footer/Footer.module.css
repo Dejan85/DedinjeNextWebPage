@@ -13,6 +13,10 @@
     gap: 60px;
 }
 
+.footerCol {
+    /* Base styles for footer columns */
+}
+
 .footerCol.about p {
     margin-top: 20px;
     font-size: 14px;
@@ -167,4 +171,24 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+    .footerGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .footerGrid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .footerBottomContent {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
 }

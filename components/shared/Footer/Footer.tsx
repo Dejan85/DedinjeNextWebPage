@@ -39,7 +39,7 @@ export default async function Footer() {
       <div className={styles.footerTop}>
         <div className="container">
           <div className={styles.footerGrid}>
-            <div className="footer-col about">
+            <div className={`${styles.footerCol} ${styles.about}`}>
               <div className={styles.footerLogo}>
                 <div className={styles.logoIcon}>
                   <img
@@ -113,7 +113,7 @@ export default async function Footer() {
 
             {/* Quick Links */}
             {footer?.quickLinks && footer.quickLinks.links.length > 0 && (
-              <div className="footer-col">
+              <div className={styles.footerCol}>
                 <h4>{footer.quickLinks.heading}</h4>
                 <ul>
                   {footer.quickLinks.links.map((link) => (
@@ -127,7 +127,7 @@ export default async function Footer() {
 
             {/* Services */}
             {footer?.services && footer.services.links.length > 0 && (
-              <div className="footer-col">
+              <div className={styles.footerCol}>
                 <h4>{footer.services.heading}</h4>
                 <ul>
                   {footer.services.links.map((link) => (
@@ -141,7 +141,7 @@ export default async function Footer() {
 
             {/* Contact */}
             {footer?.contact && (
-              <div className="footer-col contact">
+              <div className={`${styles.footerCol} ${styles.contact}`}>
                 <h4>{footer.contact.heading}</h4>
                 <ul className={styles.footerContact}>
                   {(footer.contact.address || footer.contact.city) && (

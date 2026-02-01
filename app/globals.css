@@ -1110,10 +1110,6 @@ img {
     .news-grid {
         grid-template-columns: 1fr;
     }
-
-    .footer-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
 }
 
 @media (max-width: 768px) {
@@ -1265,17 +1261,6 @@ img {
 
     .form-group.full {
         grid-column: span 1;
-    }
-
-    .footer-grid {
-        grid-template-columns: 1fr;
-        gap: 40px;
-    }
-
-    .footer-bottom-content {
-        flex-direction: column;
-        gap: 15px;
-        text-align: center;
     }
 
     .news-card.small {
