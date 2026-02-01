@@ -1045,14 +1045,6 @@ img {
     .form-group.full {
         grid-column: span 1;
     }
-
-    .news-card.small {
-        grid-template-columns: 1fr;
-    }
-
-    .news-card.small .news-image {
-        height: 150px;
-    }
 }
 
 @media (max-width: 480px) {

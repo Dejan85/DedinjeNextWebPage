@@ -120,7 +120,11 @@
 
 @media (max-width: 768px) {
     .newsCard.small {
-        grid-template-columns: 100px 1fr;
+        grid-template-columns: 1fr;
+    }
+
+    .newsCard.small .newsImage {
+        height: 150px;
     }
 
     .newsCard.small .newsContent {
