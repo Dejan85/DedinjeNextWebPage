@@ -228,15 +228,13 @@ export default async function BiografijaPage() {
             <Heading variant="h2" text={cta.heading} />
             <div className="cta-buttons-simple">
               {cta.buttons.map((button) => (
-                <Link
+                <Button
                   key={button._key}
+                  variant={button.variant === "primary" ? "primary" : "outline"}
                   href={button.href}
-                  className={
-                    button.variant === "primary" ? "btn-primary" : "btn-outline"
-                  }
                 >
                   {button.text}
-                </Link>
+                </Button>
               ))}
             </div>
           </div>
