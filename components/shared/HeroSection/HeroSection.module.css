@@ -108,6 +108,28 @@
     }
 }
 
+/* Responsive Styles */
+@media (max-width: 992px) {
+    .directorHero h1 {
+        font-size: 42px;
+    }
+}
+
+@media (max-width: 768px) {
+    .directorHero {
+        height: 70vh;
+        min-height: 500px;
+    }
+
+    .directorHero h1 {
+        font-size: 32px;
+    }
+
+    .directorSubtitle {
+        font-size: 16px;
+    }
+}
+
 @media (max-width: 768px) {
     .directorHero {
         height: 70vh;
