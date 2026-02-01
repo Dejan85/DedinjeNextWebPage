@@ -8,6 +8,82 @@
     justify-content: center;
 }
 
+/* Slider mode specific styles */
+.directorHero.sliderMode {
+    height: 85vh;
+    min-height: 600px;
+}
+
+.heroSliderWrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Slider Navigation Buttons */
+.swiperButtonNext,
+.swiperButtonPrev {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    font-size: 18px;
+}
+
+.swiperButtonPrev {
+    left: 30px;
+}
+
+.swiperButtonNext {
+    right: 30px;
+}
+
+.swiperButtonNext:hover,
+.swiperButtonPrev:hover {
+    background: var(--white);
+    color: var(--primary);
+}
+
+/* Slider Pagination Dots */
+.swiperPagination {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    gap: 10px;
+}
+
+.swiperPaginationBullet {
+    width: 12px;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.5);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+.swiperPaginationBulletActive {
+    background: var(--white);
+    width: 30px;
+    border-radius: 6px;
+}
+
 .directorHeroBg {
     position: absolute;
     top: 0;
@@ -38,42 +114,14 @@
     position: relative;
     z-index: 3;
     width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
     padding-top: 80px;
 }
 
 .directorHeroText {
     max-width: 700px;
-}
-
-.directorBadge {
-    display: inline-block;
-    padding: 8px 24px;
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 50px;
-    color: var(--white);
-    font-size: 13px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 30px;
-}
-
-.directorHero h1 {
-    font-size: 56px;
-    font-weight: 700;
-    color: var(--white);
-    line-height: 1.2;
-    margin-bottom: 20px;
-    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-}
-
-.directorSubtitle {
-    font-size: 18px;
-    color: rgba(255, 255, 255, 0.9);
-    line-height: 1.6;
-    font-weight: 400;
 }
 
 .scrollIndicator {
@@ -109,34 +157,9 @@
 }
 
 /* Responsive Styles */
-@media (max-width: 992px) {
-    .directorHero h1 {
-        font-size: 42px;
-    }
-}
-
 @media (max-width: 768px) {
     .directorHero {
         height: 70vh;
         min-height: 500px;
-    }
-
-    .directorHero h1 {
-        font-size: 32px;
-    }
-
-    .directorSubtitle {
-        font-size: 16px;
-    }
-}
-
-@media (max-width: 768px) {
-    .directorHero {
-        height: 70vh;
-        min-height: 500px;
-    }
-
-    .directorHero h1 {
-        font-size: 36px;
     }
 }

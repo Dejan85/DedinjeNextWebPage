@@ -1,7 +1,8 @@
+import styles from "./Text.module.css";
+
 interface TextProps {
   text?: string;
-  children?: React.ReactNode;
-  variant?: "body" | "lead" | "small" | "caption" | "meta";
+  variant?: "body" | "lead" | "hero-subtitle" | "small" | "caption" | "meta";
   color?: "default" | "muted" | "light" | "primary";
   align?: "left" | "center" | "right";
   className?: string;
@@ -10,7 +11,6 @@ interface TextProps {
 
 export default function Text({
   text,
-  children,
   variant = "body",
   color = "default",
   align = "left",
@@ -19,28 +19,41 @@ export default function Text({
 }: TextProps) {
   const Tag = as;
 
-  const variantClasses = {
-    body: "text-[15px] leading-relaxed", // 15px, line-height: 1.7
-    lead: "text-lg leading-loose", // 18px, line-height: 1.8
-    small: "text-sm leading-normal", // 14px, line-height: 1.6
-    caption: "text-xs leading-normal", // 13px
-    meta: "text-xs", // 13px
+  // Map variant to CSS module classes
+  const variantClassMap = {
+    body: styles.variantBody,
+    lead: styles.variantLead,
+    "hero-subtitle": styles.variantHeroSubtitle,
+    small: styles.variantSmall,
+    caption: styles.variantCaption,
+    meta: styles.variantMeta,
   };
 
-  const colorClasses = {
-    default: "text-gray-600",
-    muted: "text-gray-500",
-    light: "text-white",
-    primary: "text-primary",
+  // Color classes
+  const colorClassMap = {
+    default: styles.colorDefault,
+    muted: styles.colorMuted,
+    light: styles.colorLight,
+    primary: styles.colorPrimary,
   };
 
-  const alignClasses = {
-    left: "text-left",
-    center: "text-center",
-    right: "text-right",
+  // Alignment classes
+  const alignClassMap = {
+    left: styles.alignLeft,
+    center: styles.alignCenter,
+    right: styles.alignRight,
   };
 
-  const classes = `font-opensans ${variantClasses[variant]} ${colorClasses[color]} ${alignClasses[align]} ${className}`;
+  // Build classes array
+  const classes = [
+    styles.text,
+    variantClassMap[variant],
+    colorClassMap[color],
+    alignClassMap[align],
+    className,
+  ]
+    .filter(Boolean)
+    .join(" ");
 
-  return <Tag className={classes}>{children || text}</Tag>;
+  return <Tag className={classes}>{text}</Tag>;
 }

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Container from "../Container/Container";
 import styles from "./Header.module.css";
 
 export default function Header() {
@@ -23,7 +24,7 @@ export default function Header() {
       >
         {/* Top Bar */}
         <div className={styles.topBar}>
-          <div className="container">
+          <Container>
             <button
               className={styles.mobileToggle}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -65,12 +66,12 @@ export default function Header() {
                 </div>
               </div>
             </div>
-          </div>
+          </Container>
         </div>
 
         {/* Navigation */}
         <header className={styles.header}>
-          <div className="container">
+          <Container>
             <nav className={styles.mainNav}>
               <ul className={styles.navMenu}>
                 <li>
@@ -188,7 +189,7 @@ export default function Header() {
                 <i className="fas fa-search"></i>
               </button>
             </nav>
-          </div>
+          </Container>
         </header>
       </div>
 

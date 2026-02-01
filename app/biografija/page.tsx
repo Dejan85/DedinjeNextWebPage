@@ -1,5 +1,11 @@
 import Link from "next/link";
-import { HighlightItem, Image, ContentTabs, Button } from "@/components/shared";
+import {
+  HighlightItem,
+  Image,
+  ContentTabs,
+  Button,
+  Container,
+} from "@/components/shared";
 import { Heading, Text, Badge } from "@/components/typography";
 import { client } from "@/sanity/lib/client";
 import { BIOGRAPHY_PAGE_QUERY } from "@/sanity/lib/queries";
@@ -66,7 +72,7 @@ export default async function BiografijaPage() {
     <>
       {/* Page Header */}
       <section className="page-header-simple">
-        <div className="container">
+        <Container>
           <div className="breadcrumb">
             <Link href="/">Почетна</Link>
             <i className="fas fa-chevron-right"></i>
@@ -76,12 +82,12 @@ export default async function BiografijaPage() {
           </div>
           <Heading variant="h1" text={pageHeader.title} />
           <Text text={pageHeader.subtitle} />
-        </div>
+        </Container>
       </section>
 
       {/* Biography Content */}
       <section className="biography-section">
-        <div className="container">
+        <Container>
           <div className="biography-intro">
             <div className="intro-image">
               <Image src={imageUrl} alt={intro.name} width={600} height={800} />
@@ -218,12 +224,12 @@ export default async function BiografijaPage() {
               },
             ]}
           />
-        </div>
+        </Container>
       </section>
 
       {/* CTA Section */}
       <section className="cta-section-simple">
-        <div className="container">
+        <Container>
           <div className="cta-content-simple">
             <Heading variant="h2" text={cta.heading} />
             <div className="cta-buttons-simple">
@@ -238,7 +244,7 @@ export default async function BiografijaPage() {
               ))}
             </div>
           </div>
-        </div>
+        </Container>
       </section>
     </>
   );

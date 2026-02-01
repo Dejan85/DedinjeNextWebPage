@@ -5,6 +5,7 @@ import {
   ClinicCardGrid,
   Section,
   Button,
+  Container,
 } from "@/components/shared";
 import { Heading, Text, Badge } from "@/components/typography";
 
@@ -24,7 +25,7 @@ export default async function KlinikePage() {
 
         {/* About Section */}
         <section className="institute-about-section">
-          <div className="container">
+          <Container>
             <div className="about-grid">
               <div className="about-content">
                 <Badge variant="primary" text="Ваш национални институт" />
@@ -46,12 +47,12 @@ export default async function KlinikePage() {
                 />
               </div>
             </div>
-          </div>
+          </Container>
         </section>
 
         {/* Clinics Grid Section */}
         <Section padding="medium" background="gray">
-          <div className="container">
+          <Container>
             <div className="section-header-center">
               <Badge variant="primary" text="Наше клинике" />
               <Heading variant="h2" text="Све клинике на једном месту" />
@@ -164,12 +165,12 @@ export default async function KlinikePage() {
                 href="#"
               />
             </ClinicCardGrid>
-          </div>
+          </Container>
         </Section>
 
         {/* CTA Section */}
         <section className="institute-cta-section">
-          <div className="container">
+          <Container>
             <div className="cta-content">
               <Heading
                 variant="h2"
@@ -186,7 +187,7 @@ export default async function KlinikePage() {
                 </Button>
               </div>
             </div>
-          </div>
+          </Container>
         </section>
       </div>
     </>

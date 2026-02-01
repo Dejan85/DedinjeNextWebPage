@@ -1,10 +1,13 @@
+import styles from "./Heading.module.css";
+
 interface HeadingProps {
-  text: string;
+  text?: string;
   variant?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
-  size?: "xl" | "lg" | "md" | "sm" | "xs";
+  size?: "hero" | "xl" | "lg" | "md" | "sm" | "xs";
   color?: "dark" | "light" | "primary";
   align?: "left" | "center" | "right";
   className?: string;
+  dangerouslySetInnerHTML?: { __html: string };
 }
 
 export default function Heading({
@@ -14,43 +17,59 @@ export default function Heading({
   color = "dark",
   align = "left",
   className = "",
+  dangerouslySetInnerHTML,
 }: HeadingProps) {
   const Tag = variant;
 
-  // Automatske veličine na osnovu variante ako size nije prosleđen
-  const sizeClasses = {
-    h1: "text-5xl",
-    h2: "text-4xl",
-    h3: "text-2xl",
-    h4: "text-lg",
-    h5: "text-base",
-    h6: "text-sm",
+  // Map size to CSS module classes
+  const sizeClassMap = {
+    hero: styles.sizeHero,
+    xl: styles.sizeXl,
+    lg: styles.sizeLg,
+    md: styles.sizeMd,
+    sm: styles.sizeSm,
+    xs: styles.sizeXs,
   };
 
-  // Custom size override
-  const customSizeClasses = {
-    xl: "text-5xl", // 48px+
-    lg: "text-4xl", // 42px
-    md: "text-2xl", // 24px
-    sm: "text-lg", // 18px
-    xs: "text-base", // 16px
+  // Map variant to default size classes
+  const variantClassMap = {
+    h1: styles.h1,
+    h2: styles.h2,
+    h3: styles.h3,
+    h4: styles.h4,
+    h5: styles.h5,
+    h6: styles.h6,
   };
 
-  const colorClasses = {
-    dark: "text-gray-800",
-    light: "text-white",
-    primary: "text-primary",
+  // Color classes
+  const colorClassMap = {
+    dark: styles.colorDark,
+    light: styles.colorLight,
+    primary: styles.colorPrimary,
   };
 
-  const alignClasses = {
-    left: "text-left",
-    center: "text-center",
-    right: "text-right",
+  // Alignment classes
+  const alignClassMap = {
+    left: styles.alignLeft,
+    center: styles.alignCenter,
+    right: styles.alignRight,
   };
 
-  const finalSize = size ? customSizeClasses[size] : sizeClasses[variant];
+  // Build classes array
+  const classes = [
+    styles.heading,
+    size ? sizeClassMap[size] : variantClassMap[variant],
+    size === "hero" ? styles.fontBold : styles.fontSemibold,
+    colorClassMap[color],
+    alignClassMap[align],
+    className,
+  ]
+    .filter(Boolean)
+    .join(" ");
 
-  const classes = `font-roboto font-semibold leading-tight ${finalSize} ${colorClasses[color]} ${alignClasses[align]} ${className}`;
+  if (dangerouslySetInnerHTML) {
+    return <Tag className={classes} dangerouslySetInnerHTML={dangerouslySetInnerHTML} />;
+  }
 
   return <Tag className={classes}>{text}</Tag>;
 }

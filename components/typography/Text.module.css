@@ -1,0 +1,73 @@
+/* Base Text Styles */
+.text {
+    font-family: 'Open Sans', sans-serif;
+}
+
+/* Variant styles */
+.variantBody {
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+.variantLead {
+    font-size: 18px;
+    line-height: 1.8;
+}
+
+.variantHeroSubtitle {
+    font-size: 18px;
+    line-height: 1.6;
+    font-weight: 400;
+    opacity: 0.9;
+}
+
+.variantSmall {
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.variantCaption {
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.variantMeta {
+    font-size: 13px;
+}
+
+/* Color variants */
+.colorDefault {
+    color: var(--gray-600);
+}
+
+.colorMuted {
+    color: var(--gray-500);
+}
+
+.colorLight {
+    color: var(--white);
+}
+
+.colorPrimary {
+    color: var(--primary);
+}
+
+/* Alignment */
+.alignLeft {
+    text-align: left;
+}
+
+.alignCenter {
+    text-align: center;
+}
+
+.alignRight {
+    text-align: right;
+}
+
+/* Responsive for hero subtitle */
+@media (max-width: 768px) {
+    .variantHeroSubtitle {
+        font-size: 16px;
+    }
+}

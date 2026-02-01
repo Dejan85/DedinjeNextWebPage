@@ -1,0 +1,41 @@
+/* Base Badge Styles */
+.badge {
+    display: inline-block;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-radius: 50px;
+}
+
+/* Variant styles */
+.variantPrimary {
+    background: linear-gradient(135deg, rgba(42, 157, 244, 0.1) 0%, rgba(42, 157, 244, 0.05) 100%);
+    color: var(--primary);
+    padding: 8px 20px;
+    font-size: 12px;
+}
+
+.variantLight {
+    background: rgba(255, 255, 255, 0.15);
+    color: var(--white);
+    padding: 8px 20px;
+    font-size: 12px;
+}
+
+.variantAccent {
+    background: rgba(0, 212, 170, 0.1);
+    color: var(--accent);
+    padding: 8px 20px;
+    font-size: 12px;
+}
+
+.variantHero {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--white);
+    padding: 8px 24px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 30px;
+}

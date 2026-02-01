@@ -80,12 +80,6 @@ img {
     height: auto;
 }
 
-.container {
-    max-width: 1240px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
 /* ===== Parallax Sections - Simple Fixed Background ===== */
 .parallax-section {
     position: relative;
@@ -214,14 +208,6 @@ img {
     max-width: 100%;
     height: auto;
 }
-
-.container {
-    max-width: 1240px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-
 
 /* ===== Info Boxes - Redesigned ===== */
 .info-boxes {

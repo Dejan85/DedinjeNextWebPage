@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { PublicationItem, StatItem, Button } from "@/components/shared";
+import { PublicationItem, StatItem, Button, Container } from "@/components/shared";
 import { Heading, Text } from "@/components/typography";
 import { client } from "@/sanity/lib/client";
 import { BIBLIOGRAPHY_PAGE_QUERY } from "@/sanity/lib/queries";
@@ -57,7 +57,7 @@ export default async function BibliografijaPage() {
     <>
       {/* Page Header */}
       <section className="page-header-simple">
-        <div className="container">
+        <Container>
           <div className="breadcrumb">
             {pageHeader.breadcrumbs.map((crumb, index) => (
               <span key={crumb._key}>
@@ -72,12 +72,12 @@ export default async function BibliografijaPage() {
           </div>
           <Heading text={pageHeader.title} variant="h1" />
           <Text text={pageHeader.subtitle} variant="body" />
-        </div>
+        </Container>
       </section>
 
       {/* Bibliography Content */}
       <section className="bibliography-section">
-        <div className="container">
+        <Container>
           {/* Introduction Card */}
           <div className="intro-card">
             <Heading text={introduction.heading} variant="h2" />
@@ -161,7 +161,7 @@ export default async function BibliografijaPage() {
               {download.buttonText}
             </Button>
           </div>
-        </div>
+        </Container>
       </section>
     </>
   );

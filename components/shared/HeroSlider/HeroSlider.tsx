@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "../Image/Image";
+import Container from "../Container/Container";
 import styles from "./HeroSlider.module.css";
 
 interface HeroSlide {
@@ -148,7 +149,7 @@ export default function HeroSlider({ slides: sanitySlides }: HeroSliderProps) {
             </div>
             <div className={styles.heroOverlay}></div>
             <div className={styles.heroContent}>
-              <div className="container">
+              <Container>
                 <div className={styles.heroWrapper}>
                   <motion.h1
                     initial={{ opacity: 0, y: 30 }}
@@ -176,7 +177,7 @@ export default function HeroSlider({ slides: sanitySlides }: HeroSliderProps) {
                     </motion.a>
                   )}
                 </div>
-              </div>
+              </Container>
             </div>
           </motion.div>
         </AnimatePresence>

@@ -1,5 +1,5 @@
 import {
-  HeroSlider,
+  HeroSection,
   Button,
   Image,
   InfoBox,
@@ -12,6 +12,7 @@ import {
   NewsCard,
   WelcomeFeature,
   Section,
+  Container,
 } from "@/components/shared";
 import { Heading, Text, Badge } from "@/components/typography";
 import { client } from "@/sanity/lib/client";
@@ -113,11 +114,11 @@ export default async function Home() {
       )}
 
       {/* Hero Section with Slider */}
-      <HeroSlider slides={heroSlides} />
+      <HeroSection slides={heroSlides} showScrollIndicator={false} />
 
       {/* Info Boxes */}
       <section className="info-boxes">
-        <div className="container">
+        <Container>
           <div className="info-boxes-grid">
             {infoBoxes.map((box, index) => (
               <InfoBox
@@ -136,13 +137,13 @@ export default async function Home() {
               />
             ))}
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* Welcome Section */}
       {welcomeSection && (
         <section className="welcome-section">
-          <div className="container">
+          <Container>
             <div className="welcome-grid">
               <div className="welcome-content">
                 <Badge variant="primary" text={welcomeSection.badge} />
@@ -210,7 +211,7 @@ export default async function Home() {
                 )}
               </div>
             </div>
-          </div>
+          </Container>
         </section>
       )}
 
@@ -219,7 +220,7 @@ export default async function Home() {
         <section className="parallax-section parallax-stats">
           <div className="parallax-overlay"></div>
           <div className="parallax-content">
-            <div className="container">
+            <Container>
               <div className="stats-intro">
                 <Heading
                   variant="h2"
@@ -238,7 +239,7 @@ export default async function Home() {
                   />
                 ))}
               </div>
-            </div>
+            </Container>
           </div>
         </section>
       )}
@@ -246,7 +247,7 @@ export default async function Home() {
       {/* Services Section */}
       {servicesSection && (
         <Section padding="large" background="gray">
-          <div className="container">
+          <Container>
             <div className="section-header centered">
               <Badge variant="primary" text={servicesSection.badge} />
               <Heading
@@ -273,14 +274,14 @@ export default async function Home() {
                 />
               ))}
             </div>
-          </div>
+          </Container>
         </Section>
       )}
 
       {/* Why Choose Us Section */}
       {whyChooseUsSection && (
         <Section padding="large" background="white">
-          <div className="container">
+          <Container>
             <div className="features-wrapper">
               <div className="features-content">
                 <Badge variant="primary" text={whyChooseUsSection.badge} />
@@ -314,7 +315,7 @@ export default async function Home() {
                 )}
               </div>
             </div>
-          </div>
+          </Container>
         </Section>
       )}
 
@@ -323,7 +324,7 @@ export default async function Home() {
         <section className="parallax-section parallax-cta">
           <div className="parallax-overlay gradient"></div>
           <div className="parallax-content">
-            <div className="container">
+            <Container>
               <div className="cta-content">
                 <Heading variant="h2" color="light" text={ctaSection.heading} />
                 {ctaSection.bodyText && (
@@ -353,7 +354,7 @@ export default async function Home() {
                   })}
                 </div>
               </div>
-            </div>
+            </Container>
           </div>
         </section>
       )}
@@ -361,7 +362,7 @@ export default async function Home() {
       {/* Departments Section */}
       {departmentsSection && (
         <Section padding="large" background="gray">
-          <div className="container">
+          <Container>
             <div className="section-header centered">
               <Badge variant="primary" text={departmentsSection.badge} />
               <Heading
@@ -389,14 +390,14 @@ export default async function Home() {
                 />
               ))}
             </div>
-          </div>
+          </Container>
         </Section>
       )}
 
       {/* Team Section */}
       {teamSection && (
         <Section padding="large" background="white">
-          <div className="container">
+          <Container>
             <div className="section-header centered">
               <Badge variant="primary" text={teamSection.badge} />
               <Heading variant="h2" align="center" text={teamSection.heading} />
@@ -440,14 +441,14 @@ export default async function Home() {
                 </Button>
               </div>
             )}
-          </div>
+          </Container>
         </Section>
       )}
 
       {/* Testimonials Section */}
       {testimonialsSection && (
         <section className="testimonials-section">
-          <div className="container">
+          <Container>
             <div className="section-header centered light">
               <Badge variant="light" text={testimonialsSection.badge} />
               <Heading
@@ -488,14 +489,14 @@ export default async function Home() {
                 <i className="fas fa-chevron-right"></i>
               </button>
             </div>
-          </div>
+          </Container>
         </section>
       )}
 
       {/* News Section */}
       {newsSection && (
         <section className="news-section">
-          <div className="container">
+          <Container>
             <div className="section-header centered">
               <Badge variant="primary" text={newsSection.badge} />
               <Heading variant="h2" align="center" text={newsSection.heading} />
@@ -545,7 +546,7 @@ export default async function Home() {
                   ))}
               </div>
             </div>
-          </div>
+          </Container>
         </section>
       )}
 
@@ -554,7 +555,7 @@ export default async function Home() {
         <section className="parallax-section parallax-appointment">
           <div className="parallax-overlay dark"></div>
           <div className="parallax-content">
-            <div className="container">
+            <Container>
               <div className="appointment-wrapper">
                 <div className="appointment-info">
                   <Heading
@@ -697,7 +698,7 @@ export default async function Home() {
                   </form>
                 </div>
               </div>
-            </div>
+            </Container>
           </div>
         </section>
       )}
@@ -705,7 +706,7 @@ export default async function Home() {
       {/* Partners Section */}
       {partnersSection && (
         <section className="partners-section">
-          <div className="container">
+          <Container>
             <div className="section-header centered">
               <Heading
                 variant="h3"
@@ -721,7 +722,7 @@ export default async function Home() {
                 </div>
               ))}
             </div>
-          </div>
+          </Container>
         </section>
       )}
     </>

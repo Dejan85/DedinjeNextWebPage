@@ -7,6 +7,7 @@ import {
   HighlightItem,
   ValueCard,
   Button,
+  Container,
 } from "@/components/shared";
 import { Heading, Text, Badge } from "@/components/typography";
 import { client } from "@/sanity/lib/client";
@@ -164,7 +165,7 @@ export default async function OInstitutu() {
 
         {/* About Section */}
         <section className="institute-about-section">
-          <div className="container">
+          <Container>
             <div className="about-grid">
               <div className="about-content">
                 <Badge variant="primary" text={about.badge} />
@@ -204,13 +205,13 @@ export default async function OInstitutu() {
                 />
               </div>
             )}
-          </div>
+          </Container>
         </section>
 
         {/* Statistics Section */}
         {statistics.stats.length > 0 && (
           <section className="institute-stats-section">
-            <div className="container">
+            <Container>
               <div className="stats-header">
                 <Badge variant="primary" text={statistics.badge} />
                 <Heading variant="h2" text={statistics.heading} />
@@ -227,14 +228,14 @@ export default async function OInstitutu() {
                   />
                 ))}
               </div>
-            </div>
+            </Container>
           </section>
         )}
 
         {/* Management Section */}
         {profilesForTabs.length > 0 && (
           <section className="management-section">
-            <div className="container">
+            <Container>
               <div className="section-header-center">
                 <Badge variant="primary" text={management.badge} />
                 <Heading variant="h2" text={management.heading} />
@@ -245,14 +246,14 @@ export default async function OInstitutu() {
                 profiles={profilesForTabs}
                 defaultTab={profilesForTabs[0]?.id}
               />
-            </div>
+            </Container>
           </section>
         )}
 
         {/* Values Section */}
         {values.items.length > 0 && (
           <section className="values-section">
-            <div className="container">
+            <Container>
               <div className="section-header-center">
                 <Badge variant="primary" text={values.badge} />
                 <Heading variant="h2" text={values.heading} />
@@ -268,13 +269,13 @@ export default async function OInstitutu() {
                   />
                 ))}
               </div>
-            </div>
+            </Container>
           </section>
         )}
 
         {/* CTA Section */}
         <section className="institute-cta-section">
-          <div className="container">
+          <Container>
             <div className="cta-content">
               <Heading variant="h2" text={cta.heading} />
               <Text text={cta.text} />
@@ -291,7 +292,7 @@ export default async function OInstitutu() {
                 ))}
               </div>
             </div>
-          </div>
+          </Container>
         </section>
       </div>
     </>

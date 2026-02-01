@@ -1,0 +1,107 @@
+/* Base Heading Styles */
+.heading {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.3;
+}
+
+/* Semantic variants */
+.h1 {
+    font-size: 3rem;
+}
+
+.h2 {
+    font-size: 2.25rem;
+}
+
+.h3 {
+    font-size: 1.5rem;
+}
+
+.h4 {
+    font-size: 1.125rem;
+}
+
+.h5 {
+    font-size: 1rem;
+}
+
+.h6 {
+    font-size: 0.875rem;
+}
+
+/* Size variants */
+.sizeHero {
+    font-size: 56px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.sizeXl {
+    font-size: 3rem;
+}
+
+.sizeLg {
+    font-size: 2.25rem;
+}
+
+.sizeMd {
+    font-size: 1.5rem;
+}
+
+.sizeSm {
+    font-size: 1.125rem;
+}
+
+.sizeXs {
+    font-size: 1rem;
+}
+
+/* Font weight */
+.fontSemibold {
+    font-weight: 600;
+}
+
+.fontBold {
+    font-weight: 700;
+}
+
+/* Color variants */
+.colorDark {
+    color: var(--gray-800);
+}
+
+.colorLight {
+    color: var(--white);
+}
+
+.colorPrimary {
+    color: var(--primary);
+}
+
+/* Alignment */
+.alignLeft {
+    text-align: left;
+}
+
+.alignCenter {
+    text-align: center;
+}
+
+.alignRight {
+    text-align: right;
+}
+
+/* Responsive for hero size */
+@media (max-width: 992px) {
+    .sizeHero {
+        font-size: 42px;
+    }
+}
+
+@media (max-width: 768px) {
+    .sizeHero {
+        font-size: 32px;
+    }
+}

@@ -4,6 +4,7 @@ import {
   InfoCard,
   PartnerLogo,
   Section,
+  Container,
 } from "@/components/shared";
 import { Heading, Text, Badge } from "@/components/typography";
 import { client } from "@/sanity/lib/client";
@@ -129,7 +130,7 @@ export default async function RecDirektoraPage() {
         background="gray"
         className="director-info-section"
       >
-        <div className="container">
+        <Container>
           <div className="director-info-grid">
             {infoCards.map((card) => (
               <InfoCard
@@ -143,12 +144,12 @@ export default async function RecDirektoraPage() {
               />
             ))}
           </div>
-        </div>
+        </Container>
       </Section>
 
       {/* Director Message Section */}
       <section className="director-message-section">
-        <div className="container">
+        <Container>
           <div className="director-message-grid">
             <div className="message-content">
               <Badge variant="primary" text={message.badge} />
@@ -177,12 +178,12 @@ export default async function RecDirektoraPage() {
               )}
             </div>
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* Quote Section */}
       <section className="director-quote-section">
-        <div className="container">
+        <Container>
           <div className="quote-wrapper">
             <div className="quote-icon">
               <i className="fas fa-quote-left"></i>
@@ -193,12 +194,12 @@ export default async function RecDirektoraPage() {
               <Text text={quote.author} />
             </div>
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* Partners/Certifications Section */}
       <section className="partners-section">
-        <div className="container">
+        <Container>
           <div className="section-header centered">
             <Heading variant="h3" align="center" text={partners.heading} />
           </div>
@@ -211,7 +212,7 @@ export default async function RecDirektoraPage() {
               />
             ))}
           </div>
-        </div>
+        </Container>
       </section>
     </>
   );

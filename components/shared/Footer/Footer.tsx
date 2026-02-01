@@ -2,6 +2,7 @@ import Link from "next/link";
 import { client } from "@/sanity/lib/client";
 import { FOOTER_QUERY } from "@/sanity/lib/queries";
 import type { Footer as FooterType } from "@/sanity/types";
+import Container from "../Container/Container";
 import styles from "./Footer.module.css";
 
 async function getFooterData() {
@@ -37,7 +38,7 @@ export default async function Footer() {
   return (
     <footer className={styles.footer}>
       <div className={styles.footerTop}>
-        <div className="container">
+        <Container>
           <div className={styles.footerGrid}>
             <div className={`${styles.footerCol} ${styles.about}`}>
               <div className={styles.footerLogo}>
@@ -196,10 +197,10 @@ export default async function Footer() {
               </div>
             )}
           </div>
-        </div>
+        </Container>
       </div>
       <div className={styles.footerBottom}>
-        <div className="container">
+        <Container>
           <div className={styles.footerBottomContent}>
             <p>{copyright}</p>
             {footer?.legalLinks && footer.legalLinks.length > 0 && (
@@ -212,7 +213,7 @@ export default async function Footer() {
               </div>
             )}
           </div>
-        </div>
+        </Container>
       </div>
     </footer>
   );
