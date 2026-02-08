@@ -144,15 +144,15 @@ export default async function Home() {
 
       {/* Welcome Section */}
       {welcomeSection && (
-        <section className="welcome-section">
+        <section className={styles.welcomeSection}>
           <Container>
-            <div className="welcome-grid">
-              <div className="welcome-content">
+            <div className={styles.welcomeGrid}>
+              <div className={styles.welcomeContent}>
                 <Badge variant="primary" text={welcomeSection.badge} />
                 <Heading variant="h2" size="lg" text={welcomeSection.heading} />
                 <Text variant="lead" text={welcomeSection.leadText} />
                 <Text variant="body" text={welcomeSection.bodyText} />
-                <div className="welcome-features">
+                <div className={styles.welcomeFeatures}>
                   {welcomeSection.features?.map(
                     (feature: WelcomeFeatureType) => (
                       <WelcomeFeature
@@ -172,8 +172,8 @@ export default async function Home() {
                   </Button>
                 )}
               </div>
-              <div className="welcome-images">
-                <div className="welcome-img-main">
+              <div className={styles.welcomeImages}>
+                <div className={styles.welcomeImgMain}>
                   <Image
                     src={
                       ("url" in welcomeSection.image.asset
@@ -188,7 +188,7 @@ export default async function Home() {
                 {welcomeSection.secondaryImage &&
                   "url" in welcomeSection.secondaryImage.asset &&
                   welcomeSection.secondaryImage.asset.url && (
-                    <div className="welcome-img-secondary">
+                    <div className={styles.welcomeImgSecondary}>
                       <Image
                         src={welcomeSection.secondaryImage.asset.url}
                         alt="Medical equipment"
@@ -198,16 +198,16 @@ export default async function Home() {
                     </div>
                   )}
                 {welcomeSection.imageBadge && (
-                  <div className="experience-badge">
+                  <div className={styles.experienceBadge}>
                     <Text
                       text={welcomeSection.imageBadge.number}
                       as="span"
-                      className="exp-number"
+                      className={styles.expNumber}
                     />
                     <Text
                       text={welcomeSection.imageBadge.text}
                       as="span"
-                      className="exp-text"
+                      className={styles.expText}
                     />
                   </div>
                 )}
