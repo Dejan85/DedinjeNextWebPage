@@ -2456,56 +2456,10 @@ img {
     margin-top: 30px;
 }
 
-/* Biography Tabs */
-.bio-tabs-wrapper {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 50px;
-    border-bottom: 2px solid var(--gray-200);
-}
-
-.bio-tab {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 18px 30px;
-    background: transparent;
-    border: none;
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--gray-600);
-    cursor: pointer;
-    position: relative;
-    transition: var(--transition);
-}
-
-.bio-tab::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 0;
-    height: 3px;
-    background: var(--primary);
-    transition: var(--transition);
-}
-
-.bio-tab:hover {
-    color: var(--primary);
-}
-
-.bio-tab.active {
-    color: var(--primary);
-}
-
-.bio-tab.active::after {
-    width: 100%;
-}
-
-.bio-tab i {
-    font-size: 18px;
-}
+/* Biography tabs/buttons styles live in CSS modules:
+   - components/shared/TabButton/TabButton.module.css
+   - components/shared/TabButtonGroup/TabButtonGroup.module.css
+   - components/shared/ContentTabs/ContentTabs.module.css */
 
 /* Timeline */
 .timeline-section {
@@ -2774,10 +2728,6 @@ img {
 
     .education-grid {
         grid-template-columns: 1fr;
-    }
-
-    .bio-tabs-wrapper {
-        flex-direction: column;
     }
 
     .timeline {
