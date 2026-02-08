@@ -1,0 +1,22 @@
+.valuesSection {
+  padding: 100px 0;
+  background: white;
+}
+
+.valuesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+  margin-top: 60px;
+}
+
+@media (max-width: 768px) {
+  .valuesSection {
+    padding: 60px 0;
+  }
+
+  .valuesGrid {
+    grid-template-columns: 1fr;
+  }
+}
+

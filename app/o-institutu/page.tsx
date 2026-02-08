@@ -15,6 +15,7 @@ import { ABOUT_PAGE_QUERY } from "@/sanity/lib/queries";
 import type { AboutPage } from "@/sanity/types";
 import { urlFor } from "@/sanity/lib/image";
 import { generateMetadata } from "./metadata";
+import styles from "./page.module.css";
 
 export { generateMetadata };
 
@@ -35,7 +36,10 @@ const BUTTON_VARIANTS = new Set<ButtonVariant>([
 ]);
 
 function toButtonVariant(value: unknown): ButtonVariant {
-  if (typeof value === "string" && BUTTON_VARIANTS.has(value as ButtonVariant)) {
+  if (
+    typeof value === "string" &&
+    BUTTON_VARIANTS.has(value as ButtonVariant)
+  ) {
     return value as ButtonVariant;
   }
   return "primary";
@@ -273,14 +277,14 @@ export default async function OInstitutu() {
 
         {/* Values Section */}
         {values.items.length > 0 && (
-          <section className="values-section">
+          <section className={styles.valuesSection}>
             <Container>
               <div className="section-header-center">
                 <Badge variant="primary" text={values.badge} />
                 <Heading variant="h2" text={values.heading} />
                 <Text text={values.subtitle} />
               </div>
-              <div className="values-grid">
+              <div className={styles.valuesGrid}>
                 {values.items.map((value) => (
                   <ValueCard
                     key={value._key}

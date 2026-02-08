@@ -3163,19 +3163,6 @@ img {
 
 /* management-tabs/card/image/info/title/bio styles live in ProfileTabs.module.css */
 
-/* Values Section */
-.values-section {
-    padding: 100px 0;
-    background: white;
-}
-
-.values-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 30px;
-    margin-top: 60px;
-}
-
 /* CTA Section */
 .institute-cta-section {
     padding: 100px 0;
@@ -3281,8 +3268,7 @@ img {
     }
 
     .institute-about-section,
-    .management-section,
-    .values-section {
+    .management-section {
         padding: 60px 0;
     }
 
@@ -3297,10 +3283,6 @@ img {
 
     .about-image img {
         height: 350px;
-    }
-
-    .values-grid {
-        grid-template-columns: 1fr;
     }
 
     .institute-cta-section {
