@@ -449,7 +449,7 @@ export default async function Home() {
 
       {/* Testimonials Section */}
       {testimonialsSection && (
-        <section className="testimonials-section">
+        <section className={styles.testimonialsSection}>
           <Container>
             <div className="section-header centered light">
               <Badge variant="light" text={testimonialsSection.badge} />
@@ -460,7 +460,7 @@ export default async function Home() {
                 text={testimonialsSection.heading}
               />
             </div>
-            <div className="testimonials-slider">
+            <div className={styles.testimonialsSlider}>
               {testimonialsSection.testimonials?.map((testimonial) => (
                 <TestimonialCard
                   key={testimonial._key}
@@ -475,19 +475,19 @@ export default async function Home() {
                 />
               ))}
             </div>
-            <div className="testimonials-nav">
-              <button className="testimonial-prev">
+            <div className={styles.testimonialsNav}>
+              <button className={styles.testimonialNavButton}>
                 <i className="fas fa-chevron-left"></i>
               </button>
-              <div className="testimonials-dots">
+              <div className={styles.testimonialsDots}>
                 {testimonialsSection.testimonials?.map((_, index) => (
                   <span
                     key={index}
-                    className={`dot ${index === 0 ? "active" : ""}`}
+                    className={`${styles.dot} ${index === 0 ? styles.dotActive : ""}`}
                   ></span>
                 ))}
               </div>
-              <button className="testimonial-next">
+              <button className={styles.testimonialNavButton}>
                 <i className="fas fa-chevron-right"></i>
               </button>
             </div>
