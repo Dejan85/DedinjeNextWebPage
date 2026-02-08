@@ -18,6 +18,7 @@ import {
 import { Heading, Text, Badge } from "@/components/typography";
 import { client } from "@/sanity/lib/client";
 import { HOMEPAGE_QUERY } from "@/sanity/lib/queries";
+import styles from "./page.module.css";
 import type {
   WelcomeSection,
   StatsSection,
@@ -58,41 +59,41 @@ export default async function Home() {
   // Separate different section types
   const heroSlides = pageBuilder.filter((item) => item._type === "hero");
   const infoBoxes = pageBuilder.filter(
-    (item) => item._type === "infoBox",
+    (item) => item._type === "infoBox"
   ) as InfoBoxType[];
   const welcomeSection = pageBuilder.find(
-    (item) => item._type === "welcomeSection",
+    (item) => item._type === "welcomeSection"
   ) as WelcomeSection | undefined;
   const statsSection = pageBuilder.find(
-    (item) => item._type === "statsSection",
+    (item) => item._type === "statsSection"
   ) as StatsSection | undefined;
   const servicesSection = pageBuilder.find(
-    (item) => item._type === "servicesSection",
+    (item) => item._type === "servicesSection"
   ) as ServicesSection | undefined;
   const whyChooseUsSection = pageBuilder.find(
-    (item) => item._type === "whyChooseUsSection",
+    (item) => item._type === "whyChooseUsSection"
   ) as WhyChooseUsSection | undefined;
   const ctaSection = pageBuilder.find((item) => item._type === "ctaSection") as
     | CtaSection
     | undefined;
   const departmentsSection = pageBuilder.find(
-    (item) => item._type === "departmentsSection",
+    (item) => item._type === "departmentsSection"
   ) as DepartmentsSection | undefined;
   const teamSection = pageBuilder.find(
-    (item) => item._type === "teamSection",
+    (item) => item._type === "teamSection"
   ) as TeamSection | undefined;
   const testimonialsSection = pageBuilder.find(
-    (item) => item._type === "testimonialsSection",
+    (item) => item._type === "testimonialsSection"
   ) as TestimonialsSection | undefined;
   const newsSection = pageBuilder.find(
-    (item) => item._type === "newsSection",
+    (item) => item._type === "newsSection"
   ) as NewsSection | undefined;
   const contactSection = pageBuilder.find(
-    (section) => section._type === "contactSection",
+    (section) => section._type === "contactSection"
   ) as ContactSection | undefined;
 
   const partnersSection = pageBuilder.find(
-    (section) => section._type === "partnersSection",
+    (section) => section._type === "partnersSection"
   ) as PartnersSection | undefined;
 
   return (
@@ -159,7 +160,7 @@ export default async function Home() {
                         icon={feature.icon}
                         text={feature.text}
                       />
-                    ),
+                    )
                   )}
                 </div>
                 {welcomeSection.ctaButton && (
@@ -297,7 +298,7 @@ export default async function Home() {
                         title={feature.title}
                         description={feature.description}
                       />
-                    ),
+                    )
                   )}
                 </div>
               </div>
@@ -408,7 +409,7 @@ export default async function Home() {
                 text={teamSection.subheading}
               />
             </div>
-            <div className="team-grid">
+            <div className={styles.teamGrid}>
               {teamSection.team?.map((member) => (
                 <TeamCard
                   key={member._key}
@@ -422,7 +423,7 @@ export default async function Home() {
                   description={member.description}
                   socialLinks={member.socialLinks?.filter(
                     (
-                      link,
+                      link
                     ): link is {
                       _key: string;
                       platform: "facebook" | "linkedin" | "email";
@@ -430,13 +431,13 @@ export default async function Home() {
                     } =>
                       link.platform === "facebook" ||
                       link.platform === "linkedin" ||
-                      link.platform === "email",
+                      link.platform === "email"
                   )}
                 />
               ))}
             </div>
             {teamSection.ctaButton && (
-              <div className="team-cta">
+              <div className={styles.teamCta}>
                 <Button variant="primary" href={teamSection.ctaButton.link}>
                   {teamSection.ctaButton.text}
                 </Button>

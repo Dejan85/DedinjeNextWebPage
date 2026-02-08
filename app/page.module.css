@@ -1,0 +1,23 @@
+.teamGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+.teamCta {
+  text-align: center;
+  margin-top: 50px;
+}
+
+@media (max-width: 1200px) {
+  .teamGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .teamGrid {
+    grid-template-columns: 1fr;
+  }
+}
+

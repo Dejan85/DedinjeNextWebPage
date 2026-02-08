@@ -874,7 +874,6 @@ img {
 @media (max-width: 1200px) {
 
     .services-grid,
-    .team-grid,
     .departments-grid {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -935,7 +934,6 @@ img {
     }
 
     .services-grid,
-    .team-grid,
     .departments-grid,
     .stats-grid {
         grid-template-columns: 1fr;
