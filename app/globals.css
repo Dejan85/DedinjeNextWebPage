@@ -593,18 +593,6 @@ img {
     gap: 30px;
 }
 
-/* ===== Team Section ===== */
-.team-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
-}
-
-.team-cta {
-    text-align: center;
-    margin-top: 50px;
-}
-
 /* ===== Testimonials Section ===== */
 .testimonials-section {
     padding: 120px 0;
