@@ -202,11 +202,15 @@ export default async function Home() {
                     <Text
                       text={welcomeSection.imageBadge.number}
                       as="span"
+                      color="light"
+                      align="center"
                       className={styles.expNumber}
                     />
                     <Text
                       text={welcomeSection.imageBadge.text}
                       as="span"
+                      color="light"
+                      align="center"
                       className={styles.expText}
                     />
                   </div>
