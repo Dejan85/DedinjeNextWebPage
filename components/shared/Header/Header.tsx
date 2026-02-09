@@ -152,9 +152,6 @@ export default function Header() {
                 <li>
                   <Link href="#">ОДЕЉЕЊА</Link>
                 </li>
-                <li>
-                  <Link href="#">РАСПОРЕД</Link>
-                </li>
                 <li className={styles.hasDropdown}>
                   <button type="button">
                     ГАЛЕРИЈА <i className="fas fa-chevron-down"></i>

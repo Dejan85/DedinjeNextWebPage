@@ -7,6 +7,9 @@
     text-align: center;
     position: relative;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .directorInfoCard::before {
@@ -27,31 +30,35 @@
 
 .directorInfoCard:hover {
     transform: translateY(-10px);
-    box-shadow: 0 15px 40px rgba(42, 157, 244, 0.2);
+    box-shadow: 0 15px 40px rgba(var(--primary-rgb), 0.2);
 }
 
-.highlight {
+.directorInfoCard.highlight {
     background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
     color: var(--white);
 }
 
-.highlight h3,
-.highlight p {
+.directorInfoCard.highlight h3,
+.directorInfoCard.highlight p {
     color: var(--white);
 }
 
-.highlight .infoCardIcon {
+.directorInfoCard.highlight .infoCardIcon {
     background: rgba(255, 255, 255, 0.2);
 }
 
-.highlight .infoCardIcon i {
+.directorInfoCard.highlight .infoCardIcon i {
     color: var(--white);
 }
 
 .infoCardIcon {
     width: 80px;
     height: 80px;
-    background: linear-gradient(135deg, rgba(42, 157, 244, 0.1) 0%, rgba(42, 157, 244, 0.05) 100%);
+    background: linear-gradient(
+        135deg,
+        rgba(var(--primary-rgb), 0.1) 0%,
+        rgba(var(--primary-rgb), 0.05) 100%
+    );
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -69,16 +76,21 @@
     color: var(--primary);
 }
 
-.directorInfoCard h3 {
+.directorInfoCard:not(.highlight) h3 {
     font-size: 22px;
     font-weight: 700;
     color: var(--gray-800);
     margin-bottom: 15px;
 }
 
-.directorInfoCard p {
+.directorInfoCard:not(.highlight) p {
     font-size: 15px;
     color: var(--gray-600);
     line-height: 1.7;
     margin-bottom: 25px;
+}
+
+.cardButton {
+    margin-top: auto;
+    align-self: center;
 }

@@ -19,6 +19,10 @@ export default function InfoCard({
   buttonHref,
   highlight = false,
 }: InfoCardProps) {
+  const headingColor = highlight ? "light" : "dark";
+  const textColor = highlight ? "light" : "default";
+  const buttonVariant = highlight ? "outline-white" : "primary";
+
   return (
     <div
       className={`${styles.directorInfoCard} ${highlight ? styles.highlight : ""}`}
@@ -26,9 +30,13 @@ export default function InfoCard({
       <div className={styles.infoCardIcon}>
         <i className={icon}></i>
       </div>
-      <Heading variant="h3" text={title} />
-      <Text text={description} />
-      <Button href={buttonHref} variant="primary">
+      <Heading variant="h3" text={title} color={headingColor} align="center" />
+      <Text text={description} color={textColor} align="center" />
+      <Button
+        href={buttonHref}
+        variant={buttonVariant}
+        className={styles.cardButton}
+      >
         {buttonText} <i className="fas fa-arrow-right"></i>
       </Button>
     </div>
