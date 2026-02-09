@@ -17,6 +17,8 @@ export default async function KlinikePage() {
         <HeroSection
           img="/images/klinike-slika.jpg"
           imgAlt="Клинике института"
+          videoSrc="/videos/klinike-video.mp4"
+          videoPoster="/images/klinike-slika.jpg"
           badge="Наше клинике"
           title="Клинике института"
           subtitle="Савремене клинике опремљене најновијом медицинском технологијом, са тимом стручњака посвећених вашем здрављу и благостању"

@@ -13,6 +13,8 @@ interface HeroSlide {
   _type?: string;
   heading?: string;
   subheading?: string;
+  videoSrc?: string;
+  videoPoster?: string;
   image?: {
     asset?: {
       _id: string;
@@ -37,6 +39,8 @@ interface HeroSectionProps {
   // Single hero props (backwards compatible)
   img?: string;
   imgAlt?: string;
+  videoSrc?: string;
+  videoPoster?: string;
   badge?: string;
   title?: string;
   subtitle?: string;
@@ -49,6 +53,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   slides: propSlides,
   img,
   imgAlt,
+  videoSrc,
+  videoPoster,
   badge,
   title,
   subtitle,
@@ -61,6 +67,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
     {
       img,
       imgAlt,
+      videoSrc,
+      videoPoster,
       badge,
       title,
       subtitle,
@@ -116,18 +124,35 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   const currentData = slides[currentSlide];
   const heroImage = currentData.image?.asset?.url || currentData.img || "";
   const heroAlt = currentData.imgAlt || currentData.heading || "Hero image";
+  const heroVideo = currentData.videoSrc || "";
+  const heroPoster = currentData.videoPoster || heroImage || undefined;
 
   // Single hero content (used by both slider and static)
   const heroContent = (
     <>
       <div className={styles.directorHeroBg}>
-        <Image
-          src={heroImage}
-          alt={heroAlt}
-          fill
-          priority
-          objectFit="cover"
-        />
+        {heroVideo ? (
+          <video
+            className={styles.directorHeroVideo}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            poster={heroPoster}
+            aria-hidden="true"
+          >
+            <source src={heroVideo} type="video/mp4" />
+          </video>
+        ) : (
+          <Image
+            src={heroImage}
+            alt={heroAlt}
+            fill
+            priority
+            objectFit="cover"
+          />
+        )}
       </div>
       <div className={styles.directorHeroOverlay}></div>
       <div className={styles.directorHeroContent}>
