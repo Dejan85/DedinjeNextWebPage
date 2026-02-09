@@ -66,7 +66,7 @@ export default async function KlinikePage() {
                 icon="fas fa-heart-pulse"
                 title="Клиника за кардиохирургију"
                 subtitle="Оперативно лечење срчаних обољења"
-                href="#"
+                href="/klinike/kardiohirurgija"
               />
 
               <ClinicCard
