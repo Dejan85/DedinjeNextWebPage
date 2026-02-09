@@ -31,7 +31,11 @@
 .teamOverlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(42, 157, 244, 0.95) 0%, transparent 60%);
+    background: linear-gradient(
+        to top,
+        rgba(var(--primary-rgb), 0.95) 0%,
+        transparent 60%
+    );
     display: flex;
     align-items: flex-end;
     justify-content: center;

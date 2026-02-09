@@ -15,7 +15,7 @@
     visibility: hidden;
     transform: translateY(20px);
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(42, 157, 244, 0.4);
+    box-shadow: 0 4px 15px rgba(var(--primary-rgb), 0.4);
     z-index: 999;
 }
 
@@ -28,7 +28,7 @@
 .scrollToTop:hover {
     background: var(--primary-dark);
     transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(42, 157, 244, 0.5);
+    box-shadow: 0 8px 25px rgba(var(--primary-rgb), 0.5);
 }
 
 .scrollToTop i {

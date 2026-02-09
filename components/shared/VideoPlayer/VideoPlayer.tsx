@@ -57,7 +57,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
             opacity: isPlaying ? 0 : 1,
             background: isPlaying
               ? "transparent"
-              : "linear-gradient(135deg, rgba(42, 157, 244, 0.4) 0%, rgba(10, 37, 64, 0.3) 100%)",
+              : "linear-gradient(135deg, rgba(var(--primary-rgb), 0.4) 0%, rgba(var(--secondary-rgb), 0.3) 100%)",
             pointerEvents: isPlaying ? "none" : "all",
           }}
         >

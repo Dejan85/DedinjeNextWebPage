@@ -16,7 +16,7 @@
     border-radius: 50px;
     cursor: pointer;
     transition: var(--transition);
-    box-shadow: 0 10px 30px rgba(42, 157, 244, 0.3);
+    box-shadow: 0 10px 30px rgba(var(--primary-rgb), 0.3);
 }
 
 .btnPrimary i {
@@ -28,7 +28,7 @@
 
 .btnPrimary:hover {
     transform: translateY(-3px);
-    box-shadow: 0 15px 40px rgba(42, 157, 244, 0.4);
+    box-shadow: 0 15px 40px rgba(var(--primary-rgb), 0.4);
 }
 
 .btnWhite {
@@ -135,12 +135,12 @@
     justify-content: center;
     gap: 15px;
     transition: var(--transition);
-    box-shadow: 0 10px 30px rgba(42, 157, 244, 0.3);
+    box-shadow: 0 10px 30px rgba(var(--primary-rgb), 0.3);
 }
 
 .btnSubmit:hover {
     transform: translateY(-3px);
-    box-shadow: 0 15px 40px rgba(42, 157, 244, 0.4);
+    box-shadow: 0 15px 40px rgba(var(--primary-rgb), 0.4);
 }
 
 .btnDownload {
@@ -155,13 +155,13 @@
     border: none;
     cursor: pointer;
     transition: var(--transition);
-    box-shadow: 0 4px 15px rgba(42, 157, 244, 0.3);
+    box-shadow: 0 4px 15px rgba(var(--primary-rgb), 0.3);
 }
 
 .btnDownload:hover {
     background: var(--primary-dark);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(42, 157, 244, 0.4);
+    box-shadow: 0 6px 20px rgba(var(--primary-rgb), 0.4);
 }
 
 .btnDownloadSmall {
