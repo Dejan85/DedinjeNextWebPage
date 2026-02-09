@@ -4,6 +4,7 @@ import Script from "next/script";
 import Header from "@/components/shared/Header/Header";
 import Footer from "@/components/shared/Footer/Footer";
 import ScrollToTop from "@/components/shared/ScrollToTop/ScrollToTop";
+import ThemeColorSwitcher from "@/components/shared/ThemeColorSwitcher";
 
 export const metadata: Metadata = {
   title: "Институт Дедиње - Кардиоваскуларне болести",
@@ -20,6 +21,10 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const enableThemeColorSwitcher =
+    process.env.NEXT_PUBLIC_THEME_COLOR_SWITCHER === "true" ||
+    process.env.NODE_ENV === "development";
+
   return (
     <html lang="sr" suppressHydrationWarning style={{ scrollBehavior: "auto" }}>
       <head>
@@ -47,6 +52,7 @@ export default function RootLayout({
         {children}
         <Footer />
         <ScrollToTop />
+        {enableThemeColorSwitcher && <ThemeColorSwitcher />}
         <Script
           src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"
           strategy="afterInteractive"

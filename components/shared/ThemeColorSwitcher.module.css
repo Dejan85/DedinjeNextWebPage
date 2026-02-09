@@ -1,0 +1,159 @@
+.root {
+  position: fixed;
+  right: 92px;
+  bottom: 30px;
+  z-index: 9999;
+  font-family: inherit;
+}
+
+.fab {
+  width: 52px;
+  height: 52px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(15, 23, 42, 0.72);
+  color: white;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.fab:hover {
+  transform: translateY(-2px);
+  background: rgba(15, 23, 42, 0.82);
+}
+
+.panel {
+  position: absolute;
+  right: 0;
+  bottom: 64px;
+  width: 280px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(15, 23, 42, 0.86);
+  color: white;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(12px);
+}
+
+.header {
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.title {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+
+.close {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
+  color: white;
+  cursor: pointer;
+}
+
+.body {
+  padding: 14px;
+  display: grid;
+  gap: 12px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 12px;
+  align-items: center;
+}
+
+.colorInput {
+  width: 44px;
+  height: 38px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.textInput {
+  height: 38px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.06);
+  color: white;
+  padding: 0 10px;
+  font-size: 14px;
+  outline: none;
+}
+
+.textInput::placeholder {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.swatch {
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  position: relative;
+}
+
+.swatchActive::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 999px;
+  border: 2px solid rgba(255, 255, 255, 0.85);
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  flex: 1;
+  height: 38px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.06);
+  color: white;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.btnPrimary {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.hint {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.4;
+}
+
