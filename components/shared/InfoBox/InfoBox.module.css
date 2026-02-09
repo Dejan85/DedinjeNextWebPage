@@ -4,6 +4,7 @@
     background: var(--white);
     position: relative;
     transition: var(--transition);
+    border-left: 4px solid var(--primary);
     border-right: 1px solid var(--gray-100);
 }
 
@@ -15,11 +16,11 @@
     background: var(--gray-50);
 }
 
-.infoBox.emergency {
+.infoBox:global(.emergency) {
     background: var(--primary);
 }
 
-.infoBox.emergency:hover {
+.infoBox:global(.emergency):hover {
     background: var(--primary-dark);
 }
 
@@ -39,7 +40,7 @@
     color: var(--white);
 }
 
-.infoBox.emergency .infoBoxIcon {
+.infoBox:global(.emergency) .infoBoxIcon {
     background: rgba(255, 255, 255, 0.2);
 }
 
@@ -52,9 +53,13 @@
     letter-spacing: 0.5px;
 }
 
-.infoBox.emergency .infoBoxContent h3,
-.infoBox.emergency .infoBoxContent p {
+.infoBox:global(.emergency) .infoBoxContent h3,
+.infoBox:global(.emergency) .infoBoxContent p {
     color: var(--white);
+}
+
+.infoBox:global(.emergency) {
+    border-left-color: rgba(255, 255, 255, 0.35);
 }
 
 .infoBoxContent p {
