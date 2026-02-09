@@ -73,7 +73,7 @@ export default async function KlinikePage() {
                 icon="fas fa-stethoscope"
                 title="Клиника за васкуларну хирургију"
                 subtitle="Лечење крвних судова"
-                href="#"
+                href="/klinike/vaskularna-hirurgija"
               />
 
               <ClinicCard
