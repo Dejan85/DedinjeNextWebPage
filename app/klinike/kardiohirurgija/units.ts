@@ -80,6 +80,7 @@ export const kardiohirurgijaUnits: KardiohirurgijaUnit[] = [
   {
     slug: "odeljenje-kardiohirurgije-2",
     title: "Одељење кардиохирургије 2",
+    heroImage: "/images/kardiohirurgija2.png",
     heroSubtitle:
       "Нега, мониторинг и дијагностика током опоравка пацијената после кардиохируршких интервенција.",
     sections: [
