@@ -118,6 +118,8 @@ export default async function RecDirektoraPage() {
       <HeroSection
         img={heroImageUrl}
         imgAlt={hero.badge}
+        videoSrc={message.videoSrc}
+        videoPoster={heroImageUrl}
         badge={hero.badge}
         title={hero.title}
         subtitle={hero.subtitle}
