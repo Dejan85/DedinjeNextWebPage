@@ -10,10 +10,10 @@ export default function PageTransition({ children }: { children: ReactNode }) {
   // Scroll na vrh pri promeni rute i pri inicijalnom učitavanju
   useEffect(() => {
     // Isključi automatski scroll restoration
-    if ('scrollRestoration' in window.history) {
-      window.history.scrollRestoration = 'manual';
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
     }
-    
+
     // Forsiraj scroll na vrh
     window.scrollTo(0, 0);
     document.documentElement.scrollTop = 0;
@@ -57,7 +57,8 @@ export default function PageTransition({ children }: { children: ReactNode }) {
                 ease: [0.22, 1, 0.36, 1],
               }}
               style={{
-                background: "linear-gradient(135deg, #2a9df4 0%, #1576b8 100%)",
+                background:
+                  "linear-gradient(135deg, var(--primary) 0%, var(--primary-darker) 100%)",
                 transformOrigin: "top",
               }}
             />

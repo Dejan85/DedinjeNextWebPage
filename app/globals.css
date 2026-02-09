@@ -4,11 +4,12 @@
     --primary-dark: #1a8cd8;
     --primary-darker: #1576b8;
     --primary-light: #5bb8f7;
-    --primary-rgb: 42 157 244;
-    --primary-dark-rgb: 26 140 216;
-    --primary-darker-rgb: 21 118 184;
-    --primary-light-rgb: 91 184 247;
+    --primary-rgb: 42, 157, 244;
+    --primary-dark-rgb: 26, 140, 216;
+    --primary-darker-rgb: 21, 118, 184;
+    --primary-light-rgb: 91, 184, 247;
     --secondary: #0a2540;
+    --secondary-rgb: 10, 37, 64;
     --accent: #00d4aa;
     --white: #ffffff;
     --gray-50: #f8fafc;

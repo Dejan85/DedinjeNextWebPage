@@ -115,22 +115,22 @@ function applyPrimary(primaryHex: string) {
   if (rgbPrimary)
     root.style.setProperty(
       "--primary-rgb",
-      `${rgbPrimary.r} ${rgbPrimary.g} ${rgbPrimary.b}`
+      `${rgbPrimary.r}, ${rgbPrimary.g}, ${rgbPrimary.b}`
     );
   if (rgbDark)
     root.style.setProperty(
       "--primary-dark-rgb",
-      `${rgbDark.r} ${rgbDark.g} ${rgbDark.b}`
+      `${rgbDark.r}, ${rgbDark.g}, ${rgbDark.b}`
     );
   if (rgbDarker)
     root.style.setProperty(
       "--primary-darker-rgb",
-      `${rgbDarker.r} ${rgbDarker.g} ${rgbDarker.b}`
+      `${rgbDarker.r}, ${rgbDarker.g}, ${rgbDarker.b}`
     );
   if (rgbLight)
     root.style.setProperty(
       "--primary-light-rgb",
-      `${rgbLight.r} ${rgbLight.g} ${rgbLight.b}`
+      `${rgbLight.r}, ${rgbLight.g}, ${rgbLight.b}`
     );
 }
 
