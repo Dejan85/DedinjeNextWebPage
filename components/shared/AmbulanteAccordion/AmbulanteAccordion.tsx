@@ -23,14 +23,18 @@ interface AmbulanteAccordionProps {
   items: AmbulantaItem[];
   title?: string;
   subtitle?: string;
+  defaultOpenId?: string;
 }
 
 export default function AmbulanteAccordion({
   items,
   title = "Амбуланте",
   subtitle,
+  defaultOpenId,
 }: AmbulanteAccordionProps) {
-  const [openId, setOpenId] = useState<string | null>(null);
+  const [openId, setOpenId] = useState<string | null>(
+    defaultOpenId && items.some((i) => i.id === defaultOpenId) ? defaultOpenId : null
+  );
 
   return (
     <section className={styles.ambulanteSection}>
