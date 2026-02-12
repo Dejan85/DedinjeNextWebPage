@@ -60,7 +60,9 @@ export default function Header() {
                   </div>
                   <div className={`${styles.infoText} ${styles.infoTextEmail}`}>
                     <a href="mailto:dedinje@ikvbd.com">dedinje@ikvbd.com</a>
-                    <a href="mailto:pohvaleizsalbe@institutdedinje.org">pohvaleizsalbe@institutdedinje.org</a>
+                    <a href="mailto:pohvaleizsalbe@institutdedinje.org">
+                      pohvaleizsalbe@institutdedinje.org
+                    </a>
                   </div>
                 </div>
                 <div className={styles.infoItem}>
@@ -140,49 +142,201 @@ export default function Header() {
                 </li>
                 <li className={styles.hasDropdown}>
                   <button type="button">
-                    СТРАНИЦЕ <i className="fas fa-chevron-down"></i>
+                    ЗА ПАЦИЈЕНТЕ <i className="fas fa-chevron-down"></i>
                   </button>
                   <ul className={styles.dropdown}>
                     <li>
-                      <Link href="#">Историјат</Link>
+                      <Link href="/za-pacijente/cesta-pitanja">
+                        Честа питања
+                      </Link>
                     </li>
                     <li>
-                      <Link href="#">Мисија & Визија</Link>
+                      <Link href="/za-pacijente/ambulante">Амбуланте</Link>
+                    </li>
+                    <li className={styles.hasSubmenu}>
+                      <span>
+                        Информације <i className="fas fa-chevron-right"></i>
+                      </span>
+                      <ul className={styles.submenu}>
+                        <li>
+                          <Link href="/za-pacijente/vaskularna-hirurgija">
+                            Васкуларна хирургија – информације за пацијенте
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="/za-pacijente/kardiologija">
+                            Кардиологија – информације за пацијенте
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="/za-pacijente/elektrofizioloske-procedure">
+                            Обавештење за електрофизиолошке процедуре
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="/za-pacijente/elektrostimulativne-procedure">
+                            Обавештење за електростимулативне процедуре
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="/za-pacijente/kucni-red">Кућни ред</Link>
+                        </li>
+                      </ul>
                     </li>
                     <li>
-                      <Link href="#">Руководство</Link>
+                      <Link href="/za-pacijente/prijem">Пријем у болницу</Link>
+                    </li>
+                    <li>
+                      <Link href="/za-pacijente/informacije-o-stanju">
+                        Информације о здравственом стању пацијента
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/za-pacijente/kardiohirurski-konzilijum">
+                        Кардиохируршки конзилијум
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/za-pacijente/vaskularni-konzilijum">
+                        Васкуларни конзилијум
+                      </Link>
+                    </li>
+                    <li className={styles.hasSubmenu}>
+                      <span>
+                        О вашем здрављу <i className="fas fa-chevron-right"></i>
+                      </span>
+                      <ul className={styles.submenu}>
+                        <li>
+                          <Link href="/za-pacijente/plan-ishrane">
+                            План исхране
+                          </Link>
+                        </li>
+                      </ul>
                     </li>
                   </ul>
                 </li>
-                <li>
-                  <Link href="#">УСЛУГЕ</Link>
-                </li>
-                <li>
-                  <Link href="#">ОДЕЉЕЊА</Link>
-                </li>
                 <li className={styles.hasDropdown}>
                   <button type="button">
-                    ГАЛЕРИЈА <i className="fas fa-chevron-down"></i>
+                    НАУКА И ИСТРАЖИВАЊЕ <i className="fas fa-chevron-down"></i>
                   </button>
                   <ul className={styles.dropdown}>
                     <li>
-                      <Link href="#">Фото галерија</Link>
+                      <Link href="/nauka-istrazivanje/nio">NIO</Link>
                     </li>
                     <li>
-                      <Link href="#">Видео галерија</Link>
+                      <Link href="/nauka-istrazivanje/centar-izuzetnih-vrednosti">
+                        Центар изузетних вредности
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/nauka-istrazivanje/saige-projekat">
+                        SAIGE пројекат
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/nauka-istrazivanje/aktuelnosti">
+                        Актуелности из науке
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/nauka-istrazivanje/lista-istrazivaca">
+                        Листа истраживача
+                      </Link>
+                    </li>
+                    <li className={styles.hasSubmenu}>
+                      <span>
+                        CardioView3D LAB - Dedinje{" "}
+                        <i className="fas fa-chevron-right"></i>
+                      </span>
+                      <ul className={styles.submenu}>
+                        <li>
+                          <Link href="/nauka-istrazivanje/cardioview3d-lab/workshop">
+                            CardioView3D LAB - WORKSHOP
+                          </Link>
+                        </li>
+                      </ul>
+                    </li>
+                    <li className={styles.hasSubmenu}>
+                      <span>
+                        Корисни линкови <i className="fas fa-chevron-right"></i>
+                      </span>
+                      <ul className={styles.submenu}>
+                        <li>
+                          <Link href="/nauka-istrazivanje/korisni-linkovi/nitra">
+                            НИТРА
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="/nauka-istrazivanje/korisni-linkovi/amprec">
+                            AMPREC
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="/nauka-istrazivanje/korisni-linkovi/kobson">
+                            КОБСОН
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="/nauka-istrazivanje/korisni-linkovi/zajednica-instituta">
+                            Заједница института
+                          </Link>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <Link href="/nauka-istrazivanje/monografija">
+                        Монографија Института
+                      </Link>
                     </li>
                   </ul>
                 </li>
                 <li className={styles.hasDropdown}>
                   <button type="button">
-                    БЛОГ <i className="fas fa-chevron-down"></i>
+                    ЕДУКАЦИЈА <i className="fas fa-chevron-down"></i>
                   </button>
                   <ul className={styles.dropdown}>
                     <li>
-                      <Link href="#">Новости</Link>
+                      <Link href="/edukacija">Едукација Институт Дедиње</Link>
                     </li>
                     <li>
-                      <Link href="#">Чланци</Link>
+                      <Link href="/edukacija/kme-2024">KME 2024</Link>
+                    </li>
+                    <li>
+                      <Link href="/edukacija/programi">Едукативни програми</Link>
+                    </li>
+                    <li>
+                      <Link href="/edukacija/interna-edukacija">Интерна едукација</Link>
+                    </li>
+                    <li>
+                      <Link href="/edukacija/radionice">Радионице</Link>
+                    </li>
+                    <li>
+                      <Link href="/edukacija/kongresi">Конгреси</Link>
+                    </li>
+                    <li>
+                      <Link href="/edukacija/medjunarodni-kongresi">Међународни конгреси</Link>
+                    </li>
+                  </ul>
+                </li>
+                <li className={styles.hasDropdown}>
+                  <button type="button">
+                    АКТУЕЛНОСТИ <i className="fas fa-chevron-down"></i>
+                  </button>
+                  <ul className={styles.dropdown}>
+                    <li>
+                      <Link href="/aktuelnosti">Актуелности</Link>
+                    </li>
+                    <li>
+                      <Link href="/aktuelnosti/obavestenja">Обавештења</Link>
+                    </li>
+                    <li>
+                      <Link href="/aktuelnosti/oglasi-konkursi">Огласи и конкурси</Link>
+                    </li>
+                    <li>
+                      <Link href="/aktuelnosti/casopis-dedinje">Часопис Дедиње</Link>
+                    </li>
+                    <li>
+                      <Link href="/aktuelnosti/informator">Информатор о раду</Link>
                     </li>
                   </ul>
                 </li>

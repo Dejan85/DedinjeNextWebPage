@@ -71,10 +71,6 @@ export default async function KardiohirurgijaUnitPage({
                 <i className="fas fa-arrow-left"></i>
                 Назад на клинику
               </Button>
-              <Button variant="primary" href="/kontakt">
-                <i className="fas fa-phone"></i>
-                Контактирајте нас
-              </Button>
             </div>
 
             {unit.sections.length === 0 ? (

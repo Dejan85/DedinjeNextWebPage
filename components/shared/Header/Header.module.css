@@ -232,8 +232,9 @@
     transform: translateY(15px);
     transition: var(--transition);
     z-index: 1000;
-    overflow: hidden;
+    overflow: visible;
 }
+
 
 .hasDropdown:hover .dropdown {
     opacity: 1;
@@ -268,7 +269,8 @@
     color: var(--primary);
 }
 
-.dropdown li:last-child a {
+.dropdown li:last-child a,
+.dropdown li:last-child.hasSubmenu > span {
     border-bottom: none;
 }
 
@@ -276,6 +278,71 @@
     background: var(--gray-50);
     color: var(--primary);
     padding-left: 25px;
+}
+
+/* Pod-meniji (Информације, О вашем здрављу) */
+.hasSubmenu {
+    position: relative;
+}
+
+.hasSubmenu > span {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 20px;
+    font-size: 13px;
+    color: var(--gray-700);
+    border-bottom: 1px solid var(--gray-100);
+    font-weight: 500;
+    cursor: default;
+}
+
+.hasSubmenu > span i {
+    width: 20px;
+    text-align: center;
+    color: var(--gray-400);
+    font-size: 14px;
+    margin-left: auto;
+}
+
+.hasSubmenu:hover > span {
+    background: var(--gray-50);
+    color: var(--primary);
+}
+
+.hasSubmenu:hover > span i {
+    color: var(--primary);
+}
+
+.submenu {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    margin-left: -2px;
+    min-width: 280px;
+    background: var(--white);
+    box-shadow: var(--shadow-xl);
+    border-radius: 8px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-10px);
+    transition: var(--transition);
+    z-index: 1001;
+    overflow: hidden;
+}
+
+.hasSubmenu:hover .submenu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+}
+
+.submenu li a {
+    border-bottom: 1px solid var(--gray-100);
+}
+
+.submenu li:last-child a {
+    border-bottom: none;
 }
 
 .navSearch {
@@ -385,6 +452,17 @@
 
     .hasDropdown.open .dropdown {
         display: block;
+    }
+
+    .submenu {
+        position: static;
+        transform: none;
+        margin-left: 15px;
+        margin-bottom: 10px;
+        box-shadow: none;
+        border-left: 2px solid var(--gray-200);
+        opacity: 1;
+        visibility: visible;
     }
 
     .mainHeader {

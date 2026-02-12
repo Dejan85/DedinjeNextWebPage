@@ -43,10 +43,6 @@ export default function VaskularnaHirurgijaPage() {
                     marginTop: 28,
                   }}
                 >
-                  <Button variant="primary" href="/kontakt">
-                    <i className="fas fa-phone"></i>
-                    Контактирајте нас
-                  </Button>
                   <Button variant="outline" href="/klinike">
                     <i className="fas fa-arrow-left"></i>
                     Назад на све клинике
