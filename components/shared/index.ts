@@ -32,6 +32,11 @@ export { default as StatItem } from "./StatItem/StatItem";
 export { default as Container } from "./Container/Container";
 export { default as FaqAccordion } from "./FaqAccordion/FaqAccordion";
 export {
+  default as AmbulanteAccordion,
+  type AmbulantaItem,
+  type AmbulantaSection,
+} from "./AmbulanteAccordion/AmbulanteAccordion";
+export {
   default as PageHeader,
   type BreadcrumbItem,
 } from "./PageHeader/PageHeader";

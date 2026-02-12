@@ -1,0 +1,179 @@
+.ambulanteSection {
+  padding: 80px 0 100px;
+  background: var(--gray-50);
+}
+
+.ambulanteHeader {
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.ambulanteTitle {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--gray-800);
+  margin-bottom: 12px;
+}
+
+.ambulanteSubtitle {
+  font-size: 16px;
+  color: var(--gray-600);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.ambulanteList {
+  width: 100%;
+}
+
+.ambulanteItem {
+  background: var(--white);
+  border-radius: 12px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+
+.ambulanteItem:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.ambulanteItem.open {
+  box-shadow: var(--shadow-lg);
+}
+
+.ambulanteTrigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  text-align: left;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--gray-800);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+  font-family: inherit;
+}
+
+.ambulanteTrigger:hover {
+  color: var(--primary);
+}
+
+.ambulanteIcon {
+  width: 24px;
+  text-align: center;
+  color: var(--primary);
+  font-size: 18px;
+}
+
+.ambulanteTriggerText {
+  flex: 1;
+}
+
+.chevron {
+  flex-shrink: 0;
+  color: var(--gray-400);
+  font-size: 14px;
+  transition: transform 0.3s ease;
+}
+
+.ambulanteItem.open .chevron {
+  transform: rotate(180deg);
+  color: var(--primary);
+}
+
+.ambulanteContent {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+}
+
+.ambulanteItem.open .ambulanteContent {
+  max-height: 3000px;
+}
+
+.ambulanteContent {
+  border-top: 1px solid var(--gray-100);
+}
+
+.ambulanteSectionBlock {
+  padding: 20px 24px 0;
+  margin-bottom: 20px;
+}
+
+.ambulanteSectionBlock:last-child {
+  margin-bottom: 0;
+  padding-bottom: 24px;
+}
+
+.sectionTitle {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 12px;
+}
+
+.sectionText p {
+  margin: 0 0 12px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--gray-600);
+}
+
+.sectionText p:last-child {
+  margin-bottom: 0;
+}
+
+.sectionList {
+  margin: 0;
+  padding-left: 20px;
+  list-style: disc;
+}
+
+.sectionList li {
+  margin-bottom: 8px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--gray-600);
+}
+
+.sectionList li:last-child {
+  margin-bottom: 0;
+}
+
+.ctaWrapper {
+  margin-top: 60px;
+  padding-top: 40px;
+  border-top: 1px solid var(--gray-200);
+  text-align: center;
+}
+
+.ctaText {
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .ambulanteSection {
+    padding: 50px 0 70px;
+  }
+
+  .ambulanteTrigger {
+    padding: 16px 20px;
+    font-size: 15px;
+  }
+
+  .ambulanteSectionBlock {
+    padding: 16px 20px 0;
+  }
+
+  .sectionText p,
+  .sectionList li {
+    font-size: 14px;
+  }
+}
