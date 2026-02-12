@@ -711,6 +711,7 @@ export default async function Home() {
                           "Пошаљите поруку"
                         }
                         as="span"
+                        color="light"
                       />
                       <i className="fas fa-arrow-right"></i>
                     </Button>

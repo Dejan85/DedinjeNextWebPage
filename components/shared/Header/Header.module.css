@@ -53,12 +53,12 @@
 .logo {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 16px;
 }
 
 .logoIcon {
-    width: 50px;
-    height: 50px;
+    width: 72px;
+    height: 72px;
     background: transparent;
     border-radius: 8px;
     display: flex;
@@ -80,7 +80,7 @@
 
 .logoName {
     font-family: 'Roboto', sans-serif;
-    font-size: 26px;
+    font-size: 34px;
     font-weight: 700;
     color: var(--white);
     letter-spacing: 2px;
@@ -89,7 +89,7 @@
 }
 
 .logoSubtitle {
-    font-size: 11px;
+    font-size: 13px;
     color: rgba(255, 255, 255, 0.8);
     letter-spacing: 0.5px;
 }
@@ -139,6 +139,21 @@
 .infoText span:first-child {
     font-weight: 600;
     color: var(--white);
+}
+
+.infoTextEmail {
+    flex-direction: column;
+}
+
+.infoTextEmail a {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.infoTextEmail a:hover {
+    color: var(--white);
+    text-decoration: underline;
 }
 
 /* ===== Navigation ===== */

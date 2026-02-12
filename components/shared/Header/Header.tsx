@@ -52,7 +52,15 @@ export default function Header() {
                   </div>
                   <div className={styles.infoText}>
                     <span>011 3601 668</span>
-                    <span>011 3601 669</span>
+                  </div>
+                </div>
+                <div className={styles.infoItem}>
+                  <div className={styles.infoIcon}>
+                    <i className="fas fa-at"></i>
+                  </div>
+                  <div className={`${styles.infoText} ${styles.infoTextEmail}`}>
+                    <a href="mailto:dedinje@ikvbd.com">dedinje@ikvbd.com</a>
+                    <a href="mailto:pohvaleizsalbe@institutdedinje.org">pohvaleizsalbe@institutdedinje.org</a>
                   </div>
                 </div>
                 <div className={styles.infoItem}>

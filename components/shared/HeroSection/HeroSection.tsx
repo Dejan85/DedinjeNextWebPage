@@ -6,7 +6,6 @@ import Image from "../Image/Image";
 import Container from "../Container/Container";
 import type { ContainerVariant } from "../Container/Container";
 import { Heading, Text, Badge } from "../../typography";
-import Button from "../Button/Button";
 import styles from "./HeroSection.module.css";
 
 interface HeroSlide {
@@ -188,11 +187,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 color="light"
                 text={currentData.subtitle || currentData.subheading}
               />
-            )}
-            {currentData.cta && (
-              <Button variant="hero" href={currentData.cta.link || "#"}>
-                {currentData.cta.text}
-              </Button>
             )}
           </div>
         </Container>

@@ -52,10 +52,6 @@ export default function HeroSlider({ slides: sanitySlides }: HeroSliderProps) {
       heading: "Најсавременија дијагностика",
       subheading:
         "Користимо најновију технологију и опрему за прецизну дијагностику и лечење кардиоваскуларних обољења",
-      cta: {
-        text: "ПОГЛЕДАЈ УСЛУГЕ",
-        link: "#services",
-      },
     },
     {
       _type: "hero",
@@ -165,17 +161,6 @@ export default function HeroSlider({ slides: sanitySlides }: HeroSliderProps) {
                   >
                     {slides[currentSlide].subheading}
                   </motion.p>
-                  {slides[currentSlide].cta && (
-                    <motion.a
-                      href={slides[currentSlide].cta?.link || "#"}
-                      className={styles.heroBtn}
-                      initial={{ opacity: 0, y: 30 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.7, duration: 0.6 }}
-                    >
-                      {slides[currentSlide].cta?.text}
-                    </motion.a>
-                  )}
                 </div>
               </Container>
             </div>

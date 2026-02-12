@@ -118,6 +118,11 @@
     transform: translateY(-3px);
 }
 
+.btnSubmit,
+.btnSubmit * {
+    color: var(--white) !important;
+}
+
 .btnSubmit {
     width: 100%;
     padding: 18px 40px;
@@ -243,4 +248,27 @@
     background: var(--primary);
     color: var(--white);
     transform: translateX(5px);
+}
+
+/* Dugmad sa pozadinom (primary/dark) uvek imaju beli tekst */
+.btnPrimary,
+.btnSecondary,
+.btnSubmit,
+.btnDownload,
+.btnDownloadSmall,
+.btnDownloadFull,
+.btnOutline:hover,
+.btnCard:hover {
+    color: var(--white) !important;
+}
+
+.btnPrimary i,
+.btnSecondary i,
+.btnSubmit i,
+.btnDownload i,
+.btnDownloadSmall i,
+.btnDownloadFull i,
+.btnOutline:hover i,
+.btnCard:hover i {
+    color: var(--white) !important;
 }
