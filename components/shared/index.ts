@@ -30,3 +30,8 @@ export { default as ValueCard } from "./ValueCard/ValueCard";
 export { default as PublicationItem } from "./PublicationItem/PublicationItem";
 export { default as StatItem } from "./StatItem/StatItem";
 export { default as Container } from "./Container/Container";
+export { default as FaqAccordion } from "./FaqAccordion/FaqAccordion";
+export {
+  default as PageHeader,
+  type BreadcrumbItem,
+} from "./PageHeader/PageHeader";

@@ -950,10 +950,33 @@ img {
 
 /* Simple Page Header */
 .page-header-simple {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    position: relative;
     padding: 200px 0 80px;
     text-align: center;
     color: var(--white);
+    background-color: var(--primary);
+    background-image: url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=1920');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+.page-header-simple::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        135deg,
+        rgba(var(--primary-rgb), 0.82) 0%,
+        rgba(var(--primary-dark-rgb), 0.78) 100%
+    );
+    z-index: 0;
+}
+
+.page-header-simple > div {
+    position: relative;
+    z-index: 1;
 }
 
 .breadcrumb {

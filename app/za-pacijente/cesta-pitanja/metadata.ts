@@ -1,0 +1,9 @@
+import type { Metadata } from "next";
+
+export function generateMetadata(): Metadata {
+  return {
+    title: "Честа питања | За пацијенте | Институт Дедиње",
+    description:
+      "Одговори на најчешће постављана питања о пријему, прегледима и услугама Института за кардиоваскуларне болести Дедиње.",
+  };
+}

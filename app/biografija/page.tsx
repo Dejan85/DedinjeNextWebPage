@@ -1,10 +1,10 @@
-import Link from "next/link";
 import {
   HighlightItem,
   Image,
   ContentTabs,
   Button,
   Container,
+  PageHeader,
 } from "@/components/shared";
 import { Heading, Text, Badge } from "@/components/typography";
 import { client } from "@/sanity/lib/client";
@@ -70,20 +70,15 @@ export default async function BiografijaPage() {
 
   return (
     <>
-      {/* Page Header */}
-      <section className="page-header-simple">
-        <Container>
-          <div className="breadcrumb">
-            <Link href="/">Почетна</Link>
-            <i className="fas fa-chevron-right"></i>
-            <Link href="/rec-direktora">Реч директора</Link>
-            <i className="fas fa-chevron-right"></i>
-            <Text as="span" text={pageHeader.title} />
-          </div>
-          <Heading variant="h1" text={pageHeader.title} />
-          <Text text={pageHeader.subtitle} />
-        </Container>
-      </section>
+      <PageHeader
+        breadcrumbs={[
+          { label: "Почетна", href: "/" },
+          { label: "Реч директора", href: "/rec-direktora" },
+          { label: pageHeader.title },
+        ]}
+        title={pageHeader.title}
+        subtitle={pageHeader.subtitle}
+      />
 
       {/* Biography Content */}
       <section className="biography-section">

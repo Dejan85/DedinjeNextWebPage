@@ -1,5 +1,10 @@
-import Link from "next/link";
-import { PublicationItem, StatItem, Button, Container } from "@/components/shared";
+import {
+  PublicationItem,
+  StatItem,
+  Button,
+  Container,
+  PageHeader,
+} from "@/components/shared";
 import { Heading, Text } from "@/components/typography";
 import { client } from "@/sanity/lib/client";
 import { BIBLIOGRAPHY_PAGE_QUERY } from "@/sanity/lib/queries";
@@ -55,25 +60,14 @@ export default async function BibliografijaPage() {
 
   return (
     <>
-      {/* Page Header */}
-      <section className="page-header-simple">
-        <Container>
-          <div className="breadcrumb">
-            {pageHeader.breadcrumbs.map((crumb, index) => (
-              <span key={crumb._key}>
-                {index > 0 && <i className="fas fa-chevron-right"></i>}
-                {crumb.href ? (
-                  <Link href={crumb.href}>{crumb.label}</Link>
-                ) : (
-                  <span>{crumb.label}</span>
-                )}
-              </span>
-            ))}
-          </div>
-          <Heading text={pageHeader.title} variant="h1" />
-          <Text text={pageHeader.subtitle} variant="body" />
-        </Container>
-      </section>
+      <PageHeader
+        breadcrumbs={pageHeader.breadcrumbs.map((crumb) => ({
+          label: crumb.label,
+          href: crumb.href,
+        }))}
+        title={pageHeader.title}
+        subtitle={pageHeader.subtitle}
+      />
 
       {/* Bibliography Content */}
       <section className="bibliography-section">

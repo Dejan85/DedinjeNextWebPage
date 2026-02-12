@@ -1,0 +1,91 @@
+.pageHeader {
+  position: relative;
+  padding: 200px 0 80px;
+  text-align: center;
+  color: var(--white);
+  background-color: var(--primary);
+  background-image: url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=1920');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.pageHeader::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(var(--primary-rgb), 0.82) 0%,
+    rgba(var(--primary-dark-rgb), 0.78) 100%
+  );
+  z-index: 0;
+}
+
+.pageHeader > div {
+  position: relative;
+  z-index: 1;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  flex-wrap: wrap;
+}
+
+.breadcrumbItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.breadcrumb a {
+  color: rgba(255, 255, 255, 0.8);
+  transition: var(--transition);
+}
+
+.breadcrumb a:hover {
+  color: var(--white);
+}
+
+.breadcrumb i {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.breadcrumb span {
+  color: var(--white);
+  font-weight: 600;
+}
+
+.pageHeader h1 {
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 15px;
+}
+
+.pageHeader p {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .pageHeader {
+    padding: 150px 0 60px;
+  }
+
+  .pageHeader h1 {
+    font-size: 32px;
+  }
+
+  .pageHeader p {
+    font-size: 16px;
+  }
+}
