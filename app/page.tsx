@@ -58,6 +58,17 @@ export default async function Home() {
 
   // Separate different section types
   const heroSlides = pageBuilder.filter((item) => item._type === "hero");
+  const fallbackHeroSlides = [
+    {
+      img: "/images/o_nama_image.png",
+      imgAlt: "Институт за кардиоваскуларне болести „Дедиње“",
+      badge: "Институт",
+      title: "Институт за кардиоваскуларне болести „Дедиње“",
+      subtitle:
+        "Савремена дијагностика и лечење, врхунски тим стручњака и најновија медицинска технологија — у служби вашег здравља.",
+    },
+  ];
+  const slidesForHero = heroSlides.length > 0 ? heroSlides : fallbackHeroSlides;
   const infoBoxes = pageBuilder.filter(
     (item) => item._type === "infoBox"
   ) as InfoBoxType[];
@@ -116,7 +127,7 @@ export default async function Home() {
       )}
 
       {/* Hero Section with Slider */}
-      <HeroSection slides={heroSlides} showScrollIndicator={false} />
+      <HeroSection slides={slidesForHero} showScrollIndicator={false} />
 
       {/* Info Boxes */}
       <section className="info-boxes">
@@ -176,16 +187,17 @@ export default async function Home() {
                 <div className={styles.welcomeImgMain}>
                   <Image
                     src={
-                      ("url" in welcomeSection.image.asset
+                      (welcomeSection.image?.asset &&
+                      "url" in welcomeSection.image.asset
                         ? welcomeSection.image.asset.url
-                        : "") || ""
+                        : "") || "/images/o_nama_image.png"
                     }
                     alt={welcomeSection.heading}
                     width={800}
                     height={600}
                   />
                 </div>
-                {welcomeSection.secondaryImage &&
+                {welcomeSection.secondaryImage?.asset &&
                   "url" in welcomeSection.secondaryImage.asset &&
                   welcomeSection.secondaryImage.asset.url && (
                     <div className={styles.welcomeImgSecondary}>
@@ -307,18 +319,16 @@ export default async function Home() {
                 </div>
               </div>
               <div className="features-image">
-                {whyChooseUsSection.image && (
+                {whyChooseUsSection.image?.asset &&
+                "url" in whyChooseUsSection.image.asset &&
+                whyChooseUsSection.image.asset.url ? (
                   <Image
-                    src={
-                      ("url" in whyChooseUsSection.image.asset
-                        ? whyChooseUsSection.image.asset.url
-                        : "") || ""
-                    }
+                    src={whyChooseUsSection.image.asset.url}
                     alt={whyChooseUsSection.heading}
                     width={800}
                     height={600}
                   />
-                )}
+                ) : null}
               </div>
             </div>
           </Container>
@@ -387,8 +397,9 @@ export default async function Home() {
                 <DepartmentCard
                   key={dept._key}
                   image={
-                    ("url" in dept.image.asset ? dept.image.asset.url : "") ||
-                    ""
+                    (dept.image?.asset && "url" in dept.image.asset
+                      ? dept.image.asset.url
+                      : "") || "/images/o_nama_image.png"
                   }
                   title={dept.title}
                   description={dept.description}
@@ -418,9 +429,9 @@ export default async function Home() {
                 <TeamCard
                   key={member._key}
                   image={
-                    ("url" in member.image.asset
+                    (member.image?.asset && "url" in member.image.asset
                       ? member.image.asset.url
-                      : "") || ""
+                      : "") || "/images/o_nama_image.png"
                   }
                   name={member.name}
                   role={member.role}
@@ -472,9 +483,10 @@ export default async function Home() {
                   authorName={testimonial.authorName}
                   authorRole={testimonial.authorRole}
                   authorImage={
-                    ("url" in testimonial.authorImage.asset
+                    (testimonial.authorImage?.asset &&
+                    "url" in testimonial.authorImage.asset
                       ? testimonial.authorImage.asset.url
-                      : "") || ""
+                      : "") || "/images/o_nama_image.png"
                   }
                 />
               ))}
@@ -520,8 +532,9 @@ export default async function Home() {
                   <NewsCard
                     key={item._key}
                     image={
-                      ("url" in item.image.asset ? item.image.asset.url : "") ||
-                      ""
+                      (item.image?.asset && "url" in item.image.asset
+                        ? item.image.asset.url
+                        : "") || "/images/o_nama_image.png"
                     }
                     category={item.category}
                     date={item.date}
@@ -539,9 +552,9 @@ export default async function Home() {
                     <NewsCard
                       key={item._key}
                       image={
-                        ("url" in item.image.asset
+                        (item.image?.asset && "url" in item.image.asset
                           ? item.image.asset.url
-                          : "") || ""
+                          : "") || "/images/o_nama_image.png"
                       }
                       category={item.category}
                       date={item.date}

@@ -63,21 +63,33 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   containerClassName,
 }) => {
   // Convert single hero props to slides format
-  const slides = propSlides || [
-    {
-      img,
-      imgAlt,
-      videoSrc,
-      videoPoster,
-      badge,
-      title,
-      subtitle,
-    },
-  ];
+  // NOTE: propSlides can be an empty array (e.g. CMS not available) - guard for that.
+  let slides: HeroSlide[] =
+    Array.isArray(propSlides) && propSlides.length > 0
+      ? propSlides
+      : [
+          {
+            img,
+            imgAlt,
+            videoSrc,
+            videoPoster,
+            badge,
+            title,
+            subtitle,
+          },
+        ];
+
+  // If we still ended up with an empty/invalid array, keep a safe placeholder slide.
+  slides = slides.filter(Boolean);
+  if (slides.length === 0) slides = [{}];
 
   const isSlider = slides.length > 1;
   const [currentSlide, setCurrentSlide] = useState(0);
   const [direction, setDirection] = useState(0);
+
+  // Clamp index when slides.length changes (avoids setState in effect)
+  const safeIndex =
+    slides.length > 0 ? Math.min(currentSlide, slides.length - 1) : 0;
 
   // Auto-play timer for slider
   useEffect(() => {
@@ -102,7 +114,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   };
 
   const goToSlide = (index: number) => {
-    setDirection(index > currentSlide ? 1 : -1);
+    setDirection(index > safeIndex ? 1 : -1);
     setCurrentSlide(index);
   };
 
@@ -121,8 +133,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
     }),
   };
 
-  const currentData = slides[currentSlide];
-  const heroImage = currentData.image?.asset?.url || currentData.img || "";
+  const currentData = slides[safeIndex] ?? slides[0] ?? {};
+  const heroImage = currentData.image?.asset?.url || currentData.img;
   const heroAlt = currentData.imgAlt || currentData.heading || "Hero image";
   const heroVideo = currentData.videoSrc || "";
   const heroPoster = currentData.videoPoster || heroImage || undefined;
@@ -144,7 +156,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           >
             <source src={heroVideo} type="video/mp4" />
           </video>
-        ) : (
+        ) : heroImage ? (
           <Image
             src={heroImage}
             alt={heroAlt}
@@ -152,7 +164,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             priority
             objectFit="cover"
           />
-        )}
+        ) : null}
       </div>
       <div className={styles.directorHeroOverlay}></div>
       <div className={styles.directorHeroContent}>
@@ -195,7 +207,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         <div className={styles.heroSliderWrapper}>
           <AnimatePresence initial={false} custom={direction}>
             <motion.div
-              key={currentSlide}
+              key={safeIndex}
               custom={direction}
               variants={variants}
               initial="enter"
@@ -236,7 +248,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             {slides.map((_, index) => (
               <button
                 key={index}
-                className={`${styles.swiperPaginationBullet} ${index === currentSlide ? styles.swiperPaginationBulletActive : ""}`}
+                className={`${styles.swiperPaginationBullet} ${index === safeIndex ? styles.swiperPaginationBulletActive : ""}`}
                 onClick={() => goToSlide(index)}
                 aria-label={`Go to slide ${index + 1}`}
               />
