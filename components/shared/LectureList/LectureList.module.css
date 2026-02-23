@@ -1,0 +1,36 @@
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.item {
+  padding: 10px 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--gray-600);
+  border-bottom: 1px solid var(--gray-100);
+}
+
+.item:last-child {
+  border-bottom: none;
+}
+
+.date {
+  font-weight: 600;
+  color: var(--gray-700);
+  margin-right: 8px;
+}
+
+.title {
+  font-style: italic;
+}
+
+.lecturer {
+  color: var(--gray-600);
+}
+
+.empty {
+  margin: 0;
+  color: var(--gray-500);
+  font-size: 15px;
+}

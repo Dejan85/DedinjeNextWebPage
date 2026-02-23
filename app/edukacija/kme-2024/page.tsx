@@ -1,9 +1,53 @@
-import { Container, PageHeader, Section } from "@/components/shared";
+import {
+  Container,
+  GradientCardGrid,
+  LectureList,
+  PageHeader,
+  Section,
+} from "@/components/shared";
 import { Heading, Text } from "@/components/typography";
 import { generateMetadata } from "./metadata";
 import styles from "./page.module.css";
 
 export { generateMetadata };
+
+const KME_CARDS = [
+  {
+    id: "lekar",
+    title: "КМЕ – Лекари",
+    icon: "fas fa-user-md",
+    href: "/edukacija/kme-2024",
+  },
+  {
+    id: "medicinske-sestre",
+    title: "КМЕ – медицинске сестре/техничари",
+    icon: "fas fa-user-nurse",
+    href: "/edukacija/kme-2024/kme-medicinske-sestre-tehnicari",
+  },
+  {
+    id: "arhiva",
+    title: "КМЕ – Архива",
+    icon: "fas fa-archive",
+    href: "/edukacija/kme-2024",
+  },
+];
+
+const RASPORED_PO_TEMAMA = [
+  { title: "ЕЦМО – Екстракорпорална мембранска оксигенација", lecturer: "проф. др Миомир Јовић" },
+  { title: "Хипертензија и физичка активност – да ли је могућа терапија без лекова?", lecturer: "проф. др Небојша Тасић" },
+  { title: "Лечење аритмолошке олује", lecturer: "др Дејан Којић" },
+  { title: "Контрола фактора ризика за исхемијски кардиоваскуларни догађај", lecturer: "асс. др сци. мед. др Срђан Бабић" },
+  { title: "Вентрикуларна тахикардија (ВТ)", lecturer: "проф. др Петар Оташевић" },
+  { title: "Клиничко-патохистолошки модалитети миокардитиса на обдукцијском материјалу", lecturer: "др Љубомир Ђоковић" },
+  { title: "ЛВАД И ЕЦМО", lecturer: "Др Јелена Латковић – Др Љубомир Ђоковић" },
+  { title: "Сепса и септички шок", lecturer: "Др Јована Иванчевић – Др Љ. Ђоковић, Др Д. Унић-Стојановић" },
+  { title: "Хронични коронарни синдром", lecturer: "Др Маја Милошевић – Проф. др Петар Оташевић" },
+  { title: "Преткоморске аритмије", lecturer: "Др Михаило Јовичић, Др Велибор Ристић" },
+  { title: "Неоклузивна коронарна болест и микроциркулација", lecturer: "Др Стефан Тимчић, Проф. др Раде Бабић" },
+  { title: "Клинички преглед и дијагностика васкуларних болести", lecturer: "Др Александар Бабић, Проф. др Ненад Илијевски" },
+  { title: "Анеуризматска и периферна артеријска болест код поливаскуларног болесника", lecturer: "Др Игор Атанасијевић, Асс. др Предраг Матић" },
+  { title: "ЦТ коронарографија", lecturer: "Др Тијана Рошул. Др Милица Брковић. Др Ковачевић" },
+];
 
 export default function Kme2024Page() {
   return (
@@ -20,6 +64,11 @@ export default function Kme2024Page() {
 
       <Section padding="medium" background="gray">
         <Container>
+          <GradientCardGrid
+            items={KME_CARDS}
+            className={styles.kmeCardsWrapper}
+          />
+
           <div className="informacije-content">
             <div className="informacije-block">
               <Text
@@ -55,22 +104,11 @@ export default function Kme2024Page() {
               <Heading variant="h2" text="Преглед завршених специјализација" />
 
               <Heading variant="h2" text="РАСПОРЕД ПО ТЕМАМА" />
-              <ul className={styles.temaList}>
-                <li>ЕЦМО – Екстракорпорална мембранска оксигенација – проф. др Миомир Јовић</li>
-                <li>Хипертензија и физичка активност – да ли је могућа терапија без лекова? – проф. др Небојша Тасић</li>
-                <li>Лечење аритмолошке олује – др Дејан Којић</li>
-                <li>Контрола фактора ризика за исхемијски кардиоваскуларни догађај – асс. др сци. мед. др Срђан Бабић</li>
-                <li>Вентрикуларна тахикардија (ВТ) – проф. др Петар Оташевић</li>
-                <li>Клиничко-патохистолошки модалитети миокардитиса на обдукцијском материјалу – др Љубомир Ђоковић</li>
-                <li>ЛВАД И ЕЦМО. Др Јелена Латковић – Др Љубомир Ђоковић</li>
-                <li>Сепса и септички шок. Др Јована Иванчевић – Др Љ. Ђоковић, Др Д. Унић-Стојановић</li>
-                <li>Хронични коронарни синдром. Др Маја Милошевић – Проф. др Петар Оташевић</li>
-                <li>Преткоморске аритмије. Др Михаило Јовичић, Др Велибор Ристић</li>
-                <li>Неоклузивна коронарна болест и микроциркулација. Др Стефан Тимчић, Проф. др Раде Бабић</li>
-                <li>Клинички преглед и дијагностика васкуларних болести. Др Александар Бабић, Проф. др Ненад Илијевски</li>
-                <li>Анеуризматска и периферна артеријска болест код поливаскуларног болесника. Др Игор Атанасијевић, Асс. др Предраг Матић</li>
-                <li>ЦТ коронарографија. Др Тијана Рошул. Др Милица Брковић. Др Ковачевић</li>
-              </ul>
+              <LectureList
+                items={RASPORED_PO_TEMAMA}
+                showQuotes={false}
+                className={styles.temaList}
+              />
 
               <div className={styles.contactSection}>
                 <Heading variant="h2" text="Контакт" />

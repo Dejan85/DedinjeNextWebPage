@@ -31,6 +31,24 @@ export { default as WelcomeFeature } from "./WelcomeFeature/WelcomeFeature";
 export { default as PartnerLogo } from "./PartnerLogo/PartnerLogo";
 export { default as HighlightItem } from "./HighlightItem/HighlightItem";
 export { default as ValueCard } from "./ValueCard/ValueCard";
+export {
+  default as GradientCard,
+  type GradientCardItem,
+} from "./GradientCard/GradientCard";
+export { default as GradientCardGrid } from "./GradientCard/GradientCardGrid";
+export {
+  default as LectureList,
+  type LectureItem,
+} from "./LectureList/LectureList";
+export {
+  default as TabbedPanel,
+  type TabbedPanelTab,
+} from "./TabbedPanel/TabbedPanel";
+export {
+  default as TemePredavaciTabs,
+  type YearTab,
+  type YearTabSection,
+} from "./TemePredavaciTabs/TemePredavaciTabs";
 export { default as PublicationItem } from "./PublicationItem/PublicationItem";
 export { default as StatItem } from "./StatItem/StatItem";
 export { default as Container } from "./Container/Container";

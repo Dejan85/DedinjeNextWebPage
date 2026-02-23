@@ -1,15 +1,27 @@
-.kmeCardsWrapper {
-  margin-bottom: 48px;
+.imagesGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin: 32px 0;
+}
+
+.imageWrap {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.imageWrap img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 @media (max-width: 768px) {
-  .kmeCardsWrapper {
-    margin-bottom: 32px;
+  .imagesGrid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin: 24px 0;
   }
-}
-
-.temaList {
-  margin: 16px 0 24px;
 }
 
 .contactSection {
