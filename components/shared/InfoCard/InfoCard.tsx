@@ -9,6 +9,7 @@ interface InfoCardProps {
   buttonText: string;
   buttonHref: string;
   highlight?: boolean;
+  className?: string;
 }
 
 export default function InfoCard({
@@ -18,6 +19,7 @@ export default function InfoCard({
   buttonText,
   buttonHref,
   highlight = false,
+  className,
 }: InfoCardProps) {
   const headingColor = highlight ? "light" : "dark";
   const textColor = highlight ? "light" : "default";
@@ -25,7 +27,7 @@ export default function InfoCard({
 
   return (
     <div
-      className={`${styles.directorInfoCard} ${highlight ? styles.highlight : ""}`}
+      className={`${styles.directorInfoCard} ${highlight ? styles.highlight : ""} ${className || ""}`}
     >
       <div className={styles.infoCardIcon}>
         <i className={icon}></i>

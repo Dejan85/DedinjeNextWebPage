@@ -324,6 +324,12 @@ export default function Header() {
                       <Link href="/aktuelnosti">Актуелности</Link>
                     </li>
                     <li>
+                      <Link href="/aktuelnosti/vesti">Вести</Link>
+                    </li>
+                    <li>
+                      <Link href="/aktuelnosti/gostovanja">Гостовања</Link>
+                    </li>
+                    <li>
                       <Link href="/aktuelnosti/obavestenja">Обавештења</Link>
                     </li>
                     <li>

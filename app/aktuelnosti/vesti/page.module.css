@@ -1,0 +1,374 @@
+/* ========================================
+   HERO SECTION: Featured + 2 secondary
+======================================== */
+.hero {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 24px;
+  min-height: 480px;
+}
+
+/* --- Featured card --- */
+.featuredCard {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+}
+
+.featuredImg {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 480px;
+}
+
+.featuredImg img {
+  transition: transform 0.6s ease;
+}
+
+.featuredCard:hover .featuredImg img {
+  transform: scale(1.05);
+}
+
+.featuredOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.2) 50%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 36px 32px;
+}
+
+.categoryBadge {
+  display: inline-block;
+  width: fit-content;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--white);
+  background: var(--primary);
+  padding: 5px 14px;
+  border-radius: 5px;
+  margin-bottom: 14px;
+}
+
+.featuredOverlay h2 {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1.3;
+  margin: 0 0 14px;
+}
+
+.featuredMeta {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.featuredMeta span {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.75);
+  font-weight: 500;
+}
+
+.featuredMeta i {
+  margin-right: 6px;
+  font-size: 12px;
+}
+
+/* --- Secondary stack --- */
+.secondaryStack {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.secondaryCard {
+  display: flex;
+  gap: 18px;
+  text-decoration: none;
+  color: inherit;
+  background: var(--white);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  flex: 1;
+}
+
+.secondaryCard:hover {
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.12);
+  transform: translateY(-3px);
+}
+
+.secondaryImg {
+  position: relative;
+  width: 180px;
+  flex-shrink: 0;
+}
+
+.secondaryImg img {
+  transition: transform 0.5s ease;
+}
+
+.secondaryCard:hover .secondaryImg img {
+  transform: scale(1.06);
+}
+
+.secondaryBody {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px 20px 20px 0;
+}
+
+.categoryBadgeSm {
+  display: inline-block;
+  width: fit-content;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--white);
+  background: var(--primary);
+  padding: 3px 10px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.secondaryBody h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--gray-800);
+  margin: 0 0 10px;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: color 0.25s ease;
+}
+
+.secondaryCard:hover h3 {
+  color: var(--primary);
+}
+
+.secondaryDate {
+  font-size: 12px;
+  color: var(--gray-500);
+  font-weight: 500;
+}
+
+.secondaryDate i {
+  margin-right: 4px;
+  font-size: 11px;
+  color: var(--primary);
+}
+
+/* ========================================
+   REST OF ARTICLES
+======================================== */
+.restHeader {
+  margin-bottom: 28px;
+}
+
+.restHeader h2 {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--gray-800);
+  margin: 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+/* --- Card --- */
+.card {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  background: var(--white);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
+  transform: translateY(-5px);
+}
+
+.cardImg {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+}
+
+.cardImg img {
+  transition: transform 0.5s ease;
+}
+
+.card:hover .cardImg img {
+  transform: scale(1.05);
+}
+
+.cardBody {
+  padding: 22px 24px 26px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardMeta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.cardDate {
+  font-size: 12px;
+  color: var(--gray-500);
+  font-weight: 500;
+}
+
+.cardDate i {
+  margin-right: 4px;
+  font-size: 11px;
+  color: var(--primary);
+}
+
+.cardBody h3 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--gray-800);
+  margin: 0 0 10px;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: color 0.25s ease;
+}
+
+.card:hover h3 {
+  color: var(--primary);
+}
+
+.cardBody p {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--gray-600);
+  margin: 0 0 20px;
+  flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.readMore {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--primary);
+  transition: gap 0.25s ease;
+}
+
+.card:hover .readMore {
+  gap: 12px;
+}
+
+.readMore i {
+  font-size: 11px;
+  transition: transform 0.25s ease;
+}
+
+.card:hover .readMore i {
+  transform: translateX(3px);
+}
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+@media (max-width: 1024px) {
+  .hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .featuredImg {
+    min-height: 360px;
+  }
+
+  .secondaryStack {
+    flex-direction: row;
+  }
+
+  .secondaryCard {
+    flex-direction: column;
+  }
+
+  .secondaryImg {
+    width: 100%;
+    height: 160px;
+  }
+
+  .secondaryBody {
+    padding: 16px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .featuredImg {
+    min-height: 280px;
+  }
+
+  .featuredOverlay {
+    padding: 24px 20px;
+  }
+
+  .featuredOverlay h2 {
+    font-size: 20px;
+  }
+
+  .secondaryStack {
+    flex-direction: column;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .cardBody {
+    padding: 20px;
+  }
+
+  .cardBody h3 {
+    font-size: 16px;
+  }
+
+  .restHeader h2 {
+    font-size: 20px;
+  }
+}
