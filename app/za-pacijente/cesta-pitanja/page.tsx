@@ -1,6 +1,7 @@
-import { FaqAccordion, PageHeader } from "@/components/shared";
+import { Container, FaqAccordion, PageHeader, Section } from "@/components/shared";
 import type { FaqItem } from "@/components/shared/FaqAccordion/FaqAccordion";
 import { generateMetadata } from "./metadata";
+import styles from "./page.module.css";
 
 export { generateMetadata };
 
@@ -399,6 +400,8 @@ const FAQ_ITEMS: FaqItem[] = [
   },
 ];
 
+const TOTAL_CATEGORIES = [...new Set(FAQ_ITEMS.map((i) => i.category))].length;
+
 export default function CestaPitanjaPage() {
   return (
     <>
@@ -411,6 +414,35 @@ export default function CestaPitanjaPage() {
         title="Честа питања"
         subtitle="Одговори на најчешће постављана питања од стране пацијената"
       />
+
+      <Section padding="medium" background="white">
+        <Container>
+          <div className={styles.intro}>
+            <div className={styles.introIcon}>
+              <i className="fas fa-question-circle" aria-hidden />
+            </div>
+            <div className={styles.introContent}>
+              <h2>Одговори на ваша питања</h2>
+              <p>
+                Прикупили смо најчешће постављена питања пацијената и припремили
+                јасне одговоре. Користите претрагу или прегледајте по
+                категоријама — кардиохирургија, васкуларна хирургија,
+                кардиологија, радиологија и друго.
+              </p>
+            </div>
+          </div>
+          <div className={styles.stats}>
+            <div className={styles.statItem}>
+              <span className={styles.statValue}>{FAQ_ITEMS.length}</span>
+              <span className={styles.statLabel}>питања и одговора</span>
+            </div>
+            <div className={styles.statItem}>
+              <span className={styles.statValue}>{TOTAL_CATEGORIES}</span>
+              <span className={styles.statLabel}>категорије</span>
+            </div>
+          </div>
+        </Container>
+      </Section>
 
       <FaqAccordion
         items={FAQ_ITEMS}

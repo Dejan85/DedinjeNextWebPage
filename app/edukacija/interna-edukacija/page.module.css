@@ -1,95 +1,207 @@
-/* ===== Section titles ===== */
-.sectionTitle {
-  margin-bottom: 16px;
-}
-
-/* ===== Simulation highlight ===== */
-.simHighlight {
+/* ========================================
+   ABOUT SECTION
+======================================== */
+.about {
   display: flex;
+  gap: 32px;
   align-items: flex-start;
-  gap: 16px;
-  background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.06), rgba(var(--primary-rgb), 0.02));
-  border-left: 4px solid var(--primary);
-  border-radius: 0 12px 12px 0;
-  padding: 24px 28px;
-  margin-top: 28px;
 }
 
-.simHighlight > i {
-  font-size: 22px;
-  color: var(--primary);
-  margin-top: 2px;
+.aboutIcon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  border-radius: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
 }
 
-.simHighlight > p {
-  font-size: 16px;
-  line-height: 1.7;
-  color: var(--gray-700);
-  margin: 0;
-  font-style: italic;
+.aboutIcon i {
+  font-size: 34px;
+  color: var(--white);
 }
 
-.simHighlight h4 {
-  font-size: 17px;
-  font-weight: 700;
+.aboutContent {
+  flex: 1;
+}
+
+.aboutContent h2 {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--gray-800);
+  margin: 0 0 14px;
+}
+
+.aboutContent > p {
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--gray-600);
+  margin: 0;
+}
+
+.aboutStats {
+  display: flex;
+  gap: 32px;
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid var(--gray-200);
+  flex-wrap: wrap;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.statNum {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1;
+}
+
+.statLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gray-500);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 4px;
+}
+
+/* ========================================
+   SIMULATION BANNER
+======================================== */
+.simBanner {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  padding: 32px 36px;
+  background: var(--white);
+  border-radius: 18px;
+  border: 2px solid var(--gray-200);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+}
+
+.simBannerIcon {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.simBannerIcon i {
+  font-size: 24px;
+  color: var(--white);
+}
+
+.simBannerContent {
+  flex: 1;
+}
+
+.simBannerContent h3 {
+  font-size: 20px;
+  font-weight: 800;
   color: var(--gray-800);
   margin: 0 0 8px;
 }
 
-.simHighlight div > p {
+.simBannerContent > p {
   font-size: 15px;
   line-height: 1.65;
   color: var(--gray-600);
-  margin: 0 0 8px;
+  margin: 0 0 16px;
 }
 
-.simHighlight ul {
-  margin: 8px 0;
-  padding-left: 20px;
+.simBannerContent ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.simHighlight li {
-  font-size: 15px;
-  line-height: 1.65;
-  color: var(--gray-600);
-  margin-bottom: 4px;
+.simBannerContent li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gray-700);
+  padding: 10px 16px;
+  background: var(--gray-50);
+  border-radius: 10px;
 }
 
-.note {
+.simBannerContent li i {
+  font-size: 12px;
+  color: var(--primary);
+}
+
+.simNote {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
   font-style: italic;
   color: var(--gray-500);
 }
 
-/* ===== Program header ===== */
+.simNote i {
+  font-size: 14px;
+  color: var(--primary);
+}
+
+/* ========================================
+   PROGRAM HEADER
+======================================== */
 .programHeader {
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 28px;
+  gap: 18px;
+  margin-bottom: 32px;
 }
 
 .programIcon {
-  width: 52px;
-  height: 52px;
+  width: 56px;
+  height: 56px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, var(--primary), var(--primary-darker));
-  border-radius: 14px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  border-radius: 16px;
   flex-shrink: 0;
 }
 
 .programIcon i {
-  font-size: 22px;
+  font-size: 24px;
   color: var(--white);
 }
 
 .programHeader h2 {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--gray-800);
+  margin: 0 0 4px;
+}
+
+.programSubtitle {
+  font-size: 14px;
+  color: var(--gray-500);
   margin: 0;
 }
 
-/* ===== Modules grid ===== */
+/* ========================================
+   MODULES GRID
+======================================== */
 .modulesGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -97,30 +209,32 @@
 }
 
 .moduleCard {
-  background: var(--gray-50);
-  border-radius: 14px;
+  background: var(--white);
+  border-radius: 16px;
   padding: 28px 24px;
   border: 1px solid var(--gray-200);
-  transition: box-shadow 0.25s ease;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .moduleCard:hover {
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+  transform: translateY(-3px);
 }
 
 .moduleIcon {
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--primary);
-  border-radius: 12px;
-  margin-bottom: 16px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  border-radius: 14px;
+  margin-bottom: 18px;
 }
 
 .moduleIcon i {
-  font-size: 18px;
+  font-size: 20px;
   color: var(--white);
 }
 
@@ -128,44 +242,62 @@
   font-size: 17px;
   font-weight: 700;
   color: var(--gray-800);
-  margin: 0 0 8px;
+  margin: 0 0 10px;
 }
 
 .moduleCard p {
-  font-size: 15px;
+  font-size: 14px;
   line-height: 1.65;
   color: var(--gray-600);
   margin: 0;
 }
 
-/* ===== Plan block ===== */
+/* ========================================
+   PLAN BLOCK
+======================================== */
 .planBlock {
   margin-top: 36px;
 }
 
 .planTitle {
-  margin-bottom: 20px;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--gray-800);
+  margin: 0 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.planTitle i {
+  font-size: 16px;
+  color: var(--primary);
 }
 
 .planSteps {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
 }
 
 .planStep {
   display: flex;
   align-items: flex-start;
   gap: 16px;
+  padding: 22px 24px;
   background: var(--gray-50);
-  border-radius: 12px;
-  padding: 20px 24px;
+  border-radius: 14px;
   border: 1px solid var(--gray-200);
+  transition: border-color 0.25s ease;
+}
+
+.planStep:hover {
+  border-color: var(--primary);
 }
 
 .stepNumber {
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -173,7 +305,7 @@
   color: var(--white);
   border-radius: 50%;
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 800;
   flex-shrink: 0;
 }
 
@@ -185,86 +317,185 @@
 }
 
 .planStep p {
-  font-size: 15px;
+  font-size: 14px;
   line-height: 1.6;
   color: var(--gray-600);
   margin: 0;
 }
 
-/* ===== Contact ===== */
-.contactCard {
+/* ========================================
+   INFO NOTE
+======================================== */
+.infoNote {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-top: 28px;
+  padding: 22px 28px;
+  background: var(--white);
+  border-left: 4px solid var(--primary);
+  border-radius: 0 14px 14px 0;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+}
+
+.infoNote > i {
+  font-size: 20px;
+  color: var(--primary);
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.infoNote p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--gray-700);
+  margin: 0;
+  font-style: italic;
+}
+
+/* ========================================
+   CONTACT SECTION
+======================================== */
+.contactSection {
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+  padding: 36px 40px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  border-radius: 20px;
+  color: var(--white);
+}
+
+.contactIcon {
+  width: 64px;
+  height: 64px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.contactIcon > i {
+  font-size: 26px;
+  color: var(--white);
+}
+
+.contactContent {
+  flex: 1;
+}
+
+.contactContent h2 {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--white);
+  margin: 0 0 10px;
+}
+
+.contactContent > p {
+  font-size: 15px;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0 0 24px;
+}
+
+.contactDetails {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  max-width: 800px;
-  margin: 32px auto 0;
+  gap: 16px;
 }
 
 .contactItem {
   display: flex;
   align-items: center;
-  gap: 14px;
-  background: var(--gray-50);
-  border: 1px solid var(--gray-200);
-  border-radius: 14px;
-  padding: 20px 24px;
-}
-
-.contactIcon {
-  width: 44px;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, var(--primary), var(--primary-darker));
+  gap: 12px;
+  padding: 14px 18px;
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 12px;
-  flex-shrink: 0;
 }
 
-.contactIcon i {
-  font-size: 18px;
-  color: var(--white);
+.contactItem > i {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+  width: 20px;
+  text-align: center;
 }
 
 .contactLabel {
   display: block;
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 10px;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  color: var(--gray-500);
-  margin-bottom: 2px;
+  color: rgba(255, 255, 255, 0.55);
 }
 
 .contactValue {
   display: block;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
-  color: var(--gray-800);
-  text-decoration: none;
+  color: var(--white);
 }
 
-a.contactValue:hover {
-  color: var(--primary);
+/* ========================================
+   RESPONSIVE
+======================================== */
+@media (max-width: 1024px) {
+  .contactDetails {
+    grid-template-columns: 1fr;
+  }
 }
 
-/* ===== Responsive ===== */
 @media (max-width: 768px) {
+  .about {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .aboutContent h2 {
+    font-size: 22px;
+  }
+
+  .aboutStats {
+    gap: 24px;
+  }
+
+  .simBanner {
+    flex-direction: column;
+    padding: 24px;
+  }
+
+  .programHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .programHeader h2 {
+    font-size: 20px;
+  }
+
   .modulesGrid {
     grid-template-columns: 1fr;
     gap: 16px;
   }
 
-  .contactCard {
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-
-  .simHighlight {
-    padding: 20px 24px;
-  }
-
   .planStep {
-    padding: 16px 20px;
+    padding: 18px 20px;
+  }
+
+  .infoNote {
+    padding: 18px 20px;
+  }
+
+  .contactSection {
+    flex-direction: column;
+    padding: 28px 24px;
+    gap: 20px;
+  }
+
+  .contactContent h2 {
+    font-size: 20px;
   }
 }

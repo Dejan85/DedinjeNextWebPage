@@ -61,7 +61,9 @@ export default function AmbulanteAccordion({
                   aria-expanded={isOpen}
                 >
                   {item.icon && (
-                    <i className={`${item.icon} ${styles.ambulanteIcon}`}></i>
+                    <span className={styles.ambulanteIcon}>
+                      <i className={item.icon} aria-hidden />
+                    </span>
                   )}
                   <span className={styles.ambulanteTriggerText}>{item.title}</span>
                   <i
@@ -70,6 +72,7 @@ export default function AmbulanteAccordion({
                   ></i>
                 </button>
                 <div className={styles.ambulanteContent}>
+                  <div className={styles.ambulanteContentInner}>
                   {item.sections
                     .filter(
                       (s) =>
@@ -98,6 +101,7 @@ export default function AmbulanteAccordion({
                         )}
                       </div>
                     ))}
+                  </div>
                 </div>
               </div>
             );

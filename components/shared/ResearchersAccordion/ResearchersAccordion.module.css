@@ -3,10 +3,10 @@
 }
 
 .title {
-  font-size: 24px;
-  font-weight: 700;
+  font-size: 22px;
+  font-weight: 800;
   color: var(--gray-800);
-  margin-bottom: 32px;
+  margin-bottom: 28px;
 }
 
 .list {
@@ -15,36 +15,37 @@
 
 .item {
   background: var(--white);
-  border-radius: 12px;
-  margin-bottom: 12px;
+  border-radius: 16px;
+  margin-bottom: 14px;
   overflow: hidden;
-  box-shadow: var(--shadow-sm);
-  border-bottom: 1px solid var(--gray-200);
-  transition: var(--transition);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  border: 1px solid var(--gray-200);
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
 }
 
 .item:hover {
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
 }
 
 .item.open {
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.1);
+  border-color: var(--gray-200);
 }
 
 .trigger {
   width: 100%;
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 20px 24px;
+  gap: 18px;
+  padding: 22px 26px;
   text-align: left;
   font-size: 17px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--gray-800);
   background: transparent;
   border: none;
   cursor: pointer;
-  transition: var(--transition);
+  transition: color 0.2s ease;
   font-family: inherit;
 }
 
@@ -53,10 +54,16 @@
 }
 
 .icon {
-  width: 24px;
-  text-align: center;
-  color: var(--primary);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: var(--white);
   font-size: 18px;
+  border-radius: 12px;
+  flex-shrink: 0;
 }
 
 .triggerText {
@@ -88,7 +95,7 @@
 
 .researchersList {
   margin: 0;
-  padding: 20px 24px 24px 56px;
+  padding: 22px 26px 26px 72px;
   list-style: disc;
 }
 
@@ -105,7 +112,7 @@
 
 .empty {
   margin: 0;
-  padding: 20px 24px 24px 56px;
+  padding: 22px 26px 26px 72px;
   font-size: 15px;
   color: var(--gray-500);
 }
@@ -113,6 +120,6 @@
 @media (max-width: 768px) {
   .researchersList,
   .empty {
-    padding-left: 24px;
+    padding-left: 26px;
   }
 }

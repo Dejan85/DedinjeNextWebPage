@@ -1,8 +1,32 @@
+import Link from "next/link";
 import { Container, PageHeader, Section } from "@/components/shared";
-import { Heading, Text } from "@/components/typography";
 import { generateMetadata } from "./metadata";
+import styles from "./page.module.css";
 
 export { generateMetadata };
+
+const AKTUELNOSTI = [
+  {
+    date: "03. 08. 2022.",
+    category: "Трансформација",
+    icon: "fas fa-file-signature",
+    title: "Меморандум о сарадњи — SAIGE пројекат",
+    summary:
+      "Министарство просвете, науке и технолошког развоја Републике Србије и Институт за кардиоваскуларне болести Дедиње потписали су Меморандум о сарадњи и подршци процесу институционалне трансформације са циљем постизања изврсности у науци.",
+    href: "/nauka-istrazivanje/saige-projekat",
+    linkLabel: "Сазнај више о SAIGE пројекту",
+  },
+  {
+    date: "2020.",
+    category: "Вредновање",
+    icon: "fas fa-clipboard-check",
+    title: "Процес вредновања научноистраживачких института",
+    summary:
+      'Спроведен је процес вредновања Института који обављају научноистраживачку делатност. Институт за кардиоваскуларне болести „Дедиње" пријавио се у другу групу института у оквиру SAIGE пројекта.',
+    href: "/nauka-istrazivanje/saige-projekat",
+    linkLabel: "Детаљи пројекта",
+  },
+];
 
 export default function AktuelnostiPage() {
   return (
@@ -17,40 +41,48 @@ export default function AktuelnostiPage() {
         subtitle="Најновије вести и дешавања из научноистраживачког рада Института"
       />
 
+      <Section padding="medium" background="white">
+        <Container>
+          <div className={styles.intro}>
+            <div className={styles.introIcon}>
+              <i className="fas fa-newspaper" aria-hidden />
+            </div>
+            <div className={styles.introContent}>
+              <h2>Научне активности Института</h2>
+              <p>
+                Пратите актуелна дешавања, пројекте и партнерства у области
+                научноистраживачке делатности Института за кардиоваскуларне
+                болести Дедиње.
+              </p>
+            </div>
+          </div>
+        </Container>
+      </Section>
+
       <Section padding="medium" background="gray">
         <Container>
-          <div className="informacije-content">
-            <div className="informacije-block">
-              <Heading variant="h2" text="Пројекат SAIGE" />
-              <Text
-                variant="body"
-                text={'Пројекат акцелерације иновација и подстицања раста предузетништва у Републици Србији - SAIGE (Serbia Accelerating Innovation and Entrepreneurship Project - SAIGE).'}
-              />
-              <Text
-                variant="body"
-                text={'Овај пројекат је део реформских процеса у науци и подразумева трансформацију научних института кроз партнерство са Светском банком и Европском унијом, а под покровитељством Министарства науке, технолошког развоја и иновација Републике Србије.'}
-              />
-              <Text
-                variant="body"
-                text={'Институт за кардиоваскуларне болести „Дедиње" се нашао у другој групи института, који у оквиру SAIGE пројекта желе да ојачају своје капацитете, унапреде свој рад и ефикасније се укључе у међународну научну мрежу, уз помоћ међународне експертске процене и подршке, обука и разних видова усавршавања.'}
-              />
-              <Text
-                variant="body"
-                text={'Наиме, 2020. године спроведен је процес вредновања Института који обављају научноистраживачку делатност, у коме су институти сами проценили своје тренутно стање и изјаснили се да ли желе да учествују у трансформацији од које се очекује да осигура бољи квалитет научноистраживачког рада, подстакне иновативно предузетништво и лакши приступ изворима финансирања, што је у интересу и раста српске економије и ојачавања саме установе.'}
-              />
-
-              <Heading variant="h2" text="Пројекат SAIGE садржи 3 дела:" />
-              <ul className="konzilijum-list">
-                <li>Рад Фонда за иновациону делатност и подстицај предузетништва кроз подршку финансирању старт-уп-овима, иновативним предузећима итд.</li>
-                <li>Подизање капацитета у науци кроз рад Фонда за науку и</li>
-                <li>Трансформацију института.</li>
-              </ul>
-
-              <Text
-                variant="body"
-                text={'Министарство просвете, науке и технолошког развоја Републике Србије и Институт за кардиоваскуларне болести Дедиње 03. 08. 2022. године потписали су Меморандум о сарадњи и подршци процесу институционалне трансформације са циљем постизања изврсности у науци и подизању квалитета научноистраживачког рада.'}
-              />
-            </div>
+          <div className={styles.list}>
+            {AKTUELNOSTI.map((item, idx) => (
+              <article key={idx} className={styles.card}>
+                <div className={styles.cardIcon}>
+                  <i className={item.icon} aria-hidden />
+                </div>
+                <div className={styles.cardBody}>
+                  <div className={styles.cardMeta}>
+                    <span className={styles.cardCategory}>{item.category}</span>
+                    <span className={styles.cardDate}>
+                      <i className="fas fa-calendar-alt" aria-hidden /> {item.date}
+                    </span>
+                  </div>
+                  <h3>{item.title}</h3>
+                  <p>{item.summary}</p>
+                  <Link href={item.href} className={styles.cardLink}>
+                    {item.linkLabel}
+                    <i className="fas fa-arrow-right" aria-hidden />
+                  </Link>
+                </div>
+              </article>
+            ))}
           </div>
         </Container>
       </Section>

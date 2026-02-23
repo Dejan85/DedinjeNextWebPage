@@ -1,0 +1,111 @@
+/* ========================================
+   TAB CONTENT
+======================================== */
+.tabContent {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* ========================================
+   TAB INTRO
+======================================== */
+.tabIntro {
+  padding-bottom: 20px;
+  border-bottom: 2px solid var(--gray-200);
+}
+
+.tabIntro h2 {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--gray-800);
+  margin: 0 0 10px;
+}
+
+.tabIntro p {
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--gray-600);
+  margin: 0;
+}
+
+/* ========================================
+   BLOCKS GRID
+======================================== */
+.blocksGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+/* ========================================
+   INFO BLOCK
+======================================== */
+.infoBlock {
+  background: var(--white);
+  border-radius: 14px;
+  border: 1px solid var(--gray-200);
+  overflow: hidden;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.infoBlock:hover {
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.infoBlockHeader {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid var(--gray-100);
+}
+
+.infoBlockIcon {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  border-radius: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.infoBlockIcon i {
+  font-size: 16px;
+  color: var(--white);
+}
+
+.infoBlockHeader h3 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--gray-800);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.infoBlockBody {
+  padding: 16px 20px;
+}
+
+.infoBlockBody p {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--gray-600);
+  margin: 0;
+}
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+@media (max-width: 768px) {
+  .blocksGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .tabIntro h2 {
+    font-size: 20px;
+  }
+}

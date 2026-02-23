@@ -106,7 +106,9 @@ export default function FaqAccordion({
                         ></i>
                       </button>
                       <div className={styles.faqAnswer}>
-                        <Text text={item.answer} variant="body" />
+                        <div className={styles.faqAnswerInner}>
+                          <Text text={item.answer} variant="body" />
+                        </div>
                       </div>
                     </div>
                   );

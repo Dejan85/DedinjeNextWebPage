@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Container,
   PageHeader,
@@ -5,10 +7,7 @@ import {
   TemePredavaciTabs,
 } from "@/components/shared";
 import type { YearTab } from "@/components/shared/TemePredavaciTabs/TemePredavaciTabs";
-import { Heading, Text } from "@/components/typography";
-import { generateMetadata } from "./metadata";
-
-export { generateMetadata };
+import styles from "./page.module.css";
 
 const TEME_PREDAVACI: YearTab[] = [
   {
@@ -104,7 +103,7 @@ const TEME_PREDAVACI: YearTab[] = [
         ],
       },
       {
-        title: "Екстерна едукација – Удружење здравствених радника „ескулап“, национални конгрес, Београд, 11.04-14.04.2019.",
+        title: 'Екстерна едукација – Удружење здравствених радника „ескулап", национални конгрес, Београд, 11.04-14.04.2019.',
         items: [
           { title: "Делокруг рада медицинске сестре у току извођења катетерске радиофреквентне аблације атријалне фибрилације", lecturer: "Драгана Ивковић" },
           { title: "Превенција компликација интравенске терапије и хемодинамског мониторинга", lecturer: "Сандра Лазић" },
@@ -130,9 +129,9 @@ const TEME_PREDAVACI: YearTab[] = [
         ],
       },
       {
-        title: "Конгреси у Републици Србији – Национални конгрес здравствених радника „квалитет као обавеза“, Златибор, 22.05.-26.05.2019.",
+        title: 'Конгреси у Републици Србији – Национални конгрес здравствених радника „квалитет као обавеза", Златибор, 22.05.-26.05.2019.',
         items: [
-          { title: "Поглед у будућност сестара и техничара ИКВБ „Дедиње“", lecturer: "Далибор Аксић" },
+          { title: 'Поглед у будућност сестара и техничара ИКВБ „Дедиње"', lecturer: "Далибор Аксић" },
           { title: "Одређивање капиларне глукозе", lecturer: "Јелена Мратинковић" },
           { title: "Мокраћна киселина – продукт метаболизма корисна или не?", lecturer: "Катица Губеринић" },
           { title: "Значај одређивања високо осетљивог – high sensitivity тропонина", lecturer: "Мирјана Гајић" },
@@ -160,6 +159,16 @@ const TEME_PREDAVACI: YearTab[] = [
   },
 ];
 
+const OBLASTI = [
+  "Уводна предавања",
+  "Превенција интрахоспиталних инфекција",
+  "Основа кардиоваскуларне медицине",
+  "Васкуларна хирургија",
+  "Кардиохирургија",
+  "Рехабилитација",
+  "Продужено лечење",
+];
+
 export default function KmeMedicinskeSestreTehnicariPage() {
   return (
     <>
@@ -171,74 +180,140 @@ export default function KmeMedicinskeSestreTehnicariPage() {
           { label: "КМЕ – медицинске сестре/техничари" },
         ]}
         title="КМЕ – медицинске сестре/техничари"
-        subtitle="Континуирана медицинска едукација"
+        subtitle="Континуирана медицинска едукација за здравствене раднике"
       />
 
+      {/* About */}
+      <Section padding="medium" background="white">
+        <Container>
+          <div className={styles.about}>
+            <div className={styles.aboutIcon}>
+              <i className="fas fa-user-nurse" aria-hidden />
+            </div>
+            <div className={styles.aboutContent}>
+              <h2>О програму</h2>
+              <p>
+                У оквиру Континуиране медицинске едукације према Програму усвојеном
+                од стране Тима за едукацију Института, одржан је Семинар интензивног
+                лечења за медицинске сестре/техничаре. Циљ предавања је да се обнове
+                и стекну нова знања и вештине, која ће одмах бити преточена у
+                свакодневни клинички рад.
+              </p>
+              <p>
+                Одељење за континуирану медицинску едукацију формирано је октобра
+                2009. године. Концепција и план едукације мењао се годинама и
+                допуњавао у складу са законским одредбама и потребама савремене
+                медицине.
+              </p>
+              <div className={styles.aboutStats}>
+                <div className={styles.stat}>
+                  <span className={styles.statNum}>17</span>
+                  <span className={styles.statLabel}>Сестара у тиму</span>
+                </div>
+                <div className={styles.stat}>
+                  <span className={styles.statNum}>7</span>
+                  <span className={styles.statLabel}>Области</span>
+                </div>
+                <div className={styles.stat}>
+                  <span className={styles.statNum}>3</span>
+                  <span className={styles.statLabel}>Нивоа едукације</span>
+                </div>
+                <div className={styles.stat}>
+                  <span className={styles.statNum}>2009</span>
+                  <span className={styles.statLabel}>Година оснивања</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Container>
+      </Section>
+
+      {/* Key info cards */}
       <Section padding="medium" background="gray">
         <Container>
-          <div className="informacije-content">
-            <div className="informacije-block">
-              <Heading variant="h2" text="Континуирана медицинска едукација (КМЕ)" />
-              <Text
-                variant="body"
-                text={'Поштоване колегинице и колеге,'}
-              />
-              <Text
-                variant="body"
-                text={'У оквиру Континуиране медицинске едукације према Програму усвојеном од стране Тима за едукацију Института, одржан је Семинар интензивног лечења за медицинске сестре/техничаре. Предавања са овог семинара су снимљена и постављањем на ову платформу доступна свим медицинским сестрама и техничарима Института за кардиоваскуларне болести „Дедиње". Циљ предавања је да се обнове и стекну нова знања и вештине, која ће одмах бити преточена у свакодневни клинички рад. На овај начин подићи ће се укупан ниво знања, размотриће се усвојењи протоколи лечења и усвојити нови, уколико је потребно. Овакав вид едукације доприноси унапређењу тимског рада који је неопходан и предуслов је бољег, квалитетнијег и ефикаснијег рада и успешнијег лечења.'}
-              />
-              <Text
-                variant="body"
-                text={'Предавања су из 7 области: Уводна предавања, Превенција интрахоспиталних инфекција, Основа кардиоваскуларне медицине, Васкуларне хирургије, Кардиохирургије, Рехабилитације и Продужено лечење.'}
-              />
-              <Text
-                variant="body"
-                text={'Желимо вам много успеха у вашој даљој едукацији.'}
-              />
+          <div className={styles.sectionHeader}>
+            <h2>Програм едукације</h2>
+            <p>Структура и нивои континуиране медицинске едукације</p>
+          </div>
+          <div className={styles.infoGrid}>
+            <div className={styles.infoCard}>
+              <div className={styles.infoCardIcon}>
+                <i className="fas fa-bullseye" aria-hidden />
+              </div>
+              <h3>Циљ едукације</h3>
+              <p>
+                Проширење знања и стицање практичних вештина и праћење трендова
+                у процесу здравствене неге код кардиоваскуларних болесника.
+              </p>
+            </div>
+            <div className={styles.infoCard}>
+              <div className={styles.infoCardIcon}>
+                <i className="fas fa-layer-group" aria-hidden />
+              </div>
+              <h3>Нивои едукације</h3>
+              <p>
+                Едукација се реализује у три нивоа у зависности од дужине радног
+                стажа. Едукују се сестре, техничари, приправници и волонтери
+                који се припремају за полагање државног испита.
+              </p>
+            </div>
+            <div className={styles.infoCard}>
+              <div className={styles.infoCardIcon}>
+                <i className="fas fa-exchange-alt" aria-hidden />
+              </div>
+              <h3>Интерна и екстерна</h3>
+              <p>
+                Интерна и екстерна едукација су уско повезане тако да сви
+                запослени добијају комплетно стручно усавршавање у
+                кардиоваскуларној области.
+              </p>
+            </div>
+          </div>
+        </Container>
+      </Section>
 
-              <Text
-                variant="body"
-                text={'Континуирана медицинска едукација (КМЕ) за здравствене раднике и здравствене сараднике на Институту Дедиње организује се у циљу сталног унапређења стручних знања, како би се одржале и унапредиле вештине и компетенције у пружању здравствених услуга. Одељење за континуирану медицинску едукацију формирано је октобра 2009. године. Концепција и план едукације који је тада направљен мењао се годинама и допуњавао у складу са законским одредбама и потребама савремене медицине.'}
-              />
+      {/* Areas / Oblasti */}
+      <Section padding="medium" background="white">
+        <Container>
+          <div className={styles.sectionHeader}>
+            <h2>Области предавања</h2>
+            <p>Предавања покривају 7 кључних области</p>
+          </div>
+          <div className={styles.oblastiGrid}>
+            {OBLASTI.map((oblast, idx) => (
+              <div key={oblast} className={styles.oblastItem}>
+                <span className={styles.oblastNum}>{String(idx + 1).padStart(2, "0")}</span>
+                <span className={styles.oblastText}>{oblast}</span>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </Section>
 
-              <Heading variant="h3" text="Циљ континуиране едукације" />
-              <Text
-                variant="body"
-                text={'Циљ континуиране едукације је проширење знања и стицање практичних вештина и праћење трендова у процесу здравствене неге код кардиоваскуларних болесника.'}
-              />
+      {/* Teme i predavaci */}
+      <Section padding="medium" background="gray">
+        <Container>
+          <div className={styles.sectionHeader}>
+            <h2>Теме и предавачи</h2>
+            <p>Преглед свих предавања по годинама</p>
+          </div>
+          <TemePredavaciTabs tabs={TEME_PREDAVACI} defaultTabId="2017" />
+        </Container>
+      </Section>
 
-              <Heading variant="h3" text="Тим за едукацију" />
-              <Text
-                variant="body"
-                text={'У тиму за едукацију се налази 17 сестара. Поред главних сестара клиника ту су и одговорне сестре. Тим за едукацију сваког месеца одржава стручне састанке према плану и програму за текућу годину, а у складу са прописима Коморе здравствених радника и Здравственог савета Србије.'}
-              />
-
-              <Heading variant="h3" text="Нивои едукације" />
-              <Text
-                variant="body"
-                text={'Едукација се на Институту реализује у три нивоа. Све сестре су прошле неки од нивоа у зависности од дужине радног стажа. Едукују се: сестре, техничари, приправници, волонтери који се припремају за полагање државног испита. Сестре које прођу први ниво, виши ниво едукације обављају даљим кружењем на Клиници.'}
-              />
-
-              <Heading variant="h3" text="Интерна и екстерна едукација" />
-              <Text
-                variant="body"
-                text={'Од почетка 2017. године у оквиру екстерне едукације одржана су четири стручна састанка, акредитована су још четири стручна састанка као и два курса од Здравственог савета Србије.'}
-              />
-              <Text
-                variant="body"
-                text={'У оквиру интерне едукације спроводи се план едукације медицинских сестара – техничара из интензивних нега и анестетичара. Такође, у оквиру интерне едукације, постоји и годишњи план едукације за 2017. годину, чија реализација обухвата сва одељења и клинике.'}
-              />
-              <Text
-                variant="body"
-                text={'Одржавају се и Школа кардиопулмонална реанимације, Школа ултразвука и Школа интензивне неге у оквиру интерне едукације.'}
-              />
-              <Text
-                variant="body"
-                text={'Интерна и екстерна едукација на Институту је уско повезана тако да сви запослени техничари и сестре добијају комплетно стручно усавршавање у кардиоваскуларној области које им служи као одлична препорука.'}
-              />
-
-              <Heading variant="h2" text="Теме и предавачи" />
-              <TemePredavaciTabs tabs={TEME_PREDAVACI} defaultTabId="2017" />
+      {/* Schools banner */}
+      <Section padding="medium" background="white">
+        <Container>
+          <div className={styles.banner}>
+            <div className={styles.bannerIcon}>
+              <i className="fas fa-graduation-cap" aria-hidden />
+            </div>
+            <div className={styles.bannerContent}>
+              <h3>Школе у оквиру интерне едукације</h3>
+              <p>
+                Одржавају се Школа кардиопулмоналне реанимације, Школа ултразвука
+                и Школа интензивне неге у оквиру програма интерне едукације.
+              </p>
             </div>
           </div>
         </Container>

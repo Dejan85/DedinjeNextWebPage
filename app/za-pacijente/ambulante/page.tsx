@@ -1,6 +1,7 @@
-import { AmbulanteAccordion, PageHeader } from "@/components/shared";
+import { AmbulanteAccordion, Container, PageHeader, Section } from "@/components/shared";
 import type { AmbulantaItem } from "@/components/shared/AmbulanteAccordion/AmbulanteAccordion";
 import { generateMetadata } from "@/app/za-pacijente/ambulante/metadata";
+import styles from "./page.module.css";
 
 export { generateMetadata };
 
@@ -143,7 +144,7 @@ const AMBULANTE: AmbulantaItem[] = [
   {
     id: "neinvazivna-kardiologija",
     title: "Амбуланта неинвазивне кардиологије",
-    icon: "fas fa-ultrasound",
+    icon: "fas fa-wave-square",
     sections: [
       {
         title: "Опште информације",
@@ -241,7 +242,7 @@ const AMBULANTE: AmbulantaItem[] = [
   {
     id: "prijemna-ambulanta",
     title: "Пријемна амбуланта – преоперативна припрема",
-    icon: "fas fa-user-md",
+    icon: "fas fa-user-doctor",
     sections: [
       {
         title: "Опште информације",
@@ -354,6 +355,40 @@ export default function AmbulantePage() {
         title="Амбуланте"
         subtitle="Преглед амбуланти Института за кардиоваскуларне болести Дедиње"
       />
+
+      <Section padding="medium" background="white">
+        <Container>
+          <div className={styles.intro}>
+            <div className={styles.introIcon}>
+              <i className="fas fa-hospital" aria-hidden />
+            </div>
+            <div className={styles.introContent}>
+              <h2>Амбулантне услуге Института</h2>
+              <p>
+                Институт за кардиоваскуларне болести Дедиње пружа широк спектар
+                амбулантних услуга — од кардиохируршке и кардиолошке амбуланте,
+                преко аритмолошке и васкуларне, до лабораторије и преоперативне
+                припреме. Изаберите амбуланту и сазнајте радно време, потребну
+                документацију и контакт информације.
+              </p>
+            </div>
+          </div>
+          <div className={styles.stats}>
+            <div className={styles.statItem}>
+              <span className={styles.statValue}>{AMBULANTE.length}</span>
+              <span className={styles.statLabel}>амбуланти</span>
+            </div>
+            <div className={styles.statItem}>
+              <span className={styles.statValue}>0–24</span>
+              <span className={styles.statLabel}>лабораторија</span>
+            </div>
+            <div className={styles.statItem}>
+              <span className={styles.statValue}>011 3601 700</span>
+              <span className={styles.statLabel}>call центар</span>
+            </div>
+          </div>
+        </Container>
+      </Section>
 
       <AmbulanteAccordion
         items={AMBULANTE}

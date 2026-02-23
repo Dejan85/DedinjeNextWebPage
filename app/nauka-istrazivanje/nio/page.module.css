@@ -1,48 +1,376 @@
-.grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px;
-  align-items: start;
-  margin-top: 32px;
-}
-
-.image {
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.linksList {
+/* ========================================
+   ABOUT SECTION
+======================================== */
+.about {
   display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
+  gap: 32px;
+  align-items: flex-start;
 }
 
-.linksList li a {
+.aboutIcon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  border-radius: 22px;
   display: flex;
   align-items: center;
-  gap: 12px;
-  color: var(--primary);
-  font-weight: 600;
-  font-size: 16px;
-  transition: var(--transition);
-}
-
-.linksList li a:hover {
-  color: var(--primary-dark);
-  text-decoration: underline;
-}
-
-.linksList li a i {
-  font-size: 12px;
+  justify-content: center;
   flex-shrink: 0;
 }
 
+.aboutIcon i {
+  font-size: 34px;
+  color: var(--white);
+}
+
+.aboutContent {
+  flex: 1;
+}
+
+.aboutContent h2 {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--gray-800);
+  margin: 0 0 14px;
+}
+
+.aboutContent > p {
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--gray-600);
+  margin: 0;
+}
+
+.aboutStats {
+  display: flex;
+  gap: 32px;
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid var(--gray-200);
+  flex-wrap: wrap;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.statNum {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1;
+}
+
+.statLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gray-500);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 4px;
+}
+
+/* ========================================
+   ACCREDITATION BANNER
+======================================== */
+.accreditBanner {
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+  padding: 36px 40px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  border-radius: 20px;
+  color: var(--white);
+}
+
+.accreditIcon {
+  width: 72px;
+  height: 72px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.accreditIcon i {
+  font-size: 30px;
+  color: var(--white);
+}
+
+.accreditContent {
+  flex: 1;
+}
+
+.accreditBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--white);
+  background: rgba(255, 255, 255, 0.2);
+  padding: 6px 14px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  width: fit-content;
+}
+
+.accreditBadge i {
+  font-size: 14px;
+}
+
+.accreditContent h2 {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--white);
+  margin: 0 0 14px;
+  line-height: 1.3;
+}
+
+.accreditContent p {
+  font-size: 15px;
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+}
+
+/* ========================================
+   SECTION HEADER
+======================================== */
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.sectionHeader h2 {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--gray-800);
+  margin: 0 0 8px;
+}
+
+.sectionHeader p {
+  font-size: 15px;
+  color: var(--gray-500);
+  margin: 0;
+}
+
+/* ========================================
+   DOCUMENTS LIST
+======================================== */
+.docsList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.docCard {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 22px 28px;
+  background: var(--gray-50);
+  border: 2px solid var(--gray-200);
+  border-radius: 14px;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+
+.docCard:hover {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  border-color: var(--primary);
+  transform: translateY(-1px);
+}
+
+.docIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  flex-shrink: 0;
+}
+
+.docIcon i {
+  font-size: 20px;
+  color: var(--white);
+}
+
+.docBody {
+  flex: 1;
+  min-width: 0;
+}
+
+.docYear {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--accent-teal);
+  background: var(--accent-teal-bg);
+  padding: 3px 10px;
+  border-radius: 5px;
+  margin-bottom: 4px;
+}
+
+.docBody h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--gray-800);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.docActions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.docReadBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: var(--primary);
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: "Open Sans", sans-serif;
+  cursor: pointer;
+  transition: opacity 0.25s ease;
+  white-space: nowrap;
+}
+
+.docReadBtn:hover {
+  opacity: 0.9;
+}
+
+.docDownloadBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  color: var(--primary);
+  border: 2px solid var(--gray-200);
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: border-color 0.25s ease, background 0.25s ease, color 0.25s ease;
+}
+
+.docDownloadBtn:hover {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: var(--white);
+}
+
+/* ========================================
+   VIEWER HEADER
+======================================== */
+.viewerHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  gap: 20px;
+}
+
+.viewerTitle {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--gray-800);
+  margin: 0 0 4px;
+}
+
+.viewerSubtitle {
+  font-size: 14px;
+  color: var(--gray-500);
+  margin: 0;
+}
+
+.closeViewerBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: var(--gray-200);
+  color: var(--gray-700);
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: "Open Sans", sans-serif;
+  cursor: pointer;
+  transition: background 0.25s ease;
+  white-space: nowrap;
+}
+
+.closeViewerBtn:hover {
+  background: var(--gray-300);
+}
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+@media (max-width: 1024px) {
+  .accreditBanner {
+    flex-direction: column;
+    padding: 28px 24px;
+    gap: 20px;
+  }
+}
+
 @media (max-width: 768px) {
-  .grid {
-    grid-template-columns: 1fr;
-    gap: 32px;
+  .about {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .aboutContent h2 {
+    font-size: 22px;
+  }
+
+  .aboutStats {
+    gap: 24px;
+  }
+
+  .accreditContent h2 {
+    font-size: 20px;
+  }
+
+  .sectionHeader h2 {
+    font-size: 20px;
+  }
+
+  .docCard {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+    gap: 14px;
+  }
+
+  .docActions {
+    width: 100%;
+  }
+
+  .docReadBtn {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .viewerHeader {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }

@@ -1,10 +1,12 @@
 import {
+  Container,
   PageHeader,
   ResearchersAccordion,
   Section,
 } from "@/components/shared";
 import type { ResearcherCategory } from "@/components/shared/ResearchersAccordion/ResearchersAccordion";
 import { generateMetadata } from "./metadata";
+import styles from "./page.module.css";
 
 export { generateMetadata };
 
@@ -12,7 +14,7 @@ const ISTRAZIVACI: ResearcherCategory[] = [
   {
     id: "visi-naucni-saradnici",
     title: "Виши научни сарадници",
-    icon: "fas fa-book-open",
+    icon: "fas fa-user-tie",
     researchers: [
       "Др Горан Лончар, виши научни сарадник",
       "Др Слободан Танасковић, виши научни сарадник",
@@ -22,7 +24,7 @@ const ISTRAZIVACI: ResearcherCategory[] = [
   {
     id: "naucni-saradnici",
     title: "Научни сарадници",
-    icon: "fas fa-book-open",
+    icon: "fas fa-user-graduate",
     researchers: [
       "Др Милован Бојић, научни сарадник",
       "Др Милош Стојиљковић, научни сарадник",
@@ -44,7 +46,7 @@ const ISTRAZIVACI: ResearcherCategory[] = [
   {
     id: "istrazivaci-saradnici",
     title: "Истраживачи – сарадници",
-    icon: "fas fa-book-open",
+    icon: "fas fa-users",
     researchers: [
       "Др Велибор Ристић, истраживач сарадник",
       "Др Александра Грбовић, истраживач сарадник",
@@ -57,7 +59,7 @@ const ISTRAZIVACI: ResearcherCategory[] = [
   {
     id: "istrazivaci-pripravnici",
     title: "Истраживачи – приправници",
-    icon: "fas fa-book-open",
+    icon: "fas fa-graduation-cap",
     researchers: [
       "Др Маја Филиповић, истраживач-приправник",
       "Др Марко Филиповић, истраживач-приправник",
@@ -101,6 +103,8 @@ const ISTRAZIVACI: ResearcherCategory[] = [
   },
 ];
 
+const TOTAL = ISTRAZIVACI.reduce((acc, cat) => acc + cat.researchers.length, 0);
+
 export default function ListaIstrazivacaPage() {
   return (
     <>
@@ -113,6 +117,35 @@ export default function ListaIstrazivacaPage() {
         title="Листа истраживача"
         subtitle="Истраживачи Института за кардиоваскуларне болести Дедиње"
       />
+
+      <Section padding="medium" background="white">
+        <Container>
+          <div className={styles.intro}>
+            <div className={styles.introIcon}>
+              <i className="fas fa-flask" aria-hidden />
+            </div>
+            <div className={styles.introContent}>
+              <h2>Истраживачки тим Института</h2>
+              <p>
+                Научноистраживачки рад Института за кардиоваскуларне болести
+                &bdquo;Дедиње&ldquo; остварује тим истраживача организованих по
+                категоријама — од виших научних сарадника до истраживача
+                приправника.
+              </p>
+            </div>
+          </div>
+          <div className={styles.stats}>
+            <div className={styles.statItem}>
+              <span className={styles.statValue}>{TOTAL}</span>
+              <span className={styles.statLabel}>истраживача</span>
+            </div>
+            <div className={styles.statItem}>
+              <span className={styles.statValue}>{ISTRAZIVACI.length}</span>
+              <span className={styles.statLabel}>категорије</span>
+            </div>
+          </div>
+        </Container>
+      </Section>
 
       <Section padding="medium" background="gray">
         <ResearchersAccordion

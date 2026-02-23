@@ -28,19 +28,21 @@
 
 .ambulanteItem {
   background: var(--white);
-  border-radius: 12px;
-  margin-bottom: 12px;
+  border-radius: 14px;
+  margin-bottom: 10px;
   overflow: hidden;
-  box-shadow: var(--shadow-sm);
-  transition: var(--transition);
+  border: 1px solid var(--gray-200);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .ambulanteItem:hover {
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
 }
 
 .ambulanteItem.open {
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border-color: var(--gray-300);
 }
 
 .ambulanteTrigger {
@@ -65,10 +67,16 @@
 }
 
 .ambulanteIcon {
-  width: 24px;
-  text-align: center;
-  color: var(--primary);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: var(--white);
   font-size: 18px;
+  border-radius: 12px;
+  flex-shrink: 0;
 }
 
 .ambulanteTriggerText {
@@ -88,17 +96,26 @@
 }
 
 .ambulanteContent {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.5s ease;
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  border-top: 1px solid var(--gray-100);
 }
 
 .ambulanteItem.open .ambulanteContent {
-  max-height: 3000px;
+  grid-template-rows: 1fr;
 }
 
-.ambulanteContent {
-  border-top: 1px solid var(--gray-100);
+.ambulanteContentInner {
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 0.25s ease 0.1s, transform 0.25s ease 0.1s;
+}
+
+.ambulanteItem.open .ambulanteContentInner {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .ambulanteSectionBlock {

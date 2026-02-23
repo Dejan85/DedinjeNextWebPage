@@ -93,15 +93,15 @@
 }
 
 /* ========================================
-   FEATURES GRID
+   INFO CARDS
 ======================================== */
-.featuresGrid {
+.infoGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
 }
 
-.featureCard {
+.infoCard {
   background: var(--white);
   border-radius: 16px;
   padding: 28px 24px;
@@ -110,12 +110,12 @@
   transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
-.featureCard:hover {
+.infoCard:hover {
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
   transform: translateY(-3px);
 }
 
-.featureIcon {
+.infoCardIcon {
   width: 52px;
   height: 52px;
   border-radius: 14px;
@@ -126,19 +126,19 @@
   background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
 }
 
-.featureIcon i {
+.infoCardIcon i {
   font-size: 22px;
   color: var(--white);
 }
 
-.featureCard h3 {
+.infoCard h3 {
   font-size: 17px;
   font-weight: 700;
   color: var(--gray-800);
   margin: 0 0 10px;
 }
 
-.featureCard p {
+.infoCard p {
   font-size: 14px;
   line-height: 1.65;
   color: var(--gray-600);
@@ -146,99 +146,47 @@
 }
 
 /* ========================================
-   GALLERY
+   OBLASTI
 ======================================== */
-.galleryGrid {
+.oblastiGrid {
   display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 24px;
-  align-items: stretch;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 12px;
 }
 
-.galleryMain {
-  border-radius: 18px;
-  overflow: hidden;
-  position: relative;
-  background: var(--gray-900);
-}
-
-.galleryMain img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  opacity: 0.85;
-}
-
-.gallerySide {
+.oblastItem {
   display: flex;
-  flex-direction: column;
-  gap: 24px;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  background: var(--gray-50);
+  border-radius: 12px;
+  border: 1px solid var(--gray-200);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
-.galleryItem {
-  border-radius: 16px;
-  overflow: hidden;
-  position: relative;
-  background: var(--gray-900);
-  flex: 1;
+.oblastItem:hover {
+  border-color: var(--primary);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
 }
 
-.galleryItem img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  opacity: 0.85;
-}
-
-.galleryCaption {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 20px 24px;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.75) 0%, transparent 100%);
-  color: var(--white);
-}
-
-.galleryBadge {
-  display: inline-block;
-  font-size: 10px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: var(--white);
-  background: var(--primary);
-  padding: 4px 10px;
-  border-radius: 5px;
-  margin-bottom: 8px;
-}
-
-.galleryCaption h3 {
+.oblastNum {
   font-size: 20px;
   font-weight: 800;
-  color: var(--white);
-  margin: 0 0 4px;
+  color: var(--primary);
+  min-width: 32px;
 }
 
-.galleryCaption h4 {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--white);
-  margin: 0 0 2px;
-}
-
-.galleryCaption p {
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.75);
-  margin: 0;
+.oblastText {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gray-700);
 }
 
 /* ========================================
-   QUOTE BANNER
+   BANNER
 ======================================== */
-.quoteBanner {
+.banner {
   display: flex;
   align-items: center;
   gap: 24px;
@@ -248,7 +196,7 @@
   color: var(--white);
 }
 
-.quoteIcon {
+.bannerIcon {
   width: 64px;
   height: 64px;
   background: rgba(255, 255, 255, 0.2);
@@ -259,32 +207,34 @@
   flex-shrink: 0;
 }
 
-.quoteIcon i {
+.bannerIcon i {
   font-size: 26px;
   color: var(--white);
 }
 
-.quoteContent {
+.bannerContent {
   flex: 1;
 }
 
-.quoteContent p {
-  font-size: 16px;
-  line-height: 1.75;
-  color: rgba(255, 255, 255, 0.9);
+.bannerContent h3 {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--white);
+  margin: 0 0 8px;
+}
+
+.bannerContent p {
+  font-size: 15px;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.85);
   margin: 0;
-  font-style: italic;
 }
 
 /* ========================================
    RESPONSIVE
 ======================================== */
 @media (max-width: 1024px) {
-  .featuresGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .galleryGrid {
+  .infoGrid {
     grid-template-columns: 1fr;
   }
 }
@@ -307,9 +257,17 @@
     font-size: 20px;
   }
 
-  .quoteBanner {
+  .oblastiGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .banner {
     flex-direction: column;
     padding: 28px 24px;
     text-align: center;
+  }
+
+  .bannerContent h3 {
+    font-size: 18px;
   }
 }

@@ -46,7 +46,9 @@ export default function ResearchersAccordion({
                   aria-expanded={isOpen}
                 >
                   {item.icon && (
-                    <i className={`${item.icon} ${styles.icon}`}></i>
+                    <span className={styles.icon}>
+                      <i className={item.icon} aria-hidden />
+                    </span>
                   )}
                   <span className={styles.triggerText}>{item.title}</span>
                   <i
