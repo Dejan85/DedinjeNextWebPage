@@ -1,0 +1,49 @@
+.temaList {
+  margin: 16px 0 24px;
+  padding-left: 24px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--gray-600);
+}
+
+.temaList li {
+  margin-bottom: 12px;
+}
+
+.temaList li:last-child {
+  margin-bottom: 0;
+}
+
+.contactSection {
+  margin-top: 40px;
+  padding-top: 28px;
+  border-top: 1px solid var(--gray-200);
+}
+
+.contactBlock {
+  margin-bottom: 20px;
+  padding: 16px 20px;
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+}
+
+.contactBlock p {
+  margin: 0 0 8px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--gray-600);
+}
+
+.contactBlock p:last-child {
+  margin-bottom: 0;
+}
+
+.contactBlock a {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.contactBlock a:hover {
+  text-decoration: underline;
+}

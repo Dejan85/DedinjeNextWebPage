@@ -41,6 +41,10 @@ export {
   type AmbulantaSection,
 } from "./AmbulanteAccordion/AmbulanteAccordion";
 export {
+  default as ResearchersAccordion,
+  type ResearcherCategory,
+} from "./ResearchersAccordion/ResearchersAccordion";
+export {
   default as PageHeader,
   type BreadcrumbItem,
 } from "./PageHeader/PageHeader";
