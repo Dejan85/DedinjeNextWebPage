@@ -1,69 +1,359 @@
-.sectionTitle {
-  margin-bottom: 16px;
+/* ========================================
+   HERO
+======================================== */
+.hero {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
 }
 
-.sectionsGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  margin-top: 32px;
-}
-
-.sectionCard {
-  background: var(--gray-50);
-  border-radius: 14px;
-  padding: 32px 24px;
-  border: 1px solid var(--gray-200);
-  transition: box-shadow 0.25s ease;
-}
-
-.sectionCard:hover {
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
-}
-
-.cardIcon {
-  width: 48px;
-  height: 48px;
+.heroIcon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  border-radius: 22px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, var(--primary), var(--primary-darker));
-  border-radius: 14px;
-  margin-bottom: 18px;
+  flex-shrink: 0;
 }
 
-.cardIcon i {
-  font-size: 20px;
+.heroIcon i {
+  font-size: 34px;
   color: var(--white);
 }
 
-.sectionCard h3 {
-  font-size: 17px;
+.heroContent {
+  flex: 1;
+}
+
+.heroContent h2 {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--gray-800);
+  margin: 0 0 14px;
+}
+
+.heroContent > p {
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--gray-600);
+  margin: 0 0 8px;
+}
+
+.heroMeta {
+  display: flex;
+  gap: 28px;
+  margin-top: 24px;
+  padding: 20px 0;
+  border-top: 1px solid var(--gray-200);
+  border-bottom: 1px solid var(--gray-200);
+  flex-wrap: wrap;
+}
+
+.heroMetaItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.heroMetaItem > i {
+  font-size: 18px;
+  color: var(--primary);
+}
+
+.metaLabel {
+  display: block;
+  font-size: 11px;
   font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--gray-500);
+}
+
+.metaValue {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gray-800);
+}
+
+.heroActions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+
+.primaryBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  background: var(--primary);
+  color: var(--white);
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: "Open Sans", sans-serif;
+  cursor: pointer;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.primaryBtn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.secondaryBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  background: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: "Open Sans", sans-serif;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+.secondaryBtn:hover {
+  background: var(--primary);
+  color: var(--white);
+}
+
+/* ========================================
+   SECTION HEADER
+======================================== */
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.sectionHeader h2 {
+  font-size: 24px;
+  font-weight: 800;
   color: var(--gray-800);
   margin: 0 0 8px;
 }
 
-.sectionCard p {
+.sectionHeader p {
   font-size: 15px;
+  color: var(--gray-500);
+  margin: 0;
+}
+
+/* ========================================
+   CONTENT GRID
+======================================== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.card {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 28px 24px;
+  border: 1px solid var(--gray-200);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.card:hover {
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+}
+
+.cardNumber {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  font-size: 36px;
+  font-weight: 900;
+  color: var(--gray-100);
+  line-height: 1;
+  pointer-events: none;
+}
+
+.cardIconWrap {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.cardIconWrap i {
+  font-size: 22px;
+  color: var(--white);
+}
+
+.card h3 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--gray-800);
+  margin: 0 0 10px;
+  line-height: 1.35;
+  transition: color 0.25s ease;
+}
+
+.card:hover h3 {
+  color: var(--primary);
+}
+
+.card p {
+  font-size: 14px;
   line-height: 1.65;
   color: var(--gray-600);
   margin: 0;
 }
 
+/* ========================================
+   CONTACT SECTION
+======================================== */
+.contactSection {
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+  padding: 36px 40px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  border-radius: 20px;
+  color: var(--white);
+}
+
+.contactIcon {
+  width: 64px;
+  height: 64px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.contactIcon i {
+  font-size: 26px;
+  color: var(--white);
+}
+
+.contactContent {
+  flex: 1;
+}
+
+.contactContent h2 {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--white);
+  margin: 0 0 12px;
+}
+
+.contactContent > p {
+  font-size: 15px;
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0 0 24px;
+}
+
+.contactDetails {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.contactItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+}
+
+.contactItem > i {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+  width: 20px;
+  text-align: center;
+}
+
+.contactLabel {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.contactValue {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--white);
+}
+
+/* ========================================
+   RESPONSIVE
+======================================== */
 @media (max-width: 1024px) {
-  .sectionsGrid {
+  .grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .contactDetails {
+    grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 768px) {
-  .sectionsGrid {
+  .hero {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .heroContent h2 {
+    font-size: 22px;
+  }
+
+  .heroMeta {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .heroActions {
+    flex-direction: column;
+  }
+
+  .primaryBtn,
+  .secondaryBtn {
+    justify-content: center;
+  }
+
+  .grid {
     grid-template-columns: 1fr;
     gap: 16px;
   }
 
-  .sectionCard {
-    padding: 24px 20px;
+  .contactSection {
+    flex-direction: column;
+    padding: 28px 24px;
+    gap: 20px;
+  }
+
+  .contactContent h2 {
+    font-size: 20px;
   }
 }

@@ -1,8 +1,16 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   output: process.env.BUILD_STATIC === "true" ? "export" : undefined,
+  turbopack: {
+    resolveAlias: {
+      canvas: "./empty-module.js",
+    },
+  },
+  webpack: (config) => {
+    config.resolve.alias.canvas = false;
+    return config;
+  },
   images: {
     unoptimized: process.env.BUILD_STATIC === "true",
     remotePatterns: [
