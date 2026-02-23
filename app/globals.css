@@ -2953,14 +2953,6 @@ img {
   color: var(--primary);
 }
 
-.informacije-block a {
-  color: var(--primary);
-  font-weight: 600;
-}
-
-.informacije-block a:hover {
-  text-decoration: underline;
-}
 
 .informacije-highlight {
   background: var(--gray-100);

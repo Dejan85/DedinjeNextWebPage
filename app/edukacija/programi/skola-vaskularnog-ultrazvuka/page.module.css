@@ -1,0 +1,322 @@
+/* ===== Section titles ===== */
+.sectionTitle {
+  margin-bottom: 8px;
+}
+
+.sectionSubtitle {
+  max-width: 700px;
+  margin: 0 auto 36px;
+}
+
+/* ===== Program grid ===== */
+.programGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-top: 36px;
+}
+
+.programCard {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 36px 24px;
+  text-align: center;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  border: 1px solid var(--gray-200);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.programCard:hover {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.programCardIcon {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--primary), var(--primary-darker));
+  border-radius: 16px;
+  margin: 0 auto 20px;
+}
+
+.programCardIcon i {
+  font-size: 24px;
+  color: var(--white);
+}
+
+.programCard h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--gray-800);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* ===== Stats row ===== */
+.statsRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 8px 0;
+}
+
+/* ===== Course section ===== */
+.courseHeader {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.courseIcon {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--primary), var(--primary-darker));
+  border-radius: 14px;
+  flex-shrink: 0;
+}
+
+.courseIcon i {
+  font-size: 22px;
+  color: var(--white);
+}
+
+.courseHeader h2 {
+  margin: 0;
+}
+
+.introText {
+  margin-bottom: 32px;
+}
+
+.courseDetails {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.courseDetail {
+  background: var(--white);
+  border-radius: 14px;
+  padding: 28px 24px;
+  border: 1px solid var(--gray-200);
+  transition: box-shadow 0.25s ease;
+}
+
+.courseDetail:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.detailIcon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary);
+  border-radius: 12px;
+  margin-bottom: 16px;
+}
+
+.detailIcon i {
+  font-size: 18px;
+  color: var(--white);
+}
+
+.courseDetail h4 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--gray-800);
+  margin: 0 0 8px;
+}
+
+.courseDetail p {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--gray-600);
+  margin: 0;
+}
+
+.courseHighlight {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.06), rgba(var(--primary-rgb), 0.02));
+  border-left: 4px solid var(--primary);
+  border-radius: 0 12px 12px 0;
+  padding: 24px 28px;
+  margin-top: 32px;
+}
+
+.courseHighlight i {
+  font-size: 22px;
+  color: var(--primary);
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.courseHighlight p {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--gray-700);
+  margin: 0;
+  font-style: italic;
+}
+
+/* ===== Requirements row ===== */
+.requirementsRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.requirementStat {
+  text-align: center;
+  background: var(--gray-50);
+  border-radius: 14px;
+  padding: 32px 24px;
+  border: 1px solid var(--gray-200);
+}
+
+.requirementNumber {
+  font-size: 40px;
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 8px;
+  line-height: 1;
+}
+
+.requirementStat p {
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--gray-600);
+  margin: 0;
+}
+
+/* ===== Exam grid ===== */
+.examGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+
+.examCard {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 36px 32px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  border: 1px solid var(--gray-200);
+}
+
+.examCardIcon {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--primary), var(--primary-darker));
+  border-radius: 14px;
+  margin-bottom: 20px;
+}
+
+.examCardIcon i {
+  font-size: 22px;
+  color: var(--white);
+}
+
+.examCard h3 {
+  color: var(--gray-800);
+}
+
+.examList {
+  margin: 16px 0;
+  padding-left: 20px;
+}
+
+.examList li {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--gray-600);
+  margin-bottom: 10px;
+  padding-left: 4px;
+}
+
+.examList li:last-child {
+  margin-bottom: 0;
+}
+
+.accreditationBadge {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 24px;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.06), rgba(var(--primary-rgb), 0.02));
+  border-radius: 12px;
+}
+
+.accreditationBadge i {
+  font-size: 20px;
+  color: var(--primary);
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.accreditationBadge span {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gray-700);
+  line-height: 1.5;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1024px) {
+  .programGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .requirementsRow {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .programGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .statsRow {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .courseDetails {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .examGrid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .examCard {
+    padding: 28px 24px;
+  }
+
+  .programCard {
+    padding: 28px 20px;
+  }
+
+  .courseHighlight {
+    padding: 20px 24px;
+  }
+}

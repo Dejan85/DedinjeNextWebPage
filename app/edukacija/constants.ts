@@ -12,14 +12,14 @@ export const EDUKATIVNI_PROGRAMI: ProgramCardItem[] = [
     id: "skola-hipertenzije",
     title: "Школа хипертензије и редукције кардиоваскуларних фактора ризика",
     icon: "fas fa-heart",
-    href: "/edukacija/programi",
+    href: "/edukacija/programi/skola-hipertenzije-i-redukcije-kardiovaskularnih-faktora-rizika",
     buttonText: "Сазнај више",
   },
   {
     id: "skola-vaskularnog-ultrazvuka",
     title: "Школа васкуларног ултразвука",
     icon: "fas fa-wave-square",
-    href: "/edukacija/programi",
+    href: "/edukacija/programi/skola-vaskularnog-ultrazvuka",
     buttonText: "Сазнај више",
   },
 ];

@@ -15,7 +15,7 @@ export default function StatItem({
   return (
     <div className={`${styles.statItem} ${className}`}>
       <div className={styles.statValue}>{value}</div>
-      <Text text={label} variant="small" className={styles.statLabel} />
+      <Text text={label} variant="small" color="light" className={styles.statLabel} />
     </div>
   );
 }
