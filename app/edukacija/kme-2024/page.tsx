@@ -1,11 +1,9 @@
 import {
   Container,
   GradientCardGrid,
-  LectureList,
   PageHeader,
   Section,
 } from "@/components/shared";
-import { Heading, Text } from "@/components/typography";
 import { generateMetadata } from "./metadata";
 import styles from "./page.module.css";
 
@@ -32,6 +30,20 @@ const KME_CARDS = [
   },
 ];
 
+const SLUZBA_AKTIVNOSTI = [
+  { icon: "fas fa-project-diagram", text: "Планира, надзире и евалуира израду научно-истраживачких и развојних пројеката" },
+  { icon: "fas fa-file-alt", text: "Координира припремање и објављивање стручних и научних радова" },
+  { icon: "fas fa-cogs", text: "Планира и координира научне и техничке послове у вези научно-истраживачког рада Института" },
+  { icon: "fas fa-scroll", text: "Припрема опште акте који уређују научно-истраживачку делатност Института" },
+];
+
+const SEKTOR_AKTIVNOSTI = [
+  { icon: "fas fa-chalkboard-teacher", text: "Организује различите облике стручног и научног усавршавања" },
+  { icon: "fas fa-handshake", text: "Организује различите облике међународне сарадње" },
+  { icon: "fas fa-calendar-check", text: "Координира учешће на научним и стручним скуповима" },
+  { icon: "fas fa-clipboard-check", text: "Прати и контролише спровођење обавезног лекарског, специјалистичког и субспецијалистичког стажа на Институту" },
+];
+
 const RASPORED_PO_TEMAMA = [
   { title: "ЕЦМО – Екстракорпорална мембранска оксигенација", lecturer: "проф. др Миомир Јовић" },
   { title: "Хипертензија и физичка активност – да ли је могућа терапија без лекова?", lecturer: "проф. др Небојша Тасић" },
@@ -46,7 +58,7 @@ const RASPORED_PO_TEMAMA = [
   { title: "Неоклузивна коронарна болест и микроциркулација", lecturer: "Др Стефан Тимчић, Проф. др Раде Бабић" },
   { title: "Клинички преглед и дијагностика васкуларних болести", lecturer: "Др Александар Бабић, Проф. др Ненад Илијевски" },
   { title: "Анеуризматска и периферна артеријска болест код поливаскуларног болесника", lecturer: "Др Игор Атанасијевић, Асс. др Предраг Матић" },
-  { title: "ЦТ коронарографија", lecturer: "Др Тијана Рошул. Др Милица Брковић. Др Ковачевић" },
+  { title: "ЦТ коронарографија", lecturer: "Др Тијана Рошул, Др Милица Брковић, Др Ковачевић" },
 ];
 
 export default function Kme2024Page() {
@@ -62,67 +74,134 @@ export default function Kme2024Page() {
         subtitle="Континуирана медицинска едукација"
       />
 
+      {/* KME Cards */}
+      <Section padding="medium" background="white">
+        <Container>
+          <GradientCardGrid items={KME_CARDS} />
+        </Container>
+      </Section>
+
+      {/* About */}
       <Section padding="medium" background="gray">
         <Container>
-          <GradientCardGrid
-            items={KME_CARDS}
-            className={styles.kmeCardsWrapper}
-          />
-
-          <div className="informacije-content">
-            <div className="informacije-block">
-              <Text
-                variant="body"
-                text={'Научно – истраживачки рад обухвата све клинике медицинског сектора Института, а координише га Служба за образовну делатност и стручно усавршавање.'}
-              />
-
-              <Heading variant="h3" text="У овој Служби се:" />
-              <ul className="konzilijum-list">
-                <li>планира надзире и евалуира израда научно-истраживачких и развојних пројеката</li>
-                <li>координира припремање и објављивање стручних и научних радова</li>
-                <li>планирају и координирају научни и технички послови у вези научно-истраживачког рада Института</li>
-                <li>припремају општи акти који уређују научно-истраживачку делатност Института</li>
-              </ul>
-
-              <Text
-                variant="body"
-                text={'Континуирана медицинска едукација је део редовних активности Сектора за Научно-истраживачки рад Института.'}
-              />
-              <Text
-                variant="body"
-                text={'Усавршавање лекара и медицинских техничара је обавеза запослених и неопходна је како за унапређење квалитета рада тако и за обнављање лиценци за њихов рад.'}
-              />
-
-              <Heading variant="h3" text="У овом сектору се:" />
-              <ul className="konzilijum-list">
-                <li>Организују различити облици стручног и научног усавршавања</li>
-                <li>Организују различити облици међународне сарадње</li>
-                <li>Координира учешће на научним и стручним скуповима</li>
-                <li>Прати и контролише спровођење обавезног лекарског, специјалистичког и субспецијалистичког стажа на Институту</li>
-              </ul>
-
-              <Heading variant="h2" text="Преглед завршених специјализација" />
-
-              <Heading variant="h2" text="РАСПОРЕД ПО ТЕМАМА" />
-              <LectureList
-                items={RASPORED_PO_TEMAMA}
-                showQuotes={false}
-                className={styles.temaList}
-              />
-
-              <div className={styles.contactSection}>
-                <Heading variant="h2" text="Контакт" />
-                <div className={styles.contactBlock}>
-                  <p><strong>Контакт особа</strong></p>
-                  <p>Проф. Др Небојша Тасић</p>
+          <div className={styles.aboutGrid}>
+            {/* Служба */}
+            <div className={styles.aboutCard}>
+              <div className={styles.aboutCardHeader}>
+                <div className={styles.aboutCardIcon}>
+                  <i className="fas fa-flask" aria-hidden />
                 </div>
-                <div className={styles.contactBlock}>
-                  <p><strong>Телефон</strong></p>
-                  <p><a href="tel:+381113601669">+(381) 11 360 1669</a></p>
+                <div>
+                  <h3>Служба за образовну делатност</h3>
+                  <p className={styles.aboutCardSubtitle}>
+                    Научно-истраживачки рад обухвата све клинике медицинског сектора Института
+                  </p>
                 </div>
-                <div className={styles.contactBlock}>
-                  <p><strong>Е-маил</strong></p>
-                  <p><a href="mailto:nic@yahoo.com">nic@yahoo.com</a></p>
+              </div>
+              <ul className={styles.activityList}>
+                {SLUZBA_AKTIVNOSTI.map((item) => (
+                  <li key={item.text}>
+                    <span className={styles.activityIcon}>
+                      <i className={item.icon} aria-hidden />
+                    </span>
+                    <span>{item.text}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Сектор */}
+            <div className={styles.aboutCard}>
+              <div className={styles.aboutCardHeader}>
+                <div className={`${styles.aboutCardIcon} ${styles.aboutCardIconAlt}`}>
+                  <i className="fas fa-university" aria-hidden />
+                </div>
+                <div>
+                  <h3>Сектор за научно-истраживачки рад</h3>
+                  <p className={styles.aboutCardSubtitle}>
+                    КМЕ је део редовних активности Сектора за научно-истраживачки рад
+                  </p>
+                </div>
+              </div>
+              <ul className={styles.activityList}>
+                {SEKTOR_AKTIVNOSTI.map((item) => (
+                  <li key={item.text}>
+                    <span className={styles.activityIcon}>
+                      <i className={item.icon} aria-hidden />
+                    </span>
+                    <span>{item.text}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <div className={styles.infoNote}>
+            <i className="fas fa-info-circle" aria-hidden />
+            <p>
+              Усавршавање лекара и медицинских техничара је обавеза запослених и неопходна је
+              како за унапређење квалитета рада тако и за обнављање лиценци за њихов рад.
+            </p>
+          </div>
+        </Container>
+      </Section>
+
+      {/* Lectures */}
+      <Section padding="medium" background="white">
+        <Container>
+          <div className={styles.lecturesHeader}>
+            <div>
+              <h2>Распоред по темама</h2>
+              <p>Преглед завршених специјализација — {RASPORED_PO_TEMAMA.length} предавања</p>
+            </div>
+          </div>
+          <div className={styles.lecturesGrid}>
+            {RASPORED_PO_TEMAMA.map((item, idx) => (
+              <div key={idx} className={styles.lectureCard}>
+                <span className={styles.lectureNum}>{String(idx + 1).padStart(2, "0")}</span>
+                <div className={styles.lectureBody}>
+                  <h4>{item.title}</h4>
+                  <span className={styles.lecturerBadge}>
+                    <i className="fas fa-user" aria-hidden /> {item.lecturer}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </Section>
+
+      {/* Contact */}
+      <Section padding="medium" background="gray">
+        <Container>
+          <div className={styles.contact}>
+            <div className={styles.contactIconWrap}>
+              <i className="fas fa-headset" aria-hidden />
+            </div>
+            <div className={styles.contactContent}>
+              <h2>Контакт</h2>
+              <p>За додатне информације о КМЕ програму, обратите се:</p>
+              <div className={styles.contactGrid}>
+                <div className={styles.contactItem}>
+                  <i className="fas fa-user" aria-hidden />
+                  <div>
+                    <span className={styles.contactLabel}>Контакт особа</span>
+                    <span className={styles.contactValue}>Проф. др Небојша Тасић</span>
+                  </div>
+                </div>
+                <div className={styles.contactItem}>
+                  <i className="fas fa-phone" aria-hidden />
+                  <div>
+                    <span className={styles.contactLabel}>Телефон</span>
+                    <a href="tel:+381113601669" className={styles.contactValue}>011 360 1669</a>
+                  </div>
+                </div>
+                <div className={styles.contactItem}>
+                  <i className="fas fa-envelope" aria-hidden />
+                  <div>
+                    <span className={styles.contactLabel}>Е-маил</span>
+                    <a href="mailto:nic@yahoo.com" className={styles.contactValue}>nic@yahoo.com</a>
+                  </div>
                 </div>
               </div>
             </div>

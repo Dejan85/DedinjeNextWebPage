@@ -1,47 +1,339 @@
-.kmeCardsWrapper {
-  margin-bottom: 48px;
+/* ========================================
+   ABOUT GRID (2-col)
+======================================== */
+.aboutGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-bottom: 24px;
 }
 
-@media (max-width: 768px) {
-  .kmeCardsWrapper {
-    margin-bottom: 32px;
+.aboutCard {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--gray-200);
+}
+
+.aboutCardHeader {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.aboutCardIcon {
+  width: 52px;
+  height: 52px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.aboutCardIconAlt {
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-darker, var(--primary-dark)) 100%);
+}
+
+.aboutCardIcon i {
+  font-size: 22px;
+  color: var(--white);
+}
+
+.aboutCardHeader h3 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--gray-800);
+  margin: 0 0 4px;
+}
+
+.aboutCardSubtitle {
+  font-size: 13px;
+  color: var(--gray-500);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.activityList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.activityList li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--gray-700);
+}
+
+.activityIcon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(var(--primary-rgb), 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.activityIcon i {
+  font-size: 13px;
+  color: var(--primary);
+}
+
+/* Info note */
+.infoNote {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 20px 24px;
+  background: rgba(var(--primary-rgb), 0.06);
+  border-radius: 12px;
+  border-left: 4px solid var(--primary);
+}
+
+.infoNote > i {
+  font-size: 18px;
+  color: var(--primary);
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.infoNote p {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--gray-700);
+  margin: 0;
+}
+
+/* ========================================
+   LECTURES
+======================================== */
+.lecturesHeader {
+  margin-bottom: 28px;
+}
+
+.lecturesHeader h2 {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--gray-800);
+  margin: 0 0 4px;
+}
+
+.lecturesHeader p {
+  font-size: 14px;
+  color: var(--gray-500);
+  margin: 0;
+}
+
+.lecturesGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.lectureCard {
+  display: flex;
+  gap: 16px;
+  padding: 20px;
+  background: var(--gray-50);
+  border-radius: 12px;
+  border: 1px solid var(--gray-200);
+  transition: box-shadow 0.25s ease, border-color 0.25s ease;
+  align-items: flex-start;
+}
+
+.lectureCard:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  border-color: var(--primary);
+}
+
+.lectureNum {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1;
+  min-width: 32px;
+  padding-top: 2px;
+}
+
+.lectureBody {
+  flex: 1;
+  min-width: 0;
+}
+
+.lectureBody h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--gray-800);
+  margin: 0 0 8px;
+  line-height: 1.4;
+}
+
+.lecturerBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gray-500);
+  background: var(--white);
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--gray-200);
+}
+
+.lecturerBadge i {
+  font-size: 10px;
+  color: var(--primary);
+}
+
+/* ========================================
+   CONTACT
+======================================== */
+.contact {
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+  padding: 36px 40px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  border-radius: 20px;
+  color: var(--white);
+}
+
+.contactIconWrap {
+  width: 64px;
+  height: 64px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.contactIconWrap i {
+  font-size: 26px;
+  color: var(--white);
+}
+
+.contactContent {
+  flex: 1;
+}
+
+.contactContent h2 {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--white);
+  margin: 0 0 8px;
+}
+
+.contactContent > p {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.75);
+  margin: 0 0 20px;
+}
+
+.contactGrid {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.contactItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  flex: 1;
+  min-width: 200px;
+}
+
+.contactItem > i {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+  width: 20px;
+  text-align: center;
+}
+
+.contactLabel {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.contactValue {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--white);
+  text-decoration: none;
+}
+
+.contactValue:hover {
+  text-decoration: underline;
+}
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+@media (max-width: 1024px) {
+  .aboutGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .lecturesGrid {
+    grid-template-columns: 1fr;
   }
 }
 
-.temaList {
-  margin: 16px 0 24px;
-}
+@media (max-width: 768px) {
+  .aboutCard {
+    padding: 24px 20px;
+  }
 
-.contactSection {
-  margin-top: 40px;
-  padding-top: 28px;
-  border-top: 1px solid var(--gray-200);
-}
+  .aboutCardHeader {
+    flex-direction: column;
+    gap: 12px;
+  }
 
-.contactBlock {
-  margin-bottom: 20px;
-  padding: 16px 20px;
-  background: var(--white);
-  border-radius: 12px;
-  box-shadow: var(--shadow-sm);
-}
+  .lecturesHeader h2 {
+    font-size: 20px;
+  }
 
-.contactBlock p {
-  margin: 0 0 8px;
-  font-size: 15px;
-  line-height: 1.6;
-  color: var(--gray-600);
-}
+  .lectureCard {
+    padding: 16px;
+  }
 
-.contactBlock p:last-child {
-  margin-bottom: 0;
-}
+  .contact {
+    flex-direction: column;
+    padding: 28px 24px;
+    gap: 20px;
+  }
 
-.contactBlock a {
-  color: var(--primary);
-  font-weight: 600;
-}
+  .contactGrid {
+    flex-direction: column;
+  }
 
-.contactBlock a:hover {
-  text-decoration: underline;
+  .contactItem {
+    min-width: 100%;
+  }
 }

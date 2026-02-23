@@ -80,6 +80,14 @@ const OBAVESTENJA: Obavestenje[] = [
   },
 ];
 
+const TYPE_COLORS: Record<string, { color: string; bg: string }> = {
+  "Радно време": { color: "var(--accent-amber)", bg: "var(--accent-amber-bg)" },
+  "Опрема": { color: "var(--accent-teal)", bg: "var(--accent-teal-bg)" },
+  "Едукација": { color: "var(--accent-violet)", bg: "var(--accent-violet-bg)" },
+  "Информација": { color: "var(--accent-blue)", bg: "var(--accent-blue-bg)" },
+  "Кадрови": { color: "var(--accent-emerald)", bg: "var(--accent-emerald-bg)" },
+};
+
 function parseSerbianDate(dateStr: string): Date {
   const months: Record<string, number> = {
     "јануар": 0, "фебруар": 1, "март": 2, "април": 3,
@@ -154,7 +162,15 @@ export default function ObavestenjaPage() {
               </div>
               <div className={styles.featuredContent}>
                 <div className={styles.featuredTop}>
-                  <span className={styles.typeBadge}>{featured.type}</span>
+                  <span
+                    className={styles.typeBadge}
+                    style={{
+                      color: TYPE_COLORS[featured.type]?.color,
+                      background: TYPE_COLORS[featured.type]?.bg,
+                    }}
+                  >
+                    {featured.type}
+                  </span>
                   <span className={styles.dateText}>
                     <i className="fas fa-calendar-alt" aria-hidden /> {featured.date}
                   </span>
@@ -252,7 +268,15 @@ export default function ObavestenjaPage() {
                     <i className={item.icon} aria-hidden />
                   </div>
                   <div className={styles.cardTop}>
-                    <span className={styles.typeBadgeSmall}>{item.type}</span>
+                    <span
+                      className={styles.typeBadgeSmall}
+                      style={{
+                        color: TYPE_COLORS[item.type]?.color,
+                        background: TYPE_COLORS[item.type]?.bg,
+                      }}
+                    >
+                      {item.type}
+                    </span>
                     <span className={styles.dateSmall}>
                       <i className="fas fa-calendar-alt" aria-hidden /> {item.date}
                     </span>

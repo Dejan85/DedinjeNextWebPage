@@ -82,6 +82,12 @@ const TYPE_ICONS: Record<string, string> = {
   "Остало": "fas fa-info-circle",
 };
 
+const TYPE_COLORS: Record<string, { color: string; bg: string }> = {
+  "Запошљавање": { color: "var(--accent-emerald)", bg: "var(--accent-emerald-bg)" },
+  "Јавна набавка": { color: "var(--accent-blue)", bg: "var(--accent-blue-bg)" },
+  "Остало": { color: "var(--accent-amber)", bg: "var(--accent-amber-bg)" },
+};
+
 function parseSerbianDate(dateStr: string): Date {
   const months: Record<string, number> = {
     "јануар": 0, "фебруар": 1, "март": 2, "април": 3,
@@ -285,7 +291,15 @@ export default function OglasiKonkursiPage() {
                   </div>
                   <div className={styles.cardBody}>
                     <div className={styles.cardTop}>
-                      <span className={styles.typeBadge}>{item.type}</span>
+                      <span
+                        className={styles.typeBadge}
+                        style={{
+                          color: TYPE_COLORS[item.type]?.color,
+                          background: TYPE_COLORS[item.type]?.bg,
+                        }}
+                      >
+                        {item.type}
+                      </span>
                       <span className={styles.dateText}>
                         <i className="fas fa-calendar-alt" aria-hidden /> {item.date}
                       </span>

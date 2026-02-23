@@ -37,7 +37,7 @@
 }
 
 .statIconActive {
-  background: #1a8a4a;
+  background: var(--accent-emerald);
 }
 
 .statIconClosed {
@@ -236,7 +236,7 @@
 }
 
 .cardActive {
-  border-left: 4px solid #1a8a4a;
+  border-left: 4px solid var(--accent-emerald);
 }
 
 .cardClosed {
@@ -267,11 +267,11 @@
 }
 
 .cardIconActive {
-  background: linear-gradient(135deg, rgba(26, 138, 74, 0.12) 0%, rgba(26, 138, 74, 0.05) 100%);
+  background: var(--accent-emerald-bg);
 }
 
 .cardIconActive i {
-  color: #1a8a4a;
+  color: var(--accent-emerald);
 }
 
 .cardIconClosed {
@@ -301,10 +301,8 @@
   font-weight: 800;
   letter-spacing: 0.5px;
   text-transform: uppercase;
-  color: var(--white);
-  background: var(--primary);
-  padding: 3px 10px;
-  border-radius: 4px;
+  padding: 4px 10px;
+  border-radius: 5px;
 }
 
 .dateText {
@@ -321,7 +319,7 @@
 
 .deadlineText {
   font-size: 12px;
-  color: #b45309;
+  color: var(--accent-amber);
   font-weight: 600;
 }
 
@@ -370,8 +368,8 @@
 }
 
 .statusActive {
-  background: #e6f9ee;
-  color: #1a8a4a;
+  background: var(--accent-emerald-bg);
+  color: var(--accent-emerald);
 }
 
 .statusClosed {

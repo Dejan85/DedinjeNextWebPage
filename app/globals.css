@@ -11,6 +11,18 @@
     --secondary: #0a2540;
     --secondary-rgb: 10, 37, 64;
     --accent: #00d4aa;
+    --accent-blue: #3b82f6;
+    --accent-blue-bg: rgba(59, 130, 246, 0.1);
+    --accent-teal: #14b8a6;
+    --accent-teal-bg: rgba(20, 184, 166, 0.1);
+    --accent-amber: #f59e0b;
+    --accent-amber-bg: rgba(245, 158, 11, 0.1);
+    --accent-rose: #f43f5e;
+    --accent-rose-bg: rgba(244, 63, 94, 0.1);
+    --accent-violet: #8b5cf6;
+    --accent-violet-bg: rgba(139, 92, 246, 0.1);
+    --accent-emerald: #10b981;
+    --accent-emerald-bg: rgba(16, 185, 129, 0.1);
     --white: #ffffff;
     --gray-50: #f8fafc;
     --gray-100: #f1f5f9;

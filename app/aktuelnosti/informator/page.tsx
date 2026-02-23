@@ -15,37 +15,31 @@ const INFORMATOR_SEKCIJE = [
     icon: "fas fa-landmark",
     title: "Основни подаци",
     description: "Пун назив, седиште, матични број, ПИБ, оснивач и правни статус Института за кардиоваскуларне болести Дедиње.",
-    color: "#1a365d",
   },
   {
     icon: "fas fa-sitemap",
     title: "Организациона структура",
     description: "Унутрашња организација Института – клинике, одељења, службе и органи управљања.",
-    color: "#1a5632",
   },
   {
     icon: "fas fa-gavel",
     title: "Прописи и акти",
     description: "Закони, подзаконски акти и интерни акти на основу којих Институт обавља своју делатност.",
-    color: "#56340a",
   },
   {
     icon: "fas fa-money-bill-wave",
     title: "Буџет и финансије",
     description: "Информације о изворима финансирања, буџету и финансијским извештајима Института.",
-    color: "#4a1942",
   },
   {
     icon: "fas fa-hands-helping",
     title: "Услуге и права грађана",
     description: "Информације о услугама које Институт пружа, правима пацијената и поступку остваривања права.",
-    color: "#1a365d",
   },
   {
     icon: "fas fa-envelope-open-text",
     title: "Подношење захтева",
     description: "Упутство за подношење захтева за слободан приступ информацијама од јавног значаја.",
-    color: "#1a5632",
   },
 ];
 
@@ -157,10 +151,7 @@ export default function InformatorPage() {
             {INFORMATOR_SEKCIJE.map((sekcija, idx) => (
               <div key={sekcija.title} className={styles.card}>
                 <div className={styles.cardNumber}>{String(idx + 1).padStart(2, "0")}</div>
-                <div
-                  className={styles.cardIconWrap}
-                  style={{ background: `linear-gradient(135deg, ${sekcija.color} 0%, ${sekcija.color}cc 100%)` }}
-                >
+                <div className={styles.cardIconWrap}>
                   <i className={sekcija.icon} aria-hidden />
                 </div>
                 <h3>{sekcija.title}</h3>

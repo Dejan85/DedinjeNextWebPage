@@ -44,8 +44,7 @@
   font-weight: 800;
   letter-spacing: 0.5px;
   text-transform: uppercase;
-  color: var(--primary);
-  background: var(--white);
+  background: var(--white) !important;
   padding: 4px 12px;
   border-radius: 5px;
 }
@@ -298,10 +297,8 @@
   font-weight: 800;
   letter-spacing: 0.5px;
   text-transform: uppercase;
-  color: var(--white);
-  background: var(--primary);
-  padding: 3px 10px;
-  border-radius: 4px;
+  padding: 4px 10px;
+  border-radius: 5px;
 }
 
 .dateSmall {
