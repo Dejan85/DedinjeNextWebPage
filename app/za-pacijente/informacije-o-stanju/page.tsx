@@ -1,6 +1,7 @@
 import { Container, PageHeader, Section } from "@/components/shared";
 import { Heading, Text } from "@/components/typography";
 import { generateMetadata } from "./metadata";
+import styles from "./page.module.css";
 
 export { generateMetadata };
 
@@ -53,43 +54,43 @@ export default function InformacijeOStanjuPage() {
               />
             </div>
 
-            <div className="informacije-tel-section">
+            <div className={styles.telSection}>
               <Heading variant="h2" text="Кардиохируршки пацијенти" />
-              <div className="tel-block">
+              <div className={styles.telBlock}>
                 <p><strong>Одељење преоперативне припреме кардиохирургије</strong> (пре операције)</p>
                 <p><a href="tel:0113601819">011/3601-819</a> – у термину 12.00 – 13.00 часова</p>
               </div>
-              <div className="tel-block">
+              <div className={styles.telBlock}>
                 <p><strong>Клиника за анестезију и интензивно лечење</strong> (након операције)</p>
                 <p><a href="tel:0113601784">011/3601-784</a> – у термину 12.30 – 13.30 часова и 20.00 – 20.30 часова за пацијенте оперисане тог дана</p>
               </div>
-              <div className="tel-block">
+              <div className={styles.telBlock}>
                 <p><strong>Одељење за постоперативно лечење</strong> (након преласка из интензивне неге)</p>
                 <p><a href="tel:0113601792">011/3601-792</a> или <a href="tel:0113601796">011/3601-796</a> – у термину 13.00 – 13.30 часова</p>
               </div>
             </div>
 
-            <div className="informacije-tel-section">
+            <div className={styles.telSection}>
               <Heading variant="h2" text="Васкуларни пацијенти" />
-              <div className="tel-block">
+              <div className={styles.telBlock}>
                 <p><strong>Клиника за анестезију и интензивно лечење</strong> (након операције)</p>
                 <p><a href="tel:0113601784">011/3601-784</a> – у термину 12.30 – 13.30 часова и 20.00 – 20.30 часова за болеснике оперисане тог дана</p>
               </div>
-              <div className="tel-block">
+              <div className={styles.telBlock}>
                 <p><strong>Клиника за васкуларну хирургију</strong></p>
                 <p><a href="tel:0113601705">011/3601-705</a> – у термину 12.00 – 13.00 часова</p>
               </div>
             </div>
 
-            <div className="informacije-tel-section">
+            <div className={styles.telSection}>
               <Heading variant="h2" text="Кардиолошки пацијенти" />
-              <div className="tel-block">
+              <div className={styles.telBlock}>
                 <p><strong>Клиника за кардиологију</strong></p>
                 <p><a href="tel:0113601707">011/3601-707</a>, <a href="tel:0113601709">011/3601-709</a> (коронарна јединица) – у термину 12.00 – 13.00 часова</p>
               </div>
             </div>
 
-            <div className="informacije-block informacije-delivery">
+            <div className={`informacije-block ${styles.delivery}`}>
               <Heading variant="h2" text="Достава ствари" />
               <Text
                 variant="body"
@@ -107,7 +108,7 @@ export default function InformacijeOStanjuPage() {
                 variant="body"
                 text="Изузетак је уколико постоји потреба за доставом неких лекова или медицинске документације које можете доставити и ван горе наведеног времена."
               />
-              <p className="informacije-warning">Строго је забрањена достава унапред припремљене хране.</p>
+              <p className={styles.warning}>Строго је забрањена достава унапред припремљене хране.</p>
               <Text
                 variant="body"
                 text="Болничарке са одељења где је потребно доставити ствари силазе по исте, након обавештења од стране портира о пристизању ствари или докумената."

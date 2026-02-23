@@ -178,9 +178,6 @@ export default function Header() {
                             Обавештење за електростимулативне процедуре
                           </Link>
                         </li>
-                        <li>
-                          <Link href="/za-pacijente/kucni-red">Кућни ред</Link>
-                        </li>
                       </ul>
                     </li>
                     <li>

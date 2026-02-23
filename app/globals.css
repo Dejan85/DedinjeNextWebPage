@@ -2910,6 +2910,11 @@ img {
   margin-bottom: 28px;
 }
 
+.informacije-block h2,
+.informacije-block h3 {
+  color: var(--gray-700);
+}
+
 .informacije-block p {
   margin: 0 0 16px;
   font-size: 16px;
@@ -2970,57 +2975,4 @@ img {
   font-size: 16px;
   font-weight: 700;
   color: var(--gray-800);
-}
-
-.informacije-tel-section {
-  margin: 40px 0 36px;
-  padding-top: 28px;
-  border-top: 1px solid var(--gray-200);
-}
-
-.informacije-tel-section h2 {
-  font-size: 22px;
-  color: var(--primary);
-  margin-bottom: 20px;
-}
-
-.tel-block {
-  margin-bottom: 20px;
-  padding: 16px 20px;
-  background: var(--white);
-  border-radius: 12px;
-  box-shadow: var(--shadow-sm);
-}
-
-.tel-block p {
-  margin: 0 0 8px;
-  font-size: 15px;
-  line-height: 1.6;
-  color: var(--gray-600);
-}
-
-.tel-block p:last-child {
-  margin-bottom: 0;
-}
-
-.tel-block a {
-  color: var(--primary);
-  font-weight: 600;
-}
-
-.tel-block a:hover {
-  text-decoration: underline;
-}
-
-.informacije-delivery h2 {
-  margin-bottom: 20px;
-}
-
-.informacije-warning {
-  background: #fef3c7;
-  color: #92400e;
-  padding: 12px 16px;
-  border-radius: 8px;
-  font-weight: 600;
-  margin: 20px 0 16px !important;
 }

@@ -7,6 +7,10 @@ export { TabButton } from "./TabButton/TabButton";
 export { TabButtonGroup } from "./TabButtonGroup/TabButtonGroup";
 export { ProfileTabs } from "./ProfileTabs/ProfileTabs";
 export { ContentTabs } from "./ContentTabs/ContentTabs";
+export {
+  SidebarTabs,
+  type SidebarTab,
+} from "./SidebarTabs/SidebarTabs";
 export { VideoPlayer } from "./VideoPlayer/VideoPlayer";
 export { default as Button } from "./Button/Button";
 export { default as DepartmentCard } from "./DepartmentCard/DepartmentCard";
