@@ -2,9 +2,11 @@ import {
   Container,
   InfoCard,
   PageHeader,
+  ProgramCardGrid,
   Section,
 } from "@/components/shared";
 import { Heading, Text } from "@/components/typography";
+import { EDUKATIVNI_PROGRAMI } from "./constants";
 import { generateMetadata } from "./metadata";
 import styles from "./page.module.css";
 
@@ -22,15 +24,6 @@ const EDUKACIJA_LINKS = [
   },
   {
     _key: "2",
-    icon: "fas fa-graduation-cap",
-    title: "Едукативни програми",
-    description: "Програми обуке и усавршавања стручњака",
-    buttonText: "Погледај програме",
-    buttonHref: "/edukacija/programi",
-    highlight: false,
-  },
-  {
-    _key: "3",
     icon: "fas fa-users",
     title: "Интерна едукација",
     description: "Обука и усавршавање запослених у Институту",
@@ -90,6 +83,10 @@ export default function EdukacijaPage() {
               />
             </div>
 
+            <Heading variant="h2" text="Едукативни програми" className={styles.programsTitle} />
+            <ProgramCardGrid items={EDUKATIVNI_PROGRAMI} className={styles.programsGrid} />
+
+            <Heading variant="h2" text="Остало" className={styles.otherTitle} />
             <div className={styles.grid}>
               {EDUKACIJA_LINKS.map((card) => (
                 <InfoCard

@@ -37,6 +37,11 @@ export {
 } from "./GradientCard/GradientCard";
 export { default as GradientCardGrid } from "./GradientCard/GradientCardGrid";
 export {
+  default as ProgramCard,
+  type ProgramCardItem,
+} from "./ProgramCard/ProgramCard";
+export { default as ProgramCardGrid } from "./ProgramCard/ProgramCardGrid";
+export {
   default as LectureList,
   type LectureItem,
 } from "./LectureList/LectureList";

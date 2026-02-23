@@ -46,6 +46,15 @@
   max-width: 100%;
 }
 
+/* Marker class (must exist so CSS Modules exports it) */
+.titleDark {
+}
+
+/* Veća specifičnost da nadjača .informacije-block a */
+.card.titleDark .title {
+  color: var(--gray-800);
+}
+
 .btn {
   display: inline-block;
   padding: 12px 28px;

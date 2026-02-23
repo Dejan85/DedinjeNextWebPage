@@ -24,36 +24,40 @@
   }
 }
 
-.contactSection {
-  margin-top: 40px;
-  padding-top: 28px;
-  border-top: 1px solid var(--gray-200);
-}
-
-.contactBlock {
-  margin-bottom: 20px;
-  padding: 16px 20px;
-  background: var(--white);
+.singleImage {
+  margin: 32px 0;
   border-radius: 12px;
-  box-shadow: var(--shadow-sm);
+  overflow: hidden;
 }
 
-.contactBlock p {
-  margin: 0 0 8px;
-  font-size: 15px;
-  line-height: 1.6;
-  color: var(--gray-600);
+.singleImage img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
-.contactBlock p:last-child {
-  margin-bottom: 0;
+@media (max-width: 768px) {
+  .singleImage {
+    margin: 24px 0;
+  }
 }
 
-.contactBlock a {
-  color: var(--primary);
-  font-weight: 600;
+.kurseviTitle {
+  margin-top: 40px;
+  margin-bottom: 24px;
 }
 
-.contactBlock a:hover {
-  text-decoration: underline;
+.kurseviGrid {
+  margin-bottom: 32px;
+}
+
+@media (max-width: 768px) {
+  .kurseviTitle {
+    margin-top: 32px;
+    margin-bottom: 20px;
+  }
+
+  .kurseviGrid {
+    margin-bottom: 24px;
+  }
 }

@@ -1,7 +1,31 @@
-import { Container, Image, PageHeader, Section } from "@/components/shared";
+import { Container, Image, PageHeader, ProgramCardGrid, Section } from "@/components/shared";
 import { Heading, Text } from "@/components/typography";
 import { generateMetadata } from "./metadata";
 import styles from "./page.module.css";
+
+const KURSEVI_KARTICE = [
+  {
+    id: "bazicna",
+    title: "Базична ехокардиографија",
+    icon: "fas fa-heart-pulse",
+    href: "#bazicna-ehokardiografija",
+    buttonText: "Базична ехокардиографија",
+  },
+  {
+    id: "transsezofagealna",
+    title: "Трансезофагеална ехокардиографија",
+    icon: "fas fa-heart",
+    href: "#transsezofagealna",
+    buttonText: "Трансезофагеална ехокардиографија",
+  },
+  {
+    id: "stres",
+    title: "Стрес ехокардиографија",
+    icon: "fas fa-heart-pulse",
+    href: "#stres",
+    buttonText: "Стрес ехокардиографија",
+  },
+];
 
 export { generateMetadata };
 
@@ -89,7 +113,9 @@ export default function SkolaEhokardiografijePage() {
                 text={'Сви курсеви ехокардиографије Института Дедиње настоје да прате трендове савремене ехокардиографије (како базичне 2D, 3D ехокардиографије, тако и напредних курсева као што су трансезофагеална и стрес ехокардиографија) и исте примењују у едукацији пратећи последње ESC и ACC/AHA препоруке, али и нове методе које се у ехокардиографији развијају убрзано.'}
               />
 
-              <Heading variant="h2" text="Базична ехокардиографија" />
+              <div id="bazicna-ehokardiografija">
+                <Heading variant="h2" text="Базична ехокардиографија" />
+              </div>
               <Text
                 variant="body"
                 text={'Први курс базичне ехокардиографије почео је 24. септембра 2007. године и обухватио је едукацију 13 полазника. Од 2007. године до данас било је 27. курсева базичне ехокардиографије при чему су најчешће одржавана по два курса годишње у трајању од по 12 недеља. Курсеви базичне ехокардиографије нису прекинути ни током пандемије SARS-CoV-2 вируса, али су били модификовани у практичном приступу, а све у складу са тада актуелном епидемиолошком ситуацијом. Базични курс ехокардиографије до сада је завршило преко 350 полазника.'}
@@ -118,21 +144,33 @@ export default function SkolaEhokardiografijePage() {
                 text={'Курс се завршава полагањем теоријског (тест од 30 питања), али и практичног испита (рад са пацијентима), као завршне анализе свега што су током едукације научили.'}
               />
 
-              <div className={styles.contactSection}>
-                <Heading variant="h2" text="Контакт" />
-                <div className={styles.contactBlock}>
-                  <p><strong>Руководилац програма</strong></p>
-                  <p>Проф. др Александра Николић</p>
-                </div>
-                <div className={styles.contactBlock}>
-                  <p><strong>Институт за кардиоваскуларне болести „Дедиње"</strong></p>
-                  <p>Београд, Србија</p>
-                </div>
-                <div className={styles.contactBlock}>
-                  <p><strong>Телефон</strong></p>
-                  <p><a href="tel:+381113601700">011 3601 700</a></p>
-                </div>
+              <div className={styles.singleImage}>
+                <Image
+                  src="/images/4-600x443.png"
+                  alt="Базични курс ехокардиографије – Институт Дедиње"
+                  width={600}
+                  height={443}
+                />
               </div>
+
+              <div id="transsezofagealna">
+                <Heading variant="h2" text="Курс трансезофагеалне ехокардиографије" />
+              </div>
+              <Text
+                variant="body"
+                text={'Курс трансезофагеалне ехокардиографије (ТЕЕ) започет је 2009. године. До сада је одржано пет курсева. Неопходан услов за курс ТЕЕ је знање трансторакалне ехокардиографије. Трајање курса је два месеца, од чега су предавања организована у првој недељи, а потом следи практични део у наредних седам недеља, који обухвата ТЕЕ прегледе у ехокардиографским кабинетима, али и интраоперативне и периинтервентне ТЕЕ прегледе.'}
+              />
+
+              <div id="stres">
+                <Heading variant="h2" text="Курс стрес ехокардиографије" />
+              </div>
+              <Text
+                variant="body"
+                text={'Курс стрес ехокардиографије траје месец дана, од чега су предавања организована у прва три дана курса. Неопходан услов за овај курс је знање конвенционалне трансторакалне ехокардиографије. Први курс стрес ехокардиографије одржан је 2011. године и до сада је одржано шест курсева.'}
+              />
+
+              <Heading variant="h2" text="Курсеви" className={styles.kurseviTitle} />
+              <ProgramCardGrid items={KURSEVI_KARTICE} className={styles.kurseviGrid} titleColor="dark" />
             </div>
           </div>
         </Container>

@@ -11,11 +11,12 @@ export interface ProgramCardItem {
 
 interface ProgramCardProps {
   item: ProgramCardItem;
+  titleColor?: "light" | "dark";
 }
 
-export default function ProgramCard({ item }: ProgramCardProps) {
+export default function ProgramCard({ item, titleColor = "light" }: ProgramCardProps) {
   return (
-    <Link href={item.href} className={styles.card}>
+    <Link href={item.href} className={`${styles.card} ${titleColor === "dark" ? styles.titleDark : ""}`}>
       <div className={styles.iconWrap}>
         <i className={item.icon} aria-hidden />
       </div>

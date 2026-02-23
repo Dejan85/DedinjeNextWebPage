@@ -1,8 +1,20 @@
+.programsTitle {
+  margin-top: 48px;
+  margin-bottom: 24px;
+}
+
+.programsGrid {
+  margin-bottom: 48px;
+}
+
+.otherTitle {
+  margin-bottom: 24px;
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 30px;
-  margin-top: 40px;
 }
 
 @media (max-width: 768px) {
