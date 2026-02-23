@@ -1,247 +1,201 @@
 import {
   Container,
-  HeroSection,
-  PublicationItem,
+  PageHeader,
   Button,
+  Section,
 } from "@/components/shared";
-import { Heading, Text } from "@/components/typography";
+import styles from "./page.module.css";
+
+const STATS = [
+  { value: "55.000+", label: "Укупно процедура", icon: "fas fa-heart-pulse" },
+  { value: "2.000+", label: "Годишње операција", icon: "fas fa-calendar-check" },
+  { value: "95,5%", label: "Стопа преживљавања", icon: "fas fa-chart-line" },
+  { value: "40+", label: "Година искуства", icon: "fas fa-award" },
+];
+
+const PROCEDURE = [
+  { icon: "fas fa-arrows-rotate", title: "Бајпас операције", desc: "Реваскуларизација исхемијског миокарда уз употребу венских и/или артеријских графтова" },
+  { icon: "fas fa-heart-circle-plus", title: "Замена залистака", desc: "Уградња вештачких залистака — механичких или од природних материјала" },
+  { icon: "fas fa-screwdriver-wrench", title: "Реконструкција залистака", desc: "Митрални, аортни и трикуспидни залистак — стандардним или минимално инвазивним приступом" },
+  { icon: "fas fa-video", title: "Ендоскопске интервенције", desc: "Ендоскопске процедуре на митралном залиску" },
+  { icon: "fas fa-shield-halved", title: "Реконструкција аорте", desc: "Планиране процедуре на усходној грудној аорти, аортном луку и силазној грудној аорти" },
+  { icon: "fas fa-bolt", title: "Хитне процедуре", desc: "Интервенције након дисекције (цепања) грудне аорте" },
+  { icon: "fas fa-child", title: "Урођене мане", desc: "Реконструкција урођених срчаних мана у одраслих болесника" },
+  { icon: "fas fa-gear", title: "Механичка потпора", desc: "ECMO, интра-аортална балон-пумпа, парцијална и тотална вештачка срца" },
+  { icon: "fas fa-code-merge", title: "Хибридне процедуре", desc: "Комбинована кардиохируршка и инвазивна радиолошка процедура на аортном луку" },
+];
+
+const HIGHLIGHTS = [
+  { icon: "fas fa-globe", text: "Једна од највећих серија реконструкција митралног залиска у свету — од 1985. године" },
+  { icon: "fas fa-microscope", text: "Пионири у употреби а. радилиса у реваскуларизацији миокарда од 1999. године" },
+  { icon: "fas fa-ranking-star", text: "Европски и светски врх — преко 2.000 процедура годишње" },
+  { icon: "fas fa-heart-circle-bolt", text: "Прво вештачко срце на овим просторима (Heart-Mate I, 1995.)" },
+  { icon: "fas fa-wand-magic-sparkles", text: "Прва ендоскопска операција срца у Србији (2011.)" },
+  { icon: "fas fa-book-open", text: "Радови у NEJM, Circulation, Ann Thorac Surg и другим престижним часописима" },
+];
+
+const KADAR = [
+  { name: "Доц. др сци. мед. Слободан Митровић", role: "Управник Клинике" },
+  { name: "Асс др сци. мед. Петар Вуковић", role: "Помоћник управника" },
+  { name: "Проф др сци. мед. Миодраг Перин", role: "Саветник директора" },
+  { name: "Проф. др сци. мед. Иван Стојановић", role: "Начелник Центра за минимално инвазивну кардиохирургију" },
+  { name: "Асс др сци. мед. Сања Боровић", role: "Начелник Центра за лечење срчане слабости" },
+  { name: "Мр сци. мед. др Ђорђе Здравковић", role: "Начелник операционог блока" },
+];
 
 export default function KardiohirurgijaPage() {
-  const uvodnaRec =
-    "Оболења срца и крвних судова представљају најчешћи узрок обољевања и умирања у данашње време. Ово има огроман утицај на све области нашег живота у социјалном, психолошком, организационом, а поготову финансијском смислу. Наша обавеза је да обезбедимо врхунску услугу у домену кардиоваскуларне медицине уопште, а конкретно у области модерне кардиохируршке праксе. Ефикасне, квалитетне, у кратком року изведене кардиохируршке процедуре без значајних компликација, омогућавају да се болесници брзо и успешно опораве након операције и у кратком временском интервалу врате свом уобичајеном начину живота и професионалним активностима, чиме обезбеђују егзистенцију себи и својој породици. Наша Клиника обезбеђује потпуно заокружен систем ефикасне дијагностике, лечења и постоперативног опоравка за болеснике којима је потребна кардиохируршка интервенција.";
-
-  const spisakProcedura = [
-    "Реваскуларизација исхемијског миокарда (бајпас операције уских или затворених крвних судова срца уз употребу венских и/или артеријских графтова)",
-    "Замена оштећених срчаних залистака (уградњом вештачких залистака, механичких или од природних материјала)",
-    "Реконструкција оштећених срчаних залистака (митралног, аортног и трикуспидног) стандардним, мање инвазивним, или минимално инвазивним приступом",
-    "Ендоскопске интервенције на митралном залиску",
-    "Планиране реконструктивне процедуре на усходној грудној аорти, аортном луку и/или силазној грудној аорти",
-    "Хитне процедуре након дисекције (цепања) грудне аорте",
-    "Процедуре реконструкције урођених срчаних мана у одраслих болесника (старијих од 18 година)",
-    "Примена привремене потпоре срчане функције (интра-аортална балон-пумпа, ECMO)",
-    "Уградња парцијалних или тоталних вештачких срца (у болесника који имају попуштање функције срчаног мишића на завршној фази)",
-    "Хибридне процедуре на аортном луку (комбинована кардиохируршка и инвазивна радиолошка процедура уградње графта у болесника са проширењем грудне аорте).",
-  ];
-
-  const najznacajnijiRezultati = [
-    "Реконструктивне процедуре на митралном залиску у неколико хиљада болесника (од 1985. године), што је једна од највећих и најдужих хируршких серија у свету",
-    "Употреба а. радилиса у хируршкој реваскуларизацији исхемијског миокарда од 1999. године када је веома мали број хирурга у свету веровао у дугорочну вредност овог графта",
-    "Изванредни резултати у хирургији акутних дисекција асцендентне аорте уз употребу дубоког хипотермијског ареста, као и изванредан програм реконструктивне хирургије торакалне аорте са изузетним резултатима у последњих неколико година.",
-    "Огроман број процедура (укупно више од 55000), више од 2000 на годишњем нивоу (што представља сам европски и светски врх у кардиохирургији).",
-    "Перманентно увођење нових процедура, пре свега мање или минимално инвазивних процедура у хирургији срчаних залистака.",
-    "Уградња првог вештачког срца на овим просторима (Heart-Mate I, 1995. године).",
-    "Изванредно успешан, али нажалост угашен, програм трансплантације срца (последњи оперисани болесник још увек жив 22 године након операције).",
-    "У последње 3 године уграђено 1 тотално и 22 парцијална вештачка срца, при чему је остварено изванредно рано и удаљено преживљавање од 95.5%.",
-    "Успешан програм хибридних процедура на аортном луку.",
-    "Прва ендоскопска операција срца у Србији (2011. година, Port Access реконструкција митралног залиска).",
-    "Огроман број публикованих радова у еминентним и веома престижним стручним часописима са импозантним импакт-фактором (НЕЈМ, Circulation, Ann Thorac Surg, ITCVS, JSC, EJCTS и др.)",
-    "Учешће у великим мултицентричним, мултинационалним клиничким студијама, чиме је свет признао да се на нашој Клиници ради врхунска кардиохирургија (ROMA студија, CMCI VII студија).",
-    "Едукација великог броја младих кардиохирурга током последњих 20 година, способних да ураде и најкомпликованије кардиохируршке процедуре са изванредним резултатима. На тај начин, сматрамо да је ово најбољи начин да се одужимо нашим учитељима и онима који су имали визију и снагу да започну и носе тешко бреме почетка кардиохирургије на овим просторима.",
-  ];
-
-  const kadarKlinike = [
-    "Управник Клинике за кардиохирургију Доц. др сци. мед. Слободан Митровић, Кардиохирургија, Управа",
-    "Помоћник управника Клинике за кардиохирургију Асс др сци. мед. Петар Вуковић, Кардиохирургија, Управа",
-    "Саветник директора Проф др сци. мед. Миодраг Перин, Кардиохирургија, Управа",
-    "Начелник Центра за минимално инвазивну кардиохирургију Проф. др сци. мед. Иван Стојановић, Кардиохирургија, Управа",
-    "Начелник Центра за лечење срчане слабости Асс др сци. мед. Сања Боровић, Кардиохирургија, Управа",
-    "Начелник операционог блока, Мр сци. мед. др Ђорђе Здравковић, Кардиохирургија, Управа",
-    "Асс др сци. мед. Мирослав Милицић, Кардиохирургија",
-    "Асс др Петар Миланчевић, Кардиохирургија",
-    "Асс др Марко Јовановић, Кардиохирургија",
-    "Асс др Марко Капитовић, Кардиохирургија",
-    "Асс др Иван Нешић, Кардиохирургија",
-    "Асс др Игор Живковић, Кардиохирургија",
-    "Др Мирослав Јаковљевић, Кардиохирургија",
-    "Др Милан Бабић, Кардиохирургија",
-    "Др Милан Ђирковић, Кардиохирургија",
-    "Др Жељко Бојовић, Кардиохирургија",
-    "Др сци. мед Александар Милиутиновић, Кардиохирургија",
-    "Др сци. мед Душко Нежић, Кардиохирургија",
-    "Проф. др сци. мед. Борко Букановић, Кардиохирургија",
-    "Др Жељимир Вујкадловић, Кардиохирургија",
-    "Др сци. мед. Др Драгана Илић, Кардиохирургија",
-    "Др Драгана Кошевић, Кардиохирургија",
-    "Др Татјана Рагуш, Кардиохирургија",
-    "Др Милијана Балекић, Кардиохирургија",
-    "Др Јелена Ротула, Кардиохирургија",
-    "Др Маја Филиповић, Кардиохирургија",
-    "Др Слободан Локас, Кардиохирургија",
-    "Др Бранислав Стојковић, Кардиохирургија",
-    "Др Младен Бојовић, Кардиохирургија",
-    "Др Вук Андријашевић, Кардиохирургија",
-    "Др Марко Анђелковић, Кардиохирургија",
-    "Др Милош Јовановић, Кардиохирургија",
-    "Др Татјана Рајчковић, Кардиохирургија",
-    "Др Ђорђе Крстић, Кардиохирургија",
-    "Др Стефан Станковић, Кардиохирургија",
-    "Др Дејана Гајин, Кардиохирургија",
-    "Др Слободан Табаковић, Кардиохирургија",
-    "Др Стефан Грујић, Кардиохирургија",
-    "Др Немања Милошевић, Кардиохирургија",
-    "Главна сестра Клинике ВМС/Т Светлана Јосифовић, Кардиохирургија",
-    "Одговорна сестра Одељења ВМС/Т Биљана Радосављевић, Кардиохирургија",
-    "Одговорна сестра Одељења ВМС/Т Зорица Васић, Кардиохирургија",
-    "Одговорна сестра Одсека ВМС/Т Јасмина Каран, Кардиохирургија",
-    "Одговорни техничар Одсека ВМС/Т Горан Милошевић, Кардиохирургија",
-  ];
-
   return (
     <>
-      <div className="clinics-page">
-        <HeroSection
-          img="/images/kardiohirurgija.jpg"
-          imgAlt="Клиника за кардиохирургију"
-          badge="Клиника"
-          title="Клиника за кардиохирургију"
-          subtitle="Високоспецијализовано оперативно лечење срчаних обољења, комплетна дијагностика и постоперативни опоравак."
-          showScrollIndicator={true}
-        />
+      <PageHeader
+        breadcrumbs={[
+          { label: "Почетна", href: "/" },
+          { label: "Клинике", href: "/klinike" },
+          { label: "Клиника за кардиохирургију" },
+        ]}
+        title="Клиника за кардиохирургију"
+        subtitle="Високоспецијализовано оперативно лечење срчаних обољења, комплетна дијагностика и постоперативни опоравак"
+      />
 
-        {/* Content */}
-        <section className="bibliography-section">
-          <Container>
-            <div
-              style={{
-                display: "flex",
-                gap: 14,
-                flexWrap: "wrap",
-                marginBottom: 30,
-              }}
-            >
-              <Button variant="outline" href="/klinike">
-                <i className="fas fa-arrow-left"></i>
-                Назад на клинике
+      {/* Intro + Stats */}
+      <Section padding="medium" background="white">
+        <Container>
+          <div className={styles.intro}>
+            <div className={styles.introIcon}>
+              <i className="fas fa-heart-pulse" aria-hidden />
+            </div>
+            <div className={styles.introContent}>
+              <h2>О клиници</h2>
+              <p>
+                Наша обавеза је да обезбедимо врхунску услугу у домену
+                кардиоваскуларне медицине — ефикасне, квалитетне кардиохируршке
+                процедуре без значајних компликација, које омогућавају брз
+                опоравак и повратак свакодневним активностима.
+              </p>
+              <p>
+                Клиника обезбеђује потпуно заокружен систем ефикасне
+                дијагностике, лечења и постоперативног опоравка за болеснике
+                којима је потребна кардиохируршка интервенција.
+              </p>
+            </div>
+          </div>
+
+          <div className={styles.statsGrid}>
+            {STATS.map((stat, idx) => (
+              <div key={idx} className={styles.statCard}>
+                <div className={styles.statIcon}>
+                  <i className={stat.icon} aria-hidden />
+                </div>
+                <div className={styles.statValue}>{stat.value}</div>
+                <div className={styles.statLabel}>{stat.label}</div>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </Section>
+
+      {/* Procedure */}
+      <Section padding="medium" background="gray">
+        <Container>
+          <div className={styles.sectionHeader}>
+            <span className={styles.sectionIconWrap}>
+              <i className="fas fa-list-check" aria-hidden />
+            </span>
+            <div>
+              <h2>Процедуре које изводимо</h2>
+              <p>Широк спектар кардиохируршких интервенција</p>
+            </div>
+          </div>
+
+          <div className={styles.procedureGrid}>
+            {PROCEDURE.map((item, idx) => (
+              <div key={idx} className={styles.procedureCard}>
+                <div className={styles.procedureCardIcon}>
+                  <i className={item.icon} aria-hidden />
+                </div>
+                <h4>{item.title}</h4>
+                <p>{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </Section>
+
+      {/* Highlights banner */}
+      <section className={styles.highlightSection}>
+        <Container>
+          <div className={styles.highlightHeader}>
+            <div className={styles.highlightHeaderIcon}>
+              <i className="fas fa-trophy" aria-hidden />
+            </div>
+            <h2>Најзначајнији резултати</h2>
+            <p>Постигнућа која нас позиционирају у сам европски и светски врх</p>
+          </div>
+          <div className={styles.highlightGrid}>
+            {HIGHLIGHTS.map((item, idx) => (
+              <div key={idx} className={styles.highlightCard}>
+                <span className={styles.highlightCardIcon}>
+                  <i className={item.icon} aria-hidden />
+                </span>
+                <p>{item.text}</p>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* Kadar */}
+      <Section padding="medium" background="white">
+        <Container>
+          <div className={styles.sectionHeader}>
+            <span className={styles.sectionIconWrap}>
+              <i className="fas fa-users" aria-hidden />
+            </span>
+            <div>
+              <h2>Руководство клинике</h2>
+              <p>Кључни кадрови Клинике за кардиохирургију</p>
+            </div>
+          </div>
+
+          <div className={styles.teamGrid}>
+            {KADAR.map((person, idx) => (
+              <div key={idx} className={styles.teamCard}>
+                <div className={styles.teamCardIcon}>
+                  <i className="fas fa-user-doctor" aria-hidden />
+                </div>
+                <div>
+                  <strong>{person.name}</strong>
+                  <p>{person.role}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </Section>
+
+      {/* CTA */}
+      <section className={styles.ctaSection}>
+        <Container>
+          <div className={styles.ctaContent}>
+            <div className={styles.ctaIcon}>
+              <i className="fas fa-phone" aria-hidden />
+            </div>
+            <h2>Потребне су вам додатне информације?</h2>
+            <p>
+              Наш тим је спреман да одговори на питања и помогне вам око
+              информација и заказивања.
+            </p>
+            <div className={styles.ctaButtons}>
+              <Button variant="primary" href="/kontakt">
+                <i className="fas fa-phone" aria-hidden />
+                Контактирајте нас
+              </Button>
+              <Button variant="secondary" href="/o-institutu">
+                <i className="fas fa-info-circle" aria-hidden />О Институту
               </Button>
             </div>
-
-            {/* Уводна реч */}
-            <div className="bibliography-category">
-              <div className="category-header">
-                <div className="category-icon">
-                  <i className="fas fa-quote-left"></i>
-                </div>
-                <div className="category-info">
-                  <Heading text="Уводна реч" variant="h2" />
-                  <Text
-                    text="Мисија клинике и значај ефикасних кардиохируршких процедура."
-                    variant="body"
-                    className="category-description"
-                  />
-                </div>
-              </div>
-              <div className="publications-list">
-                <Text text={uvodnaRec} variant="body" />
-              </div>
-            </div>
-
-            {/* Списак процедура */}
-            <div className="bibliography-category">
-              <div className="category-header">
-                <div className="category-icon">
-                  <i className="fas fa-list-check"></i>
-                </div>
-                <div className="category-info">
-                  <Heading text="Списак процедура" variant="h2" />
-                  <Text
-                    text="Кардиохируршке процедуре које се изводе на клиници."
-                    variant="body"
-                    className="category-description"
-                  />
-                </div>
-              </div>
-              <div className="publications-list">
-                {spisakProcedura.map((item, idx) => (
-                  <PublicationItem key={item} number={idx + 1} text={item} />
-                ))}
-              </div>
-            </div>
-
-            {/* Најзначајнији резултати */}
-            <div className="bibliography-category">
-              <div className="category-header">
-                <div className="category-icon">
-                  <i className="fas fa-trophy"></i>
-                </div>
-                <div className="category-info">
-                  <Heading text="Најзначајнији резултати" variant="h2" />
-                  <Text
-                    text="Постигнућа и програми који су клинику позиционирали у сам врх."
-                    variant="body"
-                    className="category-description"
-                  />
-                </div>
-              </div>
-              <div className="publications-list">
-                {najznacajnijiRezultati.map((item, idx) => (
-                  <PublicationItem key={item} number={idx + 1} text={item} />
-                ))}
-              </div>
-            </div>
-
-            {/* Кадрови */}
-            <div className="bibliography-category">
-              <div className="category-header">
-                <div className="category-icon">
-                  <i className="fas fa-users"></i>
-                </div>
-                <div className="category-info">
-                  <Heading text="Клиника кардиохирургије" variant="h2" />
-                  <Text
-                    text="Списак кадрова (преглед)."
-                    variant="body"
-                    className="category-description"
-                  />
-                </div>
-              </div>
-
-              <div className="show-more-wrapper">
-                <details className="show-more-details">
-                  <summary className="show-more-btn">
-                    <i className="fas fa-chevron-down"></i>
-                    Прикажи списак ({kadarKlinike.length})
-                  </summary>
-                  <div className="additional-pubs">
-                    {kadarKlinike.map((item, idx) => (
-                      <PublicationItem
-                        key={item}
-                        number={idx + 1}
-                        text={item}
-                      />
-                    ))}
-                    <summary className="show-more-btn show-less-btn">
-                      <i className="fas fa-chevron-up"></i>
-                      Сакриј списак
-                    </summary>
-                  </div>
-                </details>
-              </div>
-            </div>
-          </Container>
-        </section>
-
-        {/* CTA Section */}
-        <section className="institute-cta-section">
-          <Container>
-            <div className="cta-content">
-              <Heading
-                variant="h2"
-                text="Потребне су вам додатне информације?"
-              />
-              <Text text="Наш тим је спреман да одговори на питања и помогне вам око информација и заказивања." />
-              <div className="cta-buttons">
-                <Button variant="primary" href="/kontakt">
-                  <i className="fas fa-phone"></i>
-                  Контактирајте нас
-                </Button>
-                <Button variant="secondary" href="/o-institutu">
-                  <i className="fas fa-info-circle"></i>О Институту
-                </Button>
-              </div>
-            </div>
-          </Container>
-        </section>
-      </div>
+          </div>
+        </Container>
+      </section>
     </>
   );
 }

@@ -46,6 +46,7 @@ interface HeroSectionProps {
   showScrollIndicator?: boolean;
   containerVariant?: ContainerVariant;
   containerClassName?: string;
+  compact?: boolean;
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = ({
@@ -60,6 +61,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   showScrollIndicator = true,
   containerVariant = "default",
   containerClassName,
+  compact = false,
 }) => {
   // Convert single hero props to slides format
   // NOTE: propSlides can be an empty array (e.g. CMS not available) - guard for that.
@@ -254,8 +256,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   }
 
   // Static hero
+  const heroClasses = [styles.directorHero, compact && styles.compact]
+    .filter(Boolean)
+    .join(" ");
+
   return (
-    <section className={styles.directorHero}>
+    <section className={heroClasses}>
       {heroContent}
       {showScrollIndicator && (
         <div className={styles.scrollIndicator}>

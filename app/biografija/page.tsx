@@ -5,18 +5,21 @@ import {
   Button,
   Container,
   PageHeader,
+  Section,
 } from "@/components/shared";
-import { Heading, Text, Badge } from "@/components/typography";
+import { Heading, Text } from "@/components/typography";
 import { client } from "@/sanity/lib/client";
 import { BIOGRAPHY_PAGE_QUERY } from "@/sanity/lib/queries";
 import { urlFor } from "@/sanity/lib/image";
 import type { BiographyPage } from "@/sanity/types";
+import { generateMetadata } from "./metadata";
+import styles from "./page.module.css";
+
+export { generateMetadata };
 
 export default async function BiografijaPage() {
-  // Fetch data from Sanity
   const data = await client.fetch<BiographyPage>(BIOGRAPHY_PAGE_QUERY);
 
-  // Fallback data u slučaju da Sanity ne vrati podatke
   const pageHeader = data?.pageHeader || {
     title: "Биографија",
     subtitle: "Академик проф. др Милован М. Бојић",
@@ -55,14 +58,11 @@ export default async function BiografijaPage() {
     buttons: [],
   };
 
-  // Generate image URL with proper fallback
   let imageUrl = "/images/rec-direktora.jpg";
   if (intro.image) {
     try {
       const generatedUrl = urlFor(intro.image).width(600).height(800).url();
-      if (generatedUrl) {
-        imageUrl = generatedUrl;
-      }
+      if (generatedUrl) imageUrl = generatedUrl;
     } catch (error) {
       console.error("Error generating image URL:", error);
     }
@@ -80,20 +80,26 @@ export default async function BiografijaPage() {
         subtitle={pageHeader.subtitle}
       />
 
-      {/* Biography Content */}
-      <section className="biography-section">
+      {/* Intro */}
+      <Section padding="medium" background="white">
         <Container>
-          <div className="biography-intro">
-            <div className="intro-image">
-              <Image src={imageUrl} alt={intro.name} width={600} height={800} />
+          <div className={styles.introGrid}>
+            <div className={styles.introImageWrap}>
+              <Image
+                src={imageUrl}
+                alt={intro.name}
+                width={600}
+                height={800}
+              />
             </div>
-            <div className="intro-content">
-              <Heading variant="h2" text={intro.name} />
-              <div className="title-badge">
-                <Text text={intro.position} />
+            <div className={styles.introContent}>
+              <h2 className={styles.introName}>{intro.name}</h2>
+              <div className={styles.positionBadge}>
+                <i className="fas fa-hospital" aria-hidden />
+                <span>{intro.position}</span>
               </div>
-              <Text variant="body" text={intro.shortBio} />
-              <div className="bio-highlights">
+              <p className={styles.shortBio}>{intro.shortBio}</p>
+              <div className={styles.highlightsGrid}>
                 {intro.highlights.map((highlight) => (
                   <HighlightItem
                     key={highlight._key}
@@ -105,8 +111,12 @@ export default async function BiografijaPage() {
               </div>
             </div>
           </div>
+        </Container>
+      </Section>
 
-          {/* Biography Tabs */}
+      {/* Tabs */}
+      <Section padding="medium" background="gray">
+        <Container>
           <ContentTabs
             defaultTab="professional-path"
             tabs={[
@@ -115,24 +125,30 @@ export default async function BiografijaPage() {
                 icon: "fas fa-briefcase",
                 text: professionalPath.heading,
                 content: (
-                  <div className="timeline-section">
-                    <div className="section-header centered">
-                      <Badge variant="primary" text={professionalPath.badge} />
-                      <Heading variant="h2" text={professionalPath.heading} />
+                  <div className={styles.tabSection}>
+                    <div className={styles.tabHeader}>
+                      <span className={styles.tabBadge}>
+                        {professionalPath.badge}
+                      </span>
+                      <h2>{professionalPath.heading}</h2>
                     </div>
-
-                    <div className="timeline">
+                    <div className={styles.timeline}>
                       {professionalPath.timeline.map((item) => (
-                        <div key={item._key} className="timeline-item">
-                          <div className="timeline-marker"></div>
-                          <div className="timeline-content">
-                            <div className="timeline-year">{item.year}</div>
-                            <Heading variant="h3" text={item.title} />
-                            <Text text={item.institution} />
-                            <Text
-                              className="timeline-description"
-                              text={item.description}
-                            />
+                        <div key={item._key} className={styles.timelineItem}>
+                          <div className={styles.timelineMarker} />
+                          <div className={styles.timelineCard}>
+                            <span className={styles.timelineYear}>
+                              {item.year}
+                            </span>
+                            <h3>{item.title}</h3>
+                            <p className={styles.timelineInstitution}>
+                              {item.institution}
+                            </p>
+                            {item.description && (
+                              <p className={styles.timelineDesc}>
+                                {item.description}
+                              </p>
+                            )}
                           </div>
                         </div>
                       ))}
@@ -145,46 +161,42 @@ export default async function BiografijaPage() {
                 icon: "fas fa-graduation-cap",
                 text: academicQualifications.heading,
                 content: (
-                  <div className="education-section">
-                    <div className="section-header centered">
-                      <Badge
-                        variant="primary"
-                        text={academicQualifications.badge}
-                      />
-                      <Heading
-                        variant="h2"
-                        text={academicQualifications.heading}
-                      />
+                  <div className={styles.tabSection}>
+                    <div className={styles.tabHeader}>
+                      <span className={styles.tabBadge}>
+                        {academicQualifications.badge}
+                      </span>
+                      <h2>{academicQualifications.heading}</h2>
                     </div>
-
-                    <div className="education-grid">
+                    <div className={styles.educationGrid}>
                       {academicQualifications.qualifications.map((qual) => (
-                        <div key={qual._key} className="education-card">
-                          <div className="education-icon">
-                            <i className={qual.icon}></i>
+                        <div key={qual._key} className={styles.educationCard}>
+                          <div className={styles.educationIcon}>
+                            <i className={qual.icon} aria-hidden />
                           </div>
-                          <Heading variant="h3" text={qual.degree} />
-                          <Text
-                            className="education-institution"
-                            text={qual.institution}
-                          />
-                          <Text className="education-year" text={qual.year} />
-                          <Text
-                            className="education-description"
-                            text={qual.description}
-                          />
+                          <h3>{qual.degree}</h3>
+                          <p className={styles.eduInstitution}>
+                            {qual.institution}
+                          </p>
+                          <span className={styles.eduYear}>{qual.year}</span>
+                          {qual.description && (
+                            <p className={styles.eduDesc}>
+                              {qual.description}
+                            </p>
+                          )}
                         </div>
                       ))}
                     </div>
-
-                    <div className="additional-info">
-                      {academicQualifications.additionalInfo.map((info) => (
-                        <div key={info._key} className="info-box">
-                          <Heading variant="h3" text={info.title} />
-                          <Text text={info.content} />
-                        </div>
-                      ))}
-                    </div>
+                    {academicQualifications.additionalInfo.length > 0 && (
+                      <div className={styles.additionalGrid}>
+                        {academicQualifications.additionalInfo.map((info) => (
+                          <div key={info._key} className={styles.infoBox}>
+                            <h3>{info.title}</h3>
+                            <p>{info.content}</p>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 ),
               },
@@ -193,54 +205,64 @@ export default async function BiografijaPage() {
                 icon: "fas fa-file-alt",
                 text: "Комплетна биографија",
                 content: (
-                  <div className="full-biography-text">
-                    {fullBiography.sections.map((section) => (
-                      <div key={section._key} className="bio-text-block">
-                        <Heading variant="h3" text={section.heading} />
-                        {section.paragraphs.map((paragraph, index) => (
-                          <Text key={index} text={paragraph} />
-                        ))}
-                      </div>
-                    ))}
-
-                    {fullBiography.pdfDownloadUrl && (
-                      <div className="text-center mt-5">
-                        <Button
-                          variant="download"
-                          href={fullBiography.pdfDownloadUrl}
+                  <div className={styles.tabSection}>
+                    <div className={styles.fullBioContent}>
+                      {fullBiography.sections.map((section) => (
+                        <div
+                          key={section._key}
+                          className={styles.bioTextBlock}
                         >
-                          <i className="fas fa-file-download"></i>{" "}
-                          {fullBiography.pdfButtonText}
-                        </Button>
-                      </div>
-                    )}
+                          <h3>{section.heading}</h3>
+                          {section.paragraphs.map(
+                            (paragraph: string, index: number) => (
+                              <p key={index}>{paragraph}</p>
+                            )
+                          )}
+                        </div>
+                      ))}
+                      {fullBiography.pdfDownloadUrl && (
+                        <div className={styles.pdfDownload}>
+                          <Button
+                            variant="download"
+                            href={fullBiography.pdfDownloadUrl}
+                          >
+                            <i className="fas fa-file-download" aria-hidden />{" "}
+                            {fullBiography.pdfButtonText}
+                          </Button>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 ),
               },
             ]}
           />
         </Container>
-      </section>
+      </Section>
 
-      {/* CTA Section */}
-      <section className="cta-section-simple">
-        <Container>
-          <div className="cta-content-simple">
-            <Heading variant="h2" text={cta.heading} />
-            <div className="cta-buttons-simple">
-              {cta.buttons.map((button) => (
-                <Button
-                  key={button._key}
-                  variant={button.variant === "primary" ? "primary" : "outline"}
-                  href={button.href}
-                >
-                  {button.text}
-                </Button>
-              ))}
+      {/* CTA */}
+      {cta.buttons.length > 0 && (
+        <section className={styles.ctaSection}>
+          <Container>
+            <div className={styles.ctaContent}>
+              <h2>{cta.heading}</h2>
+              <div className={styles.ctaButtons}>
+                {cta.buttons.map((button) => (
+                  <Button
+                    key={button._key}
+                    variant={
+                      button.variant === "primary" ? "primary" : "outline"
+                    }
+                    href={button.href}
+                  >
+                    {button.text}
+                  </Button>
+                ))}
+              </div>
             </div>
-          </div>
-        </Container>
-      </section>
+          </Container>
+        </section>
+      )}
     </>
   );
 }

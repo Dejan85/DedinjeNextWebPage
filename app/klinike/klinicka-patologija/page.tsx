@@ -1,0 +1,21 @@
+import { ClinicPageTemplate } from "../_components/ClinicPageTemplate";
+import type { ClinicPageData } from "../_components/ClinicPageTemplate";
+
+const DATA: ClinicPageData = {
+  breadcrumbLabel: "Кабинет за клиничку патологију",
+  title: "Кабинет за клиничку патологију",
+  subtitle: "Патохистолошка и цитолошка дијагностика ткива и узорака из кардиоваскуларне хирургије",
+  introIcon: "fas fa-microscope",
+  introTitle: "О кабинету",
+  introText: "Кабинет за клиничку патологију врши патохистолошку анализу ткива и узорака добијених током хируршких интервенција. Прецизна микроскопска дијагностика је кључна за потврду дијагнозе, планирање даљег лечења и праћење квалитета хируршких процедура. Кабинет је опремљен савременом опремом за обраду и анализу узорака.",
+  areas: [
+    { icon: "fas fa-microscope", title: "Патохистологија", desc: "Микроскопска анализа ткива из оперативних захвата" },
+    { icon: "fas fa-vial", title: "Цитологија", desc: "Анализа ћелијских узорака за ран детекцију промена" },
+    { icon: "fas fa-file-lines", title: "Извештавање", desc: "Детаљни патолошки извештаји за клиничке тимове" },
+    { icon: "fas fa-magnifying-glass", title: "Имунохистохемија", desc: "Специјализоване методе за прецизну карактеризацију ткива" },
+  ],
+};
+
+export default function KlinickaPatologijaPage() {
+  return <ClinicPageTemplate data={DATA} />;
+}

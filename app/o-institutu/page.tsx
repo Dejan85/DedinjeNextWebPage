@@ -8,8 +8,8 @@ import {
   ValueCard,
   Button,
   Container,
+  Section,
 } from "@/components/shared";
-import { Heading, Text, Badge } from "@/components/typography";
 import { client } from "@/sanity/lib/client";
 import { ABOUT_PAGE_QUERY } from "@/sanity/lib/queries";
 import type { AboutPage } from "@/sanity/types";
@@ -46,7 +46,6 @@ function toButtonVariant(value: unknown): ButtonVariant {
 }
 
 export default async function OInstitutu() {
-  // Fetch data from Sanity
   let aboutData: AboutPage | null = null;
 
   try {
@@ -55,7 +54,6 @@ export default async function OInstitutu() {
     console.error("⚠️ Sanity fetch failed:", error);
   }
 
-  // Fallback data
   const hero = aboutData?.hero || {
     badge: "О ИНСТИТУТУ",
     title: "Ваш национални институт за срце и крвне судове",
@@ -140,14 +138,12 @@ export default async function OInstitutu() {
     ],
   };
 
-  // Get image URLs
   const heroImageUrl = hero.image
     ? urlFor(hero.image).width(1920).url()
     : "/images/o_nama_image.png";
 
-  // Transform profiles for ProfileTabs component
   const profilesForTabs = management.profiles.map((profile) => {
-    let profileImageUrl = "/images/default-profile.jpg"; // Default fallback
+    let profileImageUrl = "/images/default-profile.jpg";
     if (profile.image) {
       try {
         const generatedUrl = urlFor(profile.image)
@@ -177,149 +173,161 @@ export default async function OInstitutu() {
 
   return (
     <>
-      <div className="institute-page">
-        {/* Hero Section */}
-        <HeroSection
-          img={heroImageUrl}
-          imgAlt={hero.badge}
-          badge={hero.badge}
-          title={hero.title}
-          subtitle={hero.subtitle}
-          showScrollIndicator={hero.showScrollIndicator}
-        />
+      <HeroSection
+        img={heroImageUrl}
+        imgAlt={hero.badge}
+        badge={hero.badge}
+        title={hero.title}
+        subtitle={hero.subtitle}
+        showScrollIndicator={hero.showScrollIndicator}
+        compact
+      />
 
-        {/* About Section */}
-        <section className="institute-about-section">
-          <Container>
-            <div className="about-grid">
-              <div className="about-content">
-                <Badge variant="primary" text={about.badge} />
-                <Heading variant="h2" text={about.heading} />
-                <Text variant="lead" text={about.leadText} />
-                <Text variant="body" text={about.bodyText} />
+      {/* About Section */}
+      <Section padding="medium" background="white">
+        <Container>
+          <div className={styles.aboutGrid}>
+            <div className={styles.aboutContent}>
+              <div className={styles.aboutBadge}>
+                <span className={styles.aboutBadgeIcon}>
+                  <i className="fas fa-hospital" aria-hidden />
+                </span>
+                {about.badge}
               </div>
-              <div className="about-image">
-                <div className="about-highlights">
-                  {about.highlights.map((highlight) => (
-                    <HighlightItem
-                      key={highlight._key}
-                      icon={highlight.icon}
-                      title={highlight.title}
-                      description={highlight.description}
-                    />
-                  ))}
-                </div>
-                <div className="about-badge">
-                  <Text
-                    as="span"
-                    className="badge-year"
-                    text={about.foundedYear}
-                  />
-                  <Text as="span" className="badge-text" text="Основан" />
-                </div>
-              </div>
+              <h2 className={styles.aboutHeading}>{about.heading}</h2>
+              <p className={styles.aboutLead}>{about.leadText}</p>
+              <p className={styles.aboutBody}>{about.bodyText}</p>
             </div>
 
-            {/* Video Section - Full Width */}
-            {about.videoSrc && (
-              <div style={{ marginTop: "3rem", width: "100%" }}>
-                <VideoPlayer
-                  videoSrc={about.videoSrc}
-                  overlayText={about.videoOverlayText}
-                  caption={about.videoCaption}
-                />
-              </div>
-            )}
-          </Container>
-        </section>
-
-        {/* Statistics Section */}
-        {statistics.stats.length > 0 && (
-          <section className="institute-stats-section">
-            <Container>
-              <div className="stats-header">
-                <Badge variant="primary" text={statistics.badge} />
-                <Heading variant="h2" text={statistics.heading} />
-                <Text text={statistics.subtitle} />
-              </div>
-              <div className="stats-grid-large">
-                {statistics.stats.map((stat) => (
-                  <StatCard
-                    key={stat._key}
-                    icon={stat.icon}
-                    label={stat.label}
-                    value={stat.value}
-                    description={stat.description}
+            <div className={styles.aboutSidebar}>
+              <div className={styles.highlightsStack}>
+                {about.highlights.map((highlight) => (
+                  <HighlightItem
+                    key={highlight._key}
+                    icon={highlight.icon}
+                    title={highlight.title}
+                    description={highlight.description}
                   />
                 ))}
               </div>
-            </Container>
-          </section>
-        )}
-
-        {/* Management Section */}
-        {profilesForTabs.length > 0 && (
-          <section className="management-section">
-            <Container>
-              <div className="section-header-center">
-                <Badge variant="primary" text={management.badge} />
-                <Heading variant="h2" text={management.heading} />
-                <Text text={management.subtitle} />
+              <div className={styles.foundedBadge}>
+                <span className={styles.foundedYear}>{about.foundedYear}</span>
+                <span className={styles.foundedLabel}>Основан</span>
               </div>
+            </div>
+          </div>
 
-              <ProfileTabs
-                profiles={profilesForTabs}
-                defaultTab={profilesForTabs[0]?.id}
+          {about.videoSrc && (
+            <div className={styles.videoWrap}>
+              <VideoPlayer
+                videoSrc={about.videoSrc}
+                overlayText={about.videoOverlayText}
+                caption={about.videoCaption}
               />
-            </Container>
-          </section>
-        )}
+            </div>
+          )}
+        </Container>
+      </Section>
 
-        {/* Values Section */}
-        {values.items.length > 0 && (
-          <section className={styles.valuesSection}>
-            <Container>
-              <div className="section-header-center">
-                <Badge variant="primary" text={values.badge} />
-                <Heading variant="h2" text={values.heading} />
-                <Text text={values.subtitle} />
-              </div>
-              <div className={styles.valuesGrid}>
-                {values.items.map((value) => (
-                  <ValueCard
-                    key={value._key}
-                    icon={value.icon}
-                    title={value.title}
-                    description={value.description}
-                  />
-                ))}
-              </div>
-            </Container>
-          </section>
-        )}
-
-        {/* CTA Section */}
-        <section className="institute-cta-section">
+      {/* Statistics Section */}
+      {statistics.stats.length > 0 && (
+        <Section padding="medium" background="gray">
           <Container>
-            <div className="cta-content">
-              <Heading variant="h2" text={cta.heading} />
-              <Text text={cta.text} />
-              <div className="cta-buttons">
-                {cta.buttons.map((button) => (
-                  <Button
-                    key={button._key}
-                    href={button.href}
-                    variant={toButtonVariant(button.variant)}
-                  >
-                    {button.icon && <i className={button.icon}></i>}
-                    {button.text}
-                  </Button>
-                ))}
+            <div className={styles.sectionHeader}>
+              <span className={styles.sectionIconWrap}>
+                <i className="fas fa-chart-column" aria-hidden />
+              </span>
+              <div>
+                <h2>{statistics.heading}</h2>
+                <p>{statistics.subtitle}</p>
               </div>
+            </div>
+            <div className={styles.statsGrid}>
+              {statistics.stats.map((stat) => (
+                <StatCard
+                  key={stat._key}
+                  icon={stat.icon}
+                  label={stat.label}
+                  value={stat.value}
+                  description={stat.description}
+                />
+              ))}
+            </div>
+          </Container>
+        </Section>
+      )}
+
+      {/* Management Section */}
+      {profilesForTabs.length > 0 && (
+        <Section padding="medium" background="white">
+          <Container>
+            <div className={styles.sectionHeader}>
+              <span className={styles.sectionIconWrap}>
+                <i className="fas fa-users-gear" aria-hidden />
+              </span>
+              <div>
+                <h2>{management.heading}</h2>
+                <p>{management.subtitle}</p>
+              </div>
+            </div>
+
+            <ProfileTabs
+              profiles={profilesForTabs}
+              defaultTab={profilesForTabs[0]?.id}
+            />
+          </Container>
+        </Section>
+      )}
+
+      {/* Values Section */}
+      {values.items.length > 0 && (
+        <section className={styles.valuesSection}>
+          <Container>
+            <div className={styles.valuesHeader}>
+              <div className={styles.valuesHeaderIcon}>
+                <i className="fas fa-gem" aria-hidden />
+              </div>
+              <h2>{values.heading}</h2>
+              <p>{values.subtitle}</p>
+            </div>
+            <div className={styles.valuesGrid}>
+              {values.items.map((value) => (
+                <ValueCard
+                  key={value._key}
+                  icon={value.icon}
+                  title={value.title}
+                  description={value.description}
+                />
+              ))}
             </div>
           </Container>
         </section>
-      </div>
+      )}
+
+      {/* CTA Section */}
+      <section className={styles.ctaSection}>
+        <Container>
+          <div className={styles.ctaContent}>
+            <div className={styles.ctaIcon}>
+              <i className="fas fa-phone" aria-hidden />
+            </div>
+            <h2>{cta.heading}</h2>
+            <p>{cta.text}</p>
+            <div className={styles.ctaButtons}>
+              {cta.buttons.map((button) => (
+                <Button
+                  key={button._key}
+                  href={button.href}
+                  variant={toButtonVariant(button.variant)}
+                >
+                  {button.icon && <i className={button.icon}></i>}
+                  {button.text}
+                </Button>
+              ))}
+            </div>
+          </div>
+        </Container>
+      </section>
     </>
   );
 }

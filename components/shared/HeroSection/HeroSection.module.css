@@ -8,6 +8,12 @@
     justify-content: center;
 }
 
+/* Compact mode */
+.directorHero.compact {
+    height: 55vh;
+    min-height: 380px;
+}
+
 /* Slider mode specific styles */
 .directorHero.sliderMode {
     height: 85vh;
@@ -137,7 +143,7 @@
 
 .scrollIndicator {
     position: absolute;
-    bottom: 40px;
+    bottom: 70px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 3;
@@ -172,5 +178,10 @@
     .directorHero {
         height: 70vh;
         min-height: 500px;
+    }
+
+    .directorHero.compact {
+        height: 45vh;
+        min-height: 300px;
     }
 }

@@ -1,0 +1,302 @@
+/* ========================================
+   INFO SECTION (cards overlap hero)
+======================================== */
+.infoSection {
+  margin-top: -50px;
+  position: relative;
+  z-index: 10;
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* ========================================
+   MESSAGE SECTION
+======================================== */
+.messageSection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+.messageContent {
+  padding-right: 10px;
+}
+
+.messageBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 18px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.messageBadge i {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.messageBadge span {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--white);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.messageHeading {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--gray-800);
+  line-height: 1.3;
+  margin: 0 0 28px;
+}
+
+.messageText {
+  margin-bottom: 32px;
+}
+
+.leadText {
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--gray-700);
+  line-height: 1.8;
+  margin: 0 0 20px;
+  padding-left: 18px;
+  border-left: 3px solid var(--primary);
+}
+
+.messageText p {
+  font-size: 15px;
+  color: var(--gray-600);
+  line-height: 1.8;
+  margin: 0 0 16px;
+}
+
+.messageText p:last-child {
+  margin-bottom: 0;
+}
+
+.signature {
+  margin-top: 32px;
+  padding-top: 24px;
+}
+
+.signatureLine {
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary) 0%, transparent 100%);
+  margin-bottom: 14px;
+  border-radius: 2px;
+}
+
+.signature p {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--gray-800);
+  font-style: italic;
+  margin: 0;
+}
+
+.messageVideo {
+  position: sticky;
+  top: 100px;
+}
+
+/* ========================================
+   QUOTE SECTION
+======================================== */
+.quoteSection {
+  padding: 80px 0;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.quoteSection::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  right: -8%;
+  width: 400px;
+  height: 400px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 50%;
+}
+
+.quoteSection::after {
+  content: '';
+  position: absolute;
+  bottom: -30%;
+  left: -5%;
+  width: 300px;
+  height: 300px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 50%;
+}
+
+.quoteWrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.quoteIcon {
+  width: 64px;
+  height: 64px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 32px;
+}
+
+.quoteIcon i {
+  font-size: 24px;
+  color: var(--white);
+}
+
+.quoteText {
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--white);
+  line-height: 1.6;
+  font-style: italic;
+  margin: 0 0 32px;
+}
+
+.quoteAuthor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.quoteAuthorLine {
+  width: 50px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.4);
+  margin-bottom: 14px;
+  border-radius: 1px;
+}
+
+.quoteAuthor p {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 600;
+  margin: 0;
+}
+
+/* ========================================
+   PARTNERS
+======================================== */
+.partnersHeader {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.partnersHeader h3 {
+  font-size: 14px;
+  color: var(--gray-500);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 0;
+}
+
+.partnersGrid {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.partnerCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 22px 28px;
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 14px;
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+  min-width: 140px;
+}
+
+.partnerCard:hover {
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.partnerIcon {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.partnerIcon i {
+  font-size: 20px;
+  color: var(--white);
+}
+
+.partnerCard span {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--gray-700);
+  text-align: center;
+}
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+@media (max-width: 992px) {
+  .infoGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .messageSection {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .messageContent {
+    padding-right: 0;
+  }
+
+  .messageVideo {
+    position: static;
+  }
+}
+
+@media (max-width: 768px) {
+  .messageHeading {
+    font-size: 24px;
+  }
+
+  .quoteText {
+    font-size: 18px;
+  }
+
+  .partnersGrid {
+    gap: 10px;
+  }
+
+  .partnerCard {
+    padding: 16px 20px;
+    min-width: 120px;
+  }
+}

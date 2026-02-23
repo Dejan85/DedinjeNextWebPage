@@ -1,0 +1,278 @@
+/* ========================================
+   INTRO
+======================================== */
+.intro {
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+}
+
+.introIcon {
+  width: 72px;
+  height: 72px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.introIcon i {
+  font-size: 30px;
+  color: var(--white);
+}
+
+.introContent {
+  flex: 1;
+}
+
+.introContent h2 {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--gray-800);
+  margin: 0 0 12px;
+}
+
+.introContent p {
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--gray-600);
+  margin: 0 0 10px;
+}
+
+.introContent p:last-child {
+  margin-bottom: 0;
+}
+
+/* ========================================
+   SECTION HEADER
+======================================== */
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid var(--gray-200);
+}
+
+.sectionIconWrap {
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.sectionIconWrap i {
+  font-size: 22px;
+  color: var(--white);
+}
+
+.sectionHeader h2 {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--gray-800);
+  margin: 0 0 4px;
+}
+
+.sectionHeader p {
+  font-size: 14px;
+  color: var(--gray-500);
+  margin: 0;
+}
+
+/* ========================================
+   PREPORUKE GRID
+======================================== */
+.preporukeGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.preporukaCard {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 14px;
+  padding: 26px 22px;
+  text-align: center;
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.preporukaCard:hover {
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.preporukaIcon {
+  width: 52px;
+  height: 52px;
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+}
+
+.preporukaIcon i {
+  font-size: 22px;
+  color: var(--primary);
+}
+
+.preporukaCard h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--gray-800);
+  margin: 0 0 10px;
+}
+
+.preporukaCard p {
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--gray-600);
+  margin: 0;
+}
+
+/* ========================================
+   KALORIJSKI PLANOVI
+======================================== */
+.planIntro {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--gray-600);
+  margin: 0 0 24px;
+}
+
+.planoviGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.planCard {
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: 14px;
+  padding: 28px 18px;
+  text-align: center;
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.planCard:hover {
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.planCardIcon {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 14px;
+}
+
+.planCardIcon i {
+  font-size: 20px;
+  color: var(--white);
+}
+
+.planKcal {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+
+.planKcal span {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gray-500);
+}
+
+.planCard p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--gray-600);
+  margin: 0;
+}
+
+/* ========================================
+   MOTTO BANNER
+======================================== */
+.mottoBanner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 28px 36px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  border-radius: 16px;
+  text-align: center;
+}
+
+.mottoBanner i {
+  font-size: 26px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.mottoBanner span {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--white);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+@media (max-width: 768px) {
+  .intro {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .introContent h2 {
+    font-size: 20px;
+  }
+
+  .sectionHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .preporukeGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .planoviGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .mottoBanner {
+    flex-direction: column;
+    gap: 12px;
+    padding: 24px 20px;
+  }
+
+  .mottoBanner span {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .planoviGrid {
+    grid-template-columns: 1fr;
+  }
+}

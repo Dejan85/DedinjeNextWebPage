@@ -2,7 +2,6 @@ import {
   HeroSection,
   VideoPlayer,
   InfoCard,
-  PartnerLogo,
   Section,
   Container,
 } from "@/components/shared";
@@ -12,22 +11,19 @@ import { DIRECTOR_PAGE_QUERY } from "@/sanity/lib/queries";
 import type { DirectorPage } from "@/sanity/types";
 import { urlFor } from "@/sanity/lib/image";
 import { generateMetadata } from "./metadata";
+import styles from "./page.module.css";
 
 export { generateMetadata };
 
 export default async function RecDirektoraPage() {
-  // Fetch data from Sanity
   let directorData: DirectorPage | null = null;
-  let sanityError = false;
 
   try {
     directorData = await client.fetch<DirectorPage>(DIRECTOR_PAGE_QUERY);
   } catch (error) {
     console.error("⚠️ Sanity fetch failed:", error);
-    sanityError = true;
   }
 
-  // Fallback data ako Sanity ne radi
   const hero = directorData?.hero || {
     badge: "Директор Института",
     title: "Академик проф. др<br />Милован М. Бојић",
@@ -107,14 +103,12 @@ export default async function RecDirektoraPage() {
     ],
   };
 
-  // Get image URL if exists
   const heroImageUrl = hero.image
     ? urlFor(hero.image).width(1920).url()
     : "/images/rec-direktora.jpg";
 
   return (
     <>
-      {/* Director Hero Section */}
       <HeroSection
         img={heroImageUrl}
         imgAlt={hero.badge}
@@ -124,16 +118,17 @@ export default async function RecDirektoraPage() {
         title={hero.title}
         subtitle={hero.subtitle}
         showScrollIndicator={hero.showScrollIndicator}
+        compact
       />
 
-      {/* Director Info Cards */}
+      {/* Info Cards */}
       <Section
         padding="medium"
         background="gray"
-        className="director-info-section"
+        className={styles.infoSection}
       >
         <Container>
-          <div className="director-info-grid">
+          <div className={styles.infoGrid}>
             {infoCards.map((card) => (
               <InfoCard
                 key={card._key}
@@ -149,28 +144,32 @@ export default async function RecDirektoraPage() {
         </Container>
       </Section>
 
-      {/* Director Message Section */}
-      <section className="director-message-section">
+      {/* Message Section */}
+      <Section padding="medium" background="white">
         <Container>
-          <div className="director-message-grid">
-            <div className="message-content">
-              <Badge variant="primary" text={message.badge} />
-              <Heading variant="h2" text={message.heading} />
-              <div className="message-text">
-                {message.paragraphs.map((para) => (
-                  <Text
+          <div className={styles.messageSection}>
+            <div className={styles.messageContent}>
+              <div className={styles.messageBadge}>
+                <i className="fas fa-quote-left" aria-hidden />
+                <span>{message.badge}</span>
+              </div>
+              <h2 className={styles.messageHeading}>{message.heading}</h2>
+              <div className={styles.messageText}>
+                {message.paragraphs.map((para, idx) => (
+                  <p
                     key={para._key}
-                    variant={para.variant}
-                    text={para.text}
-                  />
+                    className={idx === 0 ? styles.leadText : undefined}
+                  >
+                    {para.text}
+                  </p>
                 ))}
               </div>
-              <div className="message-signature">
-                <div className="signature-line"></div>
-                <Text text={message.signature} />
+              <div className={styles.signature}>
+                <div className={styles.signatureLine} />
+                <p>{message.signature}</p>
               </div>
             </div>
-            <div className="message-video">
+            <div className={styles.messageVideo}>
               {message.videoSrc && (
                 <VideoPlayer
                   videoSrc={message.videoSrc}
@@ -181,41 +180,42 @@ export default async function RecDirektoraPage() {
             </div>
           </div>
         </Container>
-      </section>
+      </Section>
 
       {/* Quote Section */}
-      <section className="director-quote-section">
+      <section className={styles.quoteSection}>
         <Container>
-          <div className="quote-wrapper">
-            <div className="quote-icon">
-              <i className="fas fa-quote-left"></i>
+          <div className={styles.quoteWrapper}>
+            <div className={styles.quoteIcon}>
+              <i className="fas fa-quote-left" aria-hidden />
             </div>
-            <Text as="blockquote" text={quote.text} />
-            <div className="quote-author">
-              <div className="author-line"></div>
-              <Text text={quote.author} />
+            <blockquote className={styles.quoteText}>{quote.text}</blockquote>
+            <div className={styles.quoteAuthor}>
+              <div className={styles.quoteAuthorLine} />
+              <p>{quote.author}</p>
             </div>
           </div>
         </Container>
       </section>
 
-      {/* Partners/Certifications Section */}
-      <section className="partners-section">
+      {/* Partners */}
+      <Section padding="medium" background="gray">
         <Container>
-          <div className="section-header centered">
-            <Heading variant="h3" align="center" text={partners.heading} />
+          <div className={styles.partnersHeader}>
+            <h3>{partners.heading}</h3>
           </div>
-          <div className="partners-slider">
+          <div className={styles.partnersGrid}>
             {partners.items.map((partner) => (
-              <PartnerLogo
-                key={partner._key}
-                icon={partner.icon}
-                text={partner.text}
-              />
+              <div key={partner._key} className={styles.partnerCard}>
+                <div className={styles.partnerIcon}>
+                  <i className={partner.icon} aria-hidden />
+                </div>
+                <span>{partner.text}</span>
+              </div>
             ))}
           </div>
         </Container>
-      </section>
+      </Section>
     </>
   );
 }

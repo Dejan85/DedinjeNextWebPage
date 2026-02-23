@@ -1,0 +1,120 @@
+"use client";
+
+import {
+  Container,
+  PageHeader,
+  Button,
+  Section,
+} from "@/components/shared";
+import styles from "./ClinicPageTemplate.module.css";
+
+export interface ClinicArea {
+  icon: string;
+  title: string;
+  desc: string;
+}
+
+export interface ClinicPageData {
+  breadcrumbLabel: string;
+  title: string;
+  subtitle: string;
+  introIcon: string;
+  introTitle: string;
+  introText: string;
+  areas: ClinicArea[];
+  areasTitle?: string;
+  areasSubtitle?: string;
+  areasIcon?: string;
+  extraBanner?: { value: string; label: string; desc: string };
+}
+
+export function ClinicPageTemplate({ data }: { data: ClinicPageData }) {
+  return (
+    <>
+      <PageHeader
+        breadcrumbs={[
+          { label: "Почетна", href: "/" },
+          { label: "Клинике", href: "/klinike" },
+          { label: data.breadcrumbLabel },
+        ]}
+        title={data.title}
+        subtitle={data.subtitle}
+      />
+
+      <Section padding="medium" background="white">
+        <Container>
+          <div className={styles.intro}>
+            <div className={styles.introIcon}>
+              <i className={data.introIcon} aria-hidden />
+            </div>
+            <div className={styles.introContent}>
+              <h2>{data.introTitle}</h2>
+              <p>{data.introText}</p>
+            </div>
+          </div>
+
+          {data.extraBanner && (
+            <div className={styles.banner}>
+              <div className={styles.bannerValue}>{data.extraBanner.value}</div>
+              <div>
+                <strong>{data.extraBanner.label}</strong>
+                <p>{data.extraBanner.desc}</p>
+              </div>
+            </div>
+          )}
+        </Container>
+      </Section>
+
+      <Section padding="medium" background="gray">
+        <Container>
+          <div className={styles.sectionHeader}>
+            <span className={styles.sectionIconWrap}>
+              <i className={data.areasIcon || "fas fa-crosshairs"} aria-hidden />
+            </span>
+            <div>
+              <h2>{data.areasTitle || "Кључне области рада"}</h2>
+              <p>{data.areasSubtitle || "Од дијагностике до потпуног опоравка"}</p>
+            </div>
+          </div>
+
+          <div className={styles.areasGrid}>
+            {data.areas.map((item, idx) => (
+              <div key={idx} className={styles.areaCard}>
+                <div className={styles.areaCardIcon}>
+                  <i className={item.icon} aria-hidden />
+                </div>
+                <h4>{item.title}</h4>
+                <p>{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </Section>
+
+      <section className={styles.ctaSection}>
+        <Container>
+          <div className={styles.ctaContent}>
+            <div className={styles.ctaIcon}>
+              <i className="fas fa-phone" aria-hidden />
+            </div>
+            <h2>Потребне су вам додатне информације?</h2>
+            <p>
+              Наш тим је спреман да одговори на питања и помогне вам око
+              информација и заказивања.
+            </p>
+            <div className={styles.ctaButtons}>
+              <Button variant="primary" href="/kontakt">
+                <i className="fas fa-phone" aria-hidden />
+                Контактирајте нас
+              </Button>
+              <Button variant="secondary" href="/klinike">
+                <i className="fas fa-hospital" aria-hidden />
+                Све клинике
+              </Button>
+            </div>
+          </div>
+        </Container>
+      </section>
+    </>
+  );
+}

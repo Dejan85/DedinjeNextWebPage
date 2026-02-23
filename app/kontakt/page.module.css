@@ -1,0 +1,338 @@
+/* ========================================
+   CONTACT CARDS GRID
+======================================== */
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.contactCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 28px 20px;
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: 14px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.contactCard:hover {
+  background: var(--white);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
+  transform: translateY(-3px);
+  border-color: var(--primary);
+}
+
+.contactCardIcon {
+  width: 52px;
+  height: 52px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.contactCardIcon i { font-size: 22px; color: var(--white); }
+
+.contactCardTitle {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  color: var(--gray-500);
+  margin-bottom: 4px;
+}
+
+.contactCard strong {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--gray-800);
+  margin-bottom: 4px;
+}
+
+.contactCardDesc {
+  font-size: 12px;
+  color: var(--gray-500);
+}
+
+/* ========================================
+   FORM + MAP GRID
+======================================== */
+.formMapGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+/* Form block */
+.formBlock {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 14px;
+  padding: 28px;
+}
+
+.formHeader {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid var(--gray-200);
+}
+
+.formHeaderIcon {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.formHeaderIcon i { font-size: 18px; color: var(--white); }
+.formHeader h2 { font-size: 20px; font-weight: 800; color: var(--gray-800); margin: 0 0 4px; }
+.formHeader p { font-size: 13px; color: var(--gray-500); margin: 0; }
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.formGroup label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gray-700);
+}
+
+.required { color: var(--primary); }
+
+.formGroup input,
+.formGroup textarea {
+  padding: 12px 14px;
+  border: 1px solid var(--gray-200);
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--gray-800);
+  background: var(--gray-50);
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.formGroup input:focus,
+.formGroup textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(190, 30, 45, 0.1);
+  background: var(--white);
+}
+
+.formGroup textarea { resize: vertical; min-height: 120px; }
+
+.submitBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 28px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: var(--white);
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  align-self: flex-start;
+}
+
+.submitBtn:hover {
+  box-shadow: 0 6px 20px rgba(190, 30, 45, 0.3);
+  transform: translateY(-2px);
+}
+
+.submitBtn i { font-size: 14px; }
+
+/* Success message */
+.successMessage {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.successIcon {
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+}
+
+.successIcon i { font-size: 28px; color: var(--white); }
+.successMessage h3 { font-size: 20px; font-weight: 800; color: var(--gray-800); margin: 0 0 8px; }
+.successMessage p { font-size: 14px; color: var(--gray-600); margin: 0; }
+
+/* Map block */
+.mapBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.mapWrap {
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 2px solid var(--gray-200);
+  height: 340px;
+}
+
+.mapInfo {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px 22px;
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 14px;
+}
+
+.mapInfoIcon {
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.mapInfoIcon i { font-size: 18px; color: var(--white); }
+
+.mapInfo h3 { font-size: 15px; font-weight: 700; color: var(--gray-800); margin: 0 0 6px; }
+.mapInfo p { font-size: 13px; line-height: 1.6; color: var(--gray-600); margin: 0; }
+
+/* ========================================
+   EMERGENCY BANNER
+======================================== */
+.emergencyBanner {
+  padding: 40px 0;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.emergencyBanner::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  right: -8%;
+  width: 350px;
+  height: 350px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 50%;
+}
+
+.emergencyContent {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.emergencyIcon {
+  width: 56px;
+  height: 56px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.emergencyIcon i { font-size: 22px; color: var(--white); }
+
+.emergencyContent h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--white);
+  margin: 0 0 4px;
+}
+
+.emergencyContent p {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+  flex: 1;
+}
+
+.emergencyContent p strong {
+  color: var(--white);
+  font-size: 16px;
+}
+
+.emergencyBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  background: var(--white);
+  color: var(--primary);
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: 900;
+  text-decoration: none;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.emergencyBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.emergencyBtn i { font-size: 16px; }
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+@media (max-width: 992px) {
+  .cardsGrid { grid-template-columns: repeat(2, 1fr); }
+  .formMapGrid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  .cardsGrid { grid-template-columns: 1fr; }
+  .formRow { grid-template-columns: 1fr; }
+  .formHeader { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .emergencyContent { flex-direction: column; text-align: center; }
+  .emergencyBtn { align-self: center; }
+}

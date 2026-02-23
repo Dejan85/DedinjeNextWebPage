@@ -103,19 +103,19 @@ export default function Header() {
                       </Link>
                     </li>
                     <li>
-                      <Link href="#">
+                      <Link href="/o-nama/nemedicinski-poslovi">
                         <i className="fas fa-briefcase"></i> Немедицински
                         послови
                       </Link>
                     </li>
                     <li>
-                      <Link href="#">
+                      <Link href="/o-nama/odbori-i-organi-instituta">
                         <i className="fas fa-users"></i> Одбори и органи
                         Института
                       </Link>
                     </li>
                     <li>
-                      <Link href="#">
+                      <Link href="/o-nama/zdravstvena-akreditacija">
                         <i className="fas fa-certificate"></i> Здравствена
                         акредитација Института
                       </Link>
@@ -131,7 +131,7 @@ export default function Header() {
                       </Link>
                     </li>
                     <li>
-                      <Link href="#">
+                      <Link href="/o-nama/lokacija">
                         <i className="fas fa-map-marker-alt"></i> Локација
                       </Link>
                     </li>
@@ -344,7 +344,7 @@ export default function Header() {
                   </ul>
                 </li>
                 <li>
-                  <Link href="#">КОНТАКТ</Link>
+                  <Link href="/kontakt">КОНТАКТ</Link>
                 </li>
               </ul>
               <button className={styles.navSearch}>

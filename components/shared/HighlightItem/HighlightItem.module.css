@@ -1,34 +1,49 @@
-/* Highlight Item Component Styles */
 .highlightItem {
     display: flex;
-    gap: 20px;
-    padding: 20px;
+    gap: 18px;
+    padding: 18px;
     background: var(--gray-50);
-    border-radius: 12px;
-    transition: var(--transition);
+    border: 1px solid var(--gray-200);
+    border-radius: 14px;
+    transition: all 0.3s ease;
 }
 
 .highlightItem:hover {
     background: var(--white);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
 }
 
 .highlightIcon {
-    width: 60px;
-    height: 60px;
-    min-width: 60px;
-    background: linear-gradient(135deg, rgba(42, 157, 244, 0.1) 0%, rgba(42, 157, 244, 0.05) 100%);
-    border-radius: 16px;
+    width: 52px;
+    height: 52px;
+    min-width: 52px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .highlightIcon i {
-    font-size: 28px;
-    color: var(--primary);
+    font-size: 22px;
+    color: var(--white);
 }
 
 .highlightText {
     flex: 1;
+}
+
+.highlightText h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--gray-800);
+    margin: 0 0 4px;
+}
+
+.highlightText p {
+    font-size: 13px;
+    color: var(--gray-500);
+    margin: 0;
+    line-height: 1.5;
 }
