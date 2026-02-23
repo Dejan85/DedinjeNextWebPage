@@ -1,7 +1,6 @@
 import {
   Container,
   PageHeader,
-  Button,
   Section,
 } from "@/components/shared";
 import styles from "./page.module.css";
@@ -172,30 +171,6 @@ export default function KardiohirurgijaPage() {
         </Container>
       </Section>
 
-      {/* CTA */}
-      <section className={styles.ctaSection}>
-        <Container>
-          <div className={styles.ctaContent}>
-            <div className={styles.ctaIcon}>
-              <i className="fas fa-phone" aria-hidden />
-            </div>
-            <h2>Потребне су вам додатне информације?</h2>
-            <p>
-              Наш тим је спреман да одговори на питања и помогне вам око
-              информација и заказивања.
-            </p>
-            <div className={styles.ctaButtons}>
-              <Button variant="primary" href="/kontakt">
-                <i className="fas fa-phone" aria-hidden />
-                Контактирајте нас
-              </Button>
-              <Button variant="secondary" href="/o-institutu">
-                <i className="fas fa-info-circle" aria-hidden />О Институту
-              </Button>
-            </div>
-          </div>
-        </Container>
-      </section>
     </>
   );
 }

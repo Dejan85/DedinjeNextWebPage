@@ -1,3 +1,4 @@
+import Link from "next/link";
 import {
   HeroSection,
   Button,
@@ -6,10 +7,8 @@ import {
   StatCounter,
   ServiceCard,
   FeatureItem,
-  DepartmentCard,
   TeamCard,
   TestimonialCard,
-  NewsCard,
   WelcomeFeature,
   Section,
   Container,
@@ -25,7 +24,6 @@ import type {
   ServicesSection,
   WhyChooseUsSection,
   CtaSection,
-  DepartmentsSection,
   TeamSection,
   TestimonialsSection,
   NewsSection,
@@ -37,14 +35,45 @@ import type {
   ServiceCardItem,
   WhyChooseUsFeature,
 } from "@/sanity/types";
+import { GOSTOVANJA } from "./aktuelnosti/gostovanja/constants";
 
 interface PageBuilder {
   _type: string;
   _key?: string;
 }
 
+const PATIENT_LINKS = [
+  { icon: "fas fa-hospital-user", title: "Пријем у болницу", desc: "Информације о пријему и припреми", href: "/za-pacijente/prijem" },
+  { icon: "fas fa-circle-question", title: "Честа питања", desc: "Одговори на најчешћа питања", href: "/za-pacijente/cesta-pitanja" },
+  { icon: "fas fa-heart-pulse", title: "Кардиохируршки конзилијум", desc: "Документација и термини", href: "/za-pacijente/kardiohirurski-konzilijum" },
+  { icon: "fas fa-stethoscope", title: "Васкуларни конзилијум", desc: "Процес рада и контакт", href: "/za-pacijente/vaskularni-konzilijum" },
+  { icon: "fas fa-clipboard-list", title: "Амбуланте", desc: "Радно време и локације", href: "/za-pacijente/ambulante" },
+  { icon: "fas fa-utensils", title: "План исхране", desc: "Препоруке за исхрану", href: "/za-pacijente/plan-ishrane" },
+];
+
+const SERVICE_LINK_MAP: Record<string, string> = {
+  "Кардиохирургија": "/klinike/kardiohirurgija",
+  "Кардиологија": "/klinike/kardiologija",
+  "Васкуларна хирургија": "/klinike/vaskularna-hirurgija",
+  "Интервентна кардиологија": "/klinike/invazivna-dijagnostika",
+};
+
+function getServiceLink(service: ServiceCardItem): string {
+  const link = service.ctaLink?.trim();
+  if (link && link !== "#") return link;
+  return SERVICE_LINK_MAP[service.title] || "/klinike";
+}
+
+const CLINICS_FEATURED = [
+  { icon: "fas fa-heart-pulse", title: "Кардиохирургија", desc: "Оперативно лечење срчаних обољења", href: "/klinike/kardiohirurgija" },
+  { icon: "fas fa-stethoscope", title: "Васкуларна хирургија", desc: "Лечење крвних судова", href: "/klinike/vaskularna-hirurgija" },
+  { icon: "fas fa-heart", title: "Кардиологија", desc: "Дијагностика и лечење срца", href: "/klinike/kardiologija" },
+  { icon: "fas fa-syringe", title: "Анестезиологија", desc: "Анестезија и интензивна нега", href: "/klinike/anesteziologija" },
+  { icon: "fas fa-heartbeat", title: "Инвазивна дијагностика", desc: "Катетеризација и интервенције", href: "/klinike/invazivna-dijagnostika" },
+  { icon: "fas fa-heart-circle-check", title: "Центар за срчану слабост", desc: "Комплексно лечење", href: "/klinike/centar-srcana-slabost" },
+];
+
 export default async function Home() {
-  // Fetch homepage data from Sanity with fallback
   let pageBuilder: PageBuilder[] = [];
   let sanityError = false;
 
@@ -52,81 +81,44 @@ export default async function Home() {
     const homepage = await client.fetch(HOMEPAGE_QUERY);
     pageBuilder = homepage?.pageBuilder || [];
   } catch (error) {
-    console.error("⚠️ Sanity fetch failed, using fallback:", error);
+    console.error("Sanity fetch failed, using fallback:", error);
     sanityError = true;
   }
 
-  // Separate different section types
   const heroSlides = pageBuilder.filter((item) => item._type === "hero");
   const fallbackHeroSlides = [
     {
       img: "/images/o_nama_image.png",
-      imgAlt: "Институт за кардиоваскуларне болести „Дедиње“",
+      imgAlt: 'Институт за кардиоваскуларне болести „Дедиње"',
       badge: "Институт",
-      title: "Институт за кардиоваскуларне болести „Дедиње“",
-      subtitle:
-        "Савремена дијагностика и лечење, врхунски тим стручњака и најновија медицинска технологија — у служби вашег здравља.",
+      title: 'Институт за кардиоваскуларне болести „Дедиње"',
+      subtitle: "Савремена дијагностика и лечење, врхунски тим стручњака и најновија медицинска технологија — у служби вашег здравља.",
     },
   ];
   const slidesForHero = heroSlides.length > 0 ? heroSlides : fallbackHeroSlides;
-  const infoBoxes = pageBuilder.filter(
-    (item) => item._type === "infoBox"
-  ) as InfoBoxType[];
-  const welcomeSection = pageBuilder.find(
-    (item) => item._type === "welcomeSection"
-  ) as WelcomeSection | undefined;
-  const statsSection = pageBuilder.find(
-    (item) => item._type === "statsSection"
-  ) as StatsSection | undefined;
-  const servicesSection = pageBuilder.find(
-    (item) => item._type === "servicesSection"
-  ) as ServicesSection | undefined;
-  const whyChooseUsSection = pageBuilder.find(
-    (item) => item._type === "whyChooseUsSection"
-  ) as WhyChooseUsSection | undefined;
-  const ctaSection = pageBuilder.find((item) => item._type === "ctaSection") as
-    | CtaSection
-    | undefined;
-  const departmentsSection = pageBuilder.find(
-    (item) => item._type === "departmentsSection"
-  ) as DepartmentsSection | undefined;
-  const teamSection = pageBuilder.find(
-    (item) => item._type === "teamSection"
-  ) as TeamSection | undefined;
-  const testimonialsSection = pageBuilder.find(
-    (item) => item._type === "testimonialsSection"
-  ) as TestimonialsSection | undefined;
-  const newsSection = pageBuilder.find(
-    (item) => item._type === "newsSection"
-  ) as NewsSection | undefined;
-  const contactSection = pageBuilder.find(
-    (section) => section._type === "contactSection"
-  ) as ContactSection | undefined;
+  const infoBoxes = pageBuilder.filter((item) => item._type === "infoBox") as InfoBoxType[];
+  const welcomeSection = pageBuilder.find((item) => item._type === "welcomeSection") as WelcomeSection | undefined;
+  const statsSection = pageBuilder.find((item) => item._type === "statsSection") as StatsSection | undefined;
+  const servicesSection = pageBuilder.find((item) => item._type === "servicesSection") as ServicesSection | undefined;
+  const whyChooseUsSection = pageBuilder.find((item) => item._type === "whyChooseUsSection") as WhyChooseUsSection | undefined;
+  const ctaSection = pageBuilder.find((item) => item._type === "ctaSection") as CtaSection | undefined;
+  const teamSection = pageBuilder.find((item) => item._type === "teamSection") as TeamSection | undefined;
+  const testimonialsSection = pageBuilder.find((item) => item._type === "testimonialsSection") as TestimonialsSection | undefined;
+  const newsSection = pageBuilder.find((item) => item._type === "newsSection") as NewsSection | undefined;
+  const contactSection = pageBuilder.find((section) => section._type === "contactSection") as ContactSection | undefined;
+  const partnersSection = pageBuilder.find((section) => section._type === "partnersSection") as PartnersSection | undefined;
 
-  const partnersSection = pageBuilder.find(
-    (section) => section._type === "partnersSection"
-  ) as PartnersSection | undefined;
+  const latestGostovanja = GOSTOVANJA.slice(0, 3);
 
   return (
     <>
-      {/* Sanity Error Warning (Development only) */}
       {sanityError && process.env.NODE_ENV === "development" && (
-        <div
-          style={{
-            background: "#fff3cd",
-            border: "1px solid #ffc107",
-            padding: "15px",
-            textAlign: "center",
-            color: "#856404",
-            fontWeight: "600",
-          }}
-        >
-          ⚠️ Sanity CMS nije dostupan. Pokreni: <code>npm run sanity:dev</code>{" "}
-          ili <code>npm run migrate:all</code>
+        <div style={{ background: "#fff3cd", border: "1px solid #ffc107", padding: "15px", textAlign: "center", color: "#856404", fontWeight: "600" }}>
+          Sanity CMS nije dostupan. Pokreni: <code>npm run sanity:dev</code> ili <code>npm run migrate:all</code>
         </div>
       )}
 
-      {/* Hero Section with Slider */}
+      {/* Hero */}
       <HeroSection slides={slidesForHero} showScrollIndicator={false} />
 
       {/* Info Boxes */}
@@ -144,16 +136,14 @@ export default async function Home() {
                 linkHref={box.linkHref}
                 emergencyPhone={box.emergencyPhone}
                 emergencyNote={box.emergencyNote}
-                className={
-                  box.variant === "emergency" ? "emergency" : undefined
-                }
+                className={box.variant === "emergency" ? "emergency" : undefined}
               />
             ))}
           </div>
         </Container>
       </section>
 
-      {/* Welcome Section */}
+      {/* Welcome / About */}
       {welcomeSection && (
         <section className={styles.welcomeSection}>
           <Container>
@@ -164,21 +154,12 @@ export default async function Home() {
                 <Text variant="lead" text={welcomeSection.leadText} />
                 <Text variant="body" text={welcomeSection.bodyText} />
                 <div className={styles.welcomeFeatures}>
-                  {welcomeSection.features?.map(
-                    (feature: WelcomeFeatureType) => (
-                      <WelcomeFeature
-                        key={feature._key}
-                        icon={feature.icon}
-                        text={feature.text}
-                      />
-                    )
-                  )}
+                  {welcomeSection.features?.map((feature: WelcomeFeatureType) => (
+                    <WelcomeFeature key={feature._key} icon={feature.icon} text={feature.text} />
+                  ))}
                 </div>
                 {welcomeSection.ctaButton && (
-                  <Button
-                    href={welcomeSection.ctaButton.link}
-                    variant="primary"
-                  >
+                  <Button href={welcomeSection.ctaButton.link} variant="primary">
                     {welcomeSection.ctaButton.text}
                   </Button>
                 )}
@@ -186,45 +167,21 @@ export default async function Home() {
               <div className={styles.welcomeImages}>
                 <div className={styles.welcomeImgMain}>
                   <Image
-                    src={
-                      (welcomeSection.image?.asset &&
-                      "url" in welcomeSection.image.asset
-                        ? welcomeSection.image.asset.url
-                        : "") || "/images/o_nama_image.png"
-                    }
+                    src={(welcomeSection.image?.asset && "url" in welcomeSection.image.asset ? welcomeSection.image.asset.url : "") || "/images/o_nama_image.png"}
                     alt={welcomeSection.heading}
                     width={800}
                     height={600}
                   />
                 </div>
-                {welcomeSection.secondaryImage?.asset &&
-                  "url" in welcomeSection.secondaryImage.asset &&
-                  welcomeSection.secondaryImage.asset.url && (
-                    <div className={styles.welcomeImgSecondary}>
-                      <Image
-                        src={welcomeSection.secondaryImage.asset.url}
-                        alt="Medical equipment"
-                        width={400}
-                        height={300}
-                      />
-                    </div>
-                  )}
+                {welcomeSection.secondaryImage?.asset && "url" in welcomeSection.secondaryImage.asset && welcomeSection.secondaryImage.asset.url && (
+                  <div className={styles.welcomeImgSecondary}>
+                    <Image src={welcomeSection.secondaryImage.asset.url} alt="Medical equipment" width={400} height={300} />
+                  </div>
+                )}
                 {welcomeSection.imageBadge && (
                   <div className={styles.experienceBadge}>
-                    <Text
-                      text={welcomeSection.imageBadge.number}
-                      as="span"
-                      color="light"
-                      align="center"
-                      className={styles.expNumber}
-                    />
-                    <Text
-                      text={welcomeSection.imageBadge.text}
-                      as="span"
-                      color="light"
-                      align="center"
-                      className={styles.expText}
-                    />
+                    <Text text={welcomeSection.imageBadge.number} as="span" color="light" align="center" className={styles.expNumber} />
+                    <Text text={welcomeSection.imageBadge.text} as="span" color="light" align="center" className={styles.expText} />
                   </div>
                 )}
               </div>
@@ -233,28 +190,19 @@ export default async function Home() {
         </section>
       )}
 
-      {/* Parallax Stats Section */}
+      {/* Stats */}
       {statsSection && (
         <section className="parallax-section parallax-stats">
           <div className="parallax-overlay"></div>
           <div className="parallax-content">
             <Container>
               <div className="stats-intro">
-                <Heading
-                  variant="h2"
-                  color="light"
-                  text={statsSection.heading}
-                />
+                <Heading variant="h2" color="light" text={statsSection.heading} />
                 <Text color="light" text={statsSection.subheading} />
               </div>
               <div className="stats-grid">
                 {statsSection.stats?.map((stat: StatItem) => (
-                  <StatCounter
-                    key={stat._key}
-                    target={parseInt(stat.number.replace(/[^0-9]/g, ""), 10)}
-                    label={stat.label}
-                    icon={stat.icon || ""}
-                  />
+                  <StatCounter key={stat._key} target={parseInt(stat.number.replace(/[^0-9]/g, ""), 10)} label={stat.label} icon={stat.icon || ""} />
                 ))}
               </div>
             </Container>
@@ -262,22 +210,14 @@ export default async function Home() {
         </section>
       )}
 
-      {/* Services Section */}
+      {/* Services */}
       {servicesSection && (
         <Section padding="large" background="gray">
           <Container>
             <div className="section-header centered">
               <Badge variant="primary" text={servicesSection.badge} />
-              <Heading
-                variant="h2"
-                align="center"
-                text={servicesSection.heading}
-              />
-              <Text
-                color="muted"
-                align="center"
-                text={servicesSection.subheading}
-              />
+              <Heading variant="h2" align="center" text={servicesSection.heading} />
+              <Text color="muted" align="center" text={servicesSection.subheading} />
             </div>
             <div className="services-grid">
               {servicesSection.services?.map((service: ServiceCardItem) => (
@@ -287,7 +227,7 @@ export default async function Home() {
                   title={service.title}
                   description={service.description}
                   features={service.features?.map((f) => f.text) || []}
-                  linkHref={service.ctaLink || "#"}
+                  linkHref={getServiceLink(service)}
                   featured={service.featured}
                 />
               ))}
@@ -296,7 +236,7 @@ export default async function Home() {
         </Section>
       )}
 
-      {/* Why Choose Us Section */}
+      {/* Why Choose Us */}
       {whyChooseUsSection && (
         <Section padding="large" background="white">
           <Container>
@@ -306,28 +246,14 @@ export default async function Home() {
                 <Heading variant="h2" text={whyChooseUsSection.heading} />
                 <Text variant="body" text={whyChooseUsSection.subheading} />
                 <div className="features-list">
-                  {whyChooseUsSection.features?.map(
-                    (feature: WhyChooseUsFeature) => (
-                      <FeatureItem
-                        key={feature._key}
-                        icon={feature.icon}
-                        title={feature.title}
-                        description={feature.description}
-                      />
-                    )
-                  )}
+                  {whyChooseUsSection.features?.map((feature: WhyChooseUsFeature) => (
+                    <FeatureItem key={feature._key} icon={feature.icon} title={feature.title} description={feature.description} />
+                  ))}
                 </div>
               </div>
               <div className="features-image">
-                {whyChooseUsSection.image?.asset &&
-                "url" in whyChooseUsSection.image.asset &&
-                whyChooseUsSection.image.asset.url ? (
-                  <Image
-                    src={whyChooseUsSection.image.asset.url}
-                    alt={whyChooseUsSection.heading}
-                    width={800}
-                    height={600}
-                  />
+                {whyChooseUsSection.image?.asset && "url" in whyChooseUsSection.image.asset && whyChooseUsSection.image.asset.url ? (
+                  <Image src={whyChooseUsSection.image.asset.url} alt={whyChooseUsSection.heading} width={800} height={600} />
                 ) : null}
               </div>
             </div>
@@ -335,7 +261,39 @@ export default async function Home() {
         </Section>
       )}
 
-      {/* CTA Section */}
+      {/* Director's Word */}
+      <Section padding="medium" background="white">
+        <Container>
+          <div className={styles.directorCard}>
+            <div className={styles.directorLeft}>
+              <div className={styles.directorAvatarLarge}>
+                <i className="fas fa-user-tie" aria-hidden />
+              </div>
+              <div className={styles.directorMeta}>
+                <strong>Проф. др сци. мед. Предраг Мићовић</strong>
+                <span>Директор Института</span>
+              </div>
+              <Link href="/rec-direktora" className={styles.directorLink}>
+                Прочитајте реч директора
+                <i className="fas fa-arrow-right" aria-hidden />
+              </Link>
+            </div>
+            <div className={styles.directorRight}>
+              <div className={styles.directorQuoteIcon}>
+                <i className="fas fa-quote-left" aria-hidden />
+              </div>
+              <blockquote className={styles.directorQuote}>
+                Наша обавеза је да обезбедимо врхунску услугу у домену
+                кардиоваскуларне медицине — ефикасне, квалитетне процедуре без
+                значајних компликација, које омогућавају брз опоравак и повратак
+                свакодневним активностима.
+              </blockquote>
+            </div>
+          </div>
+        </Container>
+      </Section>
+
+      {/* CTA Banner */}
       {ctaSection && (
         <section className="parallax-section parallax-cta">
           <div className="parallax-overlay gradient"></div>
@@ -343,26 +301,13 @@ export default async function Home() {
             <Container>
               <div className="cta-content">
                 <Heading variant="h2" color="light" text={ctaSection.heading} />
-                {ctaSection.bodyText && (
-                  <Text color="light" text={ctaSection.bodyText} />
-                )}
+                {ctaSection.bodyText && <Text color="light" text={ctaSection.bodyText} />}
                 <div className="cta-buttons">
                   {ctaSection.buttons?.map((button) => {
-                    const variantMap: Record<string, string> = {
-                      primary: "white",
-                      secondary: "outline-white",
-                      outline: "outline-white",
-                    };
-                    const btnVariant = variantMap[
-                      button.variant || "primary"
-                    ] as "primary" | "white" | "outline-white" | "hero";
-
+                    const variantMap: Record<string, string> = { primary: "white", secondary: "outline-white", outline: "outline-white" };
+                    const btnVariant = variantMap[button.variant || "primary"] as "primary" | "white" | "outline-white" | "hero";
                     return (
-                      <Button
-                        key={button._key}
-                        href={button.link}
-                        variant={btnVariant}
-                      >
+                      <Button key={button._key} href={button.link} variant={btnVariant}>
                         {button.icon && <i className={button.icon}></i>}
                         {button.text}
                       </Button>
@@ -375,84 +320,95 @@ export default async function Home() {
         </section>
       )}
 
-      {/* Departments Section */}
-      {departmentsSection && (
-        <Section padding="large" background="gray">
-          <Container>
-            <div className="section-header centered">
-              <Badge variant="primary" text={departmentsSection.badge} />
-              <Heading
-                variant="h2"
-                align="center"
-                text={departmentsSection.heading}
-              />
-              <Text
-                color="muted"
-                align="center"
-                text={departmentsSection.subheading}
-              />
+      {/* Clinics Grid */}
+      <Section padding="medium" background="gray">
+        <Container>
+          <div className={styles.sectionHeader}>
+            <span className={styles.sectionIconWrap}>
+              <i className="fas fa-hospital" aria-hidden />
+            </span>
+            <div>
+              <h2>Наше клинике</h2>
+              <p>Специјализоване организационе јединице Института</p>
             </div>
-            <div className="departments-grid">
-              {departmentsSection.departments?.map((dept) => (
-                <DepartmentCard
-                  key={dept._key}
-                  image={
-                    (dept.image?.asset && "url" in dept.image.asset
-                      ? dept.image.asset.url
-                      : "") || "/images/o_nama_image.png"
-                  }
-                  title={dept.title}
-                  description={dept.description}
-                  linkHref={dept.linkHref}
-                />
-              ))}
-            </div>
-          </Container>
-        </Section>
-      )}
+          </div>
+          <div className={styles.clinicsGrid}>
+            {CLINICS_FEATURED.map((clinic, idx) => (
+              <Link key={idx} href={clinic.href} className={styles.clinicCard}>
+                <div className={styles.clinicCardIcon}>
+                  <i className={clinic.icon} aria-hidden />
+                </div>
+                <div>
+                  <strong>{clinic.title}</strong>
+                  <p>{clinic.desc}</p>
+                </div>
+                <span className={styles.clinicArrow}>
+                  <i className="fas fa-arrow-right" aria-hidden />
+                </span>
+              </Link>
+            ))}
+          </div>
+          <div className={styles.sectionCta}>
+            <Button variant="outline" href="/klinike">
+              <i className="fas fa-hospital" aria-hidden />
+              Погледајте све клинике
+            </Button>
+          </div>
+        </Container>
+      </Section>
 
-      {/* Team Section */}
+      {/* For Patients */}
+      <Section padding="medium" background="white">
+        <Container>
+          <div className={styles.sectionHeader}>
+            <span className={styles.sectionIconWrap}>
+              <i className="fas fa-user-shield" aria-hidden />
+            </span>
+            <div>
+              <h2>За пацијенте</h2>
+              <p>Брз приступ најважнијим информацијама</p>
+            </div>
+          </div>
+          <div className={styles.patientGrid}>
+            {PATIENT_LINKS.map((item, idx) => (
+              <Link key={idx} href={item.href} className={styles.patientCard}>
+                <div className={styles.patientCardIcon}>
+                  <i className={item.icon} aria-hidden />
+                </div>
+                <h4>{item.title}</h4>
+                <p>{item.desc}</p>
+              </Link>
+            ))}
+          </div>
+        </Container>
+      </Section>
+
+      {/* Team */}
       {teamSection && (
         <Section padding="large" background="white">
           <Container>
             <div className="section-header centered">
               <Badge variant="primary" text={teamSection.badge} />
               <Heading variant="h2" align="center" text={teamSection.heading} />
-              <Text
-                color="muted"
-                align="center"
-                text={teamSection.subheading}
-              />
+              <Text color="muted" align="center" text={teamSection.subheading} />
             </div>
             <div className={styles.teamGrid}>
               {teamSection.team?.map((member) => (
                 <TeamCard
                   key={member._key}
-                  image={
-                    (member.image?.asset && "url" in member.image.asset
-                      ? member.image.asset.url
-                      : "") || "/images/o_nama_image.png"
-                  }
+                  image={(member.image?.asset && "url" in member.image.asset ? member.image.asset.url : "") || "/images/o_nama_image.png"}
                   name={member.name}
                   role={member.role}
                   description={member.description}
                   socialLinks={member.socialLinks?.filter(
-                    (
-                      link
-                    ): link is {
-                      _key: string;
-                      platform: "facebook" | "linkedin" | "email";
-                      url: string;
-                    } =>
-                      link.platform === "facebook" ||
-                      link.platform === "linkedin" ||
-                      link.platform === "email"
+                    (link): link is { _key: string; platform: "facebook" | "linkedin" | "email"; url: string } =>
+                      link.platform === "facebook" || link.platform === "linkedin" || link.platform === "email"
                   )}
                 />
               ))}
             </div>
             {teamSection.ctaButton && (
-              <div className={styles.teamCta}>
+              <div className={styles.sectionCta}>
                 <Button variant="primary" href={teamSection.ctaButton.link}>
                   {teamSection.ctaButton.text}
                 </Button>
@@ -462,18 +418,13 @@ export default async function Home() {
         </Section>
       )}
 
-      {/* Testimonials Section */}
+      {/* Testimonials */}
       {testimonialsSection && (
         <section className={styles.testimonialsSection}>
           <Container>
             <div className="section-header centered light">
               <Badge variant="light" text={testimonialsSection.badge} />
-              <Heading
-                variant="h2"
-                color="light"
-                align="center"
-                text={testimonialsSection.heading}
-              />
+              <Heading variant="h2" color="light" align="center" text={testimonialsSection.heading} />
             </div>
             <div className={styles.testimonialsSlider}>
               {testimonialsSection.testimonials?.map((testimonial) => (
@@ -482,12 +433,7 @@ export default async function Home() {
                   quote={testimonial.quote}
                   authorName={testimonial.authorName}
                   authorRole={testimonial.authorRole}
-                  authorImage={
-                    (testimonial.authorImage?.asset &&
-                    "url" in testimonial.authorImage.asset
-                      ? testimonial.authorImage.asset.url
-                      : "") || "/images/o_nama_image.png"
-                  }
+                  authorImage={(testimonial.authorImage?.asset && "url" in testimonial.authorImage.asset ? testimonial.authorImage.asset.url : "") || "/images/o_nama_image.png"}
                 />
               ))}
             </div>
@@ -497,10 +443,7 @@ export default async function Home() {
               </button>
               <div className={styles.testimonialsDots}>
                 {testimonialsSection.testimonials?.map((_, index) => (
-                  <span
-                    key={index}
-                    className={`${styles.dot} ${index === 0 ? styles.dotActive : ""}`}
-                  ></span>
+                  <span key={index} className={`${styles.dot} ${index === 0 ? styles.dotActive : ""}`}></span>
                 ))}
               </div>
               <button className={styles.testimonialNavButton}>
@@ -511,236 +454,143 @@ export default async function Home() {
         </section>
       )}
 
-      {/* News Section */}
-      {newsSection && (
-        <section className="news-section">
-          <Container>
-            <div className="section-header centered">
-              <Badge variant="primary" text={newsSection.badge} />
-              <Heading variant="h2" align="center" text={newsSection.heading} />
-              <Text
-                color="muted"
-                align="center"
-                text={newsSection.subheading}
+      {/* News + Gostovanja combined */}
+      <Section padding="medium" background="gray">
+        <Container>
+          <div className={styles.newsGostovanjaGrid}>
+            {/* News column */}
+            <div className={styles.newsGostovanjaColumn}>
+              <div className={styles.sectionHeaderSmall}>
+                <span className={styles.sectionIconSmall}>
+                  <i className="fas fa-newspaper" aria-hidden />
+                </span>
+                <h3>Најновије вести</h3>
+              </div>
+              <div className={styles.newsGostovanjaItems}>
+                {newsSection?.news?.slice(0, 3).map((item) => (
+                  <Link key={item._key} href={item.linkHref || "#"} className={styles.newsItem}>
+                    <div className={styles.newsItemMeta}>
+                      <span className={styles.newsDate}>
+                        <i className="fas fa-calendar" aria-hidden />
+                        {item.date}
+                      </span>
+                      {item.category && <span className={styles.newsCategory}>{item.category}</span>}
+                    </div>
+                    <h4>{item.title}</h4>
+                    {item.description && <p>{item.description}</p>}
+                  </Link>
+                ))}
+              </div>
+              <Link href="/aktuelnosti/vesti" className={styles.seeAllLink}>
+                Све вести <i className="fas fa-arrow-right" aria-hidden />
+              </Link>
+            </div>
+
+            {/* Gostovanja column */}
+            <div className={styles.newsGostovanjaColumn}>
+              <div className={styles.sectionHeaderSmall}>
+                <span className={styles.sectionIconSmall}>
+                  <i className="fas fa-tv" aria-hidden />
+                </span>
+                <h3>Гостовања у медијима</h3>
+              </div>
+              <div className={styles.newsGostovanjaItems}>
+                {latestGostovanja.map((g) => (
+                  <Link key={g.id} href={`/aktuelnosti/gostovanja/${g.slug}`} className={styles.gostovanjeItem}>
+                    <div className={styles.gostovanjeThumb}>
+                      <i className="fas fa-play-circle" aria-hidden />
+                    </div>
+                    <div className={styles.gostovanjeInfo}>
+                      <div className={styles.newsItemMeta}>
+                        <span className={styles.newsDate}>
+                          <i className="fas fa-calendar" aria-hidden />
+                          {g.date}
+                        </span>
+                        <span className={styles.newsCategory}>{g.source}</span>
+                      </div>
+                      <h4>{g.title}</h4>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+              <Link href="/aktuelnosti/gostovanja" className={styles.seeAllLink}>
+                Сва гостовања <i className="fas fa-arrow-right" aria-hidden />
+              </Link>
+            </div>
+          </div>
+        </Container>
+      </Section>
+
+      {/* Contact CTA */}
+      <section className={styles.contactCta}>
+        <Container>
+          <div className={styles.contactCtaInner}>
+            <div className={styles.contactCtaInfo}>
+              <div className={styles.contactCtaIcon}>
+                <i className="fas fa-headset" aria-hidden />
+              </div>
+              <h2>Контактирајте нас</h2>
+              <p>Потребна вам је помоћ? Наш тим стручњака је спреман да одговори на сва ваша питања.</p>
+              <div className={styles.contactCtaDetails}>
+                <a href="tel:+381113601700" className={styles.contactCtaItem}>
+                  <span className={styles.contactCtaItemIcon}><i className="fas fa-phone" aria-hidden /></span>
+                  <div>
+                    <span>Call центар</span>
+                    <strong>011 3601 700</strong>
+                  </div>
+                </a>
+                <a href="mailto:info@ikvbd.com" className={styles.contactCtaItem}>
+                  <span className={styles.contactCtaItemIcon}><i className="fas fa-envelope" aria-hidden /></span>
+                  <div>
+                    <span>Е-пошта</span>
+                    <strong>info@ikvbd.com</strong>
+                  </div>
+                </a>
+                <div className={styles.contactCtaItem}>
+                  <span className={styles.contactCtaItemIcon}><i className="fas fa-location-dot" aria-hidden /></span>
+                  <div>
+                    <span>Адреса</span>
+                    <strong>Хероја Милана Тепића 1, Београд</strong>
+                  </div>
+                </div>
+              </div>
+              <div className={styles.contactCtaButtons}>
+                <Button variant="primary" href="/kontakt">
+                  <i className="fas fa-paper-plane" aria-hidden />
+                  Пошаљите поруку
+                </Button>
+                <Button variant="outline" href="/o-nama/lokacija">
+                  <i className="fas fa-map-location-dot" aria-hidden />
+                  Како до нас
+                </Button>
+              </div>
+            </div>
+            <div className={styles.contactCtaMap}>
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2832.5!2d20.4565!3d44.7733!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x475a7009d2b5e8d3%3A0x5f8e8b6f7c6d3e0!2z0JjQvdGB0YLQuNGC0YPRgiDQt9CwINC60LDRgNC00LjQvtCy0LDRgdC60YPQu9Cw0YDQvdC1INCx0L7Qu9C10YHRgtC4INCU0LXQtNC40ZrQtQ!5e0!3m2!1ssr!2srs!4v1700000000000!5m2!1ssr!2srs"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Локација Института"
               />
             </div>
-            <div className="news-grid">
-              {newsSection.news
-                ?.filter((item) => item.size === "large")
-                .slice(0, 1)
-                .map((item) => (
-                  <NewsCard
-                    key={item._key}
-                    image={
-                      (item.image?.asset && "url" in item.image.asset
-                        ? item.image.asset.url
-                        : "") || "/images/o_nama_image.png"
-                    }
-                    category={item.category}
-                    date={item.date}
-                    author={item.author}
-                    title={item.title}
-                    description={item.description}
-                    linkHref={item.linkHref}
-                    size="large"
-                  />
-                ))}
-              <div className="news-sidebar">
-                {newsSection.news
-                  ?.filter((item) => item.size === "small")
-                  .map((item) => (
-                    <NewsCard
-                      key={item._key}
-                      image={
-                        (item.image?.asset && "url" in item.image.asset
-                          ? item.image.asset.url
-                          : "") || "/images/o_nama_image.png"
-                      }
-                      category={item.category}
-                      date={item.date}
-                      title={item.title}
-                      linkHref={item.linkHref}
-                      size="small"
-                    />
-                  ))}
-              </div>
-            </div>
-          </Container>
-        </section>
-      )}
-
-      {/* Parallax Contact Section */}
-      {contactSection && (
-        <section className="parallax-section parallax-appointment">
-          <div className="parallax-overlay dark"></div>
-          <div className="parallax-content">
-            <Container>
-              <div className="appointment-wrapper">
-                <div className="appointment-info">
-                  <Heading
-                    variant="h2"
-                    color="light"
-                    text={contactSection.heading}
-                  />
-                  {contactSection.subheading && (
-                    <Text color="light" text={contactSection.subheading} />
-                  )}
-                  {contactSection.contactInfo && (
-                    <div className="appointment-contact">
-                      {contactSection.contactInfo.phone && (
-                        <div className="contact-item">
-                          <div className="contact-icon">
-                            <i className="fas fa-phone-alt"></i>
-                          </div>
-                          <div className="contact-text">
-                            <Text text="Телефон" as="span" />
-                            <Text
-                              text={contactSection.contactInfo.phone}
-                              as="strong"
-                            />
-                          </div>
-                        </div>
-                      )}
-                      {contactSection.contactInfo.email && (
-                        <div className="contact-item">
-                          <div className="contact-icon">
-                            <i className="fas fa-envelope"></i>
-                          </div>
-                          <div className="contact-text">
-                            <Text text="Е-пошта" as="span" />
-                            <Text
-                              text={contactSection.contactInfo.email}
-                              as="strong"
-                            />
-                          </div>
-                        </div>
-                      )}
-                      {contactSection.contactInfo.address && (
-                        <div className="contact-item">
-                          <div className="contact-icon">
-                            <i className="fas fa-map-marker-alt"></i>
-                          </div>
-                          <div className="contact-text">
-                            <Text text="Адреса" as="span" />
-                            <Text
-                              text={contactSection.contactInfo.address}
-                              as="strong"
-                            />
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </div>
-                <div className="appointment-form-wrapper" id="contact">
-                  <form className="appointment-form">
-                    <div className="form-row">
-                      <div className="form-group">
-                        <input type="text" id="name" required />
-                        <label htmlFor="name">
-                          {contactSection.formFields?.namePlaceholder ||
-                            "Име и презиме"}
-                        </label>
-                      </div>
-                      <div className="form-group">
-                        <input type="email" id="email" required />
-                        <label htmlFor="email">
-                          {contactSection.formFields?.emailPlaceholder ||
-                            "Е-пошта"}
-                        </label>
-                      </div>
-                    </div>
-                    <div className="form-row">
-                      <div className="form-group">
-                        <input type="tel" id="phone" required />
-                        <label htmlFor="phone">
-                          {contactSection.formFields?.phonePlaceholder ||
-                            "Телефон"}
-                        </label>
-                      </div>
-                      <div className="form-group">
-                        <select id="department" required>
-                          <option value="" disabled></option>
-                          {contactSection.departments?.map((dept, index) => (
-                            <option key={index} value={dept}>
-                              {dept}
-                            </option>
-                          ))}
-                        </select>
-                        <label htmlFor="department">
-                          {contactSection.formFields?.departmentLabel ||
-                            "Одељење"}
-                        </label>
-                      </div>
-                    </div>
-                    <div className="form-row">
-                      <div className="form-group">
-                        <input type="date" id="date" required />
-                        <label htmlFor="date" className="date-label">
-                          {contactSection.formFields?.dateLabel ||
-                            "Жељени датум"}
-                        </label>
-                      </div>
-                      <div className="form-group">
-                        <select id="time" required>
-                          <option value="" disabled></option>
-                          <option value="09:00">09:00</option>
-                          <option value="10:00">10:00</option>
-                          <option value="11:00">11:00</option>
-                          <option value="12:00">12:00</option>
-                          <option value="14:00">14:00</option>
-                          <option value="15:00">15:00</option>
-                          <option value="16:00">16:00</option>
-                        </select>
-                        <label htmlFor="time">
-                          {contactSection.formFields?.timeLabel || "Време"}
-                        </label>
-                      </div>
-                    </div>
-                    <div className="form-group full">
-                      <textarea id="message" rows={3}></textarea>
-                      <label htmlFor="message">
-                        {contactSection.formFields?.notesPlaceholder ||
-                          "Додатне напомене"}
-                      </label>
-                    </div>
-                    <Button variant="submit" type="submit">
-                      <Text
-                        text={
-                          contactSection.formFields?.submitButtonText ||
-                          "Пошаљите поруку"
-                        }
-                        as="span"
-                        color="light"
-                      />
-                      <i className="fas fa-arrow-right"></i>
-                    </Button>
-                  </form>
-                </div>
-              </div>
-            </Container>
           </div>
-        </section>
-      )}
+        </Container>
+      </section>
 
-      {/* Partners Section */}
+      {/* Partners */}
       {partnersSection && (
         <section className="partners-section">
           <Container>
             <div className="section-header centered">
-              <Heading
-                variant="h3"
-                align="center"
-                text={partnersSection.heading}
-              />
+              <Heading variant="h3" align="center" text={partnersSection.heading} />
             </div>
             <div className="partners-slider">
               {partnersSection.partners.map((partner) => (
-                <PartnerLogo
-                  key={partner._key}
-                  icon={partner.icon || ""}
-                  text={partner.name}
-                />
+                <PartnerLogo key={partner._key} icon={partner.icon || ""} text={partner.name} />
               ))}
             </div>
           </Container>

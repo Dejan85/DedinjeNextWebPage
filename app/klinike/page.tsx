@@ -4,7 +4,6 @@ import {
   ClinicCard,
   ClinicCardGrid,
   Section,
-  Button,
   Container,
 } from "@/components/shared";
 import { metadata } from "./metadata";
@@ -177,30 +176,6 @@ export default async function KlinikePage() {
         </Container>
       </Section>
 
-      {/* CTA */}
-      <section className={styles.ctaSection}>
-        <Container>
-          <div className={styles.ctaContent}>
-            <div className={styles.ctaIcon}>
-              <i className="fas fa-phone" aria-hidden />
-            </div>
-            <h2>Потребне су вам додатне информације?</h2>
-            <p>
-              Наш тим стручњака је спреман да одговори на сва ваша питања и
-              помогне вам да пронађете одговарајућу клинику за ваше потребе
-            </p>
-            <div className={styles.ctaButtons}>
-              <Button variant="primary" href="/kontakt">
-                <i className="fas fa-phone" aria-hidden />
-                Контактирајте нас
-              </Button>
-              <Button variant="secondary" href="/o-institutu">
-                <i className="fas fa-info-circle" aria-hidden />О Институту
-              </Button>
-            </div>
-          </div>
-        </Container>
-      </section>
     </>
   );
 }

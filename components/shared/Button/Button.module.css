@@ -211,7 +211,9 @@
 }
 
 .btnOutline {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
     padding: 14px 32px;
     background: transparent;
     border: 2px solid var(--primary);

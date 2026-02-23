@@ -379,7 +379,7 @@ async function migrateAll() {
             { _key: "feature-1-3", text: "Операције аорте", link: "#" },
           ],
           ctaText: "Сазнајте више",
-          ctaLink: "#",
+          ctaLink: "/klinike/kardiohirurgija",
         },
         {
           _key: "service-2",
@@ -394,7 +394,7 @@ async function migrateAll() {
             { _key: "feature-2-3", text: "Стрес тестови", link: "#" },
           ],
           ctaText: "Сазнајте више",
-          ctaLink: "#",
+          ctaLink: "/klinike/kardiologija",
         },
         {
           _key: "service-3",
@@ -409,7 +409,7 @@ async function migrateAll() {
             { _key: "feature-3-3", text: "Периферна хирургија", link: "#" },
           ],
           ctaText: "Сазнајте више",
-          ctaLink: "#",
+          ctaLink: "/klinike/vaskularna-hirurgija",
         },
         {
           _key: "service-4",
@@ -424,7 +424,7 @@ async function migrateAll() {
             { _key: "feature-4-3", text: "Катетеризација", link: "#" },
           ],
           ctaText: "Сазнајте више",
-          ctaLink: "#",
+          ctaLink: "/klinike/invazivna-dijagnostika",
         },
       ],
     };

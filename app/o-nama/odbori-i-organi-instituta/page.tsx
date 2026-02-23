@@ -4,7 +4,6 @@ import { useState } from "react";
 import {
   Container,
   PageHeader,
-  Button,
   Section,
 } from "@/components/shared";
 import styles from "./page.module.css";
@@ -223,30 +222,6 @@ export default function OdboriIOrganiPage() {
         </Container>
       </Section>
 
-      {/* CTA */}
-      <section className={styles.ctaSection}>
-        <Container>
-          <div className={styles.ctaContent}>
-            <div className={styles.ctaIcon}>
-              <i className="fas fa-phone" aria-hidden />
-            </div>
-            <h2>Потребне су вам додатне информације?</h2>
-            <p>
-              За питања о раду органа и одбора Института, контактирајте нас.
-            </p>
-            <div className={styles.ctaButtons}>
-              <Button variant="primary" href="/kontakt">
-                <i className="fas fa-phone" aria-hidden />
-                Контактирајте нас
-              </Button>
-              <Button variant="secondary" href="/o-institutu">
-                <i className="fas fa-hospital" aria-hidden />
-                О Институту
-              </Button>
-            </div>
-          </div>
-        </Container>
-      </section>
     </>
   );
 }

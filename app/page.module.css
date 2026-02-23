@@ -1,73 +1,7 @@
-.teamGrid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 30px;
-}
-
-.teamCta {
-  text-align: center;
-  margin-top: 50px;
-}
-
-.testimonialsSection {
-  padding: 120px 0;
-  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-}
-
-.testimonialsSlider {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
-  margin-bottom: 40px;
-}
-
-.testimonialsNav {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-}
-
-.testimonialNavButton {
-  width: 50px;
-  height: 50px;
-  background: rgba(255, 255, 255, 0.2);
-  border: none;
-  border-radius: 50%;
-  color: var(--white);
-  font-size: 18px;
-  cursor: pointer;
-  transition: var(--transition);
-}
-
-.testimonialNavButton:hover {
-  background: var(--white);
-  color: var(--primary);
-}
-
-.testimonialsDots {
-  display: flex;
-  gap: 10px;
-}
-
-.dot {
-  width: 12px;
-  height: 12px;
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  cursor: pointer;
-  transition: var(--transition);
-}
-
-.dotActive,
-.dot:hover {
-  background: var(--white);
-}
-
-.welcomeSection {
-  padding: 120px 0;
-  background: var(--white);
-}
+/* ========================================
+   WELCOME SECTION (existing, kept)
+======================================== */
+.welcomeSection { padding: 120px 0; background: var(--white); }
 
 .welcomeGrid {
   display: grid;
@@ -76,22 +10,9 @@
   align-items: center;
 }
 
-.welcomeContent h2 {
-  font-size: 40px;
-  margin-bottom: 25px;
-  line-height: 1.2;
-}
-
-.welcomeContent :global(.lead) {
-  font-size: 18px;
-  color: var(--gray-600);
-  margin-bottom: 20px;
-  line-height: 1.8;
-}
-
-.welcomeContent p {
-  margin-bottom: 30px;
-}
+.welcomeContent h2 { font-size: 40px; margin-bottom: 25px; line-height: 1.2; }
+.welcomeContent :global(.lead) { font-size: 18px; color: var(--gray-600); margin-bottom: 20px; line-height: 1.8; }
+.welcomeContent p { margin-bottom: 30px; }
 
 .welcomeFeatures {
   display: grid;
@@ -100,21 +21,9 @@
   margin-bottom: 35px;
 }
 
-.welcomeImages {
-  position: relative;
-}
-
-.welcomeImgMain {
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: var(--shadow-xl);
-}
-
-.welcomeImgMain img {
-  width: 100%;
-  height: 450px;
-  object-fit: cover;
-}
+.welcomeImages { position: relative; }
+.welcomeImgMain { border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-xl); }
+.welcomeImgMain img { width: 100%; height: 450px; object-fit: cover; }
 
 .welcomeImgSecondary {
   position: absolute;
@@ -127,11 +36,7 @@
   border: 5px solid var(--white);
 }
 
-.welcomeImgSecondary img {
-  width: 100%;
-  height: 160px;
-  object-fit: cover;
-}
+.welcomeImgSecondary img { width: 100%; height: 160px; object-fit: cover; }
 
 .experienceBadge {
   position: absolute;
@@ -149,59 +54,556 @@
   box-shadow: var(--shadow-xl);
 }
 
-.expNumber {
-  font-size: 42px;
+.expNumber { font-size: 42px; font-weight: 700; color: var(--white); line-height: 1; }
+.expText { font-size: 12px; color: rgba(255, 255, 255, 0.9); text-transform: uppercase; letter-spacing: 1px; line-height: 1.2; }
+
+/* ========================================
+   SECTION HEADER (shared)
+======================================== */
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid var(--gray-200);
+}
+
+.sectionIconWrap {
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.sectionIconWrap i { font-size: 22px; color: var(--white); }
+.sectionHeader h2 { font-size: 22px; font-weight: 800; color: var(--gray-800); margin: 0 0 4px; }
+.sectionHeader p { font-size: 14px; color: var(--gray-500); margin: 0; }
+
+.sectionCta { text-align: center; margin-top: 28px; }
+
+/* ========================================
+   DIRECTOR QUOTE SECTION
+======================================== */
+.directorCard {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.06);
+}
+
+.directorLeft {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.directorLeft::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  right: -40%;
+  width: 200px;
+  height: 200px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 50%;
+}
+
+.directorAvatarLarge {
+  width: 80px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.directorAvatarLarge i { font-size: 32px; color: var(--white); }
+
+.directorMeta { margin-bottom: 20px; }
+.directorMeta strong { display: block; font-size: 15px; font-weight: 700; color: var(--white); line-height: 1.4; margin-bottom: 4px; }
+.directorMeta span { font-size: 13px; color: rgba(255, 255, 255, 0.7); }
+
+.directorLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--white);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.directorLink:hover { background: rgba(255, 255, 255, 0.25); }
+.directorLink i { font-size: 11px; }
+
+.directorRight {
+  padding: 48px 48px 48px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.directorQuoteIcon {
+  width: 48px;
+  height: 48px;
+  background: rgba(190, 30, 45, 0.08);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.directorQuoteIcon i { font-size: 18px; color: var(--primary); }
+
+.directorQuote {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.9;
+  color: var(--gray-700);
+  margin: 0;
+  font-style: italic;
+  border-left: 3px solid var(--primary);
+  padding-left: 24px;
+}
+
+/* ========================================
+   CLINICS GRID
+======================================== */
+.clinicsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.clinicCard {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 20px;
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 14px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.clinicCard:hover {
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+  transform: translateY(-2px);
+  border-color: var(--primary);
+}
+
+.clinicCardIcon {
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.clinicCardIcon i { font-size: 18px; color: var(--white); }
+.clinicCard strong { display: block; font-size: 14px; font-weight: 700; color: var(--gray-800); margin-bottom: 2px; }
+.clinicCard p { font-size: 12px; color: var(--gray-500); margin: 0; }
+.clinicCard > div:nth-child(2) { flex: 1; }
+
+.clinicArrow {
+  width: 28px;
+  height: 28px;
+  background: var(--gray-100);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.clinicCard:hover .clinicArrow {
+  background: var(--primary);
+}
+
+.clinicArrow i { font-size: 10px; color: var(--gray-400); transition: color 0.2s ease; }
+.clinicCard:hover .clinicArrow i { color: var(--white); }
+
+/* ========================================
+   PATIENT GRID
+======================================== */
+.patientGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.patientCard {
+  padding: 24px 22px;
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: 14px;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.patientCard:hover {
+  background: var(--white);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
+  transform: translateY(-3px);
+  border-color: var(--primary);
+}
+
+.patientCardIcon {
+  width: 48px;
+  height: 48px;
+  background: var(--gray-100);
+  border: 1px solid var(--gray-200);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 14px;
+  transition: all 0.3s ease;
+}
+
+.patientCard:hover .patientCardIcon {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  border-color: transparent;
+}
+
+.patientCardIcon i { font-size: 20px; color: var(--primary); transition: color 0.3s ease; }
+.patientCard:hover .patientCardIcon i { color: var(--white); }
+
+.patientCard h4 { font-size: 14px; font-weight: 700; color: var(--gray-800); margin: 0 0 6px; }
+.patientCard p { font-size: 12px; color: var(--gray-500); margin: 0; line-height: 1.5; }
+
+/* ========================================
+   TEAM (existing)
+======================================== */
+.teamGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+/* ========================================
+   TESTIMONIALS (existing)
+======================================== */
+.testimonialsSection {
+  padding: 100px 0;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+}
+
+.testimonialsSlider {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.testimonialsNav { display: flex; align-items: center; justify-content: center; gap: 20px; }
+
+.testimonialNavButton {
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 50%;
+  color: var(--white);
+  font-size: 18px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.testimonialNavButton:hover { background: var(--white); color: var(--primary); }
+
+.testimonialsDots { display: flex; gap: 10px; }
+.dot { width: 12px; height: 12px; background: rgba(255, 255, 255, 0.3); border-radius: 50%; cursor: pointer; transition: var(--transition); }
+.dotActive, .dot:hover { background: var(--white); }
+
+/* ========================================
+   NEWS + GOSTOVANJA GRID
+======================================== */
+.newsGostovanjaGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: stretch;
+}
+
+.newsGostovanjaColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.newsGostovanjaItems {
+  flex: 1;
+  min-height: 0;
+}
+
+.newsGostovanjaColumn .seeAllLink {
+  margin-top: auto;
+  padding-top: 16px;
+}
+
+.sectionHeaderSmall {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--gray-200);
+}
+
+.sectionIconSmall {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.sectionIconSmall i { font-size: 16px; color: var(--white); }
+.sectionHeaderSmall h3 { font-size: 18px; font-weight: 800; color: var(--gray-800); margin: 0; }
+
+.newsItem {
+  display: block;
+  padding: 16px 18px;
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 12px;
+  text-decoration: none;
+  margin-bottom: 10px;
+  transition: all 0.3s ease;
+}
+
+.newsItem:hover {
+  border-color: var(--primary);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  transform: translateY(-2px);
+}
+
+.newsItemMeta { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+
+.newsDate {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--gray-500);
+}
+
+.newsDate i { font-size: 10px; }
+
+.newsCategory {
+  font-size: 10px;
   font-weight: 700;
+  text-transform: uppercase;
+  color: var(--primary);
+  background: rgba(190, 30, 45, 0.08);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.newsItem h4 { font-size: 14px; font-weight: 700; color: var(--gray-800); margin: 0 0 4px; line-height: 1.4; }
+.newsItem p { font-size: 12px; color: var(--gray-500); margin: 0; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+.gostovanjeItem {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 12px;
+  text-decoration: none;
+  margin-bottom: 10px;
+  transition: all 0.3s ease;
+}
+
+.gostovanjeItem:hover {
+  border-color: var(--primary);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  transform: translateY(-2px);
+}
+
+.gostovanjeThumb {
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.gostovanjeThumb i { font-size: 20px; color: var(--white); }
+
+.gostovanjeInfo { flex: 1; min-width: 0; }
+.gostovanjeInfo h4 { font-size: 13px; font-weight: 700; color: var(--gray-800); margin: 0; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+.seeAllLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--primary);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  margin-top: 8px;
+  transition: gap 0.2s ease;
+}
+
+.seeAllLink:hover { gap: 12px; }
+.seeAllLink i { font-size: 12px; }
+
+/* ========================================
+   CONTACT CTA
+======================================== */
+.contactCta {
+  padding: 72px 0;
+  background: var(--white);
+}
+
+.contactCtaInner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: stretch;
+}
+
+.contactCtaInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.contactCtaIcon {
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.contactCtaIcon i { font-size: 26px; color: var(--white); }
+.contactCtaInfo h2 { font-size: 24px; font-weight: 800; color: var(--gray-800); margin: 0 0 10px; }
+.contactCtaInfo > p { font-size: 15px; color: var(--gray-600); line-height: 1.7; margin: 0 0 24px; }
+
+.contactCtaDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.contactCtaItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: 12px;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s ease;
+}
+
+.contactCtaItem:hover { border-color: var(--primary); background: var(--white); }
+
+.contactCtaItemIcon {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  min-height: 36px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  align-self: center;
+  position: relative;
+}
+
+.contactCtaItemIcon i {
+  font-size: 14px;
   color: var(--white);
   line-height: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.contactCtaItem span { font-size: 11px; color: var(--gray-500); display: block; }
+.contactCtaItem strong { font-size: 14px; font-weight: 700; color: var(--gray-800); }
+
+.contactCtaButtons { display: flex; gap: 14px; flex-wrap: wrap; }
+
+.contactCtaMap {
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 2px solid var(--gray-200);
+  min-height: 380px;
 }
 
-.expText {
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.9);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  line-height: 1.2;
-}
-
+/* ========================================
+   RESPONSIVE
+======================================== */
 @media (max-width: 1024px) {
-  .welcomeGrid {
-    grid-template-columns: 1fr;
-    gap: 50px;
-  }
-
-  .welcomeImages {
-    order: -1;
-  }
+  .welcomeGrid { grid-template-columns: 1fr; gap: 50px; }
+  .welcomeImages { order: -1; }
+  .clinicsGrid { grid-template-columns: repeat(2, 1fr); }
+  .contactCtaInner { grid-template-columns: 1fr; }
+  .contactCtaMap { min-height: 300px; }
 }
 
 @media (max-width: 1200px) {
-  .teamGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .testimonialsSlider {
-    grid-template-columns: 1fr;
-  }
+  .teamGrid { grid-template-columns: repeat(2, 1fr); }
+  .testimonialsSlider { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 768px) {
-  .teamGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .welcomeImgSecondary {
-    display: none;
-  }
-
-  .experienceBadge {
-    right: 10px;
-    width: 100px;
-    height: 100px;
-  }
-
-  .expNumber {
-    font-size: 32px;
-  }
+  .teamGrid { grid-template-columns: 1fr; }
+  .welcomeImgSecondary { display: none; }
+  .experienceBadge { right: 10px; width: 100px; height: 100px; }
+  .expNumber { font-size: 32px; }
+  .sectionHeader { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .clinicsGrid { grid-template-columns: 1fr; }
+  .patientGrid { grid-template-columns: 1fr; }
+  .newsGostovanjaGrid { grid-template-columns: 1fr; }
+  .directorCard { grid-template-columns: 1fr; }
+  .directorLeft { padding: 28px 24px; }
+  .directorRight { padding: 28px 24px; }
+  .directorQuote { font-size: 15px; }
 }
-

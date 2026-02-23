@@ -111,7 +111,14 @@
   border-top: 1px solid var(--gray-200);
 }
 
-.ctaContent { text-align: center; max-width: 600px; margin: 0 auto; }
+.ctaContent {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 .ctaIcon {
   width: 64px;
@@ -128,7 +135,14 @@
 .ctaContent h2 { font-size: 24px; font-weight: 800; color: var(--gray-800); margin: 0 0 12px; }
 .ctaContent p { font-size: 15px; color: var(--gray-600); line-height: 1.7; margin: 0 0 28px; }
 
-.ctaButtons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.ctaButtons {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
 
 @media (max-width: 992px) {
   .areasGrid { grid-template-columns: repeat(2, 1fr); }
