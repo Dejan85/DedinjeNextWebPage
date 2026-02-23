@@ -1,0 +1,270 @@
+/* ===== Section titles ===== */
+.sectionTitle {
+  margin-bottom: 16px;
+}
+
+/* ===== Simulation highlight ===== */
+.simHighlight {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.06), rgba(var(--primary-rgb), 0.02));
+  border-left: 4px solid var(--primary);
+  border-radius: 0 12px 12px 0;
+  padding: 24px 28px;
+  margin-top: 28px;
+}
+
+.simHighlight > i {
+  font-size: 22px;
+  color: var(--primary);
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.simHighlight > p {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--gray-700);
+  margin: 0;
+  font-style: italic;
+}
+
+.simHighlight h4 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--gray-800);
+  margin: 0 0 8px;
+}
+
+.simHighlight div > p {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--gray-600);
+  margin: 0 0 8px;
+}
+
+.simHighlight ul {
+  margin: 8px 0;
+  padding-left: 20px;
+}
+
+.simHighlight li {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--gray-600);
+  margin-bottom: 4px;
+}
+
+.note {
+  font-style: italic;
+  color: var(--gray-500);
+}
+
+/* ===== Program header ===== */
+.programHeader {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.programIcon {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--primary), var(--primary-darker));
+  border-radius: 14px;
+  flex-shrink: 0;
+}
+
+.programIcon i {
+  font-size: 22px;
+  color: var(--white);
+}
+
+.programHeader h2 {
+  margin: 0;
+}
+
+/* ===== Modules grid ===== */
+.modulesGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.moduleCard {
+  background: var(--gray-50);
+  border-radius: 14px;
+  padding: 28px 24px;
+  border: 1px solid var(--gray-200);
+  transition: box-shadow 0.25s ease;
+}
+
+.moduleCard:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.moduleIcon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary);
+  border-radius: 12px;
+  margin-bottom: 16px;
+}
+
+.moduleIcon i {
+  font-size: 18px;
+  color: var(--white);
+}
+
+.moduleCard h4 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--gray-800);
+  margin: 0 0 8px;
+}
+
+.moduleCard p {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--gray-600);
+  margin: 0;
+}
+
+/* ===== Plan block ===== */
+.planBlock {
+  margin-top: 36px;
+}
+
+.planTitle {
+  margin-bottom: 20px;
+}
+
+.planSteps {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.planStep {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  background: var(--gray-50);
+  border-radius: 12px;
+  padding: 20px 24px;
+  border: 1px solid var(--gray-200);
+}
+
+.stepNumber {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary);
+  color: var(--white);
+  border-radius: 50%;
+  font-size: 16px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.planStep h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--gray-800);
+  margin: 0 0 4px;
+}
+
+.planStep p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--gray-600);
+  margin: 0;
+}
+
+/* ===== Contact ===== */
+.contactCard {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 800px;
+  margin: 32px auto 0;
+}
+
+.contactItem {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: 14px;
+  padding: 20px 24px;
+}
+
+.contactIcon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--primary), var(--primary-darker));
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.contactIcon i {
+  font-size: 18px;
+  color: var(--white);
+}
+
+.contactLabel {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--gray-500);
+  margin-bottom: 2px;
+}
+
+.contactValue {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--gray-800);
+  text-decoration: none;
+}
+
+a.contactValue:hover {
+  color: var(--primary);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .modulesGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .contactCard {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .simHighlight {
+    padding: 20px 24px;
+  }
+
+  .planStep {
+    padding: 16px 20px;
+  }
+}

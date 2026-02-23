@@ -1,0 +1,9 @@
+import type { Metadata } from "next";
+
+export function generateMetadata(): Metadata {
+  return {
+    title: "Конгреси | Едукација | Институт Дедиње",
+    description:
+      "Међународни конгреси и симпозијуми Института за кардиоваскуларне болести Дедиње – годишњи конгрес, Brano Heart Failure Forum и конгрес кардиоваскуларне превенције.",
+  };
+}
