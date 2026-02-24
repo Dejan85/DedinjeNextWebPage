@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: process.env.BUILD_STATIC === "true" ? "export" : undefined,
+  serverExternalPackages: ["sanity", "@sanity/client", "@sanity/image-url", "next-sanity"],
   turbopack: {
     resolveAlias: {
       canvas: "./empty-module.js",
