@@ -99,7 +99,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
     const timer = setInterval(() => {
       setDirection(1);
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000);
+    }, 8000);
 
     return () => clearInterval(timer);
   }, [currentSlide, isSlider, slides.length]);

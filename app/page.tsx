@@ -36,6 +36,7 @@ import type {
   WhyChooseUsFeature,
 } from "@/sanity/types";
 import { GOSTOVANJA } from "./aktuelnosti/gostovanja/constants";
+import { VESTI } from "./aktuelnosti/constants";
 
 interface PageBuilder {
   _type: string;
@@ -85,17 +86,33 @@ export default async function Home() {
     sanityError = true;
   }
 
-  const heroSlides = pageBuilder.filter((item) => item._type === "hero");
-  const fallbackHeroSlides = [
+  const videoHeroSlides = [
     {
-      img: "/images/o_nama_image.png",
-      imgAlt: 'Институт за кардиоваскуларне болести „Дедиње"',
+      videoSrc: "/videos/institut-dedinje-video-2.mp4",
       badge: "Институт",
       title: 'Институт за кардиоваскуларне болести „Дедиње"',
       subtitle: "Савремена дијагностика и лечење, врхунски тим стручњака и најновија медицинска технологија — у служби вашег здравља.",
     },
+    {
+      videoSrc: "/videos/klinike-video.mp4",
+      badge: "Клинике",
+      title: "Врхунска кардиоваскуларна нега",
+      subtitle: "Специјализоване клинике опремљене најсавременијом медицинском технологијом за дијагностику и лечење.",
+    },
+    {
+      videoSrc: "/images/o-institutu.mp4",
+      badge: "О нама",
+      title: "Више од 60 година искуства",
+      subtitle: "Традиција изврсности у кардиоваскуларној медицини, препозната у региону и шире.",
+    },
+    {
+      videoSrc: "/videos/rec-direktora.mp4",
+      badge: "Реч директора",
+      title: "У служби здравља наших пацијената",
+      subtitle: "Мисија Института је пружање најквалитетније здравствене заштите сваком пацијенту.",
+    },
   ];
-  const slidesForHero = heroSlides.length > 0 ? heroSlides : fallbackHeroSlides;
+  const slidesForHero = videoHeroSlides;
   const infoBoxes = pageBuilder.filter((item) => item._type === "infoBox") as InfoBoxType[];
   const welcomeSection = pageBuilder.find((item) => item._type === "welcomeSection") as WelcomeSection | undefined;
   const statsSection = pageBuilder.find((item) => item._type === "statsSection") as StatsSection | undefined;
@@ -270,7 +287,7 @@ export default async function Home() {
                 <i className="fas fa-user-tie" aria-hidden />
               </div>
               <div className={styles.directorMeta}>
-                <strong>Проф. др сци. мед. Предраг Мићовић</strong>
+                <strong>Академик проф. др Милован М. Бојић</strong>
                 <span>Директор Института</span>
               </div>
               <Link href="/rec-direktora" className={styles.directorLink}>
@@ -467,17 +484,17 @@ export default async function Home() {
                 <h3>Најновије вести</h3>
               </div>
               <div className={styles.newsGostovanjaItems}>
-                {newsSection?.news?.slice(0, 3).map((item) => (
-                  <Link key={item._key} href={item.linkHref || "#"} className={styles.newsItem}>
+                {VESTI.slice(0, 3).map((vest) => (
+                  <Link key={vest.id} href={`/aktuelnosti/${vest.slug}`} className={styles.newsItem}>
                     <div className={styles.newsItemMeta}>
                       <span className={styles.newsDate}>
                         <i className="fas fa-calendar" aria-hidden />
-                        {item.date}
+                        {vest.date}
                       </span>
-                      {item.category && <span className={styles.newsCategory}>{item.category}</span>}
+                      <span className={styles.newsCategory}>{vest.category}</span>
                     </div>
-                    <h4>{item.title}</h4>
-                    {item.description && <p>{item.description}</p>}
+                    <h4>{vest.title}</h4>
+                    <p>{vest.excerpt}</p>
                   </Link>
                 ))}
               </div>
