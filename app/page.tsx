@@ -44,17 +44,47 @@ interface PageBuilder {
 }
 
 const PATIENT_LINKS = [
-  { icon: "fas fa-hospital-user", title: "Пријем у болницу", desc: "Информације о пријему и припреми", href: "/za-pacijente/prijem" },
-  { icon: "fas fa-circle-question", title: "Честа питања", desc: "Одговори на најчешћа питања", href: "/za-pacijente/cesta-pitanja" },
-  { icon: "fas fa-heart-pulse", title: "Кардиохируршки конзилијум", desc: "Документација и термини", href: "/za-pacijente/kardiohirurski-konzilijum" },
-  { icon: "fas fa-stethoscope", title: "Васкуларни конзилијум", desc: "Процес рада и контакт", href: "/za-pacijente/vaskularni-konzilijum" },
-  { icon: "fas fa-clipboard-list", title: "Амбуланте", desc: "Радно време и локације", href: "/za-pacijente/ambulante" },
-  { icon: "fas fa-utensils", title: "План исхране", desc: "Препоруке за исхрану", href: "/za-pacijente/plan-ishrane" },
+  {
+    icon: "fas fa-hospital-user",
+    title: "Пријем у болницу",
+    desc: "Информације о пријему и припреми",
+    href: "/za-pacijente/prijem",
+  },
+  {
+    icon: "fas fa-circle-question",
+    title: "Честа питања",
+    desc: "Одговори на најчешћа питања",
+    href: "/za-pacijente/cesta-pitanja",
+  },
+  {
+    icon: "fas fa-heart-pulse",
+    title: "Кардиохируршки конзилијум",
+    desc: "Документација и термини",
+    href: "/za-pacijente/kardiohirurski-konzilijum",
+  },
+  {
+    icon: "fas fa-stethoscope",
+    title: "Васкуларни конзилијум",
+    desc: "Процес рада и контакт",
+    href: "/za-pacijente/vaskularni-konzilijum",
+  },
+  {
+    icon: "fas fa-clipboard-list",
+    title: "Амбуланте",
+    desc: "Радно време и локације",
+    href: "/za-pacijente/ambulante",
+  },
+  {
+    icon: "fas fa-utensils",
+    title: "План исхране",
+    desc: "Препоруке за исхрану",
+    href: "/za-pacijente/plan-ishrane",
+  },
 ];
 
 const SERVICE_LINK_MAP: Record<string, string> = {
-  "Кардиохирургија": "/klinike/kardiohirurgija",
-  "Кардиологија": "/klinike/kardiologija",
+  Кардиохирургија: "/klinike/kardiohirurgija",
+  Кардиологија: "/klinike/kardiologija",
   "Васкуларна хирургија": "/klinike/vaskularna-hirurgija",
   "Интервентна кардиологија": "/klinike/invazivna-dijagnostika",
 };
@@ -66,12 +96,42 @@ function getServiceLink(service: ServiceCardItem): string {
 }
 
 const CLINICS_FEATURED = [
-  { icon: "fas fa-heart-pulse", title: "Кардиохирургија", desc: "Оперативно лечење срчаних обољења", href: "/klinike/kardiohirurgija" },
-  { icon: "fas fa-stethoscope", title: "Васкуларна хирургија", desc: "Лечење крвних судова", href: "/klinike/vaskularna-hirurgija" },
-  { icon: "fas fa-heart", title: "Кардиологија", desc: "Дијагностика и лечење срца", href: "/klinike/kardiologija" },
-  { icon: "fas fa-syringe", title: "Анестезиологија", desc: "Анестезија и интензивна нега", href: "/klinike/anesteziologija" },
-  { icon: "fas fa-heartbeat", title: "Инвазивна дијагностика", desc: "Катетеризација и интервенције", href: "/klinike/invazivna-dijagnostika" },
-  { icon: "fas fa-heart-circle-check", title: "Центар за срчану слабост", desc: "Комплексно лечење", href: "/klinike/centar-srcana-slabost" },
+  {
+    icon: "fas fa-heart-pulse",
+    title: "Кардиохирургија",
+    desc: "Оперативно лечење срчаних обољења",
+    href: "/klinike/kardiohirurgija",
+  },
+  {
+    icon: "fas fa-stethoscope",
+    title: "Васкуларна хирургија",
+    desc: "Лечење крвних судова",
+    href: "/klinike/vaskularna-hirurgija",
+  },
+  {
+    icon: "fas fa-heart",
+    title: "Кардиологија",
+    desc: "Дијагностика и лечење срца",
+    href: "/klinike/kardiologija",
+  },
+  {
+    icon: "fas fa-syringe",
+    title: "Анестезиологија",
+    desc: "Анестезија и интензивна нега",
+    href: "/klinike/anesteziologija",
+  },
+  {
+    icon: "fas fa-heartbeat",
+    title: "Инвазивна дијагностика",
+    desc: "Катетеризација и интервенције",
+    href: "/klinike/invazivna-dijagnostika",
+  },
+  {
+    icon: "fas fa-heart-circle-check",
+    title: "Центар за срчану слабост",
+    desc: "Комплексно лечење",
+    href: "/klinike/centar-srcana-slabost",
+  },
 ];
 
 export default async function Home() {
@@ -91,47 +151,83 @@ export default async function Home() {
       videoSrc: "/videos/institut-dedinje-video-2.mp4",
       badge: "Институт",
       title: 'Институт за кардиоваскуларне болести „Дедиње"',
-      subtitle: "Савремена дијагностика и лечење, врхунски тим стручњака и најновија медицинска технологија — у служби вашег здравља.",
+      subtitle:
+        "Савремена дијагностика и лечење, врхунски тим стручњака и најновија медицинска технологија — у служби вашег здравља.",
     },
     {
       videoSrc: "/videos/klinike-video.mp4",
       badge: "Клинике",
       title: "Врхунска кардиоваскуларна нега",
-      subtitle: "Специјализоване клинике опремљене најсавременијом медицинском технологијом за дијагностику и лечење.",
+      subtitle:
+        "Специјализоване клинике опремљене најсавременијом медицинском технологијом за дијагностику и лечење.",
     },
     {
       videoSrc: "/images/o-institutu.mp4",
       badge: "О нама",
       title: "Више од 60 година искуства",
-      subtitle: "Традиција изврсности у кардиоваскуларној медицини, препозната у региону и шире.",
+      subtitle:
+        "Традиција изврсности у кардиоваскуларној медицини, препозната у региону и шире.",
     },
     {
       videoSrc: "/videos/rec-direktora.mp4",
       badge: "Реч директора",
       title: "У служби здравља наших пацијената",
-      subtitle: "Мисија Института је пружање најквалитетније здравствене заштите сваком пацијенту.",
+      subtitle:
+        "Мисија Института је пружање најквалитетније здравствене заштите сваком пацијенту.",
     },
   ];
   const slidesForHero = videoHeroSlides;
-  const infoBoxes = pageBuilder.filter((item) => item._type === "infoBox") as InfoBoxType[];
-  const welcomeSection = pageBuilder.find((item) => item._type === "welcomeSection") as WelcomeSection | undefined;
-  const statsSection = pageBuilder.find((item) => item._type === "statsSection") as StatsSection | undefined;
-  const servicesSection = pageBuilder.find((item) => item._type === "servicesSection") as ServicesSection | undefined;
-  const whyChooseUsSection = pageBuilder.find((item) => item._type === "whyChooseUsSection") as WhyChooseUsSection | undefined;
-  const ctaSection = pageBuilder.find((item) => item._type === "ctaSection") as CtaSection | undefined;
-  const teamSection = pageBuilder.find((item) => item._type === "teamSection") as TeamSection | undefined;
-  const testimonialsSection = pageBuilder.find((item) => item._type === "testimonialsSection") as TestimonialsSection | undefined;
-  const newsSection = pageBuilder.find((item) => item._type === "newsSection") as NewsSection | undefined;
-  const contactSection = pageBuilder.find((section) => section._type === "contactSection") as ContactSection | undefined;
-  const partnersSection = pageBuilder.find((section) => section._type === "partnersSection") as PartnersSection | undefined;
+  const infoBoxes = pageBuilder.filter(
+    (item) => item._type === "infoBox",
+  ) as InfoBoxType[];
+  const welcomeSection = pageBuilder.find(
+    (item) => item._type === "welcomeSection",
+  ) as WelcomeSection | undefined;
+  const statsSection = pageBuilder.find(
+    (item) => item._type === "statsSection",
+  ) as StatsSection | undefined;
+  const servicesSection = pageBuilder.find(
+    (item) => item._type === "servicesSection",
+  ) as ServicesSection | undefined;
+  const whyChooseUsSection = pageBuilder.find(
+    (item) => item._type === "whyChooseUsSection",
+  ) as WhyChooseUsSection | undefined;
+  const ctaSection = pageBuilder.find((item) => item._type === "ctaSection") as
+    | CtaSection
+    | undefined;
+  const teamSection = pageBuilder.find(
+    (item) => item._type === "teamSection",
+  ) as TeamSection | undefined;
+  const testimonialsSection = pageBuilder.find(
+    (item) => item._type === "testimonialsSection",
+  ) as TestimonialsSection | undefined;
+  const newsSection = pageBuilder.find(
+    (item) => item._type === "newsSection",
+  ) as NewsSection | undefined;
+  const contactSection = pageBuilder.find(
+    (section) => section._type === "contactSection",
+  ) as ContactSection | undefined;
+  const partnersSection = pageBuilder.find(
+    (section) => section._type === "partnersSection",
+  ) as PartnersSection | undefined;
 
   const latestGostovanja = GOSTOVANJA.slice(0, 3);
 
   return (
     <>
       {sanityError && process.env.NODE_ENV === "development" && (
-        <div style={{ background: "#fff3cd", border: "1px solid #ffc107", padding: "15px", textAlign: "center", color: "#856404", fontWeight: "600" }}>
-          Sanity CMS nije dostupan. Pokreni: <code>npm run sanity:dev</code> ili <code>npm run migrate:all</code>
+        <div
+          style={{
+            background: "#fff3cd",
+            border: "1px solid #ffc107",
+            padding: "15px",
+            textAlign: "center",
+            color: "#856404",
+            fontWeight: "600",
+          }}
+        >
+          Sanity CMS nije dostupan. Pokreni: <code>npm run sanity:dev</code> ili{" "}
+          <code>npm run migrate:all</code>
         </div>
       )}
 
@@ -153,7 +249,9 @@ export default async function Home() {
                 linkHref={box.linkHref}
                 emergencyPhone={box.emergencyPhone}
                 emergencyNote={box.emergencyNote}
-                className={box.variant === "emergency" ? "emergency" : undefined}
+                className={
+                  box.variant === "emergency" ? "emergency" : undefined
+                }
               />
             ))}
           </div>
@@ -171,13 +269,22 @@ export default async function Home() {
                 <Text variant="lead" text={welcomeSection.leadText} />
                 <Text variant="body" text={welcomeSection.bodyText} />
                 <div className={styles.welcomeFeatures}>
-                  {welcomeSection.features?.map((feature: WelcomeFeatureType) => (
-                    <WelcomeFeature key={feature._key} icon={feature.icon} text={feature.text} />
-                  ))}
+                  {welcomeSection.features?.map(
+                    (feature: WelcomeFeatureType) => (
+                      <WelcomeFeature
+                        key={feature._key}
+                        icon={feature.icon}
+                        text={feature.text}
+                      />
+                    ),
+                  )}
                 </div>
                 {welcomeSection.ctaButton && (
                   <div className={styles.welcomeCtaWrap}>
-                    <Button href={welcomeSection.ctaButton.link} variant="primary">
+                    <Button
+                      href={welcomeSection.ctaButton.link}
+                      variant="primary"
+                    >
                       {welcomeSection.ctaButton.text}
                     </Button>
                   </div>
@@ -186,21 +293,45 @@ export default async function Home() {
               <div className={styles.welcomeImages}>
                 <div className={styles.welcomeImgMain}>
                   <Image
-                    src={(welcomeSection.image?.asset && "url" in welcomeSection.image.asset ? welcomeSection.image.asset.url : "") || "/images/o_nama_image.png"}
+                    src={
+                      (welcomeSection.image?.asset &&
+                      "url" in welcomeSection.image.asset
+                        ? welcomeSection.image.asset.url
+                        : "") || "/images/o_nama_image.png"
+                    }
                     alt={welcomeSection.heading}
                     width={800}
                     height={600}
                   />
                 </div>
-                {welcomeSection.secondaryImage?.asset && "url" in welcomeSection.secondaryImage.asset && welcomeSection.secondaryImage.asset.url && (
-                  <div className={styles.welcomeImgSecondary}>
-                    <Image src={welcomeSection.secondaryImage.asset.url} alt="Medical equipment" width={400} height={300} />
-                  </div>
-                )}
+                {welcomeSection.secondaryImage?.asset &&
+                  "url" in welcomeSection.secondaryImage.asset &&
+                  welcomeSection.secondaryImage.asset.url && (
+                    <div className={styles.welcomeImgSecondary}>
+                      <Image
+                        src={welcomeSection.secondaryImage.asset.url}
+                        alt="Medical equipment"
+                        width={400}
+                        height={300}
+                      />
+                    </div>
+                  )}
                 {welcomeSection.imageBadge && (
                   <div className={styles.experienceBadge}>
-                    <Text text={welcomeSection.imageBadge.number} as="span" color="light" align="center" className={styles.expNumber} />
-                    <Text text={welcomeSection.imageBadge.text} as="span" color="light" align="center" className={styles.expText} />
+                    <Text
+                      text={welcomeSection.imageBadge.number}
+                      as="span"
+                      color="light"
+                      align="center"
+                      className={styles.expNumber}
+                    />
+                    <Text
+                      text={welcomeSection.imageBadge.text}
+                      as="span"
+                      color="light"
+                      align="center"
+                      className={styles.expText}
+                    />
                   </div>
                 )}
               </div>
@@ -216,12 +347,21 @@ export default async function Home() {
           <div className="parallax-content">
             <Container>
               <div className="stats-intro">
-                <Heading variant="h2" color="light" text={statsSection.heading} />
+                <Heading
+                  variant="h2"
+                  color="light"
+                  text={statsSection.heading}
+                />
                 <Text color="light" text={statsSection.subheading} />
               </div>
               <div className="stats-grid">
                 {statsSection.stats?.map((stat: StatItem) => (
-                  <StatCounter key={stat._key} target={parseInt(stat.number.replace(/[^0-9]/g, ""), 10)} label={stat.label} icon={stat.icon || ""} />
+                  <StatCounter
+                    key={stat._key}
+                    target={parseInt(stat.number.replace(/[^0-9]/g, ""), 10)}
+                    label={stat.label}
+                    icon={stat.icon || ""}
+                  />
                 ))}
               </div>
             </Container>
@@ -235,8 +375,16 @@ export default async function Home() {
           <Container>
             <div className="section-header centered">
               <Badge variant="primary" text={servicesSection.badge} />
-              <Heading variant="h2" align="center" text={servicesSection.heading} />
-              <Text color="muted" align="center" text={servicesSection.subheading} />
+              <Heading
+                variant="h2"
+                align="center"
+                text={servicesSection.heading}
+              />
+              <Text
+                color="muted"
+                align="center"
+                text={servicesSection.subheading}
+              />
             </div>
             <div className="services-grid">
               {servicesSection.services?.map((service: ServiceCardItem) => (
@@ -265,14 +413,28 @@ export default async function Home() {
                 <Heading variant="h2" text={whyChooseUsSection.heading} />
                 <Text variant="body" text={whyChooseUsSection.subheading} />
                 <div className="features-list">
-                  {whyChooseUsSection.features?.map((feature: WhyChooseUsFeature) => (
-                    <FeatureItem key={feature._key} icon={feature.icon} title={feature.title} description={feature.description} />
-                  ))}
+                  {whyChooseUsSection.features?.map(
+                    (feature: WhyChooseUsFeature) => (
+                      <FeatureItem
+                        key={feature._key}
+                        icon={feature.icon}
+                        title={feature.title}
+                        description={feature.description}
+                      />
+                    ),
+                  )}
                 </div>
               </div>
               <div className="features-image">
-                {whyChooseUsSection.image?.asset && "url" in whyChooseUsSection.image.asset && whyChooseUsSection.image.asset.url ? (
-                  <Image src={whyChooseUsSection.image.asset.url} alt={whyChooseUsSection.heading} width={800} height={600} />
+                {whyChooseUsSection.image?.asset &&
+                "url" in whyChooseUsSection.image.asset &&
+                whyChooseUsSection.image.asset.url ? (
+                  <Image
+                    src={whyChooseUsSection.image.asset.url}
+                    alt={whyChooseUsSection.heading}
+                    width={800}
+                    height={600}
+                  />
                 ) : null}
               </div>
             </div>
@@ -320,13 +482,25 @@ export default async function Home() {
             <Container>
               <div className="cta-content">
                 <Heading variant="h2" color="light" text={ctaSection.heading} />
-                {ctaSection.bodyText && <Text color="light" text={ctaSection.bodyText} />}
+                {ctaSection.bodyText && (
+                  <Text color="light" text={ctaSection.bodyText} />
+                )}
                 <div className="cta-buttons">
                   {ctaSection.buttons?.map((button) => {
-                    const variantMap: Record<string, string> = { primary: "white", secondary: "outline-white", outline: "outline-white" };
-                    const btnVariant = variantMap[button.variant || "primary"] as "primary" | "white" | "outline-white" | "hero";
+                    const variantMap: Record<string, string> = {
+                      primary: "white",
+                      secondary: "outline-white",
+                      outline: "outline-white",
+                    };
+                    const btnVariant = variantMap[
+                      button.variant || "primary"
+                    ] as "primary" | "white" | "outline-white" | "hero";
                     return (
-                      <Button key={button._key} href={button.link} variant={btnVariant}>
+                      <Button
+                        key={button._key}
+                        href={button.link}
+                        variant={btnVariant}
+                      >
                         {button.icon && <i className={button.icon}></i>}
                         {button.text}
                       </Button>
@@ -409,19 +583,35 @@ export default async function Home() {
             <div className="section-header centered">
               <Badge variant="primary" text={teamSection.badge} />
               <Heading variant="h2" align="center" text={teamSection.heading} />
-              <Text color="muted" align="center" text={teamSection.subheading} />
+              <Text
+                color="muted"
+                align="center"
+                text={teamSection.subheading}
+              />
             </div>
             <div className={styles.teamGrid}>
               {teamSection.team?.map((member) => (
                 <TeamCard
                   key={member._key}
-                  image={(member.image?.asset && "url" in member.image.asset ? member.image.asset.url : "") || "/images/o_nama_image.png"}
+                  image={
+                    (member.image?.asset && "url" in member.image.asset
+                      ? member.image.asset.url
+                      : "") || "/images/o_nama_image.png"
+                  }
                   name={member.name}
                   role={member.role}
                   description={member.description}
                   socialLinks={member.socialLinks?.filter(
-                    (link): link is { _key: string; platform: "facebook" | "linkedin" | "email"; url: string } =>
-                      link.platform === "facebook" || link.platform === "linkedin" || link.platform === "email"
+                    (
+                      link,
+                    ): link is {
+                      _key: string;
+                      platform: "facebook" | "linkedin" | "email";
+                      url: string;
+                    } =>
+                      link.platform === "facebook" ||
+                      link.platform === "linkedin" ||
+                      link.platform === "email",
                   )}
                 />
               ))}
@@ -443,7 +633,12 @@ export default async function Home() {
           <Container>
             <div className="section-header centered light">
               <Badge variant="light" text={testimonialsSection.badge} />
-              <Heading variant="h2" color="light" align="center" text={testimonialsSection.heading} />
+              <Heading
+                variant="h2"
+                color="light"
+                align="center"
+                text={testimonialsSection.heading}
+              />
             </div>
             <div className={styles.testimonialsSlider}>
               {testimonialsSection.testimonials?.map((testimonial) => (
@@ -452,7 +647,12 @@ export default async function Home() {
                   quote={testimonial.quote}
                   authorName={testimonial.authorName}
                   authorRole={testimonial.authorRole}
-                  authorImage={(testimonial.authorImage?.asset && "url" in testimonial.authorImage.asset ? testimonial.authorImage.asset.url : "") || "/images/o_nama_image.png"}
+                  authorImage={
+                    (testimonial.authorImage?.asset &&
+                    "url" in testimonial.authorImage.asset
+                      ? testimonial.authorImage.asset.url
+                      : "") || "/images/o_nama_image.png"
+                  }
                 />
               ))}
             </div>
@@ -462,7 +662,10 @@ export default async function Home() {
               </button>
               <div className={styles.testimonialsDots}>
                 {testimonialsSection.testimonials?.map((_, index) => (
-                  <span key={index} className={`${styles.dot} ${index === 0 ? styles.dotActive : ""}`}></span>
+                  <span
+                    key={index}
+                    className={`${styles.dot} ${index === 0 ? styles.dotActive : ""}`}
+                  ></span>
                 ))}
               </div>
               <button className={styles.testimonialNavButton}>
@@ -487,13 +690,19 @@ export default async function Home() {
               </div>
               <div className={styles.newsGostovanjaItems}>
                 {VESTI.slice(0, 3).map((vest) => (
-                  <Link key={vest.id} href={`/aktuelnosti/${vest.slug}`} className={styles.newsItem}>
+                  <Link
+                    key={vest.id}
+                    href={`/aktuelnosti/${vest.slug}`}
+                    className={styles.newsItem}
+                  >
                     <div className={styles.newsItemMeta}>
                       <span className={styles.newsDate}>
                         <i className="fas fa-calendar" aria-hidden />
                         {vest.date}
                       </span>
-                      <span className={styles.newsCategory}>{vest.category}</span>
+                      <span className={styles.newsCategory}>
+                        {vest.category}
+                      </span>
                     </div>
                     <h4>{vest.title}</h4>
                     <p>{vest.excerpt}</p>
@@ -515,7 +724,11 @@ export default async function Home() {
               </div>
               <div className={styles.newsGostovanjaItems}>
                 {latestGostovanja.map((g) => (
-                  <Link key={g.id} href={`/aktuelnosti/gostovanja/${g.slug}`} className={styles.gostovanjeItem}>
+                  <Link
+                    key={g.id}
+                    href={`/aktuelnosti/gostovanja/${g.slug}`}
+                    className={styles.gostovanjeItem}
+                  >
                     <div className={styles.gostovanjeThumb}>
                       <i className="fas fa-play-circle" aria-hidden />
                     </div>
@@ -532,7 +745,10 @@ export default async function Home() {
                   </Link>
                 ))}
               </div>
-              <Link href="/aktuelnosti/gostovanja" className={styles.seeAllLink}>
+              <Link
+                href="/aktuelnosti/gostovanja"
+                className={styles.seeAllLink}
+              >
                 Сва гостовања <i className="fas fa-arrow-right" aria-hidden />
               </Link>
             </div>
@@ -549,24 +765,36 @@ export default async function Home() {
                 <i className="fas fa-headset" aria-hidden />
               </div>
               <h2>Контактирајте нас</h2>
-              <p>Потребна вам је помоћ? Наш тим стручњака је спреман да одговори на сва ваша питања.</p>
+              <p>
+                Потребна вам је помоћ? Наш тим стручњака је спреман да одговори
+                на сва ваша питања.
+              </p>
               <div className={styles.contactCtaDetails}>
                 <a href="tel:+381113601700" className={styles.contactCtaItem}>
-                  <span className={styles.contactCtaItemIcon}><i className="fas fa-phone" aria-hidden /></span>
+                  <span className={styles.contactCtaItemIcon}>
+                    <i className="fas fa-phone" aria-hidden />
+                  </span>
                   <div>
                     <span>Call центар</span>
                     <strong>011 3601 700</strong>
                   </div>
                 </a>
-                <a href="mailto:info@ikvbd.com" className={styles.contactCtaItem}>
-                  <span className={styles.contactCtaItemIcon}><i className="fas fa-envelope" aria-hidden /></span>
+                <a
+                  href="mailto:info@ikvbd.com"
+                  className={styles.contactCtaItem}
+                >
+                  <span className={styles.contactCtaItemIcon}>
+                    <i className="fas fa-envelope" aria-hidden />
+                  </span>
                   <div>
                     <span>Е-пошта</span>
                     <strong>info@ikvbd.com</strong>
                   </div>
                 </a>
                 <div className={styles.contactCtaItem}>
-                  <span className={styles.contactCtaItemIcon}><i className="fas fa-location-dot" aria-hidden /></span>
+                  <span className={styles.contactCtaItemIcon}>
+                    <i className="fas fa-location-dot" aria-hidden />
+                  </span>
                   <div>
                     <span>Адреса</span>
                     <strong>Хероја Милана Тепића 1, Београд</strong>
@@ -605,11 +833,19 @@ export default async function Home() {
         <section className="partners-section">
           <Container>
             <div className="section-header centered">
-              <Heading variant="h3" align="center" text={partnersSection.heading} />
+              <Heading
+                variant="h3"
+                align="center"
+                text={partnersSection.heading}
+              />
             </div>
             <div className="partners-slider">
               {partnersSection.partners.map((partner) => (
-                <PartnerLogo key={partner._key} icon={partner.icon || ""} text={partner.name} />
+                <PartnerLogo
+                  key={partner._key}
+                  icon={partner.icon || ""}
+                  text={partner.name}
+                />
               ))}
             </div>
           </Container>
