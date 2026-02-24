@@ -21,10 +21,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const enableThemeColorSwitcher =
-    process.env.NEXT_PUBLIC_THEME_COLOR_SWITCHER === "true" ||
-    process.env.NODE_ENV === "development";
-
   return (
     <html lang="sr" suppressHydrationWarning style={{ scrollBehavior: "auto" }}>
       <head>
@@ -52,7 +48,7 @@ export default function RootLayout({
         {children}
         <Footer />
         <ScrollToTop />
-        {enableThemeColorSwitcher && <ThemeColorSwitcher />}
+        <ThemeColorSwitcher />
         <Script
           src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"
           strategy="afterInteractive"
