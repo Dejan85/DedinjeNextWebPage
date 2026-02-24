@@ -1,5 +1,5 @@
 import {
-  HeroSection,
+  PageHeader,
   VideoPlayer,
   InfoCard,
   Section,
@@ -9,7 +9,6 @@ import { Heading, Text, Badge } from "@/components/typography";
 import { client } from "@/sanity/lib/client";
 import { DIRECTOR_PAGE_QUERY } from "@/sanity/lib/queries";
 import type { DirectorPage } from "@/sanity/types";
-import { urlFor } from "@/sanity/lib/image";
 import { generateMetadata } from "./metadata";
 import styles from "./page.module.css";
 
@@ -26,7 +25,7 @@ export default async function RecDirektoraPage() {
 
   const hero = directorData?.hero || {
     badge: "Директор Института",
-    title: "Академик проф. др<br />Милован М. Бојић",
+    title: "Академик проф. др Милован М. Бојић",
     subtitle: 'Директор Института за кардиоваскуларне болести "Дедиње"',
     showScrollIndicator: true,
   };
@@ -103,22 +102,15 @@ export default async function RecDirektoraPage() {
     ],
   };
 
-  const heroImageUrl = hero.image
-    ? urlFor(hero.image).width(1920).url()
-    : "/images/rec-direktora.jpg";
-
   return (
     <>
-      <HeroSection
-        img={heroImageUrl}
-        imgAlt={hero.badge}
-        videoSrc={message.videoSrc}
-        videoPoster={heroImageUrl}
-        badge={hero.badge}
+      <PageHeader
+        breadcrumbs={[
+          { label: "Почетна", href: "/" },
+          { label: "Реч директора" },
+        ]}
         title={hero.title}
         subtitle={hero.subtitle}
-        showScrollIndicator={hero.showScrollIndicator}
-        compact
       />
 
       {/* Info Cards */}

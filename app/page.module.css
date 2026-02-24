@@ -596,6 +596,7 @@
 @media (max-width: 768px) {
   .welcomeSection { padding: 60px 0; }
   .welcomeContent h2 { font-size: 28px; }
+  .welcomeCtaWrap { display: flex; justify-content: center; }
   .welcomeImgMain img { height: 300px; }
   .welcomeFeatures { grid-template-columns: 1fr; }
   .teamGrid { grid-template-columns: 1fr; }

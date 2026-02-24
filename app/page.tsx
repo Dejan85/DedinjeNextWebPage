@@ -176,9 +176,11 @@ export default async function Home() {
                   ))}
                 </div>
                 {welcomeSection.ctaButton && (
-                  <Button href={welcomeSection.ctaButton.link} variant="primary">
-                    {welcomeSection.ctaButton.text}
-                  </Button>
+                  <div className={styles.welcomeCtaWrap}>
+                    <Button href={welcomeSection.ctaButton.link} variant="primary">
+                      {welcomeSection.ctaButton.text}
+                    </Button>
+                  </div>
                 )}
               </div>
               <div className={styles.welcomeImages}>

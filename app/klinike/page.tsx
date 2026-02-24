@@ -1,5 +1,5 @@
 import {
-  HeroSection,
+  PageHeader,
   VideoPlayer,
   ClinicCard,
   ClinicCardGrid,
@@ -14,16 +14,13 @@ export { metadata };
 export default async function KlinikePage() {
   return (
     <>
-      <HeroSection
-        img="/images/klinike-slika.jpg"
-        imgAlt="Клинике института"
-        videoSrc="/videos/klinike-video.mp4"
-        videoPoster="/images/klinike-slika.jpg"
-        badge="Наше клинике"
+      <PageHeader
+        breadcrumbs={[
+          { label: "Почетна", href: "/" },
+          { label: "Клинике" },
+        ]}
         title="Клинике института"
         subtitle="Савремене клинике опремљене најновијом медицинском технологијом, са тимом стручњака посвећених вашем здрављу и благостању"
-        showScrollIndicator={true}
-        compact
       />
 
       {/* About */}

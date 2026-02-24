@@ -1,6 +1,6 @@
 import type { ComponentProps } from "react";
 import {
-  HeroSection,
+  PageHeader,
   StatCard,
   ProfileTabs,
   VideoPlayer,
@@ -138,10 +138,6 @@ export default async function OInstitutu() {
     ],
   };
 
-  const heroImageUrl = hero.image
-    ? urlFor(hero.image).width(1920).url()
-    : "/images/o_nama_image.png";
-
   const profilesForTabs = management.profiles.map((profile) => {
     let profileImageUrl = "/images/default-profile.jpg";
     if (profile.image) {
@@ -173,14 +169,13 @@ export default async function OInstitutu() {
 
   return (
     <>
-      <HeroSection
-        img={heroImageUrl}
-        imgAlt={hero.badge}
-        badge={hero.badge}
+      <PageHeader
+        breadcrumbs={[
+          { label: "Почетна", href: "/" },
+          { label: "О институту" },
+        ]}
         title={hero.title}
         subtitle={hero.subtitle}
-        showScrollIndicator={hero.showScrollIndicator}
-        compact
       />
 
       {/* About Section */}
