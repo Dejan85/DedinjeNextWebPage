@@ -23,7 +23,7 @@ async function migrateDirectorPage() {
       // Hero Section
       hero: {
         badge: "Директор Института",
-        title: "Академик проф. др<br />Милован М. Бојић",
+        title: "Академик проф. др Милован М. Бојић",
         subtitle: 'Директор Института за кардиоваскуларне болести "Дедиње"',
         showScrollIndicator: true,
         // image će biti dodato ručno kroz Sanity Studio
