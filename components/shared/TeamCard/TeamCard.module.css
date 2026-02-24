@@ -97,3 +97,27 @@
     color: var(--gray-500);
     line-height: 1.6;
 }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .teamImage {
+        height: 240px;
+    }
+
+    .teamInfo {
+        padding: 20px;
+    }
+
+    .teamInfo h4 {
+        font-size: 17px;
+    }
+
+    .teamSocial a {
+        width: 36px;
+        height: 36px;
+    }
+
+    .teamCard:hover {
+        transform: translateY(-5px);
+    }
+}

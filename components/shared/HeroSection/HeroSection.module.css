@@ -184,4 +184,17 @@
         height: 45vh;
         min-height: 300px;
     }
+
+    .swiperButtonPrev,
+    .swiperButtonNext {
+        display: none;
+    }
+
+    .directorHeroContent {
+        padding-top: 40px;
+    }
+
+    .scrollIndicator {
+        bottom: 30px;
+    }
 }

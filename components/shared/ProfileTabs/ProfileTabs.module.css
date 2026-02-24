@@ -79,9 +79,23 @@
     font-weight: 700;
 }
 
+@media (max-width: 1024px) {
+    .managementCard {
+        grid-template-columns: 1fr;
+    }
+
+    .managementImage {
+        height: 400px;
+    }
+}
+
 @media (max-width: 768px) {
     .managementCard {
         grid-template-columns: 1fr;
+    }
+
+    .managementImage {
+        height: 280px;
     }
 
     .managementInfo {
@@ -94,15 +108,5 @@
 
     .managementTitle {
         font-size: 16px;
-    }
-}
-
-@media (max-width: 1024px) {
-    .managementCard {
-        grid-template-columns: 1fr;
-    }
-
-    .managementImage {
-        height: 400px;
     }
 }

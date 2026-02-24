@@ -27,3 +27,18 @@
 .backgroundNone {
     background: transparent;
 }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .paddingSmall {
+        padding: 40px 0;
+    }
+
+    .paddingMedium {
+        padding: 50px 0;
+    }
+
+    .paddingLarge {
+        padding: 60px 0;
+    }
+}

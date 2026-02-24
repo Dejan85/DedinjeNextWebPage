@@ -158,11 +158,33 @@
 }
 
 @media (max-width: 768px) {
+    .serviceCard {
+        padding: 28px 22px;
+    }
+
     .serviceCard.featured {
         transform: scale(1);
     }
 
     .serviceCard.featured:hover {
-        transform: scale(1) translateY(-10px);
+        transform: scale(1) translateY(-5px);
+    }
+
+    .serviceCard:hover {
+        transform: translateY(-5px);
+    }
+
+    .serviceIcon {
+        width: 60px;
+        height: 60px;
+        border-radius: 16px;
+    }
+
+    .serviceIcon i {
+        font-size: 28px;
+    }
+
+    .serviceCard h3 {
+        font-size: 18px;
     }
 }

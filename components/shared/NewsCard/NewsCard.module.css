@@ -119,6 +119,18 @@
 }
 
 @media (max-width: 768px) {
+    .newsCard.large .newsImage {
+        height: 220px;
+    }
+
+    .newsContent {
+        padding: 22px;
+    }
+
+    .newsContent h3 {
+        font-size: 19px;
+    }
+
     .newsCard.small {
         grid-template-columns: 1fr;
     }
@@ -129,5 +141,9 @@
 
     .newsCard.small .newsContent {
         padding: 15px;
+    }
+
+    .newsCard:hover {
+        transform: translateY(-5px);
     }
 }

@@ -177,18 +177,29 @@
 @media (max-width: 1024px) {
     .footerGrid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
     }
 }
 
 @media (max-width: 768px) {
+    .footerTop {
+        padding: 50px 0 40px;
+    }
+
     .footerGrid {
         grid-template-columns: 1fr;
-        gap: 40px;
+        gap: 32px;
     }
 
     .footerBottomContent {
         flex-direction: column;
         gap: 15px;
         text-align: center;
+    }
+
+    .footerLinks {
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 }

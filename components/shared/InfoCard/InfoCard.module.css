@@ -94,3 +94,32 @@
     margin-top: auto;
     align-self: center;
 }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .directorInfoCard {
+        padding: 28px 22px;
+    }
+
+    .infoCardIcon {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 18px;
+    }
+
+    .infoCardIcon i {
+        font-size: 26px;
+    }
+
+    .directorInfoCard:not(.highlight) h3 {
+        font-size: 18px;
+    }
+
+    .directorInfoCard:not(.highlight) p {
+        font-size: 14px;
+    }
+
+    .directorInfoCard:hover {
+        transform: translateY(-5px);
+    }
+}

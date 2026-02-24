@@ -594,16 +594,30 @@
 }
 
 @media (max-width: 768px) {
+  .welcomeSection { padding: 60px 0; }
+  .welcomeContent h2 { font-size: 28px; }
+  .welcomeImgMain img { height: 300px; }
+  .welcomeFeatures { grid-template-columns: 1fr; }
   .teamGrid { grid-template-columns: 1fr; }
   .welcomeImgSecondary { display: none; }
   .experienceBadge { right: 10px; width: 100px; height: 100px; }
   .expNumber { font-size: 32px; }
   .sectionHeader { flex-direction: column; align-items: flex-start; gap: 12px; }
   .clinicsGrid { grid-template-columns: 1fr; }
-  .patientGrid { grid-template-columns: 1fr; }
+  .patientGrid { grid-template-columns: repeat(2, 1fr); }
   .newsGostovanjaGrid { grid-template-columns: 1fr; }
   .directorCard { grid-template-columns: 1fr; }
   .directorLeft { padding: 28px 24px; }
   .directorRight { padding: 28px 24px; }
-  .directorQuote { font-size: 15px; }
+  .directorQuote { font-size: 15px; padding-left: 16px; }
+  .testimonialsSection { padding: 60px 0; }
+  .contactCta { padding: 40px 0; }
+  .contactCtaMap { min-height: 250px; }
+}
+
+@media (max-width: 480px) {
+  .welcomeContent h2 { font-size: 24px; }
+  .patientGrid { grid-template-columns: 1fr; }
+  .directorQuote { font-size: 14px; }
+  .contactCtaInfo h2 { font-size: 20px; }
 }
