@@ -76,7 +76,7 @@ export default function Header() {
                     <i className="fas fa-phone-alt"></i>
                   </div>
                   <div className={styles.infoText}>
-                    <span>011 3601 668</span>
+                    <span>011 3601 700</span>
                   </div>
                 </div>
                 <div className={styles.infoItem}>

@@ -135,5 +135,11 @@ Radi se u batch-evima, jedan po jedan, uz javljanje posle svakog.
 - ❌ `/akta-instituta` — postoji na live ikvbd.org (linkovano sa „О нама"), nema ekvivalentnu rutu kod nas. Otkriveno tokom Batch 1 popune sadržaja.
 - ❌ ☁️ `/klinike/kardiohirurgija` — stat "95,5% Стопа преживљавања" nema potvrđen izvor (nije u docx `УВОДНА РЕЧ.docx` ni u stari-sajt sweep beleškama); "3.000+ годишње операција" zaokruženo naviše od docx raspona "2500-3000". Otkriveno tokom docx-audit sweep-a 2026-07-21, vidi `popunjene-stranice-2026-07-21.md`. Treba potvrda vlasnika sajta.
 - ❌ ☁️ `/za-pacijente/preoperativna-priprema` — docx izvor ima stavku "Хсердоксо" u listi antikoagulanasa koja nije uneta u kod (nejasno da li je OCR artefakt ili stvaran nedostajući lek). Otkriveno tokom docx-audit sweep-a 2026-07-21, vidi `popunjene-stranice-2026-07-21.md`. Treba potvrda Odeljenja za preoperativnu pripremu.
+- ❌ **Homepage (`app/page.tsx`) je najvećim delom neizmenjen demo-seed** iz `scripts/migrate-all.ts` — potvrđeno direktnim upitom na javni Sanity API (ne pretpostavka). Detalji u `popunjene-stranice-2026-07-21.md` → "Audit početne strane". Ukratko:
+  - ✅ `Header.tsx` telefon ispravljen (668→700).
+  - ✅ Footer (Sanity singleton) telefon/email ispravljen (668/669→700, info@ikvbd.rs→info@ikvbd.com) — `SANITY_API_TOKEN` u `.env.local` nadograđen na Editor token, i `scripts/migrate-footer.ts` ažuriran da ne vrati grešku.
+  - ❌ ☁️ Sekcije "Тим" (4 izmišljena doktora) i "Шта кажу наши пацијенти" (3 izmišljena pacijenta) na početnoj imaju fabrikovane ljude sa stock fotografijama — namerno ostavljeno dok se ne dobije pravi materijal ili odluka da se sekcije uklone.
+  - ❌ ☁️ Stats sekcija (15.000 operacija/god, 200 lekara, 65 god., 50.000 pacijenata) i emergency telefon "011 3601 600" (treći različit broj) — neprovereni brojevi iz demo seed-a.
+  - ❌ Orphaned Sanity sadržaj koji se nigde ne renderuje (`departmentsSection`, `newsSection`, Sanity `hero` slajdovi) — cleanup, nije hitno.
 
 **☁️** = zahteva infra/odluku vlasnika sajta pre nego što se dirne kod.

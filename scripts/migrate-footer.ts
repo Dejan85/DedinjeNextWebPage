@@ -114,9 +114,8 @@ async function migrateFooter() {
         heading: "Контакт",
         address: "Хероја Милана Тепића 1",
         city: "11040 Београд, Србија",
-        phone1: "011 3601 668",
-        phone2: "011 3601 669",
-        email: "info@ikvbd.rs",
+        phone1: "011 3601 700",
+        email: "info@ikvbd.com",
         workingHours: {
           weekdays: "Пон - Пет: 08:00 - 19:00",
           weekend: "Викенд: 09:00 - 15:00",

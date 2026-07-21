@@ -223,3 +223,80 @@ prijavio "Плавикс"/"Ксарелто" kao netačno prenete nazive lekova 
 na docx — provereno ručno: to su tačni, stvarni nazivi lekova (Plavix,
 Xarelto); docx izvor je imao tipfelere/OCR mešanje ćirilice i latinice
 ("Плавиx", "Хсарелто"), a kod ih je ispravno normalizovao. Nije greška.
+
+---
+
+# Audit početne strane (2026-07-21)
+
+Za razliku od podstranica, sadržaj početne strane (`app/page.tsx`) je
+većinom Sanity page-builder (`HOMEPAGE_QUERY`), a live podaci u bazi su
+provereni direktno preko javnog Sanity query API-ja (bez nagađanja).
+Nalaz: veliki deo sadržaja je **neizmenjeni demo-seed** iz
+`scripts/migrate-all.ts` (skripta eksplicitno napravljena da testira
+Sanity page-builder strukturu, sa Unsplash stock slikama i izmišljenim
+imenima) — izgleda da nikad nije zamenjen pravim sadržajem Instituta.
+`docs/TASKS.md` markira "✅ Početna" kao gotovo, ali to se odnosi samo na
+strukturnu migraciju (šema/page-builder rade), ne na pravi sadržaj.
+
+## Ispravljeno
+
+- ✅ `components/shared/Header/Header.tsx` — telefon u gornjoj traci
+  (vidljiv na SVAKOJ stranici sajta) ispravljen sa "011 3601 668" na
+  "011 3601 700" — potvrđeno unakrsnom proverom da je 700 realan broj
+  (dosledno korišćen na 13+ stranica: klinike, za-pacijente, `/kontakt`).
+
+## Ispravljeno (dopuna)
+
+- ✅ **Footer** (Sanity singleton `footer`, vidljiv na SVAKOJ stranici) —
+  `contact.phone1` ispravljen sa "011 3601 668" na "011 3601 700",
+  `contact.phone2` ("011 3601 669") uklonjen, `contact.email` ispravljen
+  sa "info@ikvbd.rs" na "info@ikvbd.com". Ispravljene su i hardkodovane
+  vrednosti u `scripts/migrate-footer.ts` da se greška ne vrati ako se
+  skripta ikad ponovo pokrene. Rešeno tako što je korisnik napravio
+  novi Sanity API token sa Editor pravima (prethodni token u
+  `.env.local` je bio read-only/Viewer).
+
+## Otvoreno — treba pravi materijal od vlasnika sajta (namerno ostavljeno za sada)
+
+- ❌ ☁️ **Sekcija "Упознајте наше стручњаке" (Тим)** na početnoj strani —
+  4 potpuno izmišljena doktora: **Др Марко Јовановић, Др Ана Петровић,
+  Др Милан Николић, Др Јелена Стојковић** — sa stock Unsplash
+  fotografijama i praznim "#" social linkovima. Nijedna od ove četvoro
+  ljudi ne postoji u Institutu. Treba ili prava imena/fotografije
+  stvarnih lekara od vlasnika sajta, ili privremeno ukloniti sekciju.
+- ❌ ☁️ **Sekcija "Шта кажу наши пацијенти" (Testimonials)** — 3
+  izmišljena pacijenta (Петар Миловановић, Марија Станковић, Зоран
+  Томић) sa fabrikovanim citatima i stock fotografijama. Isti tretman
+  kao Tim sekcija — treba pravi materijal ili ukloniti.
+- ❌ ☁️ **"Бројке које говоре" (Stats)** — 15.000 operacija/god, 200
+  lekara specijalista, 65 godina iskustva, 50.000 zadovoljnih pacijenata
+  — generički brojevi iz demo seed-a, nijedan izvor ih ne potvrđuje.
+  Treba prave brojke od vlasnika sajta.
+- ❌ ☁️ **Info-box "Хitni slučajevi"** (početna strana) — telefon "011
+  3601 600" — treći različit broj (pored 668/669 iz Footer-a i 700
+  svuda drugde), verovatno takođe placeholder iz demo seed-a. Nejasno
+  da li postoji stvarna zasebna linija za hitne slučajeve ili treba i
+  ovo da bude 011 3601 700 — treba potvrda vlasnika sajta.
+- ❌ ☁️ **CTA banner dugme "ПОЗОВИТЕ НАС"** — link `tel:0113601600` —
+  isti treći broj kao gore, ista napomena.
+
+## Manje ozbiljno / cleanup
+
+- ❌ **Partneri/sertifikati sekcija** — generički nazivi (ISO 9001, JCI
+  Akreditacija, Evropski standardi, Zdravstvena zaštita, Kardio centar)
+  sa generičkim ikonicama umesto pravih logoa/imena partnera. Napomena:
+  ISO/JCI sertifikati SU realno pomenuti na `/rec-direktora` stranici,
+  pa ovo možda nije potpuno izmišljeno — samo generično prezentovano.
+- ❌ **"Mrtav" sadržaj u Sanity-ju koji se nigde ne prikazuje** (nije
+  vidljiva greška posetiocima, samo baza zatrpana neiskorišćenim
+  demo-podacima): `departmentsSection` (4 lažna odeljenja sa stock
+  fotkama), `newsSection` (4 lažne vesti), Sanity `hero` slajdovi (3
+  stock-photo heroja) — svi postoje u `pageBuilder` nizu ali
+  `app/page.tsx` ih ili uopšte ne učitava (`departmentsSection`) ili ih
+  učita pa ne renderuje (`newsSection`, `hero` — stranica koristi
+  hardkodovane alternative: `VESTI` konstante za vesti, `videoHeroSlides`
+  za hero). Vredi obrisati iz Sanity-ja radi preglednosti u Studio-u,
+  nije hitno.
+- ❌ **Welcome sekcija tekst** — generički marketinški tekst koji
+  ponavlja iste neproverene brojke ("65+ godina iskustva", "200
+  specijalista") kao Stats sekcija — ista napomena, treba pravi izvor.
