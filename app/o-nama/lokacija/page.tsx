@@ -39,6 +39,7 @@ const TRANSPORT = [
 const INFO_ITEMS = [
   { icon: "fas fa-clock", label: "Радно време", value: "Понедељак - Петак: 07-20h" },
   { icon: "fas fa-phone", label: "Call центар", value: "011 3601 700" },
+  { icon: "fas fa-fax", label: "Факс", value: "(+381 11) 2666 445" },
   { icon: "fas fa-envelope", label: "Е-пошта", value: "info@ikvbd.com" },
   { icon: "fas fa-globe", label: "Веб сајт", value: "www.institutdedinje.rs" },
 ];

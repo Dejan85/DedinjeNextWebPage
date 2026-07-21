@@ -94,6 +94,13 @@ export default function Cardioview3dLabPage() {
             variant="body"
             text="Циљ лабораторије је да убрза процес развоја нових медицинских технологија и омогући практична решења за свакодневну клиничку праксу."
           />
+          <div className={styles.focusCard}>
+            <h4>Контакт</h4>
+            <ul className={styles.list}>
+              <li>Miljenko Subašić</li>
+              <li>Maša Petrović</li>
+            </ul>
+          </div>
         </div>
       ),
     },

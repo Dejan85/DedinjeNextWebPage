@@ -25,6 +25,7 @@ export interface ClinicPageData {
   introIcon: string;
   introTitle: string;
   introText: string;
+  introParagraphs?: string[];
   areas: ClinicArea[];
   areasTitle?: string;
   areasSubtitle?: string;
@@ -57,6 +58,9 @@ export function ClinicPageTemplate({ data }: { data: ClinicPageData }) {
             <div className={styles.introContent}>
               <h2>{data.introTitle}</h2>
               <p>{data.introText}</p>
+              {data.introParagraphs?.map((para, idx) => (
+                <p key={idx}>{para}</p>
+              ))}
             </div>
           </div>
 
