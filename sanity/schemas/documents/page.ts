@@ -23,6 +23,12 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "subtitle",
+      title: "Podnaslov (PageHeader)",
+      type: "text",
+      rows: 2,
+    }),
+    defineField({
       name: "seo",
       title: "SEO Metadata",
       type: "seoMetadata",
@@ -91,6 +97,38 @@ export default defineType({
         {
           type: "statItem",
           title: "📊 Statistika",
+        },
+        {
+          type: "introSection",
+          title: "👋 Uvodna sekcija",
+        },
+        {
+          type: "bannerBlock",
+          title: "📢 Banner",
+        },
+        {
+          type: "cardGridBlock",
+          title: "🗂️ Grid kartica",
+        },
+        {
+          type: "checklistBlock",
+          title: "✅ Checklist",
+        },
+        {
+          type: "contactDirectoryBlock",
+          title: "📞 Kontakt direktorijum",
+        },
+        {
+          type: "accordionBlock",
+          title: "📋 Akordeon",
+        },
+        {
+          type: "faqBlock",
+          title: "❓ FAQ",
+        },
+        {
+          type: "tabsBlock",
+          title: "🗂️ Tabovi (procedure)",
         },
       ],
     }),

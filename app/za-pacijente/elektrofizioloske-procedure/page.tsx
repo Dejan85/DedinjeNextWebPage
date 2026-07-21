@@ -1,78 +1,25 @@
-import { AmbulanteAccordion, PageHeader } from "@/components/shared";
-import type { AmbulantaItem } from "@/components/shared/AmbulanteAccordion/AmbulanteAccordion";
+import { PageBuilder, PageHeader } from "@/components/shared";
+import { client } from "@/sanity/lib/client";
+import { PAGE_BY_SLUG_QUERY } from "@/sanity/lib/queries";
+import type { PatientPage } from "@/sanity/types";
 import { generateMetadata } from "./metadata";
+import { DATA } from "./data";
 
 export { generateMetadata };
 
-const ELEKTROFIZIOLOSKE_ITEMS: AmbulantaItem[] = [
-  {
-    id: "aritmija-ablacija",
-    title: "Шта је аритмија срца, шта је катетерска аблација, зашто се раде ове интервенције?",
-    icon: "fas fa-heartbeat",
-    sections: [
-      {
-        title: "Одговор",
-        type: "text",
-        content:
-          "Аритмија срца је поремећај срчаног ритма који се огледа у промени брзине и/или редоследа откуцаја срца. Катетерска аблација је интервенција којом се уз помоћ посебних катетера, коришћењем различитих извора енергије, елиминише ткиво одговорно за настанак аритмије. Циљ интервенције је трајно уклањање узрока поремећаја ритма и смањење или потпуно укидање потребе за антиаритмијском терапијом.",
-      },
-    ],
-  },
-  {
-    id: "priprema",
-    title: "Да ли постоји посебна припрема за овај преглед?",
-    icon: "fas fa-clipboard-check",
-    sections: [
-      {
-        title: "Одговор",
-        type: "text",
-        content:
-          "Потребно је донети административну документацију (упут, сагласност за болничко лечење) и медицинску документацију. Од лабораторијских анализа потребни су крвна група, крвна слика, електролитни статус, тестови функције јетре и бубрега, као и коагулациони статус код пацијената на антикоагулантној терапији. У договору са лекаром, поједини лекови се могу привремено обуставити пре интервенције.",
-      },
-    ],
-  },
-  {
-    id: "prijem-pacijenta",
-    title: "Како изгледа пријем пацијента и припрема за операцију?",
-    icon: "fas fa-user-md",
-    sections: [
-      {
-        title: "Одговор",
-        type: "text",
-        content:
-          "Након пријема на одељење, пацијент се клинички прегледа, проверава се лабораторијска и остала документација, а лекар и медицинско особље обавештавају пацијента о току интервенције и одговарају на евентуална питања. Пацијент потписује информисани пристанак пре интервенције.",
-      },
-    ],
-  },
-  {
-    id: "izvodenje-intervencije",
-    title: "Како се изводи ова интервенција?",
-    icon: "fas fa-procedures",
-    sections: [
-      {
-        title: "Одговор",
-        type: "text",
-        content:
-          "Интервенција се најчешће изводи у свесној аналгезији, уз увођење катетера кроз крвне судове препоне, а понекад и кроз зид грудног коша. Трајање интервенције креће се од око 30 минута до неколико часова, у зависности од сложености случаја. Током процедуре аритмија се понекад намерно изазива под контролисаним условима ради тачне локализације узрока.",
-      },
-    ],
-  },
-  {
-    id: "komplikacije",
-    title: "Да ли постоји могућност компликација током и након ове интервенције?",
-    icon: "fas fa-exclamation-triangle",
-    sections: [
-      {
-        title: "Одговор",
-        type: "text",
-        content:
-          "Компликације ових процедура су изузетно ретке — интервенције изводе искусни специјалисти обучени у водећим европским установама. Могуће компликације укључују повреду крвног суда на месту убода уз оток, а ређе крварење у перикард или повреду френичног нерва. Након интервенције пацијент се враћа на одељење ради праћења виталних параметара и контролног ЕКГ-а, а отпуст следећег дана уз упутства о даљој терапији и контролним прегледима.",
-      },
-    ],
-  },
-];
+const SLUG = "elektrofizioloske-procedure";
 
-export default function ElektrofizioloskeProcedurePage() {
+export default async function ElektrofizioloskeProcedurePage() {
+  let page: PatientPage | null = null;
+
+  try {
+    page = await client.fetch<PatientPage>(PAGE_BY_SLUG_QUERY, { slug: SLUG });
+  } catch (error) {
+    console.error("⚠️ Sanity fetch failed:", error);
+  }
+
+  const data = page ?? DATA;
+
   return (
     <>
       <PageHeader
@@ -81,16 +28,10 @@ export default function ElektrofizioloskeProcedurePage() {
           { label: "За пацијенте", href: "/za-pacijente" },
           { label: "Обавештење за електрофизиолошке процедуре" },
         ]}
-        title="Обавештење за електрофизиолошке процедуре"
-        subtitle="Информације о електрофизиолошким процедурама и катетерској аблацији"
+        title={data.title}
+        subtitle={data.subtitle}
       />
-
-      <AmbulanteAccordion
-        items={ELEKTROFIZIOLOSKE_ITEMS}
-        title="Честа питања"
-        subtitle="Изаберите питање и сазнајте више о електрофизиолошким процедурама"
-        defaultOpenId="aritmija-ablacija"
-      />
+      <PageBuilder blocks={data.pageBuilder} />
     </>
   );
 }

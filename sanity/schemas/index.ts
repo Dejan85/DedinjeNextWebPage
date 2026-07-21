@@ -35,6 +35,14 @@ import testimonialsSection from "./objects/testimonialsSection";
 import newsSection from "./objects/newsSection";
 import contactSection from "./objects/contactSection";
 import partnersSection from "./objects/partnersSection";
+import introSection from "./objects/introSection";
+import bannerBlock from "./objects/bannerBlock";
+import cardGridBlock from "./objects/cardGridBlock";
+import checklistBlock from "./objects/checklistBlock";
+import contactDirectoryBlock from "./objects/contactDirectoryBlock";
+import accordionBlock from "./objects/accordionBlock";
+import faqBlock from "./objects/faqBlock";
+import tabsBlock from "./objects/tabsBlock";
 
 export const schemaTypes = [
   // Singletons
@@ -74,4 +82,12 @@ export const schemaTypes = [
   newsSection,
   contactSection,
   partnersSection,
+  introSection,
+  bannerBlock,
+  cardGridBlock,
+  checklistBlock,
+  contactDirectoryBlock,
+  accordionBlock,
+  faqBlock,
+  tabsBlock,
 ];

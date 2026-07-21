@@ -8,6 +8,7 @@ export const PAGE_BY_SLUG_QUERY = groq`
     _id,
     title,
     slug,
+    subtitle,
     seo,
     pageBuilder[] {
       ...,

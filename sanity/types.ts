@@ -48,9 +48,139 @@ export interface Page {
   slug: {
     current: string;
   };
+  subtitle?: string;
   seo?: SeoMetadata;
   pageBuilder?: any[]; // Page builder blocks
   publishedAt: string;
+}
+
+// Page builder block tipovi dodati za generičku "info-stranicu" (za-pacijente,
+// edukacija, nauka-istrazivanje) — vidi docs/MIGRACIJA.md
+
+export interface IntroSectionBlock {
+  _type: "introSection";
+  icon?: string;
+  heading: string;
+  paragraphs: string[];
+  badges?: { icon?: string; label: string }[];
+  stats?: { value: string; label: string }[];
+}
+
+export interface BannerBlockData {
+  _type: "bannerBlock";
+  variant: "info" | "alert" | "warning" | "motto" | "highlight";
+  icon?: string;
+  title?: string;
+  text: string;
+}
+
+export interface CardGridBlockData {
+  _type: "cardGridBlock";
+  heading?: string;
+  subtitle?: string;
+  intro?: string;
+  numbered?: boolean;
+  cards: { icon?: string; title?: string; value?: string; description?: string }[];
+}
+
+export interface ChecklistBlockData {
+  _type: "checklistBlock";
+  heading?: string;
+  intro?: string;
+  items: string[];
+}
+
+export interface ContactDirectoryContact {
+  title: string;
+  note?: string;
+  phone: string;
+  href: string;
+  time: string;
+}
+
+export interface ContactDirectoryBlockData {
+  _type: "contactDirectoryBlock";
+  heading?: string;
+  subtitle?: string;
+  categories: {
+    title: string;
+    icon?: string;
+    contacts: ContactDirectoryContact[];
+  }[];
+}
+
+export interface AccordionSection {
+  title?: string;
+  kind: "text" | "list";
+  text?: string[];
+  list?: string[];
+}
+
+export interface AccordionBlockItem {
+  itemId: string;
+  title?: string;
+  icon?: string;
+  sections: AccordionSection[];
+}
+
+export interface AccordionBlockData {
+  _type: "accordionBlock";
+  title?: string;
+  subtitle?: string;
+  defaultOpenId?: string;
+  items: AccordionBlockItem[];
+}
+
+export interface FaqBlockItem {
+  question: string;
+  answer: string;
+  category: string;
+}
+
+export interface FaqBlockData {
+  _type: "faqBlock";
+  title?: string;
+  subtitle?: string;
+  items: FaqBlockItem[];
+}
+
+export interface TabsBlockInfoItem {
+  icon?: string;
+  question?: string;
+  answerParagraphs?: string[];
+}
+
+export interface TabsBlockTab {
+  tabId: string;
+  label: string;
+  image?: string;
+  imageAlt?: string;
+  introHeading?: string;
+  introParagraphs?: string[];
+  infoBlocks?: TabsBlockInfoItem[];
+}
+
+export interface TabsBlockData {
+  _type: "tabsBlock";
+  defaultTabId?: string;
+  tabs: TabsBlockTab[];
+}
+
+export type PatientPageBlock =
+  | IntroSectionBlock
+  | BannerBlockData
+  | CardGridBlockData
+  | ChecklistBlockData
+  | ContactDirectoryBlockData
+  | AccordionBlockData
+  | FaqBlockData
+  | TabsBlockData;
+
+export interface PatientPage {
+  _id?: string;
+  title: string;
+  subtitle?: string;
+  pageBuilder: PatientPageBlock[];
 }
 
 export interface Doctor {

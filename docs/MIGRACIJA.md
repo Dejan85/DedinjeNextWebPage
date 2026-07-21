@@ -98,11 +98,11 @@ dodatna obrasca gde ima smisla:
 - **Bespoke singleton** (dosadašnji obrazac) — kad je stranica jedinstvena i
   ima specifična polja koja se ne ponavljaju nigde drugde (primer:
   `directorPage`, `biographyPage`).
-- **Generički `page` document** (`sanity/schemas/documents/page.ts`, postoji
-  već, neiskorišćen van seed skripti) — za uniformne info-stranice oblika
-  hero + tekst/liste, kroz postojeći page-builder (`contentBlock`, `infoBox`,
-  `statsSection`, itd.). Jedan dokument po ruti, isti schema za sve. Koristi
-  se za većinu `za-pacijente/*`, `edukacija/*`, `nauka-istrazivanje/*` stranica.
+- **Generički `page` document** (`sanity/schemas/documents/page.ts`, postojao
+  neiskorišćen, sada prošireno) — za uniformne info-stranice sa reusable
+  page-builder blokovima. Jedan dokument po ruti, isti schema za sve. Sadržava
+  8 novih strukturovanih block objekata (ne portable text): `introSection`
+  (icon, heading, paragraphs[], badges[], stats[]), `bannerBlock` (variant info/alert/warning/motto/highlight), `cardGridBlock` (numbered cards sa ikonama/vrednostima), `checklistBlock` (items sa checkmarkom), `contactDirectoryBlock` (kategorije sa kontakt vremenom), `accordionBlock` (items sa expandable sekcijama), `faqBlock` (Q/A items sa kategorijama), `tabsBlock` (tabovi sa slikama/info-blokovima — mirror `SidebarTabs` + `InfoBlock` pattern). Isti `page` builder za sve `za-pacijente/*`, `edukacija/*`, `nauka-istrazivanje/*` rute — infrastruktura je skalabilna, nema potrebe za novim block tipovima osim ako se pojavi sasvim nova struktura sadržaja.
 - **Multi-instance document tip** — kad postoji više instanci istog oblika
   sadržaja: jedan `clinicPage` tip za svih ~20 klinika (umesto 20 singleton
   schema-a), i reuse postojećeg `news` document tipa (već postoji, neiskorišćen)
@@ -120,4 +120,5 @@ umesto bespoke singleton-a, ako se oblik ponavlja na više mesta.
 
 - ✅ Početna, `footer`, `/rec-direktora`, `/o-institutu`, `/biografija`, `/bibliografija` — migrirano (bespoke singletoni).
 - ✅ `klinike/*` (19 od 20 stranica, `clinicPage` multi-instance tip) — migrirano. Kardiohirurgija ostaje hardkodovana (custom page + `units.ts`, ne staje u generički tip).
-- ❌ `za-pacijente/*`, `edukacija/*`, `nauka-istrazivanje/*` (generički `page` builder + izuzeci), `aktuelnosti/*` (reuse `news` multi-instance tip) — detaljan task-breakdown po ruti u [`TASKS.md`](TASKS.md).
+- ✅ `za-pacijente/*` (12 od 12 stranica, generički `page` builder sa 8 novih reusable block tipova) — migrirano.
+- ❌ `edukacija/*`, `nauka-istrazivanje/*` (generički `page` builder, direktan reuse infrastrukture iz za-pacijente sekcije), `aktuelnosti/*` (reuse `news` multi-instance tip) — detaljan task-breakdown po ruti u [`TASKS.md`](TASKS.md).

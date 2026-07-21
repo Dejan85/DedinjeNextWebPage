@@ -38,12 +38,18 @@ Radi se sekcija po sekciju, redosled ispod.
 
 ### 2. Za pacijente (12 stranica, generički `page` builder + izuzeci)
 
-- ❌ Popisati koje od 12 staju u generički `page` builder vs trebaju custom polje
-  (npr. `kardiologija` već koristi ClinicPageTemplate → tretirati kao `clinicPage`;
-  `plan-ishrane` ima strukturirane tabele kalorija → možda novi content-block objekat)
-- ❌ Proširiti content-block set ako fali oblik (npr. FAQ blok za `cesta-pitanja`, dokument-lista blok za `kardiohirurski-konzilijum`)
-- ❌ Migraciona skripta(e) — seed kao `page` dokumenti po ruti
-- ❌ Konvertovati page.tsx fajlove (server component + fallback), isti obrazac kao dosad
+- ✅ Schema: 8 novih reusable content-block objekata (`introSection`, `bannerBlock`, `cardGridBlock`, `checklistBlock`, `contactDirectoryBlock`, `accordionBlock`, `faqBlock`, `tabsBlock`) — registrovani u `sanity/schemas/index.ts`, `page.ts`'s `pageBuilder.of[]` array; `subtitle` polje dodano na `page` document (fallback). Korišćeni za sve oblike sadržaja (jednostavne info-stranice sa ikonama/tekstima, FAQ, tabove sa slikama/info-blokovima, direktoijume kontakata sa vremenom, liste procedura i proveravanja).
+- ✅ TS tipovi: `IntroSectionBlock`, `BannerBlockData`, `CardGridBlockData`, `ChecklistBlockData`, `ContactDirectoryBlockData`, `AccordionBlockData` (+`AccordionBlockItem`/`AccordionSection`), `FaqBlockData` (+`FaqBlockItem`), `TabsBlockData` (+`TabsBlockTab`/`TabsBlockInfoItem`), `PatientPageBlock` unija, `PatientPage` convenience tip.
+- ✅ Query: `PAGE_BY_SLUG_QUERY` ažuriran sa `subtitle` selekcijom (već uključuje `pageBuilder[]` generički, bezbedan reuse za buduće sekcije).
+- ✅ React komponente: `IntroSection`, `BannerBlock`, `CardGrid`, `ChecklistBlock`, `ContactDirectory`, `ProcedureTabs` (wrapper oko `SidebarTabs` + `InfoBlock` ekstrakcija iz duplikata u kardiologija/vaskularna-hirurgija), `PageBuilder` renderer (components/shared/PageBuilder/), sve sa `.module.css`; `AmbulanteAccordion`/`FaqAccordion` reusovane bez izmena.
+- ✅ Migraciona skripta `scripts/migrate-za-pacijente.ts` (`npm run migrate:za-pacijente`) — svih 12 `page` dokumenata kreirano i potvrđeno upitom na javni Sanity API.
+- ✅ Konvertovano svih 12 `app/za-pacijente/<slug>/page.tsx` u server component: fetch by slug + fallback na `./data.ts` (sadržaj izdvojen iz starog page.tsx). Duplirane CSS klase iz 12 page.module.css fajlova konsolidovane u shared komponente (`.module.css` po komponenti).
+
+Migrirane rute (sa Sanity `page` document slug-ima): ambulante ("ambulante", accordionBlock), cesta-pitanja ("cesta-pitanja", faqBlock 58 stavki), elektrofizioloske-procedure ("elektrofizioloske-procedure", accordionBlock), elektrostimulativne-procedure ("elektrostimulativne-procedure", accordionBlock), informacije-o-stanju ("informacije-o-stanju", introSection+bannerBlock+contactDirectoryBlock+cardGridBlock+2×bannerBlock), kardiohirurski-konzilijum ("kardiohirurski-konzilijum", introSection+bannerBlock+checklistBlock+2×bannerBlock+cardGridBlock), kardiologija ("kardiologija-za-pacijente", tabsBlock 12 tabova), plan-ishrane ("plan-ishrane", introSection+2×cardGridBlock+bannerBlock), preoperativna-priprema ("preoperativna-priprema", accordionBlock), prijem ("prijem", accordionBlock), vaskularna-hirurgija ("vaskularna-hirurgija-za-pacijente", tabsBlock 3 taba), vaskularni-konzilijum ("vaskularni-konzilijum", introSection+cardGridBlock+2×bannerBlock).
+
+`npm run build` (exit 0) i `npm run lint` (29 problema, 2 manje nego bazeline od 31) prolaze bez regresija; sve 12 `/za-pacijente/*` rute vidljive kao dinamičke server-rendered u build-u.
+
+**Napomena:** infrastruktura `page` builder + 8 reusable block tipova izgrađena ovde je direktno reusovana za Edukaciju (sekciju 3) i Nauku-istraživanje (sekciju 4) — `PAGE_BY_SLUG_QUERY`, komponente i pattern fallback-a se direktno kopiraju bez izmena. Sledeće na redu: Edukacija sekcija.
 
 ### 3. Edukacija (12 stranica, generički `page` builder + izuzeci)
 

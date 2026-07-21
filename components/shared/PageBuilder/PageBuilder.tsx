@@ -1,0 +1,170 @@
+import AmbulanteAccordion, {
+  type AmbulantaItem,
+} from "../AmbulanteAccordion/AmbulanteAccordion";
+import FaqAccordion, { type FaqItem } from "../FaqAccordion/FaqAccordion";
+import IntroSection from "../IntroSection/IntroSection";
+import BannerBlock from "../BannerBlock/BannerBlock";
+import CardGrid from "../CardGrid/CardGrid";
+import ChecklistBlock from "../ChecklistBlock/ChecklistBlock";
+import ContactDirectory from "../ContactDirectory/ContactDirectory";
+import ProcedureTabs from "../ProcedureTabs/ProcedureTabs";
+import type {
+  AccordionBlockData,
+  BannerBlockData,
+  CardGridBlockData,
+  ChecklistBlockData,
+  ContactDirectoryBlockData,
+  FaqBlockData,
+  IntroSectionBlock,
+  TabsBlockData,
+} from "@/sanity/types";
+
+type PageBuilderBlockInput =
+  | IntroSectionBlock
+  | BannerBlockData
+  | CardGridBlockData
+  | ChecklistBlockData
+  | ContactDirectoryBlockData
+  | AccordionBlockData
+  | FaqBlockData
+  | TabsBlockData;
+
+interface PageBuilderProps {
+  blocks: PageBuilderBlockInput[];
+}
+
+function toAmbulantaItems(block: AccordionBlockData): AmbulantaItem[] {
+  return block.items.map((item) => ({
+    id: item.itemId,
+    title: item.title || "",
+    icon: item.icon,
+    sections: item.sections.map((section) => ({
+      title: section.title || "",
+      type: section.kind,
+      content: section.kind === "list" ? section.list || [] : section.text || [],
+    })),
+  }));
+}
+
+function toFaqItems(block: FaqBlockData): FaqItem[] {
+  return block.items.map((item, idx) => ({
+    id: `faq-${idx}`,
+    question: item.question,
+    answer: item.answer,
+    category: item.category,
+  }));
+}
+
+export default function PageBuilder({ blocks }: PageBuilderProps) {
+  let sectionIndex = 0;
+
+  return (
+    <>
+      {blocks.map((block, idx) => {
+        switch (block._type) {
+          case "introSection": {
+            const background = sectionIndex++ % 2 === 0 ? "white" : "gray";
+            return (
+              <IntroSection
+                key={idx}
+                icon={block.icon}
+                heading={block.heading}
+                paragraphs={block.paragraphs}
+                badges={block.badges}
+                stats={block.stats}
+                background={background}
+              />
+            );
+          }
+          case "bannerBlock": {
+            const background = sectionIndex++ % 2 === 0 ? "white" : "gray";
+            return (
+              <BannerBlock
+                key={idx}
+                variant={block.variant}
+                icon={block.icon}
+                title={block.title}
+                text={block.text}
+                background={background}
+              />
+            );
+          }
+          case "cardGridBlock": {
+            const background = sectionIndex++ % 2 === 0 ? "white" : "gray";
+            return (
+              <CardGrid
+                key={idx}
+                heading={block.heading}
+                subtitle={block.subtitle}
+                intro={block.intro}
+                numbered={block.numbered}
+                cards={block.cards}
+                background={background}
+              />
+            );
+          }
+          case "checklistBlock": {
+            const background = sectionIndex++ % 2 === 0 ? "white" : "gray";
+            return (
+              <ChecklistBlock
+                key={idx}
+                heading={block.heading}
+                intro={block.intro}
+                items={block.items}
+                background={background}
+              />
+            );
+          }
+          case "contactDirectoryBlock": {
+            const background = sectionIndex++ % 2 === 0 ? "white" : "gray";
+            return (
+              <ContactDirectory
+                key={idx}
+                heading={block.heading}
+                subtitle={block.subtitle}
+                categories={block.categories}
+                background={background}
+              />
+            );
+          }
+          case "accordionBlock": {
+            sectionIndex++;
+            return (
+              <AmbulanteAccordion
+                key={idx}
+                items={toAmbulantaItems(block)}
+                title={block.title}
+                subtitle={block.subtitle}
+                defaultOpenId={block.defaultOpenId}
+              />
+            );
+          }
+          case "faqBlock": {
+            sectionIndex++;
+            return (
+              <FaqAccordion
+                key={idx}
+                items={toFaqItems(block)}
+                title={block.title}
+                subtitle={block.subtitle}
+              />
+            );
+          }
+          case "tabsBlock": {
+            const background = sectionIndex++ % 2 === 0 ? "white" : "gray";
+            return (
+              <ProcedureTabs
+                key={idx}
+                tabs={block.tabs}
+                defaultTabId={block.defaultTabId}
+                background={background}
+              />
+            );
+          }
+          default:
+            return null;
+        }
+      })}
+    </>
+  );
+}

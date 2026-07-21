@@ -1,15 +1,9 @@
-/* ========================================
-   TAB CONTENT
-======================================== */
 .tabContent {
   display: flex;
   flex-direction: column;
   gap: 28px;
 }
 
-/* ========================================
-   TAB INTRO
-======================================== */
 .tabIntro {
   padding-bottom: 20px;
   border-bottom: 2px solid var(--gray-200);
@@ -29,18 +23,12 @@
   margin: 0;
 }
 
-/* ========================================
-   BLOCKS GRID
-======================================== */
 .blocksGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
 }
 
-/* ========================================
-   INFO BLOCK
-======================================== */
 .infoBlock {
   background: var(--white);
   border-radius: 14px;
@@ -97,52 +85,6 @@
   margin: 0;
 }
 
-/* ========================================
-   COMING SOON
-======================================== */
-.comingSoon {
-  text-align: center;
-  padding: 60px 40px;
-  background: var(--white);
-  border-radius: 16px;
-  border: 2px dashed var(--gray-200);
-}
-
-.comingSoonIcon {
-  width: 64px;
-  height: 64px;
-  background: var(--gray-100);
-  border-radius: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 20px;
-}
-
-.comingSoonIcon i {
-  font-size: 26px;
-  color: var(--gray-400);
-}
-
-.comingSoon h3 {
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--gray-700);
-  margin: 0 0 10px;
-}
-
-.comingSoon p {
-  font-size: 15px;
-  color: var(--gray-500);
-  line-height: 1.65;
-  margin: 0;
-  max-width: 380px;
-  margin-inline: auto;
-}
-
-/* ========================================
-   RESPONSIVE
-======================================== */
 @media (max-width: 768px) {
   .blocksGrid {
     grid-template-columns: 1fr;
@@ -150,9 +92,5 @@
 
   .tabIntro h2 {
     font-size: 20px;
-  }
-
-  .comingSoon {
-    padding: 40px 24px;
   }
 }
