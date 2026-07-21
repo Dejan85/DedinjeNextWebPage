@@ -139,7 +139,7 @@ export default async function OInstitutu() {
   };
 
   const profilesForTabs = management.profiles.map((profile) => {
-    let profileImageUrl = "/images/default-profile.jpg";
+    let profileImageUrl = "/images/logo dedinje.png";
     if (profile.image) {
       try {
         const generatedUrl = urlFor(profile.image)

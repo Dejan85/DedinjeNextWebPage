@@ -4,6 +4,9 @@ import {
   Section,
 } from "@/components/shared";
 import styles from "./page.module.css";
+import { metadata } from "./metadata";
+
+export { metadata };
 
 const STATS = [
   { value: "55.000+", label: "Укупно процедура", icon: "fas fa-heart-pulse" },

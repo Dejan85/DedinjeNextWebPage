@@ -48,7 +48,7 @@ export default function RootLayout({
         {children}
         <Footer />
         <ScrollToTop />
-        <ThemeColorSwitcher />
+        {process.env.NODE_ENV !== "production" && <ThemeColorSwitcher />}
         <Script
           src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"
           strategy="afterInteractive"

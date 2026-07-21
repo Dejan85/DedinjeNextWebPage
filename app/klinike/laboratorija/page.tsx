@@ -1,5 +1,8 @@
 import { ClinicPageTemplate } from "../_components/ClinicPageTemplate";
 import type { ClinicPageData } from "../_components/ClinicPageTemplate";
+import { metadata } from "./metadata";
+
+export { metadata };
 
 const DATA: ClinicPageData = {
   breadcrumbLabel: "Лабораторијска дијагностика",

@@ -4,6 +4,9 @@ import {
   Section,
 } from "@/components/shared";
 import styles from "./page.module.css";
+import { metadata } from "./metadata";
+
+export { metadata };
 
 const DOKUMENTA = [
   { name: "Тимови и чланови тима", href: "#" },
