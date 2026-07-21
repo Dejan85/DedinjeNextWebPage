@@ -259,6 +259,36 @@
   margin-top: 36px;
 }
 
+.planBlock > p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--gray-600);
+  margin: 0 0 14px;
+}
+
+.planList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px 24px;
+}
+
+.planList li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gray-700);
+}
+
+.planList li i {
+  font-size: 12px;
+  color: var(--primary);
+}
+
 .planTitle {
   font-size: 18px;
   font-weight: 800;

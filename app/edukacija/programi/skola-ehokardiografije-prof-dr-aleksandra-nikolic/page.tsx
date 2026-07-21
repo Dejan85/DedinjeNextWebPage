@@ -29,26 +29,30 @@ const KURSEVI_KARTICE = [
 
 const UCESNICI = [
   { name: "Проф. др Александра Николић", role: "руководилац програма" },
-  { name: "Доц. др Слободан Томић и др Милан Вуковић", role: "коруководиоци програма" },
+  { name: "Проф. др Слободан Томић", role: "коруководилац програма" },
+  { name: "Др Милан Вуковић", role: "коруководилац програма" },
   { name: "Др Љиљана Тркуља" },
-  { name: "Мр. сци. мед. Снежана Димитријевић" },
   { name: "Др Бранислава Борзановић" },
   { name: "Др Драгана Радоичић" },
   { name: "Др Јована Лакчевић" },
   { name: "Др Стефан Вељковић" },
   { name: "Др Ана Перуничић" },
+  { name: "Др Наталија Арнаутовић" },
+  { name: "Др Мирко Липовац" },
+  { name: "Др Маја Милошевић Нале" },
+  { name: "Др Ивана Бојић" },
 ];
 
 const EHOTEHNICARI = [
   "Сања Вучинић",
   "Сања Каблар",
   "Лидија Милуновић",
-  "Мира Гојковић",
   "Сања Берић",
   "Биљана Јеринић",
   "Јелена Милајић",
   "Вида Каитовић",
   "Милица Глишић",
+  "Тијана Мијић",
 ];
 
 export { generateMetadata };
@@ -108,7 +112,7 @@ export default function SkolaEhokardiografijePage() {
       <Section padding="small" background="white">
         <Container>
           <div className={styles.statsRow}>
-            <StatItem value="27+" label="Одржаних курсева" />
+            <StatItem value="33+" label="Одржаних курсева" />
             <StatItem value="350+" label="Полазника" />
             <StatItem value="2007" label="Година оснивања" />
             <StatItem value="3" label="Типа курсева" />
@@ -143,7 +147,7 @@ export default function SkolaEhokardiografijePage() {
 
             <Text
               variant="body"
-              text="Први курс базичне ехокардиографије почео је 24. септембра 2007. године и обухватио је едукацију 13 полазника. Од 2007. године до данас било је 27. курсева базичне ехокардиографије при чему су најчешће одржавана по два курса годишње у трајању од по 12 недеља. Курсеви базичне ехокардиографије нису прекинути ни током пандемије SARS-CoV-2 вируса, али су били модификовани у практичном приступу, а све у складу са тада актуелном епидемиолошком ситуацијом. Базични курс ехокардиографије до сада је завршило преко 350 полазника."
+              text="Први курс базичне ехокардиографије почео је 24. септембра 2007. године и обухватио је едукацију 13 полазника. Од 2007. године до данас одржано је 33 курса базичне ехокардиографије, при чему су најчешће одржавана по два курса годишње у трајању од по 12 недеља. Крајем маја 2026. године успешно је завршен 33. курс базичне ехокардиографије. Курсеви базичне ехокардиографије нису прекинути ни током пандемије SARS-CoV-2 вируса, али су били модификовани у практичном приступу, а све у складу са тада актуелном епидемиолошком ситуацијом. Базични курс ехокардиографије до сада је завршило преко 350 полазника."
             />
 
             <div className={styles.courseDetails}>
@@ -207,10 +211,17 @@ export default function SkolaEhokardiografijePage() {
                 text="Курс трансезофагеалне ехокардиографије (ТЕЕ) започет је 2009. године. До сада је одржано пет курсева. Неопходан услов за курс ТЕЕ је знање трансторакалне ехокардиографије. Трајање курса је два месеца, од чега су предавања организована у првој недељи, а потом следи практични део у наредних седам недеља, који обухвата ТЕЕ прегледе у ехокардиографским кабинетима, али и интраоперативне и периинтервентне ТЕЕ прегледе."
               />
               <div className={styles.courseCardMeta}>
-                <span><i className="fas fa-clock" aria-hidden /> 2 месеца</span>
-                <span><i className="fas fa-calendar" aria-hidden /> Од 2009.</span>
-                <span><i className="fas fa-users" aria-hidden /> 5 курсева</span>
+                <span><i className="fas fa-clock" aria-hidden /> Трајање курса: 2 месеца</span>
+                <span><i className="fas fa-chalkboard-user" aria-hidden /> Предавања: 3 дана</span>
+                <span><i className="fas fa-hand-holding-medical" aria-hidden /> Практичан део: 7 недеља</span>
+                <span><i className="fas fa-users" aria-hidden /> Број полазника је ограничен</span>
+                <span><i className="fas fa-certificate" aria-hidden /> Курс је акредитован</span>
               </div>
+              <Text
+                variant="small"
+                color="muted"
+                text="Контакт особа: Др Јована Лакчевић, 064/310-59-47"
+              />
             </div>
 
             <div id="stres" className={styles.courseCard}>
@@ -223,10 +234,17 @@ export default function SkolaEhokardiografijePage() {
                 text="Курс стрес ехокардиографије траје месец дана, од чега су предавања организована у прва три дана курса. Неопходан услов за овај курс је знање конвенционалне трансторакалне ехокардиографије. Први курс стрес ехокардиографије одржан је 2011. године и до сада је одржано шест курсева."
               />
               <div className={styles.courseCardMeta}>
-                <span><i className="fas fa-clock" aria-hidden /> 1 месец</span>
-                <span><i className="fas fa-calendar" aria-hidden /> Од 2011.</span>
-                <span><i className="fas fa-users" aria-hidden /> 6 курсева</span>
+                <span><i className="fas fa-clock" aria-hidden /> Трајање курса: 1 месец</span>
+                <span><i className="fas fa-chalkboard-user" aria-hidden /> Предавања: 3 радна дана</span>
+                <span><i className="fas fa-hand-holding-medical" aria-hidden /> Практичан део: 4 недеље</span>
+                <span><i className="fas fa-users" aria-hidden /> Број кандидата је ограничен</span>
+                <span><i className="fas fa-certificate" aria-hidden /> Курс је акредитован</span>
               </div>
+              <Text
+                variant="small"
+                color="muted"
+                text="Контакт особа: Др Јована Лакчевић, 064/310-59-47"
+              />
             </div>
           </div>
         </Container>

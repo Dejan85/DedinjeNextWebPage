@@ -57,6 +57,9 @@ service-account.json
 # vercel
 .vercel
 
+# sirov materijal za unos sadržaja (docx/email prepiska od odeljenja, ne izvor istine za kod)
+/docs za ubacivanje/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

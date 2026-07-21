@@ -101,6 +101,30 @@ export default async function KlinikePage() {
               href="/klinike/invazivna-dijagnostika"
             />
             <ClinicCard
+              icon="fas fa-wave-square"
+              title="Одељење за електрофизиологију и електростимулацију"
+              subtitle="Дијагностика и лечење поремећаја срчаног ритма"
+              href="/klinike/elektrofiziologija"
+            />
+            <ClinicCard
+              icon="fas fa-brain"
+              title="Неурокардиолошка лабораторија"
+              subtitle="Дијагностика криза свести и поремећаја аутономног нервног система"
+              href="/klinike/neurokardioloska-laboratorija"
+            />
+            <ClinicCard
+              icon="fas fa-heart-circle-check"
+              title="Центар за урођене срчане мане код одраслих (ЦУСМО)"
+              subtitle="Дијагностика и праћење одраслих са урођеним срчаним манама"
+              href="/klinike/cusmo"
+            />
+            <ClinicCard
+              icon="fas fa-heart"
+              title="Одељење за неинвазивну дијагностику срца"
+              subtitle="Ехокардиографија и структурне интервентне процедуре"
+              href="/klinike/neinvazivna-dijagnostika-srca"
+            />
+            <ClinicCard
               icon="fas fa-heart-circle-check"
               title="Центар за срчану слабост"
               subtitle="Специјализована нега за срце"
@@ -147,6 +171,12 @@ export default async function KlinikePage() {
               title="Физикална медицина и рехабилитација"
               subtitle="Опоравак и рехабилитација"
               href="/klinike/fizikalna-medicina"
+            />
+            <ClinicCard
+              icon="fas fa-person-walking"
+              title="Центар за кардиоваскуларну рехабилитацију"
+              subtitle="Прехабилитација, рана и амбулантна рехабилитација"
+              href="/klinike/kardiovaskularna-rehabilitacija"
             />
             <ClinicCard
               icon="fas fa-pills"

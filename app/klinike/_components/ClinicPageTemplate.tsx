@@ -13,6 +13,11 @@ export interface ClinicArea {
   desc: string;
 }
 
+export interface ClinicStaffGroup {
+  heading?: string;
+  names: string[];
+}
+
 export interface ClinicPageData {
   breadcrumbLabel: string;
   title: string;
@@ -25,6 +30,9 @@ export interface ClinicPageData {
   areasSubtitle?: string;
   areasIcon?: string;
   extraBanner?: { value: string; label: string; desc: string };
+  proceduresList?: { title: string; items: string[] };
+  staffList?: { title: string; groups: ClinicStaffGroup[] };
+  patientInstructions?: { title: string; paragraphs: string[] };
 }
 
 export function ClinicPageTemplate({ data }: { data: ClinicPageData }) {
@@ -61,10 +69,46 @@ export function ClinicPageTemplate({ data }: { data: ClinicPageData }) {
               </div>
             </div>
           )}
+
+          {data.proceduresList && (
+            <div className={styles.proceduresBlock}>
+              <h3>{data.proceduresList.title}</h3>
+              <ul className={styles.proceduresList}>
+                {data.proceduresList.items.map((item, idx) => (
+                  <li key={idx}>
+                    <i className="fas fa-check" aria-hidden />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </Container>
       </Section>
 
-      <Section padding="medium" background="gray">
+      {data.staffList && (
+        <Section padding="medium" background="gray">
+          <Container>
+            <div className={styles.staffBlock}>
+              <h3>{data.staffList.title}</h3>
+              <div className={styles.staffGroups}>
+                {data.staffList.groups.map((group, idx) => (
+                  <div key={idx} className={styles.staffGroup}>
+                    {group.heading && <h4>{group.heading}</h4>}
+                    <ul>
+                      {group.names.map((name, nameIdx) => (
+                        <li key={nameIdx}>{name}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Container>
+        </Section>
+      )}
+
+      <Section padding="medium" background={data.staffList ? "white" : "gray"}>
         <Container>
           <div className={styles.sectionHeader}>
             <span className={styles.sectionIconWrap}>
@@ -90,6 +134,18 @@ export function ClinicPageTemplate({ data }: { data: ClinicPageData }) {
         </Container>
       </Section>
 
+      {data.patientInstructions && (
+        <Section padding="medium" background={data.staffList ? "gray" : "white"}>
+          <Container>
+            <div className={styles.instructionsBlock}>
+              <h3>{data.patientInstructions.title}</h3>
+              {data.patientInstructions.paragraphs.map((para, idx) => (
+                <p key={idx}>{para}</p>
+              ))}
+            </div>
+          </Container>
+        </Section>
+      )}
     </>
   );
 }

@@ -24,10 +24,10 @@ out/                    build artefakt od `build:static` (nije izvor istine, ne 
 - `/` — početna (hero slider, info boxovi, statistike, usluge, "zašto mi", klinike, tim, vesti, kontakt CTA, partneri).
 - `/rec-direktora`, `/o-institutu`, `/biografija`, `/bibliografija` — Sanity-backed singletoni (vidi §3 ispod).
 - `/o-nama/{lokacija,nemedicinski-poslovi,odbori-i-organi-instituta,zdravstvena-akreditacija}` — hardkodovane info-stranice.
-- `/klinike` + 15 podstranica (kardiologija, kardiohirurgija, vaskularna-hirurgija, anesteziologija, apteka, centar-srcana-slabost, edukacija-prevencija, fizikalna-medicina, invazivna-dijagnostika, klinicka-patologija, kv-dijagnostika, laboratorija, poliklinika, telemedicina, transfuzija) — sve kroz zajednički `ClinicPageTemplate`.
-- `/za-pacijente` + 10 podstranica (ambulante, česta pitanja, prijem, konzilijumi, plan ishrane, itd.) — hardkodovano.
-- `/nauka-istrazivanje` + podstranice (NIO, centar izuzetnih vrednosti, SAIGE projekat, lista istraživača, CardioView3D lab) — hardkodovano.
-- `/edukacija` + podstranice (KME, kongresi, radionice, škole) — hardkodovano.
+- `/klinike` + 20 podstranica — originalnih 15 (kardiologija, kardiohirurgija, vaskularna-hirurgija, anesteziologija, apteka, centar-srcana-slabost, edukacija-prevencija, fizikalna-medicina, invazivna-dijagnostika, klinicka-patologija, kv-dijagnostika, laboratorija, poliklinika, telemedicina, transfuzija) + 5 dodatih (elektrofiziologija, kardiovaskularna-rehabilitacija, neurokardioloska-laboratorija, cusmo, neinvazivna-dijagnostika-srca) — sve kroz zajednički `ClinicPageTemplate` (proširen opcionim `proceduresList`/`staffList`/`patientInstructions` blokovima; izuzetak je `kardiohirurgija` koja ima custom page + `units.ts` za 5 pod-jedinica).
+- `/za-pacijente` + 11 podstranica (ambulante, česta pitanja, prijem, preoperativna-priprema, konzilijumi, plan ishrane, itd.) — hardkodovano.
+- `/nauka-istrazivanje` + podstranice (NIO, centar izuzetnih vrednosti, SAIGE projekat, lista istraživača, CardioView3D lab — spojena stranica sa 3 taba, stara `/workshop` ruta radi redirect) — hardkodovano.
+- `/edukacija` + podstranice (KME, kongresi, radionice, škole, `sestrinska-edukacija` hub + 4 podstranice) — hardkodovano.
 - `/aktuelnosti` + `[slug]` + podsekcije (vesti, gostovanja, obaveštenja, oglasi-konkursi, časopis Dedinje, informator) — sadržaj u `constants.ts` fajlovima po sekciji.
 - `/kontakt` — kontakt info + forma (forma trenutno ne šalje nikuda, vidi `PROJECT_STATUS.md`).
 - `/studio/[[...tool]]` — Sanity Studio, montiran direktno u Next.js app.

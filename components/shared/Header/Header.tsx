@@ -209,6 +209,11 @@ export default function Header() {
                       <Link href="/za-pacijente/prijem" onClick={closeMenu}>Пријем у болницу</Link>
                     </li>
                     <li>
+                      <Link href="/za-pacijente/preoperativna-priprema" onClick={closeMenu}>
+                        Преоперативна припрема
+                      </Link>
+                    </li>
+                    <li>
                       <Link href="/za-pacijente/informacije-o-stanju" onClick={closeMenu}>
                         Информације о здравственом стању пацијента
                       </Link>
@@ -265,18 +270,10 @@ export default function Header() {
                         Листа истраживача
                       </Link>
                     </li>
-                    <li className={styles.hasSubmenu}>
-                      <span>
-                        CardioView3D LAB - Dedinje{" "}
-                        <i className="fas fa-chevron-right"></i>
-                      </span>
-                      <ul className={styles.submenu}>
-                        <li>
-                          <Link href="/nauka-istrazivanje/cardioview3d-lab/workshop" onClick={closeMenu}>
-                            CardioView3D LAB - WORKSHOP
-                          </Link>
-                        </li>
-                      </ul>
+                    <li>
+                      <Link href="/nauka-istrazivanje/cardioview3d-lab" onClick={closeMenu}>
+                        CardioView3D LAB
+                      </Link>
                     </li>
                     <li className={styles.hasSubmenu}>
                       <span>
@@ -328,6 +325,11 @@ export default function Header() {
                     </li>
                     <li>
                       <Link href="/edukacija/interna-edukacija" onClick={closeMenu}>Интерна едукација</Link>
+                    </li>
+                    <li>
+                      <Link href="/edukacija/sestrinska-edukacija" onClick={closeMenu}>
+                        Едукација медицинских сестара и техничара
+                      </Link>
                     </li>
                     <li>
                       <Link href="/edukacija/radionice" onClick={closeMenu}>Радионице</Link>
