@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(npm run lint)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Agent",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"let data='';process.stdin.on('data',c=>data+=c);process.stdin.on('end',()=>{const hookInput=JSON.parse(data);const input=hookInput.tool_input||{};const type=input.subagent_type||'general-purpose';let forcedModel=input.model;if(type==='Explore')forcedModel='haiku';else if(type==='general-purpose')forcedModel='sonnet';const updatedInput=Object.assign({},input,{model:forcedModel});process.stdout.write(JSON.stringify({hookSpecificOutput:{hookEventName:'PreToolUse',permissionDecision:'allow',updatedInput}}));});\"",
+            "statusMessage": "Forsiranje jeftinijeg modela za podagenta..."
+          }
+        ]
+      }
+    ]
+  }
+}
