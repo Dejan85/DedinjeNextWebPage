@@ -87,10 +87,37 @@ scripts/
   migrate-<ime>.ts              # Migracioni skript
 ```
 
+## Schema strategija po tipu sadržaja
+
+Dosadašnjih 5 migriranih stranica su sve **bespoke singletoni** — jedinstvena
+stranica, poseban schema fajl skrojen tačno po njenim poljima. Za preostalih
+~70 stranica (vidi detaljan task-breakdown u [`TASKS.md`](TASKS.md)) to bi
+značilo 70 schema fajlova za slične ili identične oblike, pa se koriste dva
+dodatna obrasca gde ima smisla:
+
+- **Bespoke singleton** (dosadašnji obrazac) — kad je stranica jedinstvena i
+  ima specifična polja koja se ne ponavljaju nigde drugde (primer:
+  `directorPage`, `biographyPage`).
+- **Generički `page` document** (`sanity/schemas/documents/page.ts`, postoji
+  već, neiskorišćen van seed skripti) — za uniformne info-stranice oblika
+  hero + tekst/liste, kroz postojeći page-builder (`contentBlock`, `infoBox`,
+  `statsSection`, itd.). Jedan dokument po ruti, isti schema za sve. Koristi
+  se za većinu `za-pacijente/*`, `edukacija/*`, `nauka-istrazivanje/*` stranica.
+- **Multi-instance document tip** — kad postoji više instanci istog oblika
+  sadržaja: jedan `clinicPage` tip za svih ~20 klinika (umesto 20 singleton
+  schema-a), i reuse postojećeg `news` document tipa (već postoji, neiskorišćen)
+  za vesti/obaveštenja/oglase/gostovanja pod `aktuelnosti/*`. Dodavanje nove
+  klinike/vesti postaje novi Sanity dokument kroz Studio, bez novog koda.
+
+Za stranice koje ne staju čisto u generički `page` builder (npr. tabovi,
+strukturirane tabele, liste dokumenata) — dodati novi content-block objekat
+umesto bespoke singleton-a, ako se oblik ponavlja na više mesta.
+
 ## Status migracije po ruti
 
 > Ažurirano po [`TASKS.md`](TASKS.md) — ne duplirati detaljan tracking ovde,
 > samo kratak pregled.
 
-- ✅ Početna, `footer`, `/rec-direktora`, `/o-institutu`, `/biografija`, `/bibliografija` — migrirano.
-- ❌ `klinike/*`, `za-pacijente/*`, `edukacija/*`, `nauka-istrazivanje/*`, `aktuelnosti/*` — još hardkodovano, isti obrazac treba primeniti kad se odluči prioritet.
+- ✅ Početna, `footer`, `/rec-direktora`, `/o-institutu`, `/biografija`, `/bibliografija` — migrirano (bespoke singletoni).
+- ✅ `klinike/*` (19 od 20 stranica, `clinicPage` multi-instance tip) — migrirano. Kardiohirurgija ostaje hardkodovana (custom page + `units.ts`, ne staje u generički tip).
+- ❌ `za-pacijente/*`, `edukacija/*`, `nauka-istrazivanje/*` (generički `page` builder + izuzeci), `aktuelnosti/*` (reuse `news` multi-instance tip) — detaljan task-breakdown po ruti u [`TASKS.md`](TASKS.md).

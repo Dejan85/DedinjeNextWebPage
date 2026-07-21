@@ -24,7 +24,7 @@ out/                    build artefakt od `build:static` (nije izvor istine, ne 
 - `/` — početna (hero slider, info boxovi, statistike, usluge, "zašto mi", klinike, tim, vesti, kontakt CTA, partneri).
 - `/rec-direktora`, `/o-institutu`, `/biografija`, `/bibliografija` — Sanity-backed singletoni (vidi §3 ispod).
 - `/o-nama/{lokacija,nemedicinski-poslovi,odbori-i-organi-instituta,zdravstvena-akreditacija}` — hardkodovane info-stranice.
-- `/klinike` + 20 podstranica — originalnih 15 (kardiologija, kardiohirurgija, vaskularna-hirurgija, anesteziologija, apteka, centar-srcana-slabost, edukacija-prevencija, fizikalna-medicina, invazivna-dijagnostika, klinicka-patologija, kv-dijagnostika, laboratorija, poliklinika, telemedicina, transfuzija) + 5 dodatih (elektrofiziologija, kardiovaskularna-rehabilitacija, neurokardioloska-laboratorija, cusmo, neinvazivna-dijagnostika-srca) — sve kroz zajednički `ClinicPageTemplate` (proširen opcionim `proceduresList`/`staffList`/`patientInstructions` blokovima; izuzetak je `kardiohirurgija` koja ima custom page + `units.ts` za 5 pod-jedinica).
+- `/klinike` + 20 podstranica — 19 Sanity-backed (`clinicPage` multi-instance tip, vidi §3 ispod), sve kroz zajednički `ClinicPageTemplate` (proširen opcionim `proceduresList`/`staffList`/`patientInstructions` blokovima); izuzetak je `kardiohirurgija` koja ostaje hardkodovana, sa custom page + `units.ts` za 5 pod-jedinica (ne staje u generički `clinicPage` tip).
 - `/za-pacijente` + 11 podstranica (ambulante, česta pitanja, prijem, preoperativna-priprema, konzilijumi, plan ishrane, itd.) — hardkodovano.
 - `/nauka-istrazivanje` + podstranice (NIO, centar izuzetnih vrednosti, SAIGE projekat, lista istraživača, CardioView3D lab — spojena stranica sa 3 taba, stara `/workshop` ruta radi redirect) — hardkodovano.
 - `/edukacija` + podstranice (KME, kongresi, radionice, škole, `sestrinska-edukacija` hub + 4 podstranice) — hardkodovano.
@@ -43,8 +43,9 @@ Projekat je **usred postepene migracije** sa hardkodovanog sadržaja ka Sanity C
 - `aboutPage` (`/o-institutu`)
 - `biographyPage` (`/biografija`)
 - `bibliographyPage` (`/bibliografija`)
+- `clinicPage` (`/klinike/*`, 19 od 20 stranica — multi-instance document tip, vidi §3.1 i [`MIGRACIJA.md`](MIGRACIJA.md))
 
-**Još uvek potpuno hardkodovano** (nema Sanity fetch): sve `klinike/*`, `za-pacijente/*`, `edukacija/*`, `nauka-istrazivanje/*`, `aktuelnosti/*`. Editovanje sadržaja ovih stranica znači direktno menjanje `page.tsx`/`constants.ts`, Sanity Studio tu ne pomaže.
+**Još uvek potpuno hardkodovano** (nema Sanity fetch): `klinike/kardiohirurgija` (+ `units.ts`), `za-pacijente/*`, `edukacija/*`, `nauka-istrazivanje/*`, `aktuelnosti/*`. Editovanje sadržaja ovih stranica znači direktno menjanje `page.tsx`/`constants.ts`, Sanity Studio tu ne pomaže.
 
 Sanity fajlovi od interesa: `sanity/lib/client.ts` (klijent, `useCdn: false`), `sanity/lib/queries.ts` (sve GROQ upite), `sanity/lib/image.ts` (`urlFor()`), `sanity/types.ts` (ručno pisani TS tipovi), `sanity/schemas/{documents,singletons,objects}/`.
 
@@ -59,6 +60,7 @@ Sanity fajlovi od interesa: `sanity/lib/client.ts` (klijent, `useCdn: false`), `
 - `news` — vesti/blog (kategorije, rich text, featured marker).
 - `publication` — naučne publikacije (DOI, PMID, Impact Factor, kategorije M21a+/M21a/M21/M22/M23, reference ka lekarima).
 - `testimonial` — iskustva pacijenata (citati, rating, featured marker).
+- `clinicPage` — stranice klinika (title/slug/subtitle, areas, opcioni proceduresList/staffList/patientInstructions) — jedan tip, 19 dokumenata (jedan po klinici, `_id: clinicPage-<slug>`), `order` polje za redosled na `/klinike` hub-u.
 
 **Singletons** (jedinstveni dokumenti): `siteSettings` (naziv/opis sajta, kontakt, radno vreme, social, globalni SEO), `navigation` (glavni meni + footer meni), plus stranični singletoni iz §3 iznad (`directorPage`, `aboutPage`, `biographyPage`, `bibliographyPage`, `footer`, homepage).
 

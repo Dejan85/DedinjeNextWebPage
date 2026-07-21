@@ -1,50 +1,22 @@
 import { ClinicPageTemplate } from "../_components/ClinicPageTemplate";
-import type { ClinicPageData } from "../_components/ClinicPageTemplate";
+import { client } from "@/sanity/lib/client";
+import { CLINIC_PAGE_QUERY } from "@/sanity/lib/queries";
+import type { ClinicPage } from "@/sanity/types";
+import { DATA } from "./data";
 import { metadata } from "./metadata";
 
 export { metadata };
 
-const DATA: ClinicPageData = {
-  breadcrumbLabel: "Центар за срчану слабост",
-  title: "Центар за срчану слабост",
-  subtitle: "Комплексно лечење срчане слабости — од медикаментозне терапије до механичке потпоре и трансплантације",
-  introIcon: "fas fa-heart-circle-check",
-  introTitle: "О центру",
-  introText: "Центар за срчану слабост ИКВБ Дедиње пружа свеобухватан приступ лечењу пацијената са тешком срчаном слабошћу. Мултидисциплинарни тим кардиолога, кардиохирурга и специјализованих медицинских сестара обезбеђује најсавременије методе лечења, укључујући оптимизацију медикаментозне терапије, ресинхронизациону терапију, механичку потпору циркулације и припрему за трансплантацију срца.",
-  introParagraphs: [
-    "Центар обједињује кадровске, техничке и просторне ресурсе на једном месту, као завршна референтна установа за пацијенте са акутном и хроничном узнапредовалом срчаном слабошћу.",
-    "Организационо, Центар чине Конзилијум, Амбуланта за срчану слабост, Одељење за кардиолошко лечење срчане слабости и Одељење за кардиохируршко лечење срчане слабости.",
-  ],
-  areas: [
-    { icon: "fas fa-pills", title: "Медикаментозна терапија", desc: "Оптимизација лекова по најновијим смерницама за лечење срчане слабости" },
-    { icon: "fas fa-gear", title: "Механичка потпора", desc: "VAD системи и ECMO за пацијенте са терминалном срчаном слабошћу" },
-    { icon: "fas fa-heart-circle-bolt", title: "Ресинхронизација", desc: "CRT уређаји за побољшање координације срчаних комора" },
-    { icon: "fas fa-user-doctor", title: "Мултидисциплинарни тим", desc: "Заједнички рад кардиолога, хирурга и специјалиста за срчану слабост" },
-  ],
-  proceduresList: {
-    title: "Дијагностика и лечење",
-    items: [
-      "Магнетна резонанца и CT дијагностика срца",
-      "Ехокардиографија и ергоспирометрија",
-      "Катетеризација срца са коронарографијом и ендомиокардном биопсијом",
-      "Перкутана механичка циркулаторна потпора и ултрафилтрација (интензивна нега)",
-      "Интервенције на коронарним артеријама и залисцима (аортном и митралном)",
-      "Хируршка реваскуларизација миокарда и операције залистака",
-      "Ремоделирање леве коморе",
-      "Impella 5.5, LVAD и уградња тоталног вештачког срца",
-      "Трансплантација срца",
-    ],
-  },
-  patientInstructions: {
-    title: "Пријем и заказивање",
-    paragraphs: [
-      "Центар ради непрекидно, 24 часа дневно, 365 дана годишње. Пацијенти долазе путем болничког транспорта (превођења) или преко амбуланте за срчану слабост.",
-      "Амбулантни преглед заказује се четвртком, 08-15h.",
-      "Потребна документација: комплетна крвна слика, биохемијски панел и BNP/NT-proBNP налаз не старији од 7 дана.",
-    ],
-  },
-};
+const SLUG = "centar-srcana-slabost";
 
-export default function CentarSrcanaSlabostPage() {
-  return <ClinicPageTemplate data={DATA} />;
+export default async function CentarSrcanaSlabostPage() {
+  let clinic: ClinicPage | null = null;
+
+  try {
+    clinic = await client.fetch<ClinicPage>(CLINIC_PAGE_QUERY, { slug: SLUG });
+  } catch (error) {
+    console.error("⚠️ Sanity fetch failed:", error);
+  }
+
+  return <ClinicPageTemplate data={clinic ?? DATA} />;
 }

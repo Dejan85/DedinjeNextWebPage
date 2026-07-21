@@ -715,6 +715,65 @@ export const BIOGRAPHY_PAGE_QUERY = groq`
   }
 `;
 
+// Clinic Pages (multi-instance)
+export const CLINIC_PAGE_QUERY = groq`
+  *[_type == "clinicPage" && slug.current == $slug][0] {
+    _id,
+    title,
+    slug,
+    breadcrumbLabel,
+    subtitle,
+    introIcon,
+    introTitle,
+    introText,
+    introParagraphs,
+    areas[] {
+      _key,
+      icon,
+      title,
+      desc
+    },
+    areasTitle,
+    areasSubtitle,
+    areasIcon,
+    extraBanner {
+      value,
+      label,
+      desc
+    },
+    proceduresList {
+      title,
+      items
+    },
+    staffList {
+      title,
+      groups[] {
+        _key,
+        heading,
+        names
+      }
+    },
+    patientInstructions {
+      title,
+      paragraphs
+    },
+    seo {
+      title,
+      description
+    }
+  }
+`;
+
+export const CLINICS_LIST_QUERY = groq`
+  *[_type == "clinicPage"] | order(order asc) {
+    _id,
+    title,
+    slug,
+    subtitle,
+    introIcon
+  }
+`;
+
 export const BIBLIOGRAPHY_PAGE_QUERY = groq`
   *[_type == "bibliographyPage"][0] {
     pageHeader {

@@ -861,3 +861,66 @@ export interface BibliographyPage {
   download: BibliographyDownload;
   seo: BibliographySeo;
 }
+
+// Clinic Page Types (multi-instance — jedan tip, ~20 dokumenata)
+export interface ClinicArea {
+  _key?: string;
+  icon: string;
+  title: string;
+  desc: string;
+}
+
+export interface ClinicStaffGroup {
+  _key?: string;
+  heading?: string;
+  names: string[];
+}
+
+export interface ClinicStaffList {
+  title: string;
+  groups: ClinicStaffGroup[];
+}
+
+export interface ClinicProceduresList {
+  title: string;
+  items: string[];
+}
+
+export interface ClinicExtraBanner {
+  value: string;
+  label: string;
+  desc: string;
+}
+
+export interface ClinicPatientInstructions {
+  title: string;
+  paragraphs: string[];
+}
+
+export interface ClinicSeo {
+  title?: string;
+  description?: string;
+}
+
+export interface ClinicPage {
+  _id: string;
+  _type: "clinicPage";
+  title: string;
+  slug: { current: string };
+  order?: number;
+  breadcrumbLabel: string;
+  subtitle: string;
+  introIcon: string;
+  introTitle: string;
+  introText: string;
+  introParagraphs?: string[];
+  areas: ClinicArea[];
+  areasTitle?: string;
+  areasSubtitle?: string;
+  areasIcon?: string;
+  extraBanner?: ClinicExtraBanner;
+  proceduresList?: ClinicProceduresList;
+  staffList?: ClinicStaffList;
+  patientInstructions?: ClinicPatientInstructions;
+  seo?: ClinicSeo;
+}

@@ -1,48 +1,22 @@
 import { ClinicPageTemplate } from "../_components/ClinicPageTemplate";
-import type { ClinicPageData } from "../_components/ClinicPageTemplate";
+import { client } from "@/sanity/lib/client";
+import { CLINIC_PAGE_QUERY } from "@/sanity/lib/queries";
+import type { ClinicPage } from "@/sanity/types";
+import { DATA } from "./data";
 import { metadata } from "./metadata";
 
 export { metadata };
 
-const DATA: ClinicPageData = {
-  breadcrumbLabel: "Поликлиника Института",
-  title: "Поликлиника Института",
-  subtitle: "Амбулантни прегледи, дијагностика и специјалистичке консултације без хоспитализације",
-  introIcon: "fas fa-hospital",
-  introTitle: "О поликлиници",
-  introText: "Поликлиника Института Дедиње обезбеђује широк спектар амбулантних здравствених услуга. Пацијенти могу обавити специјалистичке прегледе, дијагностичке процедуре и контроле без потребе за болничким лечењем. Организована је тако да обезбеди ефикасан проток пацијената и кратко време чекања.",
-  areas: [
-    { icon: "fas fa-stethoscope", title: "Специјалистички прегледи", desc: "Кардиолошки, васкуларни и кардиохируршки амбулантни прегледи" },
-    { icon: "fas fa-file-medical", title: "Дијагностика", desc: "ЕКГ, ехокардиографија, доплер и друге неинвазивне методе" },
-    { icon: "fas fa-calendar-check", title: "Контролни прегледи", desc: "Редовно праћење стања пацијената после интервенција" },
-    { icon: "fas fa-clipboard-list", title: "Конзилијарни прегледи", desc: "Процена индикација за хируршко или интервентно лечење" },
-  ],
-  proceduresList: {
-    title: "Амбуланте у оквиру Поликлинике",
-    items: [
-      "Амбуланта Клинике за кардиохирургију — предоперативни пријем и постоперативне контроле",
-      "Амбуланта Центра за срчану слабост — иницијална процена и праћење болести",
-      "Амбуланта Клинике за кардиологију — тријажа и дијагностика",
-      "Амбуланта Коронарне јединице — постинфарктно праћење и интервенције",
-      "Амбуланта неинвазивне кардиологије — ехокардиографија и функционална дијагностика",
-      "Аритмолошка амбуланта — процена поремећаја ритма и контрола уређаја",
-      "Поликлиника за преоперативну припрему",
-      "Пријемна амбуланта — предоперативна процена",
-      "Кардиолошко-интернистичка амбуланта — васкуларна процена и консултације",
-      "Амбуланта Клинике за васкуларну хирургију",
-      "Лабораторијска амбуланта — вађење крви",
-    ],
-  },
-  patientInstructions: {
-    title: "Заказивање и документација",
-    paragraphs: [
-      "Прегледи се заказују преко система ИЗИС или позивом Call центра Института на +381 (0)11 3601 700.",
-      "Већина амбуланти ради 08-17:30h, аритмолошка амбуланта 08-20h, а лабораторијска амбуланта 24 часа.",
-      "На преглед понети упут лекара, отпусну листу (уколико постоји) и налазе новијих анализа, у зависности од амбуланте коју пацијент посећује.",
-    ],
-  },
-};
+const SLUG = "poliklinika";
 
-export default function PoliklinikPage() {
-  return <ClinicPageTemplate data={DATA} />;
+export default async function PoliklinikPage() {
+  let clinic: ClinicPage | null = null;
+
+  try {
+    clinic = await client.fetch<ClinicPage>(CLINIC_PAGE_QUERY, { slug: SLUG });
+  } catch (error) {
+    console.error("⚠️ Sanity fetch failed:", error);
+  }
+
+  return <ClinicPageTemplate data={clinic ?? DATA} />;
 }

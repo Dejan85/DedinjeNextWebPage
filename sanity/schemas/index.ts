@@ -6,6 +6,7 @@ import service from "./documents/service";
 import news from "./documents/news";
 import publication from "./documents/publication";
 import testimonial from "./documents/testimonial";
+import clinicPage from "./documents/clinicPage";
 
 // Singletons
 import siteSettings from "./singletons/siteSettings";
@@ -53,6 +54,7 @@ export const schemaTypes = [
   news,
   publication,
   testimonial,
+  clinicPage,
 
   // Objects
   hero,

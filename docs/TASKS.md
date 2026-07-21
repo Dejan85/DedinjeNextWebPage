@@ -16,11 +16,56 @@ backloga. Kad task završiš → vidi "Definicija završenog taska" u
 - ✅ `/o-institutu` (`aboutPage`)
 - ✅ `/biografija` (`biographyPage`)
 - ✅ `/bibliografija` (`bibliographyPage`)
-- ❌ `/klinike` + 15 podstranica (kardiologija, kardiohirurgija, vaskularna-hirurgija, anesteziologija, apteka, centar-srcana-slabost, edukacija-prevencija, fizikalna-medicina, invazivna-dijagnostika, klinicka-patologija, kv-dijagnostika, laboratorija, poliklinika, telemedicina, transfuzija)
-- ❌ `/za-pacijente` + 10 podstranica
-- ❌ `/nauka-istrazivanje` + podstranice
-- ❌ `/edukacija` + podstranice
-- ❌ `/aktuelnosti` + `[slug]` + podsekcije
+
+Detaljan task-breakdown za preostalih ~70 stranica (audit potvrdio 2026-07-21
+da su sve hardkodovane, nema Sanity fetch). Schema strategija po tipu
+sadržaja objašnjena u [`MIGRACIJA.md`](MIGRACIJA.md#schema-strategija-po-tipu-sadržaja).
+Radi se sekcija po sekciju, redosled ispod.
+
+### 1. Klinike (`clinicPage` document tip, multi-instance) — raditi prvo
+
+- ✅ Schema `sanity/schemas/documents/clinicPage.ts` — polja iz `ClinicPageData`
+  (title, slug, subtitle, areas, staffList, proceduresList,
+  patientInstructions, itd.), registrovana u `schemas/index.ts`
+- ✅ `CLINIC_PAGE_QUERY` (by slug) i `CLINICS_LIST_QUERY` (za hub kartice) u `sanity/lib/queries.ts`
+- ✅ TS tip `ClinicPage` u `sanity/types.ts`
+- ✅ `scripts/migrate-clinics.ts` (`npm run migrate:clinics`) — kreira 19 dokumenata iz `data.ts` fajlova (sve osim kardiohirurgije), potvrđeno upitom na javni Sanity API
+- ✅ Konvertovano svih 19 `app/klinike/<slug>/page.tsx` (ClinicPageTemplate stranice) u server component: fetch by slug + fallback na `./data.ts` (izdvojen iz starog `const DATA`)
+- ✅ `/klinike` hub — fetch liste za kartice (kardiohirurgija ostaje hardkodovana prva kartica), fallback na statičku listu ako Sanity fetch ne uspe
+- ❌ Kardiohirurgija (custom page + `units.ts`, 5 pod-jedinica) — poseban task, širi schema (ne staje u generički `clinicPage`)
+
+`npm run build` i `npx tsc --noEmit` prolaze bez grešaka; `npm run lint` na baseline-u (31 problem, nepromenjeno). Migrirane klinike: vaskularna-hirurgija, anesteziologija, invazivna-dijagnostika, elektrofiziologija, neurokardioloska-laboratorija, cusmo, neinvazivna-dijagnostika-srca, centar-srcana-slabost, poliklinika, klinicka-patologija, kardiologija, kv-dijagnostika, telemedicina, edukacija-prevencija, fizikalna-medicina, kardiovaskularna-rehabilitacija, apteka, laboratorija, transfuzija.
+
+### 2. Za pacijente (12 stranica, generički `page` builder + izuzeci)
+
+- ❌ Popisati koje od 12 staju u generički `page` builder vs trebaju custom polje
+  (npr. `kardiologija` već koristi ClinicPageTemplate → tretirati kao `clinicPage`;
+  `plan-ishrane` ima strukturirane tabele kalorija → možda novi content-block objekat)
+- ❌ Proširiti content-block set ako fali oblik (npr. FAQ blok za `cesta-pitanja`, dokument-lista blok za `kardiohirurski-konzilijum`)
+- ❌ Migraciona skripta(e) — seed kao `page` dokumenti po ruti
+- ❌ Konvertovati page.tsx fajlove (server component + fallback), isti obrazac kao dosad
+
+### 3. Edukacija (12 stranica, generički `page` builder + izuzeci)
+
+- ❌ Isti popis/podela kao za-pacijente (npr. `sestrinska-edukacija` hub+4 podstranice, `kme-2024`, `programi`+3 škole mogu biti uniformni; `kongresi`/`radionice` liste mogu tražiti reuse `news`-sličnog tipa)
+- ❌ Migraciona skripta(e) + page.tsx konverzija
+
+### 4. Nauka i istraživanje (7 stranica, generički `page` builder + izuzeci)
+
+- ❌ Popis (npr. `cardioview3d-lab` sa 3 taba i `lista-istrazivaca` verovatno trebaju custom polja; `nio`, `centar-izuzetnih-vrednosti`, `saige-projekat` uniformni)
+- ❌ Migraciona skripta(e) + page.tsx konverzija
+
+### 5. Aktuelnosti (9 stranica, `news`-tipa multi-instance dokumenti)
+
+- ❌ Proveriti/proširiti postojeći `sanity/schemas/documents/news.ts` (već postoji, neiskorišćen) — dodati polje za kategoriju (vest/obaveštenje/oglas/gostovanje) ako fali
+- ❌ `NEWS_LIST_QUERY` (po kategoriji) + `NEWS_BY_SLUG_QUERY` u queries.ts
+- ❌ Migraciona skripta za postojeće hardkodovane stavke iz `vesti`, `obavestenja`, `oglasi-konkursi`, `gostovanja`
+- ❌ Konvertovati hub + `[slug]` dinamičku rutu da fetch-uju sa Sanity-ja
+- ❌ ☁️ `casopis-dedinje` i `informator` — ne migrirati još, blokirano poznatim bugom sa pogrešnim PDF linkovima, čeka pravi materijal od vlasnika (vidi Backlog niže)
+
+**Napomena uz sve sekcije:** svaka stranica zadržava hardkodovani fallback
+(isti obrazac kao 5 postojećih Sanity stranica) — ako Sanity fetch ne uspe,
+stranica i dalje radi.
 
 ## Sadržaj za unos — `docs za ubacivanje/` (gitignored, samo lokalno)
 

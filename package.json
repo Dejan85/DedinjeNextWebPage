@@ -19,6 +19,7 @@
     "migrate:about": "tsx scripts/migrate-about.ts",
     "migrate:biography": "tsx scripts/migrate-biography.ts",
     "migrate:bibliography": "tsx scripts/migrate-bibliography.ts",
+    "migrate:clinics": "tsx scripts/migrate-clinics.ts",
     "check:homepage": "tsx scripts/check-homepage.ts"
   },
   "dependencies": {
