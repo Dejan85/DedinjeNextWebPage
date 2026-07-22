@@ -64,10 +64,6 @@ export {
   type AmbulantaSection,
 } from "./AmbulanteAccordion/AmbulanteAccordion";
 export {
-  default as ResearchersAccordion,
-  type ResearcherCategory,
-} from "./ResearchersAccordion/ResearchersAccordion";
-export {
   default as PageHeader,
   type BreadcrumbItem,
 } from "./PageHeader/PageHeader";
@@ -89,4 +85,8 @@ export {
   type TimelineBlockItem,
 } from "./TimelineBlock/TimelineBlock";
 export { default as LectureScheduleBlock } from "./LectureScheduleBlock/LectureScheduleBlock";
+export {
+  default as DocumentListBlock,
+  type DocumentListItem,
+} from "./DocumentListBlock/DocumentListBlock";
 export { default as PageBuilder } from "./PageBuilder/PageBuilder";

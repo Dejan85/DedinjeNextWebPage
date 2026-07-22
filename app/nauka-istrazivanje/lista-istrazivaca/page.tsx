@@ -1,111 +1,25 @@
-import {
-  Container,
-  PageHeader,
-  ResearchersAccordion,
-  Section,
-} from "@/components/shared";
-import type { ResearcherCategory } from "@/components/shared/ResearchersAccordion/ResearchersAccordion";
+import { PageBuilder, PageHeader } from "@/components/shared";
+import { client } from "@/sanity/lib/client";
+import { PAGE_BY_SLUG_QUERY } from "@/sanity/lib/queries";
+import type { PatientPage } from "@/sanity/types";
 import { generateMetadata } from "./metadata";
-import styles from "./page.module.css";
+import { DATA } from "./data";
 
 export { generateMetadata };
 
-const ISTRAZIVACI: ResearcherCategory[] = [
-  {
-    id: "visi-naucni-saradnici",
-    title: "Виши научни сарадници",
-    icon: "fas fa-user-tie",
-    researchers: [
-      "Др Горан Лончар, виши научни сарадник",
-      "Др Слободан Танасковић, виши научни сарадник",
-      "Др Милан Милојевић, виши научни сарадник",
-    ],
-  },
-  {
-    id: "naucni-saradnici",
-    title: "Научни сарадници",
-    icon: "fas fa-user-graduate",
-    researchers: [
-      "Др Милован Бојић, научни сарадник",
-      "Др Милош Стојиљковић, научни сарадник",
-      "Др Мирко Чолић, научни сарадник",
-      "Др Драгана Унић-Стојановић, научни сарадник",
-      "Др Ивана Петровић, научни сарадник",
-      "Др Слободан Мићовић, научни сарадник",
-      "Др Предраг Матић, научни сарадник",
-      "Др Бранко Лозук, научни сарадник",
-      "Др Оливера Ђокић, научни сарадник",
-      "Др Петар Вуковић, научни сарадник",
-      "Др Ивана Буразор, научни сарадник",
-      "Др Саша Боровић, научни сарадник",
-      "Др Иван Илић, научни сарадник",
-      "Др Ружица Јурчевић, научни сарадник",
-      "Др Слободан Томић, научни сарадник",
-    ],
-  },
-  {
-    id: "istrazivaci-saradnici",
-    title: "Истраживачи – сарадници",
-    icon: "fas fa-users",
-    researchers: [
-      "Др Велибор Ристић, истраживач сарадник",
-      "Др Александра Грбовић, истраживач сарадник",
-      "Др Игор Живковић, истраживач сарадник",
-      "Др Петар Милачић, истраживач сарадник",
-      "Др Богдан Окиљевић, истраживач сарадник",
-      "Др Јелена Стефановић Нешковић, истраживач сарадник",
-    ],
-  },
-  {
-    id: "istrazivaci-pripravnici",
-    title: "Истраживачи – приправници",
-    icon: "fas fa-graduation-cap",
-    researchers: [
-      "Др Маја Филиповић, истраживач-приправник",
-      "Др Марко Филиповић, истраживач-приправник",
-      "Др Михајло Фаркић, истраживач-приправник",
-      "Др Драган Топић, истраживач-приправник",
-      "Др Милан Ћирковић, истраживач-приправник",
-      "Др Владимир Савић, истраживач-приправник",
-      "Др Татјана Рагуш, истраживач-приправник",
-      "Др Дејан Којић, истраживач-приправник",
-      "Др Јелена Лешановић, истраживач-приправник",
-      "Др Драгана Кошевић, истраживач-приправник",
-      "Др Иван Нешић, истраживач-приправник",
-      "Др Ђорђе Здравковић, истраживач-приправник",
-      "Др Ивана Ђокић, истраживач-приправник",
-      "Др Љубомир Ђоковић, истраживач-приправник",
-      "Др Драгана Динић, истраживач-приправник",
-      "Др Слађана Божовић Огаревић, истраживач-приправник",
-      "Др Милијана Балевић, истраживач-приправник",
-      "Др Александра Живковић, истраживач-приправник",
-      "Др Марко Каитовић, истраживач-приправник",
-      "Др Елена Стефановић, истраживач-приправник",
-      "Др Срђан Бабић, истраживач-приправник",
-      "Др Стефан Вељковић, истраживач-приправник",
-      "Др Маја Милошевић, истраживач-приправник",
-      "Др Милош Бабић, истраживач-приправник",
-      "Др Јована Лакчевић, истраживач-приправник",
-      "Др Михаило Нешковић, истраживач-приправник",
-      "Др Марија Марић, истраживач-приправник",
-      "Др Марко Николић, истраживач-приправник",
-      "Др Горица Видовић, истраживач-приправник",
-      "Др Маша Петровић, истраживач-приправник",
-      "Др Валентина Балинт Јовановић, истраживач-приправник",
-      "Др Наташа Дукуљев, истраживач-приправник",
-      "Др Ана Перуничић, истраживач-приправник",
-      "Др Љиљана Ранковић Ничић, истраживач-приправник",
-      "Др Наталија Одановић, истраживач-приправник",
-      "Др Стеван Јевтић, истраживач-приправник",
-      "Др Милан Ранђеловић, истраживач-приправник",
-      "Др Емилија Таборовић, истраживач-приправник",
-    ],
-  },
-];
+const SLUG = "lista-istrazivaca";
 
-const TOTAL = ISTRAZIVACI.reduce((acc, cat) => acc + cat.researchers.length, 0);
+export default async function ListaIstrazivacaPage() {
+  let page: PatientPage | null = null;
 
-export default function ListaIstrazivacaPage() {
+  try {
+    page = await client.fetch<PatientPage>(PAGE_BY_SLUG_QUERY, { slug: SLUG });
+  } catch (error) {
+    console.error("⚠️ Sanity fetch failed:", error);
+  }
+
+  const data = page ?? DATA;
+
   return (
     <>
       <PageHeader
@@ -114,46 +28,10 @@ export default function ListaIstrazivacaPage() {
           { label: "Наука и истраживање", href: "/nauka-istrazivanje" },
           { label: "Листа истраживача" },
         ]}
-        title="Листа истраживача"
-        subtitle="Истраживачи Института за кардиоваскуларне болести Дедиње"
+        title={data.title}
+        subtitle={data.subtitle}
       />
-
-      <Section padding="medium" background="white">
-        <Container>
-          <div className={styles.intro}>
-            <div className={styles.introIcon}>
-              <i className="fas fa-flask" aria-hidden />
-            </div>
-            <div className={styles.introContent}>
-              <h2>Истраживачки тим Института</h2>
-              <p>
-                Научноистраживачки рад Института за кардиоваскуларне болести
-                &bdquo;Дедиње&ldquo; остварује тим истраживача организованих по
-                категоријама — од виших научних сарадника до истраживача
-                приправника.
-              </p>
-            </div>
-          </div>
-          <div className={styles.stats}>
-            <div className={styles.statItem}>
-              <span className={styles.statValue}>{TOTAL}</span>
-              <span className={styles.statLabel}>истраживача</span>
-            </div>
-            <div className={styles.statItem}>
-              <span className={styles.statValue}>{ISTRAZIVACI.length}</span>
-              <span className={styles.statLabel}>категорије</span>
-            </div>
-          </div>
-        </Container>
-      </Section>
-
-      <Section padding="medium" background="gray">
-        <ResearchersAccordion
-          title={'Истраживачи Института за кардиоваскуларне болести „Дедиње"'}
-          items={ISTRAZIVACI}
-          defaultOpenId="visi-naucni-saradnici"
-        />
-      </Section>
+      <PageBuilder blocks={data.pageBuilder} />
     </>
   );
 }

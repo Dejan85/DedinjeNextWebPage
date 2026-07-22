@@ -46,6 +46,7 @@ import faqBlock from "./objects/faqBlock";
 import tabsBlock from "./objects/tabsBlock";
 import timelineBlock from "./objects/timelineBlock";
 import lectureScheduleBlock from "./objects/lectureScheduleBlock";
+import documentListBlock from "./objects/documentListBlock";
 
 export const schemaTypes = [
   // Singletons
@@ -96,4 +97,5 @@ export const schemaTypes = [
   tabsBlock,
   timelineBlock,
   lectureScheduleBlock,
+  documentListBlock,
 ];

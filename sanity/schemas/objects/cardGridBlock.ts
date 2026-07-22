@@ -45,6 +45,8 @@ export default defineType({
             },
             { name: "description", title: "Opis", type: "text", rows: 2 },
             { name: "href", title: "Link (opciono — kartica postaje klikabilna)", type: "string" },
+            { name: "date", title: "Datum (opciono, npr. za vesti/aktuelnosti)", type: "string" },
+            { name: "category", title: "Kategorija (opciono, npr. za vesti/aktuelnosti)", type: "string" },
           ],
           preview: { select: { title: "title", subtitle: "description" } },
         },

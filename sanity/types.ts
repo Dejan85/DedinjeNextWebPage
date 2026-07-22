@@ -80,7 +80,15 @@ export interface CardGridBlockData {
   subtitle?: string;
   intro?: string;
   numbered?: boolean;
-  cards: { icon?: string; title?: string; value?: string; description?: string; href?: string }[];
+  cards: {
+    icon?: string;
+    title?: string;
+    value?: string;
+    description?: string;
+    href?: string;
+    date?: string;
+    category?: string;
+  }[];
 }
 
 export interface ChecklistBlockData {
@@ -206,6 +214,20 @@ export interface LectureScheduleBlockData {
   tabs: LectureScheduleTab[];
 }
 
+export interface DocumentListItem {
+  icon?: string;
+  label: string;
+  href: string;
+  year?: string;
+}
+
+export interface DocumentListBlockData {
+  _type: "documentListBlock";
+  heading?: string;
+  subtitle?: string;
+  items: DocumentListItem[];
+}
+
 export type PatientPageBlock =
   | IntroSectionBlock
   | BannerBlockData
@@ -216,7 +238,8 @@ export type PatientPageBlock =
   | FaqBlockData
   | TabsBlockData
   | TimelineBlockData
-  | LectureScheduleBlockData;
+  | LectureScheduleBlockData
+  | DocumentListBlockData;
 
 export interface PatientPage {
   _id?: string;

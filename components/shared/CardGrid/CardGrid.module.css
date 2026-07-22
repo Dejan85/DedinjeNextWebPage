@@ -80,6 +80,39 @@
   color: var(--white);
 }
 
+.cardMeta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.cardCategory {
+  display: inline-block;
+  background: var(--primary-bg);
+  color: var(--primary);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.cardDate {
+  font-size: 12px;
+  color: var(--gray-400);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.cardDate i {
+  font-size: 10px;
+}
+
 .cardValue {
   font-size: 28px;
   font-weight: 800;

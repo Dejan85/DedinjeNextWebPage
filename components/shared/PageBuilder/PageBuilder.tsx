@@ -10,12 +10,14 @@ import ContactDirectory from "../ContactDirectory/ContactDirectory";
 import ProcedureTabs from "../ProcedureTabs/ProcedureTabs";
 import TimelineBlock from "../TimelineBlock/TimelineBlock";
 import LectureScheduleBlock from "../LectureScheduleBlock/LectureScheduleBlock";
+import DocumentListBlock from "../DocumentListBlock/DocumentListBlock";
 import type {
   AccordionBlockData,
   BannerBlockData,
   CardGridBlockData,
   ChecklistBlockData,
   ContactDirectoryBlockData,
+  DocumentListBlockData,
   FaqBlockData,
   IntroSectionBlock,
   LectureScheduleBlockData,
@@ -33,7 +35,8 @@ type PageBuilderBlockInput =
   | FaqBlockData
   | TabsBlockData
   | TimelineBlockData
-  | LectureScheduleBlockData;
+  | LectureScheduleBlockData
+  | DocumentListBlockData;
 
 interface PageBuilderProps {
   blocks: PageBuilderBlockInput[];
@@ -188,6 +191,18 @@ export default function PageBuilder({ blocks }: PageBuilderProps) {
                 subtitle={block.subtitle}
                 defaultTabId={block.defaultTabId}
                 tabs={block.tabs}
+                background={background}
+              />
+            );
+          }
+          case "documentListBlock": {
+            const background = sectionIndex++ % 2 === 0 ? "white" : "gray";
+            return (
+              <DocumentListBlock
+                key={idx}
+                heading={block.heading}
+                subtitle={block.subtitle}
+                items={block.items}
                 background={background}
               />
             );

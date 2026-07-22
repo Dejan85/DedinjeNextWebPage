@@ -138,6 +138,10 @@ export default defineType({
           type: "lectureScheduleBlock",
           title: "📅 Raspored predavanja (tabovi po godinama)",
         },
+        {
+          type: "documentListBlock",
+          title: "📄 Lista dokumenata",
+        },
       ],
     }),
     defineField({

@@ -9,6 +9,8 @@ export interface CardGridItem {
   value?: string;
   description?: string;
   href?: string;
+  date?: string;
+  category?: string;
 }
 
 interface CardGridProps {
@@ -50,6 +52,18 @@ export default function CardGrid({
                 {card.icon && (
                   <div className={styles.cardIcon}>
                     <i className={card.icon} aria-hidden />
+                  </div>
+                )}
+                {(card.category || card.date) && (
+                  <div className={styles.cardMeta}>
+                    {card.category && (
+                      <span className={styles.cardCategory}>{card.category}</span>
+                    )}
+                    {card.date && (
+                      <span className={styles.cardDate}>
+                        <i className="fas fa-calendar-alt" aria-hidden /> {card.date}
+                      </span>
+                    )}
                   </div>
                 )}
                 {card.value && (

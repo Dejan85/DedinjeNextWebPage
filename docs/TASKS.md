@@ -49,7 +49,7 @@ Migrirane rute (sa Sanity `page` document slug-ima): ambulante ("ambulante", acc
 
 `npm run build` (exit 0) i `npm run lint` (29 problema, 2 manje nego bazeline od 31) prolaze bez regresija; sve 12 `/za-pacijente/*` rute vidljive kao dinamičke server-rendered u build-u.
 
-**Napomena:** infrastruktura `page` builder + 8 reusable block tipova izgrađena ovde je direktno reusovana za Edukaciju (sekciju 3, ✅ gotovo — usput dodala 2 nova block tipa, `timelineBlock`/`lectureScheduleBlock`) i Nauku-istraživanje (sekciju 4) — `PAGE_BY_SLUG_QUERY`, komponente i pattern fallback-a se direktno kopiraju bez izmena. Sledeće na redu: Nauka i istraživanje sekcija.
+**Napomena:** infrastruktura `page` builder + 8 reusable block tipova izgrađena ovde je direktno reusovana za Edukaciju (sekciju 3, ✅ gotovo — usput dodala 2 nova block tipa, `timelineBlock`/`lectureScheduleBlock`) i Nauku-istraživanje (sekciju 4, ✅ gotovo — usput dodala 2 polja na `cardGridBlock` + 1 nov block tip `documentListBlock`) — `PAGE_BY_SLUG_QUERY`, komponente i pattern fallback-a se direktno kopiraju bez izmena. Sledeće na redu: Aktuelnosti sekcija (sekcija 5).
 
 ### 3. Edukacija (16 stranica — audit otkrio 16, ne 12 kako je ranije procenjeno)
 
@@ -66,8 +66,10 @@ Migrirane rute (sa Sanity `page` document slug-ima): ambulante ("ambulante", acc
 
 ### 4. Nauka i istraživanje (7 stranica, generički `page` builder + izuzeci)
 
-- ❌ Popis (npr. `cardioview3d-lab` sa 3 taba i `lista-istrazivaca` verovatno trebaju custom polja; `nio`, `centar-izuzetnih-vrednosti`, `saige-projekat` uniformni)
-- ❌ Migraciona skripta(e) + page.tsx konverzija
+- ✅ 5 od 7 stranica migrirano na `page` document tip sa reuse `PAGE_BY_SLUG_QUERY` + fallback na `data.ts`: `centar-izuzetnih-vrednosti` (introSection + bannerBlock + cardGridBlock + bannerBlock), `saige-projekat` (introSection + bannerBlock + cardGridBlock[numbered] + bannerBlock), `aktuelnosti` (ugnježdeno pod nauka-istrazivanje, slug `nauka-istrazivanje-aktuelnosti` da izbegne koliziju sa root `/aktuelnosti` sekcijom 5), `lista-istrazivaca` (introSection[stats 62 istraživača / 4 kategorije] + accordionBlock, stara bespoke `ResearchersAccordion` komponenta obrisana — data shape je 1:1 sa postojećim `accordionBlock` + `AmbulanteAccordion` renderer), `nio` (introSection[stats 2020/2025/4] + bannerBlock + **nov** `documentListBlock` za PDF listu). `/nio/page.tsx` bio `"use client"` (blokirao Sanity fetch/generateMetadata) → refaktorisan na server component, PDF interaktivnost prebačena u novu client komponentu `DocumentListBlock`.
+- ✅ Schema izmene: `cardGridBlock` dobio opciona `date` i `category` polja (za `aktuelnosti` kartice); **nov** `documentListBlock` object tip (`sanity/schemas/objects/documentListBlock.ts`, registrovan u index.ts i `page.ts` pageBuilder.of[]), reusable infrastruktura za PDF liste na `/aktuelnosti/informator`, `/aktuelnosti/casopis-dedinje`, `/akta-instituta` (u backlogu, čeka materijal od vlasnika).
+- ✅ `scripts/migrate-nauka-istrazivanje.ts` (`npm run migrate:nauka-istrazivanje` dodat u package.json) — 5 `page` dokumenata kreirano, potvrđeno upitom na javni Sanity API. Orphaned `page.module.css` (5 fajlova) obrisani.
+- ❌ **Namerni izuzetak — ne migrira se**: `cardioview3d-lab` ostaje hardkodovana (3 taba, svaki sa bogatijim ugnježdenim sadržajem — paragrafi, "focus grid" kartice sa ugnježdenim listama, contact blok — struktura se ne ponavlja nigde drugde na sajtu, pa ne opravdava novi custom block tip po politici iz `MIGRACIJA.md` — isti presedan kao kardiohirurgija). `cardioview3d-lab/workshop` je čist redirect (bez sadržaja, ništa za migrirati). `npm run build` (exit 0) i `npm run lint` (29 problema, identično baseline-u) — bez regresija.
 
 ### 5. Aktuelnosti (9 stranica, `news`-tipa multi-instance dokumenti)
 
