@@ -1,0 +1,65 @@
+.sectionHeader {
+  margin-bottom: 16px;
+}
+
+.sectionHeader h2 {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--gray-800);
+  margin: 0;
+}
+
+.intro {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--gray-600);
+  margin: 0 0 24px;
+}
+
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.timeline li {
+  display: flex;
+  gap: 16px;
+  align-items: baseline;
+  padding: 14px 18px;
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 12px;
+}
+
+.timelineYear {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--primary);
+  min-width: 56px;
+  flex-shrink: 0;
+}
+
+.timelineBody {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.timelineText {
+  font-size: 14px;
+  color: var(--gray-700);
+}
+
+.timelineSubtitle {
+  font-size: 13px;
+  color: var(--gray-500);
+}
+
+.timelineDescription {
+  font-size: 13px;
+  color: var(--gray-600);
+  margin: 4px 0 0;
+}

@@ -1,160 +1,33 @@
-import Link from "next/link";
-import {
-  Container,
-  PageHeader,
-  ProgramCardGrid,
-  Section,
-} from "@/components/shared";
-import { EDUKATIVNI_PROGRAMI } from "./constants";
+import { PageBuilder, PageHeader } from "@/components/shared";
+import { client } from "@/sanity/lib/client";
+import { PAGE_BY_SLUG_QUERY } from "@/sanity/lib/queries";
+import type { PatientPage } from "@/sanity/types";
 import { generateMetadata } from "./metadata";
-import styles from "./page.module.css";
+import { DATA } from "./data";
 
 export { generateMetadata };
 
-const OSTALO = [
-  {
-    key: "1",
-    icon: "fas fa-calendar-alt",
-    title: "KME 2024",
-    description: "Конгрес кардиолога и електрофизиолога — акредитована КМЕ настава и предавања.",
-    href: "/edukacija/kme-2024",
-  },
-  {
-    key: "2",
-    icon: "fas fa-users",
-    title: "Интерна едукација",
-    description: "Мултидисциплинарна континуирана едукација за медицинске сестре, техничаре и младе лекаре.",
-    href: "/edukacija/interna-edukacija",
-  },
-  {
-    key: "3",
-    icon: "fas fa-laptop-medical",
-    title: "Радионице",
-    description: "Специјализоване практичне радионице из области кардиоваскуларне медицине и хирургије.",
-    href: "/edukacija/radionice",
-  },
-  {
-    key: "4",
-    icon: "fas fa-microphone",
-    title: "Конгреси",
-    description: "Годишњи конгрес Института и конгрес кардиоваскуларне превенције.",
-    href: "/edukacija/kongresi",
-  },
-  {
-    key: "5",
-    icon: "fas fa-globe",
-    title: "Међународни конгреси",
-    description: "Учешће на престижним међународним научним скуповима и размена знања.",
-    href: "/edukacija/medjunarodni-kongresi",
-  },
-];
+const SLUG = "edukacija";
 
-export default function EdukacijaPage() {
+export default async function EdukacijaPage() {
+  let page: PatientPage | null = null;
+
+  try {
+    page = await client.fetch<PatientPage>(PAGE_BY_SLUG_QUERY, { slug: SLUG });
+  } catch (error) {
+    console.error("⚠️ Sanity fetch failed:", error);
+  }
+
+  const data = page ?? DATA;
+
   return (
     <>
       <PageHeader
-        breadcrumbs={[
-          { label: "Почетна", href: "/" },
-          { label: "Едукација" },
-        ]}
-        title="Едукација"
-        subtitle="Обука, радионице и конгреси у области кардиоваскуларне медицине"
+        breadcrumbs={[{ label: "Почетна", href: "/" }, { label: "Едукација" }]}
+        title={data.title}
+        subtitle={data.subtitle}
       />
-
-      {/* About */}
-      <Section padding="medium" background="white">
-        <Container>
-          <div className={styles.about}>
-            <div className={styles.aboutIcon}>
-              <i className="fas fa-graduation-cap" aria-hidden />
-            </div>
-            <div className={styles.aboutContent}>
-              <h2>О едукацији</h2>
-              <p>
-                {'Институт за кардиоваскуларне болести „Дедиње" је центар за едукацију и усавршавање стручњака у области кардиоваскуларне медицине. Кроз едукативне програме, радионице и конгресе пружамо могућност континуираног образовања лекара и медицинског особља.'}
-              </p>
-              <p>
-                Од оснивања, посебна пажња посвећује се едукацији медицинских
-                сестара, техничара и лекара. Дугогодишња сарадња са медицинским
-                центрима у Хјустону и едукација преко 60 наших стручњака
-                деведесетих година омогућила је покретање програма
-                трансплантације срца и јетре. Стручно усавршавање се данас
-                непрекидно спроводи у областима кардиологије, анестезиологије
-                и кардиоваскуларне хирургије, кроз академске програме
-                Медицинског факултета Универзитета у Београду и међународне
-                едукативне центре — Институт је наставна база више српских
-                универзитета и организатор међународних конгреса.
-              </p>
-              <div className={styles.aboutStats}>
-                <div className={styles.stat}>
-                  <span className={styles.statNum}>3</span>
-                  <span className={styles.statLabel}>Школе</span>
-                </div>
-                <div className={styles.stat}>
-                  <span className={styles.statNum}>5+</span>
-                  <span className={styles.statLabel}>Конгреса годишње</span>
-                </div>
-                <div className={styles.stat}>
-                  <span className={styles.statNum}>200+</span>
-                  <span className={styles.statLabel}>Полазника</span>
-                </div>
-                <div className={styles.stat}>
-                  <span className={styles.statNum}>15+</span>
-                  <span className={styles.statLabel}>Година искуства</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </Container>
-      </Section>
-
-      {/* Programs */}
-      <Section padding="medium" background="gray">
-        <Container>
-          <div className={styles.sectionHeader}>
-            <div>
-              <h2>Едукативни програми</h2>
-              <p>Акредитоване школе за стручно усавршавање</p>
-            </div>
-          </div>
-          <ProgramCardGrid items={EDUKATIVNI_PROGRAMI} />
-        </Container>
-      </Section>
-
-      {/* Other */}
-      <Section padding="medium" background="white">
-        <Container>
-          <div className={styles.sectionHeader}>
-            <div>
-              <h2>Конгреси, радионице и друге активности</h2>
-              <p>Све едукативне активности Института Дедиње</p>
-            </div>
-          </div>
-          <div className={styles.grid}>
-            {OSTALO.map((item, idx) => (
-              <Link
-                key={item.key}
-                href={item.href}
-                className={styles.card}
-              >
-                <div className={styles.cardLeft}>
-                  <div className={styles.cardIcon}>
-                    <i className={item.icon} aria-hidden />
-                  </div>
-                </div>
-                <div className={styles.cardBody}>
-                  <h3>{item.title}</h3>
-                  <p>{item.description}</p>
-                </div>
-                <div className={styles.cardArrow}>
-                  <i className="fas fa-arrow-right" aria-hidden />
-                </div>
-                <span className={styles.cardNumber}>{String(idx + 1).padStart(2, "0")}</span>
-              </Link>
-            ))}
-          </div>
-        </Container>
-      </Section>
+      <PageBuilder blocks={data.pageBuilder} />
     </>
   );
 }

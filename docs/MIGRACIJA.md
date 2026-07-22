@@ -101,13 +101,15 @@ dodatna obrasca gde ima smisla:
 - **Generički `page` document** (`sanity/schemas/documents/page.ts`, postojao
   neiskorišćen, sada prošireno) — za uniformne info-stranice sa reusable
   page-builder blokovima. Jedan dokument po ruti, isti schema za sve. Sadržava
-  8 novih strukturovanih block objekata (ne portable text): `introSection`
-  (icon, heading, paragraphs[], badges[], stats[]), `bannerBlock` (variant info/alert/warning/motto/highlight), `cardGridBlock` (numbered cards sa ikonama/vrednostima), `checklistBlock` (items sa checkmarkom), `contactDirectoryBlock` (kategorije sa kontakt vremenom), `accordionBlock` (items sa expandable sekcijama), `faqBlock` (Q/A items sa kategorijama), `tabsBlock` (tabovi sa slikama/info-blokovima — mirror `SidebarTabs` + `InfoBlock` pattern). Isti `page` builder za sve `za-pacijente/*`, `edukacija/*`, `nauka-istrazivanje/*` rute — infrastruktura je skalabilna, nema potrebe za novim block tipovima osim ako se pojavi sasvim nova struktura sadržaja.
+  10 strukturovanih block objekata (ne portable text): `introSection`
+  (icon, heading, paragraphs[], badges[], stats[]), `bannerBlock` (variant info/alert/warning/motto/highlight), `cardGridBlock` (numbered cards sa ikonama/vrednostima, opciono `href` za klikabilne nav kartice), `checklistBlock` (items sa checkmarkom), `contactDirectoryBlock` (kategorije sa kontakt vremenom), `accordionBlock` (items sa expandable sekcijama), `faqBlock` (Q/A items sa kategorijama), `tabsBlock` (tabovi sa slikama/info-blokovima — mirror `SidebarTabs` + `InfoBlock` pattern), `timelineBlock` (godina+opis stavke, wrapuje `timeline` object — dodato za Edukaciju), `lectureScheduleBlock` (tabovi po godinama sa predavanjima/predavačima — dodato za Edukaciju, mirror `TemePredavaciTabs` pattern). Isti `page` builder za sve `za-pacijente/*`, `edukacija/*`, `nauka-istrazivanje/*` rute — infrastruktura je skalabilna, novi block tip se dodaje samo kad se pojavi sasvim nova struktura sadržaja koja se ponavlja (kao što je bio slučaj sa timeline/lecture-schedule za Edukaciju).
 - **Multi-instance document tip** — kad postoji više instanci istog oblika
   sadržaja: jedan `clinicPage` tip za svih ~20 klinika (umesto 20 singleton
-  schema-a), i reuse postojećeg `news` document tipa (već postoji, neiskorišćen)
+  schema-a), jedan `schoolPage` tip za 3 edukativne škole (sadržaj koji ne
+  staje čisto u generički `page` builder — kursevi, statistike, timovi), i
+  reuse postojećeg `news` document tipa (već postoji, neiskorišćen)
   za vesti/obaveštenja/oglase/gostovanja pod `aktuelnosti/*`. Dodavanje nove
-  klinike/vesti postaje novi Sanity dokument kroz Studio, bez novog koda.
+  klinike/škole/vesti postaje novi Sanity dokument kroz Studio, bez novog koda.
 
 Za stranice koje ne staju čisto u generički `page` builder (npr. tabovi,
 strukturirane tabele, liste dokumenata) — dodati novi content-block objekat
@@ -121,4 +123,5 @@ umesto bespoke singleton-a, ako se oblik ponavlja na više mesta.
 - ✅ Početna, `footer`, `/rec-direktora`, `/o-institutu`, `/biografija`, `/bibliografija` — migrirano (bespoke singletoni).
 - ✅ `klinike/*` (19 od 20 stranica, `clinicPage` multi-instance tip) — migrirano. Kardiohirurgija ostaje hardkodovana (custom page + `units.ts`, ne staje u generički tip).
 - ✅ `za-pacijente/*` (12 od 12 stranica, generički `page` builder sa 8 novih reusable block tipova) — migrirano.
-- ❌ `edukacija/*`, `nauka-istrazivanje/*` (generički `page` builder, direktan reuse infrastrukture iz za-pacijente sekcije), `aktuelnosti/*` (reuse `news` multi-instance tip) — detaljan task-breakdown po ruti u [`TASKS.md`](TASKS.md).
+- ✅ `edukacija/*` (16 od 16 stranica — 13 generički `page` builder sa reuse infrastrukture iz za-pacijente + 2 nova block tipa `timelineBlock`/`lectureScheduleBlock`, 3 škole kroz bespoke `schoolPage` multi-instance tip) — migrirano.
+- ❌ `nauka-istrazivanje/*` (generički `page` builder, direktan reuse infrastrukture), `aktuelnosti/*` (reuse `news` multi-instance tip) — detaljan task-breakdown po ruti u [`TASKS.md`](TASKS.md).

@@ -1,0 +1,16 @@
+.sectionHeader {
+  margin-bottom: 24px;
+}
+
+.sectionHeader h2 {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--gray-800);
+  margin: 0 0 6px;
+}
+
+.sectionHeader p {
+  font-size: 15px;
+  color: var(--gray-600);
+  margin: 0;
+}

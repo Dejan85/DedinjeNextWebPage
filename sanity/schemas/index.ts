@@ -7,6 +7,7 @@ import news from "./documents/news";
 import publication from "./documents/publication";
 import testimonial from "./documents/testimonial";
 import clinicPage from "./documents/clinicPage";
+import schoolPage from "./documents/schoolPage";
 
 // Singletons
 import siteSettings from "./singletons/siteSettings";
@@ -43,6 +44,8 @@ import contactDirectoryBlock from "./objects/contactDirectoryBlock";
 import accordionBlock from "./objects/accordionBlock";
 import faqBlock from "./objects/faqBlock";
 import tabsBlock from "./objects/tabsBlock";
+import timelineBlock from "./objects/timelineBlock";
+import lectureScheduleBlock from "./objects/lectureScheduleBlock";
 
 export const schemaTypes = [
   // Singletons
@@ -63,6 +66,7 @@ export const schemaTypes = [
   publication,
   testimonial,
   clinicPage,
+  schoolPage,
 
   // Objects
   hero,
@@ -90,4 +94,6 @@ export const schemaTypes = [
   accordionBlock,
   faqBlock,
   tabsBlock,
+  timelineBlock,
+  lectureScheduleBlock,
 ];

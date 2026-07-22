@@ -49,12 +49,20 @@ Migrirane rute (sa Sanity `page` document slug-ima): ambulante ("ambulante", acc
 
 `npm run build` (exit 0) i `npm run lint` (29 problema, 2 manje nego bazeline od 31) prolaze bez regresija; sve 12 `/za-pacijente/*` rute vidljive kao dinamičke server-rendered u build-u.
 
-**Napomena:** infrastruktura `page` builder + 8 reusable block tipova izgrađena ovde je direktno reusovana za Edukaciju (sekciju 3) i Nauku-istraživanje (sekciju 4) — `PAGE_BY_SLUG_QUERY`, komponente i pattern fallback-a se direktno kopiraju bez izmena. Sledeće na redu: Edukacija sekcija.
+**Napomena:** infrastruktura `page` builder + 8 reusable block tipova izgrađena ovde je direktno reusovana za Edukaciju (sekciju 3, ✅ gotovo — usput dodala 2 nova block tipa, `timelineBlock`/`lectureScheduleBlock`) i Nauku-istraživanje (sekciju 4) — `PAGE_BY_SLUG_QUERY`, komponente i pattern fallback-a se direktno kopiraju bez izmena. Sledeće na redu: Nauka i istraživanje sekcija.
 
-### 3. Edukacija (12 stranica, generički `page` builder + izuzeci)
+### 3. Edukacija (16 stranica — audit otkrio 16, ne 12 kako je ranije procenjeno)
 
-- ❌ Isti popis/podela kao za-pacijente (npr. `sestrinska-edukacija` hub+4 podstranice, `kme-2024`, `programi`+3 škole mogu biti uniformni; `kongresi`/`radionice` liste mogu tražiti reuse `news`-sličnog tipa)
-- ❌ Migraciona skripta(e) + page.tsx konverzija
+- ✅ Popis potvrđen tokom rada: 13 stranica generički `page` builder (hub + interna-edukacija + kme-2024 hub + kme-medicinske-sestre-tehnicari + kongresi + medjunarodni-kongresi + edukativni-programi hub + radionice + sestrinska-edukacija hub + 4 podstranice), + **3 škole** (`skola-ehokardiografije-*`, `skola-hipertenzije-*`, `skola-vaskularnog-ultrazvuka`) koje nisu stale u generički `page` builder — dobile bespoke `schoolPage` multi-instance document tip (kursevi/statistika/tim/zahtevi/ispit, sekcije po uzoru na `clinicPage`).
+- ✅ 2 nova reusable `pageBuilder` block tipa (pored postojećih 8 iz za-pacijente): `timelineBlock` (wrapuje postojeći `timeline` object, za istorijat sekcije) i `lectureScheduleBlock` (tabovi po godinama sa predavanjima/predavačima, za KME raspored — reuse postojeće `TemePredavaciTabs` komponente). `cardGridBlock` dobio opciono `href` polje (kartica postaje klikabilna) da bi hub/nav stranice mogle da se migriraju bez gubitka navigacije.
+- ✅ `sanity/schemas/documents/schoolPage.ts` — nov multi-instance document tip, registrovan u `schemas/index.ts`; `SCHOOL_PAGE_QUERY` u `queries.ts`; TS tip `SchoolPage` (+ prateći tipovi) u `sanity/types.ts`.
+- ✅ Nove React komponente: `TimelineBlock`, `LectureScheduleBlock` (components/shared/), `SchoolPageTemplate` (`app/edukacija/programi/_components/`, po uzoru na `ClinicPageTemplate`) — sve registrovane u `PageBuilder.tsx`/`components/shared/index.ts`.
+- ✅ `scripts/migrate-edukacija.ts` (`npm run migrate:edukacija`) — kreira 13 `page` + 3 `schoolPage` dokumenata; pokrenut uspešno, svih 16 potvrđeno upitom na javni Sanity API.
+- ✅ Svih 16 `app/edukacija/**/page.tsx` konvertovano u server component (fetch by slug + fallback na `data.ts`); `kme-medicinske-sestre-tehnicari/page.tsx` prethodno bio `"use client"` (blokirao `generateMetadata`/Sanity fetch) — refaktorisan na server component, interaktivni tabovi ostaju u zasebnoj client komponenti (`TemePredavaciTabs`), isti obrazac kao `ProcedureTabs`. Prateći `layout.tsx` (wrapper za metadata na client stranici) obrisan kao suvišan.
+- ✅ Orphaned `page.module.css` (16 fajlova) i `app/edukacija/constants.ts` obrisani nakon migracije sadržaja u shared komponente/`data.ts` (isti pattern kao za-pacijente).
+- `npx tsc --noEmit`, `npm run build` (exit 0, svih 16 ruta vidljivo kao dinamičke) i `npm run lint` (29 problema, identično baseline-u) prolaze bez regresija.
+
+**Watch-item (namerna pojednostavljenja radi reuse generičkih blokova):** `medjunarodni-kongresi` i `radionice` su na starom sajtu imali kuriran foto-galerije uz svaku stavku — `cardGridBlock` nema polje za sliku pa su fotografije izostavljene (tekstualni sadržaj u potpunosti očuvan, ikonica zamenjuje sliku). Ako se ubuduće želi vizuelni parity, trebalo bi dodati opciono `image` polje u `cardGridBlock` (slično kako je dodato `href`).
 
 ### 4. Nauka i istraživanje (7 stranica, generički `page` builder + izuzeci)
 

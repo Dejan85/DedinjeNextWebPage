@@ -775,6 +775,29 @@ export const CLINICS_LIST_QUERY = groq`
   }
 `;
 
+// School Pages (multi-instance, edukacija programi)
+export const SCHOOL_PAGE_QUERY = groq`
+  *[_type == "schoolPage" && slug.current == $slug][0] {
+    _id,
+    title,
+    slug,
+    subtitle,
+    breadcrumbLabel,
+    intro,
+    programNav,
+    stats,
+    courseSections,
+    requirementsSection,
+    examSection,
+    team,
+    techTeam,
+    seo {
+      title,
+      description
+    }
+  }
+`;
+
 export const BIBLIOGRAPHY_PAGE_QUERY = groq`
   *[_type == "bibliographyPage"][0] {
     pageHeader {

@@ -44,6 +44,7 @@ export default defineType({
               type: "string",
             },
             { name: "description", title: "Opis", type: "text", rows: 2 },
+            { name: "href", title: "Link (opciono — kartica postaje klikabilna)", type: "string" },
           ],
           preview: { select: { title: "title", subtitle: "description" } },
         },

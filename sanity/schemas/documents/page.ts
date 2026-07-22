@@ -130,6 +130,14 @@ export default defineType({
           type: "tabsBlock",
           title: "🗂️ Tabovi (procedure)",
         },
+        {
+          type: "timelineBlock",
+          title: "🕰️ Timeline (istorijat)",
+        },
+        {
+          type: "lectureScheduleBlock",
+          title: "📅 Raspored predavanja (tabovi po godinama)",
+        },
       ],
     }),
     defineField({

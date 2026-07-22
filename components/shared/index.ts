@@ -84,4 +84,9 @@ export {
   default as ProcedureTabs,
   type ProcedureTab,
 } from "./ProcedureTabs/ProcedureTabs";
+export {
+  default as TimelineBlock,
+  type TimelineBlockItem,
+} from "./TimelineBlock/TimelineBlock";
+export { default as LectureScheduleBlock } from "./LectureScheduleBlock/LectureScheduleBlock";
 export { default as PageBuilder } from "./PageBuilder/PageBuilder";

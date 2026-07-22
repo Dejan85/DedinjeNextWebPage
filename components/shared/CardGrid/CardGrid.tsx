@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Container from "../Container/Container";
 import { Section } from "../Section/Section";
 import styles from "./CardGrid.module.css";
@@ -7,6 +8,7 @@ export interface CardGridItem {
   title?: string;
   value?: string;
   description?: string;
+  href?: string;
 }
 
 interface CardGridProps {
@@ -41,21 +43,32 @@ export default function CardGrid({
         {intro && <p className={styles.intro}>{intro}</p>}
 
         <div className={styles.grid}>
-          {cards.map((card, idx) => (
-            <div key={idx} className={styles.card}>
-              {numbered && <div className={styles.stepNumber}>{idx + 1}</div>}
-              {card.icon && (
-                <div className={styles.cardIcon}>
-                  <i className={card.icon} aria-hidden />
-                </div>
-              )}
-              {card.value && (
-                <div className={styles.cardValue}>{card.value}</div>
-              )}
-              {card.title && <h4>{card.title}</h4>}
-              {card.description && <p>{card.description}</p>}
-            </div>
-          ))}
+          {cards.map((card, idx) => {
+            const content = (
+              <>
+                {numbered && <div className={styles.stepNumber}>{idx + 1}</div>}
+                {card.icon && (
+                  <div className={styles.cardIcon}>
+                    <i className={card.icon} aria-hidden />
+                  </div>
+                )}
+                {card.value && (
+                  <div className={styles.cardValue}>{card.value}</div>
+                )}
+                {card.title && <h4>{card.title}</h4>}
+                {card.description && <p>{card.description}</p>}
+              </>
+            );
+            return card.href ? (
+              <Link key={idx} href={card.href} className={styles.card}>
+                {content}
+              </Link>
+            ) : (
+              <div key={idx} className={styles.card}>
+                {content}
+              </div>
+            );
+          })}
         </div>
       </Container>
     </Section>

@@ -8,6 +8,8 @@ import CardGrid from "../CardGrid/CardGrid";
 import ChecklistBlock from "../ChecklistBlock/ChecklistBlock";
 import ContactDirectory from "../ContactDirectory/ContactDirectory";
 import ProcedureTabs from "../ProcedureTabs/ProcedureTabs";
+import TimelineBlock from "../TimelineBlock/TimelineBlock";
+import LectureScheduleBlock from "../LectureScheduleBlock/LectureScheduleBlock";
 import type {
   AccordionBlockData,
   BannerBlockData,
@@ -16,7 +18,9 @@ import type {
   ContactDirectoryBlockData,
   FaqBlockData,
   IntroSectionBlock,
+  LectureScheduleBlockData,
   TabsBlockData,
+  TimelineBlockData,
 } from "@/sanity/types";
 
 type PageBuilderBlockInput =
@@ -27,7 +31,9 @@ type PageBuilderBlockInput =
   | ContactDirectoryBlockData
   | AccordionBlockData
   | FaqBlockData
-  | TabsBlockData;
+  | TabsBlockData
+  | TimelineBlockData
+  | LectureScheduleBlockData;
 
 interface PageBuilderProps {
   blocks: PageBuilderBlockInput[];
@@ -157,6 +163,31 @@ export default function PageBuilder({ blocks }: PageBuilderProps) {
                 key={idx}
                 tabs={block.tabs}
                 defaultTabId={block.defaultTabId}
+                background={background}
+              />
+            );
+          }
+          case "timelineBlock": {
+            const background = sectionIndex++ % 2 === 0 ? "white" : "gray";
+            return (
+              <TimelineBlock
+                key={idx}
+                heading={block.heading}
+                intro={block.intro}
+                items={block.items}
+                background={background}
+              />
+            );
+          }
+          case "lectureScheduleBlock": {
+            const background = sectionIndex++ % 2 === 0 ? "white" : "gray";
+            return (
+              <LectureScheduleBlock
+                key={idx}
+                heading={block.heading}
+                subtitle={block.subtitle}
+                defaultTabId={block.defaultTabId}
+                tabs={block.tabs}
                 background={background}
               />
             );

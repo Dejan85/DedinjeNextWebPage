@@ -1,9 +1,25 @@
-import { ClinicCard, ClinicCardGrid, Container, PageHeader, Section } from "@/components/shared";
+import { PageBuilder, PageHeader } from "@/components/shared";
+import { client } from "@/sanity/lib/client";
+import { PAGE_BY_SLUG_QUERY } from "@/sanity/lib/queries";
+import type { PatientPage } from "@/sanity/types";
 import { generateMetadata } from "./metadata";
+import { DATA } from "./data";
 
 export { generateMetadata };
 
-export default function SestrinskaEdukacijaPage() {
+const SLUG = "sestrinska-edukacija";
+
+export default async function SestrinskaEdukacijaPage() {
+  let page: PatientPage | null = null;
+
+  try {
+    page = await client.fetch<PatientPage>(PAGE_BY_SLUG_QUERY, { slug: SLUG });
+  } catch (error) {
+    console.error("⚠️ Sanity fetch failed:", error);
+  }
+
+  const data = page ?? DATA;
+
   return (
     <>
       <PageHeader
@@ -12,46 +28,10 @@ export default function SestrinskaEdukacijaPage() {
           { label: "Едукација", href: "/edukacija" },
           { label: "Едукација медицинских сестара и техничара" },
         ]}
-        title="Едукација медицинских сестара и техничара"
-        subtitle="Едукација медицинских сестара и техничара представља темељ сигурног, савременог и ефикасног здравственог система"
+        title={data.title}
+        subtitle={data.subtitle}
       />
-
-      <Section padding="medium" background="gray">
-        <Container>
-          <ClinicCardGrid>
-            <ClinicCard
-              icon="fas fa-clock-rotate-left"
-              title="Историјат и међународна сарадња"
-              subtitle="Развој сестринске едукације од седамдесетих година до данас"
-              href="/edukacija/sestrinska-edukacija/istorijat"
-            />
-            <ClinicCard
-              icon="fas fa-graduation-cap"
-              title="Интерна едукација (КМЕ)"
-              subtitle="Континуирана медицинска едукација за све запослене"
-              href="/edukacija/interna-edukacija"
-            />
-            <ClinicCard
-              icon="fas fa-heart-pulse"
-              title="Курс КПР"
-              subtitle="Примена стандарда у кардиопулмоналној реанимацији одраслих особа"
-              href="/edukacija/sestrinska-edukacija/kpr-kurs"
-            />
-            <ClinicCard
-              icon="fas fa-user-nurse"
-              title="Приправнички стаж"
-              subtitle="Стажирање медицинских сестара и техничара у ИКВБ Дедиње"
-              href="/edukacija/sestrinska-edukacija/pripravnicki-staz"
-            />
-            <ClinicCard
-              icon="fas fa-book-medical"
-              title="Програм кратких студија"
-              subtitle="Заједнички програм са Факултетом медицинских наука у Крагујевцу"
-              href="/edukacija/sestrinska-edukacija/program-kratkih-studija"
-            />
-          </ClinicCardGrid>
-        </Container>
-      </Section>
+      <PageBuilder blocks={data.pageBuilder} />
     </>
   );
 }

@@ -80,7 +80,7 @@ export interface CardGridBlockData {
   subtitle?: string;
   intro?: string;
   numbered?: boolean;
-  cards: { icon?: string; title?: string; value?: string; description?: string }[];
+  cards: { icon?: string; title?: string; value?: string; description?: string; href?: string }[];
 }
 
 export interface ChecklistBlockData {
@@ -166,6 +166,46 @@ export interface TabsBlockData {
   tabs: TabsBlockTab[];
 }
 
+export interface TimelineBlockItem {
+  year: string;
+  title: string;
+  subtitle?: string;
+  description?: string;
+}
+
+export interface TimelineBlockData {
+  _type: "timelineBlock";
+  heading?: string;
+  intro?: string;
+  items: TimelineBlockItem[];
+}
+
+export interface LectureItem {
+  date?: string;
+  title: string;
+  lecturer: string;
+}
+
+export interface LectureScheduleSection {
+  title: string;
+  items: LectureItem[];
+}
+
+export interface LectureScheduleTab {
+  tabId: string;
+  label: string;
+  items?: LectureItem[];
+  sections?: LectureScheduleSection[];
+}
+
+export interface LectureScheduleBlockData {
+  _type: "lectureScheduleBlock";
+  heading?: string;
+  subtitle?: string;
+  defaultTabId?: string;
+  tabs: LectureScheduleTab[];
+}
+
 export type PatientPageBlock =
   | IntroSectionBlock
   | BannerBlockData
@@ -174,7 +214,9 @@ export type PatientPageBlock =
   | ContactDirectoryBlockData
   | AccordionBlockData
   | FaqBlockData
-  | TabsBlockData;
+  | TabsBlockData
+  | TimelineBlockData
+  | LectureScheduleBlockData;
 
 export interface PatientPage {
   _id?: string;
@@ -1053,4 +1095,120 @@ export interface ClinicPage {
   staffList?: ClinicStaffList;
   patientInstructions?: ClinicPatientInstructions;
   seo?: ClinicSeo;
+}
+
+// School Page Types (multi-instance — edukativni programi/škole)
+export interface SchoolIntro {
+  heading?: string;
+  paragraphs?: string[];
+  images?: string[];
+}
+
+export interface SchoolProgramNavItem {
+  icon?: string;
+  title?: string;
+  href?: string;
+  buttonText?: string;
+}
+
+export interface SchoolProgramNav {
+  heading?: string;
+  subtitle?: string;
+  items: SchoolProgramNavItem[];
+}
+
+export interface SchoolStat {
+  value: string;
+  label: string;
+}
+
+export interface SchoolCourseDetail {
+  icon?: string;
+  title?: string;
+  description?: string;
+}
+
+export interface SchoolMetaLine {
+  icon?: string;
+  text: string;
+}
+
+export interface SchoolCourseSection {
+  anchorId?: string;
+  icon?: string;
+  heading: string;
+  paragraphs?: string[];
+  details?: SchoolCourseDetail[];
+  metaLines?: SchoolMetaLine[];
+  highlight?: string;
+  image?: string;
+  contactNote?: string;
+}
+
+export interface SchoolRequirementItem {
+  icon?: string;
+  value?: string;
+  title?: string;
+  description?: string;
+}
+
+export interface SchoolRequirementsSection {
+  heading?: string;
+  subtitle?: string;
+  variant?: "cards" | "stats";
+  items: SchoolRequirementItem[];
+}
+
+export interface SchoolExamCard {
+  icon?: string;
+  heading?: string;
+  intro?: string;
+  listItems?: string[];
+  outro?: string;
+  badge?: string;
+}
+
+export interface SchoolExamSection {
+  heading?: string;
+  cards: SchoolExamCard[];
+}
+
+export interface SchoolTeamMember {
+  name: string;
+  role?: string;
+}
+
+export interface SchoolTeam {
+  heading?: string;
+  subtitle?: string;
+  members: SchoolTeamMember[];
+}
+
+export interface SchoolTechTeam {
+  heading?: string;
+  members: string[];
+  footnote?: string;
+}
+
+export interface SchoolSeo {
+  title?: string;
+  description?: string;
+}
+
+export interface SchoolPage {
+  _id?: string;
+  _type?: "schoolPage";
+  title: string;
+  slug?: { current: string };
+  subtitle?: string;
+  breadcrumbLabel: string;
+  intro?: SchoolIntro;
+  programNav?: SchoolProgramNav;
+  stats?: SchoolStat[];
+  courseSections: SchoolCourseSection[];
+  requirementsSection?: SchoolRequirementsSection;
+  examSection?: SchoolExamSection;
+  team?: SchoolTeam;
+  techTeam?: SchoolTechTeam;
+  seo?: SchoolSeo;
 }
