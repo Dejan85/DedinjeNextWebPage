@@ -23,6 +23,10 @@ export default function PageTransition({ children }: { children: ReactNode }) {
   // Kreiraj grid od kockica
   const tiles = Array.from({ length: 50 }, (_, i) => i);
 
+  if (pathname?.startsWith("/studio")) {
+    return <>{children}</>;
+  }
+
   return (
     <AnimatePresence mode="wait">
       <div style={{ position: "relative" }}>
