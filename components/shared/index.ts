@@ -24,6 +24,7 @@ export { default as NewsCard } from "./NewsCard/NewsCard";
 export { default as PageTransition } from "./PageTransition/PageTransition";
 export { default as ScrollToTop } from "./ScrollToTop/ScrollToTop";
 export { default as ServiceCard } from "./ServiceCard/ServiceCard";
+export { default as SiteChrome } from "./SiteChrome/SiteChrome";
 export { default as StatCounter } from "./StatCounter/StatCounter";
 export { default as TeamCard } from "./TeamCard/TeamCard";
 export { default as TestimonialCard } from "./TestimonialCard/TestimonialCard";
