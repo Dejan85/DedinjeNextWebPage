@@ -49,6 +49,7 @@ export interface Page {
     current: string;
   };
   subtitle?: string;
+  section?: "za-pacijente" | "edukacija" | "nauka-istrazivanje" | "ostalo";
   seo?: SeoMetadata;
   pageBuilder?: any[]; // Page builder blocks
   publishedAt: string;

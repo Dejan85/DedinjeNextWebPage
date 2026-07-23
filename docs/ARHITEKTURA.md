@@ -49,7 +49,7 @@ Projekat je **usred postepene migracije** sa hardkodovanog sadržaja ka Sanity C
 
 **Još uvek potpuno hardkodovano** (nema Sanity fetch): `klinike/kardiohirurgija` (+ `units.ts`), `nauka-istrazivanje/cardioview3d-lab` (namerni izuzetak — specifična ugnježdena struktura koja se ne ponavlja drugde, po projektnoj politici ne opravdava custom block), `aktuelnosti/*`. Editovanje sadržaja ovih stranica znači direktno menjanje `page.tsx`/`constants.ts`, Sanity Studio tu ne pomaže.
 
-Sanity fajlovi od interesa: `sanity/lib/client.ts` (klijent, `useCdn: false`), `sanity/lib/queries.ts` (sve GROQ upite), `sanity/lib/image.ts` (`urlFor()`), `sanity/types.ts` (ručno pisani TS tipovi), `sanity/schemas/{documents,singletons,objects}/`.
+Sanity fajlovi od interesa: `sanity/lib/client.ts` (klijent, `useCdn: false`), `sanity/lib/queries.ts` (sve GROQ upite), `sanity/lib/image.ts` (`urlFor()`), `sanity/types.ts` (ručno pisani TS tipovi), `sanity/schemas/{documents,singletons,objects}/`, `sanity/structure.ts` (custom Studio meni, vidi §3.4).
 
 ### 3.1 Content Types (Sanity Schemas)
 
@@ -104,6 +104,32 @@ import { urlFor } from '@/sanity/lib/image'
   height={600}
 />
 ```
+
+### 3.4 Studio Content Structure (`sanity/structure.ts`)
+
+Studio meni (`/studio`) **nije** default flat lista schema tipova — `sanity.config.ts`
+prosleđuje custom `structure` funkciju u `structureTool({ structure })`. Meni
+grupiše sadržaj po redosledu stvarne navigacije sajta, ne po redosledu schema
+tipova:
+
+Почетна (pinovan `page` dokument `_id: "homepage"`) → О нама (4 singleton linka:
+Реч директора/О институту/Биографија/Библиографија) → Клинике (`clinicPage`,
+sortirano po `order`) → За пацијенте / Наука и истраживање / Едукација (svaka
+lista `page` dokumente filtrirane po `section` polju, Едукација dodatno ima
+podlistu `schoolPage`) → *divider* → Тим и услуге (`doctor`/`department`/`service`)
+→ Новости и садржај (`news`/`publication`/`testimonial` — napomena: `/aktuelnosti`
+ruta i dalje čita hardkodovani `constants.ts`, ovi tipovi još nisu prikazani na
+sajtu, vidi `TASKS.md` §5) → *divider* → Навигација/Footer/Подешавања сајта
+(flat root stavke, ne fasciklovane).
+
+`page` dokument tip ima `section` polje (`"za-pacijente" | "edukacija" |
+"nauka-istrazivanje" | "ostalo"`, required, `initialValue: "ostalo"`) čisto radi
+ovog grupisanja — slug sam po sebi ne nosi informaciju o sekciji sajta (npr.
+`"nio"`, `"kongresi"`, `"ambulante"` nemaju zajednički prefiks). Nova `page`
+stranica bira sekciju u formi; ako se doda nova top-level sekcija sajta,
+proširiti `options.list` u `sanity/schemas/documents/page.ts` i granu u
+`sanity/structure.ts`. Jednokratni backfill za postojeće dokumente:
+`scripts/backfill-page-section.ts` (`npm run migrate:backfill-page-section`).
 
 ## 4. Sanity setup (novi projekat / lokalni environment)
 

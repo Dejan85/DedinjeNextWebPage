@@ -179,6 +179,18 @@ Radi se u batch-evima, jedan po jedan, uz javljanje posle svakog.
 
 ## Backlog (van Sanity migracije)
 
+- ✅ Sanity Studio meni bio potpuno flat/negrupisan (default `structureTool()`
+  auto-lista svih 16 document tipova) — editorima nemoguće da se snađu (npr.
+  "Stranice" mešala 30 dokumenata iz 3 različite sekcije sajta bez ikakve
+  naznake). Dodat custom `sanity/structure.ts` koji grupiše meni po redosledu
+  stvarne navigacije sajta (Почетна → О нама → Клинике → За пацијенте →
+  Наука и истраживање → Едукација → Тим и услуге → Новости и садржај →
+  Навигација/Footer/Подешавања сајта); `page` document tip dobio novo
+  `section` polje (`za-pacijente`/`edukacija`/`nauka-istrazivanje`/`ostalo`)
+  da bi filtriranje po sekciji uopšte bilo moguće (slug sam po sebi ne nosi
+  tu informaciju). Postojećih 30 `page` dokumenata + homepage popunjeni
+  jednokratnim `npm run migrate:backfill-page-section` (0 propuštenih).
+  Vidi `docs/ARHITEKTURA.md` §3.4.
 - ❌ ☁️ Kontakt forma — odlučiti email servis (Resend/Nodemailer/itd.), povezati `app/kontakt/page.tsx` na pravu `/api` rutu. Detalji: [`PROJECT_STATUS.md`](PROJECT_STATUS.md).
 - ❌ 5 mrtvih linkova u meniju (`/nauka-istrazivanje/korisni-linkovi/*`, `/nauka-istrazivanje/monografija`) — kreirati stranice ili ukloniti linkove iz `Header.tsx`.
 - ❌ ☁️ Testovi/CI odluka — da li ima smisla za marketinški sajt, ili samo build+lint gate.

@@ -29,6 +29,24 @@ export default defineType({
       rows: 2,
     }),
     defineField({
+      name: "section",
+      title: "Sekcija sajta",
+      description:
+        "Određuje u kojoj grupi se stranica prikazuje u Studio meniju (Sadržaj → Za pacijente / Edukacija / Nauka i istraživanje).",
+      type: "string",
+      options: {
+        list: [
+          { title: "Za pacijente", value: "za-pacijente" },
+          { title: "Edukacija", value: "edukacija" },
+          { title: "Nauka i istraživanje", value: "nauka-istrazivanje" },
+          { title: "Ostalo", value: "ostalo" },
+        ],
+        layout: "radio",
+      },
+      initialValue: "ostalo",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: "seo",
       title: "SEO Metadata",
       type: "seoMetadata",

@@ -23,6 +23,7 @@
     "migrate:za-pacijente": "tsx scripts/migrate-za-pacijente.ts",
     "migrate:edukacija": "tsx scripts/migrate-edukacija.ts",
     "migrate:nauka-istrazivanje": "tsx scripts/migrate-nauka-istrazivanje.ts",
+    "migrate:backfill-page-section": "tsx scripts/backfill-page-section.ts",
     "check:homepage": "tsx scripts/check-homepage.ts"
   },
   "dependencies": {
