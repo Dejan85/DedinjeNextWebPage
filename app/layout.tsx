@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Script from "next/script";
 import SiteChrome from "@/components/shared/SiteChrome/SiteChrome";
+import Footer from "@/components/shared/Footer/Footer";
 import ScrollToTop from "@/components/shared/ScrollToTop/ScrollToTop";
 import ThemeColorSwitcher from "@/components/shared/ThemeColorSwitcher";
 
@@ -43,7 +44,7 @@ export default function RootLayout({
         />
       </head>
       <body suppressHydrationWarning>
-        <SiteChrome>{children}</SiteChrome>
+        <SiteChrome footer={<Footer />}>{children}</SiteChrome>
         <ScrollToTop />
         {process.env.NODE_ENV !== "production" && <ThemeColorSwitcher />}
         <Script
