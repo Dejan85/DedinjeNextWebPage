@@ -7,6 +7,7 @@
 
 ## Blokeri / Odluke
 
+- **`ThemeColorSwitcher` namerno vidljiv na produkciji** (`app/layout.tsx`) — normalno je bio ograničen na `NODE_ENV !== "production"`, privremeno uklonjen taj uslov na eksplicitan zahtev vlasnika sajta (2026-07-23) dok se sajt još doteruje. **Ukloniti pre pravog lansiranja sajta** — vratiti `{process.env.NODE_ENV !== "production" && <ThemeColorSwitcher />}` ili potpuno skloniti komponentu.
 - **Kontakt forma ne šalje nikuda** (`app/kontakt/page.tsx`) — `handleSubmit` samo poziva `e.preventDefault()` i prikazuje lažnu poruku o uspehu; nema `/api` rute, nema email servisa (Resend/Nodemailer/itd.). Sanity `contactSection` schema već ima polja za punu booking formu, ali se nigde ne koristi. Treba pre lansiranja odlučiti email servis i povezati.
 - **5 mrtvih linkova u meniju** ka nepostojećim stranicama: `/nauka-istrazivanje/korisni-linkovi/{nitra,amprec,kobson,zajednica-instituta}` i `/nauka-istrazivanje/monografija` (definisani u `components/shared/Header/Header.tsx`, stranice ne postoje → 404).
 - **Nema testova ni CI/CD** — ako se ovo doda, prvo definisati da li ima smisla za pretežno marketinški/informativni sajt ili samo build+lint gate na push.

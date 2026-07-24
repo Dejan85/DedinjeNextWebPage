@@ -46,7 +46,7 @@ export default function RootLayout({
       <body suppressHydrationWarning>
         <SiteChrome footer={<Footer />}>{children}</SiteChrome>
         <ScrollToTop />
-        {process.env.NODE_ENV !== "production" && <ThemeColorSwitcher />}
+        <ThemeColorSwitcher /* TODO: ukloni pre finalnog lansiranja sajta */ />
         <Script
           src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"
           strategy="afterInteractive"
