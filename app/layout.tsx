@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Script from "next/script";
 import SiteChrome from "@/components/shared/SiteChrome/SiteChrome";
+import HeaderData from "@/components/shared/Header/HeaderData";
 import Footer from "@/components/shared/Footer/Footer";
 import ScrollToTop from "@/components/shared/ScrollToTop/ScrollToTop";
 import ThemeColorSwitcher from "@/components/shared/ThemeColorSwitcher";
@@ -44,7 +45,9 @@ export default function RootLayout({
         />
       </head>
       <body suppressHydrationWarning>
-        <SiteChrome footer={<Footer />}>{children}</SiteChrome>
+        <SiteChrome header={<HeaderData />} footer={<Footer />}>
+          {children}
+        </SiteChrome>
         <ScrollToTop />
         <ThemeColorSwitcher /* TODO: ukloni pre finalnog lansiranja sajta */ />
         <Script

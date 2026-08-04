@@ -8,6 +8,10 @@ import publication from "./documents/publication";
 import testimonial from "./documents/testimonial";
 import clinicPage from "./documents/clinicPage";
 import schoolPage from "./documents/schoolPage";
+import video from "./documents/video";
+import announcement from "./documents/announcement";
+import jobPosting from "./documents/jobPosting";
+import magazineIssue from "./documents/magazineIssue";
 
 // Singletons
 import siteSettings from "./singletons/siteSettings";
@@ -17,6 +21,7 @@ import directorPage from "./singletons/directorPage";
 import aboutPage from "./singletons/aboutPage";
 import biographyPage from "./singletons/biographyPage";
 import bibliographyPage from "./singletons/bibliographyPage";
+import informatorPage from "./singletons/informatorPage";
 
 // Objects
 import hero from "./objects/hero";
@@ -47,6 +52,10 @@ import tabsBlock from "./objects/tabsBlock";
 import timelineBlock from "./objects/timelineBlock";
 import lectureScheduleBlock from "./objects/lectureScheduleBlock";
 import documentListBlock from "./objects/documentListBlock";
+import boardListBlock from "./objects/boardListBlock";
+import heroSlidesSection from "./objects/heroSlidesSection";
+import clinicsFeaturedSection from "./objects/clinicsFeaturedSection";
+import patientLinksSection from "./objects/patientLinksSection";
 
 export const schemaTypes = [
   // Singletons
@@ -57,6 +66,7 @@ export const schemaTypes = [
   aboutPage,
   biographyPage,
   bibliographyPage,
+  informatorPage,
 
   // Documents
   page,
@@ -68,6 +78,10 @@ export const schemaTypes = [
   testimonial,
   clinicPage,
   schoolPage,
+  video,
+  announcement,
+  jobPosting,
+  magazineIssue,
 
   // Objects
   hero,
@@ -98,4 +112,8 @@ export const schemaTypes = [
   timelineBlock,
   lectureScheduleBlock,
   documentListBlock,
+  boardListBlock,
+  heroSlidesSection,
+  clinicsFeaturedSection,
+  patientLinksSection,
 ];

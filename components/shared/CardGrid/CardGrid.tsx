@@ -11,6 +11,9 @@ export interface CardGridItem {
   href?: string;
   date?: string;
   category?: string;
+  contactPerson?: string;
+  phone?: string;
+  email?: string;
 }
 
 interface CardGridProps {
@@ -71,6 +74,25 @@ export default function CardGrid({
                 )}
                 {card.title && <h4>{card.title}</h4>}
                 {card.description && <p>{card.description}</p>}
+                {card.contactPerson && (
+                  <div className={styles.cardContactPerson}>
+                    <i className="fas fa-user" aria-hidden /> {card.contactPerson}
+                  </div>
+                )}
+                {(card.phone || card.email) && (
+                  <div className={styles.cardContacts}>
+                    {card.phone && (
+                      <a href={`tel:${card.phone.replace(/[^\d+]/g, "")}`} className={styles.cardContactLink}>
+                        <i className="fas fa-phone" aria-hidden /> {card.phone}
+                      </a>
+                    )}
+                    {card.email && (
+                      <a href={`mailto:${card.email}`} className={styles.cardContactLink}>
+                        <i className="fas fa-envelope" aria-hidden /> {card.email}
+                      </a>
+                    )}
+                  </div>
+                )}
               </>
             );
             return card.href ? (

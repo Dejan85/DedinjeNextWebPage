@@ -16,7 +16,7 @@ import {
 } from "@/components/shared";
 import { Heading, Text, Badge } from "@/components/typography";
 import { client } from "@/sanity/lib/client";
-import { HOMEPAGE_QUERY } from "@/sanity/lib/queries";
+import { HOMEPAGE_QUERY, NEWS_QUERY, VIDEOS_QUERY } from "@/sanity/lib/queries";
 import styles from "./page.module.css";
 import type {
   WelcomeSection,
@@ -29,12 +29,19 @@ import type {
   NewsSection,
   ContactSection,
   PartnersSection,
+  HeroSlidesSection,
+  ClinicsFeaturedSection,
+  PatientLinksSection,
+  News,
+  VideoItem,
   InfoBox as InfoBoxType,
   WelcomeFeature as WelcomeFeatureType,
   StatItem,
   ServiceCardItem,
   WhyChooseUsFeature,
 } from "@/sanity/types";
+import { urlFor } from "@/sanity/lib/image";
+import { formatSrDate } from "./aktuelnosti/formatDate";
 import { GOSTOVANJA } from "./aktuelnosti/gostovanja/constants";
 import { VESTI } from "./aktuelnosti/constants";
 
@@ -146,6 +153,43 @@ export default async function Home() {
     sanityError = true;
   }
 
+  let homepageVesti = VESTI;
+  let homepageGostovanja = GOSTOVANJA;
+  try {
+    const [newsRes, videosRes] = await Promise.all([
+      client.fetch<News[]>(NEWS_QUERY),
+      client.fetch<VideoItem[]>(VIDEOS_QUERY),
+    ]);
+    if (newsRes && newsRes.length > 0) {
+      homepageVesti = newsRes.map((n) => ({
+        id: n._id,
+        slug: n.slug.current,
+        title: n.title,
+        date: formatSrDate(n.publishedAt),
+        author: n.author || "",
+        category: n.category || "",
+        image: urlFor(n.mainImage).width(800).height(450).url(),
+        excerpt: n.excerpt || "",
+        fullText: n.fullText || "",
+      }));
+    }
+    if (videosRes && videosRes.length > 0) {
+      homepageGostovanja = videosRes.map((v) => ({
+        id: v._id,
+        slug: v.slug.current,
+        youtubeId: v.youtubeId,
+        title: v.title,
+        date: v.date || "",
+        source: v.source || "",
+        description: v.description || "",
+        fullText: v.fullText || "",
+        isNew: v.isNew,
+      }));
+    }
+  } catch (error) {
+    console.error("Error fetching news/videos for homepage:", error);
+  }
+
   const videoHeroSlides = [
     {
       videoSrc: "/videos/institut-dedinje-video-2.mp4",
@@ -176,7 +220,13 @@ export default async function Home() {
         "Мисија Института је пружање најквалитетније здравствене заштите сваком пацијенту.",
     },
   ];
-  const slidesForHero = videoHeroSlides;
+  let slidesForHero: Array<{
+    videoSrc?: string;
+    videoPoster?: string;
+    badge?: string;
+    title?: string;
+    subtitle?: string;
+  }> = videoHeroSlides;
   const infoBoxes = pageBuilder.filter(
     (item) => item._type === "infoBox",
   ) as InfoBoxType[];
@@ -210,8 +260,36 @@ export default async function Home() {
   const partnersSection = pageBuilder.find(
     (section) => section._type === "partnersSection",
   ) as PartnersSection | undefined;
+  const heroSlidesSection = pageBuilder.find(
+    (section) => section._type === "heroSlidesSection",
+  ) as HeroSlidesSection | undefined;
+  const clinicsFeaturedSection = pageBuilder.find(
+    (section) => section._type === "clinicsFeaturedSection",
+  ) as ClinicsFeaturedSection | undefined;
+  const patientLinksSectionData = pageBuilder.find(
+    (section) => section._type === "patientLinksSection",
+  ) as PatientLinksSection | undefined;
 
-  const latestGostovanja = GOSTOVANJA.slice(0, 3);
+  if (heroSlidesSection?.slides && heroSlidesSection.slides.length > 0) {
+    slidesForHero = heroSlidesSection.slides.map((slide) => ({
+      videoSrc: slide.video,
+      videoPoster: slide.image?.asset?.url,
+      badge: slide.badge,
+      title: slide.title,
+      subtitle: slide.subtitle,
+    }));
+  }
+
+  const clinicsItems =
+    clinicsFeaturedSection?.items && clinicsFeaturedSection.items.length > 0
+      ? clinicsFeaturedSection.items
+      : CLINICS_FEATURED;
+  const patientLinkItems =
+    patientLinksSectionData?.items && patientLinksSectionData.items.length > 0
+      ? patientLinksSectionData.items
+      : PATIENT_LINKS;
+
+  const latestGostovanja = homepageGostovanja.slice(0, 3);
 
   return (
     <>
@@ -518,16 +596,19 @@ export default async function Home() {
         <Container>
           <div className={styles.sectionHeader}>
             <span className={styles.sectionIconWrap}>
-              <i className="fas fa-hospital" aria-hidden />
+              <i className={clinicsFeaturedSection?.icon || "fas fa-hospital"} aria-hidden />
             </span>
             <div>
-              <h2>Наше клинике</h2>
-              <p>Специјализоване организационе јединице Института</p>
+              <h2>{clinicsFeaturedSection?.heading || "Наше клинике"}</h2>
+              <p>
+                {clinicsFeaturedSection?.subheading ||
+                  "Специјализоване организационе јединице Института"}
+              </p>
             </div>
           </div>
           <div className={styles.clinicsGrid}>
-            {CLINICS_FEATURED.map((clinic, idx) => (
-              <Link key={idx} href={clinic.href} className={styles.clinicCard}>
+            {clinicsItems.map((clinic, idx) => (
+              <Link key={idx} href={clinic.href || "#"} className={styles.clinicCard}>
                 <div className={styles.clinicCardIcon}>
                   <i className={clinic.icon} aria-hidden />
                 </div>
@@ -555,16 +636,16 @@ export default async function Home() {
         <Container>
           <div className={styles.sectionHeader}>
             <span className={styles.sectionIconWrap}>
-              <i className="fas fa-user-shield" aria-hidden />
+              <i className={patientLinksSectionData?.icon || "fas fa-user-shield"} aria-hidden />
             </span>
             <div>
-              <h2>За пацијенте</h2>
-              <p>Брз приступ најважнијим информацијама</p>
+              <h2>{patientLinksSectionData?.heading || "За пацијенте"}</h2>
+              <p>{patientLinksSectionData?.subheading || "Брз приступ најважнијим информацијама"}</p>
             </div>
           </div>
           <div className={styles.patientGrid}>
-            {PATIENT_LINKS.map((item, idx) => (
-              <Link key={idx} href={item.href} className={styles.patientCard}>
+            {patientLinkItems.map((item, idx) => (
+              <Link key={idx} href={item.href || "#"} className={styles.patientCard}>
                 <div className={styles.patientCardIcon}>
                   <i className={item.icon} aria-hidden />
                 </div>
@@ -689,7 +770,7 @@ export default async function Home() {
                 <h3>Најновије вести</h3>
               </div>
               <div className={styles.newsGostovanjaItems}>
-                {VESTI.slice(0, 3).map((vest) => (
+                {homepageVesti.slice(0, 3).map((vest) => (
                   <Link
                     key={vest.id}
                     href={`/aktuelnosti/${vest.slug}`}

@@ -89,6 +89,9 @@ export interface CardGridBlockData {
     href?: string;
     date?: string;
     category?: string;
+    contactPerson?: string;
+    phone?: string;
+    email?: string;
   }[];
 }
 
@@ -159,6 +162,12 @@ export interface TabsBlockInfoItem {
   answerParagraphs?: string[];
 }
 
+export interface TabsBlockFocusCard {
+  title: string;
+  text?: string;
+  items?: string[];
+}
+
 export interface TabsBlockTab {
   tabId: string;
   label: string;
@@ -167,6 +176,9 @@ export interface TabsBlockTab {
   introHeading?: string;
   introParagraphs?: string[];
   infoBlocks?: TabsBlockInfoItem[];
+  introList?: string[];
+  focusCards?: TabsBlockFocusCard[];
+  outroParagraphs?: string[];
 }
 
 export interface TabsBlockData {
@@ -229,6 +241,27 @@ export interface DocumentListBlockData {
   items: DocumentListItem[];
 }
 
+export interface BoardMemberData {
+  name: string;
+  role?: string;
+}
+
+export interface BoardItemData {
+  icon?: string;
+  title: string;
+  chairman: BoardMemberData;
+  viceChairman?: BoardMemberData;
+  membersLabel?: string;
+  members: BoardMemberData[];
+}
+
+export interface BoardListBlockData {
+  _type: "boardListBlock";
+  heading?: string;
+  subtitle?: string;
+  boards: BoardItemData[];
+}
+
 export type PatientPageBlock =
   | IntroSectionBlock
   | BannerBlockData
@@ -240,7 +273,8 @@ export type PatientPageBlock =
   | TabsBlockData
   | TimelineBlockData
   | LectureScheduleBlockData
-  | DocumentListBlockData;
+  | DocumentListBlockData
+  | BoardListBlockData;
 
 export interface PatientPage {
   _id?: string;
@@ -321,18 +355,82 @@ export interface News {
   };
   excerpt?: string;
   content?: any[]; // Portable Text
+  fullText?: string;
   mainImage: SanityImage;
-  category?:
-    | "inovacije"
-    | "akcije"
-    | "oprema"
-    | "uspeh"
-    | "edukacija"
-    | "obavestenje";
+  category?: string;
   author?: string;
   publishedAt: string;
   featured?: boolean;
   seo?: SeoMetadata;
+}
+
+export interface VideoItem {
+  _id: string;
+  _type: "video";
+  title: string;
+  slug: { current: string };
+  youtubeId: string;
+  source?: string;
+  date?: string;
+  description?: string;
+  fullText?: string;
+  isNew?: boolean;
+}
+
+export interface Announcement {
+  _id: string;
+  _type: "announcement";
+  title: string;
+  date?: string;
+  icon?: string;
+  type?: string;
+  text?: string;
+  important?: boolean;
+}
+
+export interface JobPosting {
+  _id: string;
+  _type: "jobPosting";
+  title: string;
+  date?: string;
+  type?: string;
+  icon?: string;
+  text?: string;
+  active?: boolean;
+  deadline?: string;
+}
+
+export interface MagazineIssue {
+  _id: string;
+  _type: "magazineIssue";
+  volume?: string;
+  number?: string;
+  year?: string;
+  title: string;
+  topics?: string[];
+  pdfUrl?: string;
+  coverColor?: string;
+}
+
+export interface InformatorSection {
+  icon?: string;
+  title: string;
+  description?: string;
+}
+
+export interface InformatorPage {
+  heroHeading?: string;
+  heroText?: string;
+  publishDate?: string;
+  updatedDate?: string;
+  pdfUrl?: string;
+  sections?: InformatorSection[];
+  contactHeading?: string;
+  contactText?: string;
+  contactPerson?: string;
+  contactPhone?: string;
+  contactEmail?: string;
+  contactAddress?: string;
 }
 
 export interface Publication {
@@ -398,12 +496,20 @@ export interface Navigation {
   _id: string;
   _type: "navigation";
   mainMenu?: Array<{
+    _key?: string;
     title: string;
-    link: string;
+    link?: string;
     submenu?: Array<{
+      _key?: string;
       title: string;
-      link: string;
+      link?: string;
       icon?: string;
+      items?: Array<{
+        _key?: string;
+        title: string;
+        link: string;
+        icon?: string;
+      }>;
     }>;
   }>;
   footerMenu?: Array<{
@@ -728,6 +834,47 @@ export interface PartnersSection {
   _key: string;
   heading: string;
   partners: PartnerItem[];
+}
+
+export interface HeroSlideItem {
+  _key: string;
+  badge?: string;
+  title?: string;
+  subtitle?: string;
+  video?: string;
+  image?: SanityImage;
+}
+
+export interface HeroSlidesSection {
+  _type: "heroSlidesSection";
+  _key: string;
+  slides: HeroSlideItem[];
+}
+
+export interface LinkCardItem {
+  _key: string;
+  icon?: string;
+  title: string;
+  desc?: string;
+  href?: string;
+}
+
+export interface ClinicsFeaturedSection {
+  _type: "clinicsFeaturedSection";
+  _key: string;
+  icon?: string;
+  heading?: string;
+  subheading?: string;
+  items: LinkCardItem[];
+}
+
+export interface PatientLinksSection {
+  _type: "patientLinksSection";
+  _key: string;
+  icon?: string;
+  heading?: string;
+  subheading?: string;
+  items: LinkCardItem[];
 }
 
 // Director Page Types
@@ -1066,15 +1213,48 @@ export interface ClinicArea {
   desc: string;
 }
 
+export interface ClinicStaffMember {
+  _key?: string;
+  name: string;
+  role?: string;
+}
+
 export interface ClinicStaffGroup {
   _key?: string;
   heading?: string;
-  names: string[];
+  names?: string[];
+  members?: ClinicStaffMember[];
 }
 
 export interface ClinicStaffList {
   title: string;
   groups: ClinicStaffGroup[];
+}
+
+export interface ClinicStat {
+  _key?: string;
+  value: string;
+  label: string;
+  icon?: string;
+}
+
+export interface ClinicHighlight {
+  _key?: string;
+  icon?: string;
+  text: string;
+}
+
+export type ClinicUnitSection =
+  | { _key?: string; type: "paragraph"; title: string; text: string }
+  | { _key?: string; type: "list"; title: string; items: string[] };
+
+export interface ClinicUnit {
+  _key?: string;
+  slug: string;
+  title: string;
+  heroImage?: string;
+  heroSubtitle?: string;
+  sections: ClinicUnitSection[];
 }
 
 export interface ClinicProceduresList {
@@ -1110,14 +1290,18 @@ export interface ClinicPage {
   introTitle: string;
   introText: string;
   introParagraphs?: string[];
+  organizationalStructure?: string;
   areas: ClinicArea[];
   areasTitle?: string;
   areasSubtitle?: string;
   areasIcon?: string;
   extraBanner?: ClinicExtraBanner;
+  stats?: ClinicStat[];
+  highlights?: ClinicHighlight[];
   proceduresList?: ClinicProceduresList;
   staffList?: ClinicStaffList;
   patientInstructions?: ClinicPatientInstructions;
+  units?: ClinicUnit[];
   seo?: ClinicSeo;
 }
 

@@ -30,9 +30,16 @@ export default defineType({
     }),
     defineField({
       name: "content",
-      title: "Sadržaj",
+      title: "Sadržaj (portable text, trenutno neiskorišćeno na sajtu)",
       type: "array",
       of: [{ type: "block" }],
+    }),
+    defineField({
+      name: "fullText",
+      title: "Pun tekst vesti",
+      description: "Pasusi odvojeni praznim redom.",
+      type: "text",
+      rows: 10,
     }),
     defineField({
       name: "mainImage",

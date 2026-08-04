@@ -65,6 +65,40 @@ export default defineType({
                 },
               ],
             },
+            {
+              name: "introList",
+              title: "Prosta lista odmah posle uvoda (opciono)",
+              type: "array",
+              of: [{ type: "string" }],
+            },
+            {
+              name: "focusCards",
+              title: "Focus kartice (opciono)",
+              description: "Grid kartica sa naslovom + tekstom ili listom stavki.",
+              type: "array",
+              of: [
+                {
+                  type: "object",
+                  fields: [
+                    { name: "title", title: "Naslov", type: "string" },
+                    { name: "text", title: "Tekst (opciono)", type: "text", rows: 3 },
+                    {
+                      name: "items",
+                      title: "Stavke liste (opciono)",
+                      type: "array",
+                      of: [{ type: "string" }],
+                    },
+                  ],
+                  preview: { select: { title: "title" } },
+                },
+              ],
+            },
+            {
+              name: "outroParagraphs",
+              title: "Paragrafi posle focus kartica (opciono)",
+              type: "array",
+              of: [{ type: "text", rows: 3 }],
+            },
           ],
           preview: { select: { title: "label" } },
         },

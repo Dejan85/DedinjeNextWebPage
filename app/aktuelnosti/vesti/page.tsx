@@ -1,16 +1,54 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Container, PageHeader, Section } from "@/components/shared";
+import { client } from "@/sanity/lib/client";
+import { NEWS_QUERY } from "@/sanity/lib/queries";
+import { urlFor } from "@/sanity/lib/image";
+import type { News } from "@/sanity/types";
+import { formatSrDate } from "../formatDate";
 import { VESTI } from "../constants";
 import { generateMetadata } from "./metadata";
 import styles from "./page.module.css";
 
 export { generateMetadata };
 
-export default function VestiPage() {
-  const featured = VESTI[0];
-  const secondary = VESTI.slice(1, 3);
-  const rest = VESTI.slice(3);
+interface VestListItem {
+  id: string;
+  slug: string;
+  title: string;
+  date: string;
+  author: string;
+  category: string;
+  image: string;
+  excerpt: string;
+}
+
+async function getVesti(): Promise<VestListItem[]> {
+  try {
+    const news = await client.fetch<News[]>(NEWS_QUERY);
+    if (news && news.length > 0) {
+      return news.map((n) => ({
+        id: n._id,
+        slug: n.slug.current,
+        title: n.title,
+        date: formatSrDate(n.publishedAt),
+        author: n.author || "",
+        category: n.category || "",
+        image: urlFor(n.mainImage).width(800).height(450).url(),
+        excerpt: n.excerpt || "",
+      }));
+    }
+  } catch (error) {
+    console.error("Error fetching vesti:", error);
+  }
+  return VESTI;
+}
+
+export default async function VestiPage() {
+  const vesti = await getVesti();
+  const featured = vesti[0];
+  const secondary = vesti.slice(1, 3);
+  const rest = vesti.slice(3);
 
   return (
     <>

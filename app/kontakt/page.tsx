@@ -1,57 +1,72 @@
-"use client";
-
-import { useState } from "react";
+import type { Metadata } from "next";
 import {
   Container,
   PageHeader,
   Section,
 } from "@/components/shared";
+import { client } from "@/sanity/lib/client";
+import { SITE_SETTINGS_QUERY } from "@/sanity/lib/queries";
+import type { SiteSettings } from "@/sanity/types";
+import KontaktForm from "./KontaktForm";
 import styles from "./page.module.css";
 
-const CONTACT_CARDS = [
-  {
-    icon: "fas fa-phone",
-    title: "Call центар",
-    value: "011 3601 700",
-    href: "tel:+381113601700",
-    desc: "Понедељак - Петак: 07-20h",
-  },
-  {
-    icon: "fas fa-envelope",
-    title: "Е-пошта",
-    value: "info@ikvbd.com",
-    href: "mailto:info@ikvbd.com",
-    desc: "Одговарамо у року од 24h",
-  },
-  {
-    icon: "fas fa-location-dot",
-    title: "Адреса",
-    value: "Хероја Милана Тепића 1",
-    href: "https://maps.google.com/?q=Institut+za+kardiovaskularne+bolesti+Dedinje",
-    desc: "11040 Београд, Србија",
-  },
-  {
-    icon: "fas fa-clock",
-    title: "Радно време",
-    value: "07:00 - 20:00",
-    href: "#",
-    desc: "Понедељак - Петак",
-  },
-];
+export const metadata: Metadata = {
+  title: "Контакт | Институт Дедиње",
+  description:
+    "Контактирајте Институт за кардиоваскуларне болести Дедиње — телефон, е-пошта, адреса и радно време.",
+};
 
-export default function KontaktPage() {
-  const [formData, setFormData] = useState({
-    ime: "",
-    prezime: "",
-    email: "",
-    poruka: "",
-  });
-  const [submitted, setSubmitted] = useState(false);
+function toTelHref(phone: string): string {
+  const digits = phone.replace(/[^\d]/g, "");
+  return `tel:+${digits.replace(/^0/, "381")}`;
+}
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitted(true);
-  };
+async function getSiteSettings(): Promise<SiteSettings | null> {
+  try {
+    return await client.fetch<SiteSettings>(SITE_SETTINGS_QUERY);
+  } catch (error) {
+    console.error("⚠️ Sanity fetch failed:", error);
+    return null;
+  }
+}
+
+export default async function KontaktPage() {
+  const settings = await getSiteSettings();
+  const contact = settings?.contact;
+  const workingHours = settings?.workingHours?.[0];
+
+  const CONTACT_CARDS = [
+    {
+      icon: "fas fa-phone",
+      title: "Call центар",
+      value: contact?.phone1 || "011 3601 700",
+      href: toTelHref(contact?.phone1 || "011 3601 700"),
+      desc: "Понедељак - Петак: 07-20h",
+    },
+    {
+      icon: "fas fa-envelope",
+      title: "Е-пошта",
+      value: contact?.email || "info@ikvbd.com",
+      href: `mailto:${contact?.email || "info@ikvbd.com"}`,
+      desc: "Одговарамо у року од 24h",
+    },
+    {
+      icon: "fas fa-location-dot",
+      title: "Адреса",
+      value: contact?.address || "Хероја Милана Тепића 1",
+      href: "https://maps.google.com/?q=Institut+za+kardiovaskularne+bolesti+Dedinje",
+      desc: `${contact?.zipCode || "11040"} ${contact?.city || "Београд"}, Србија`,
+    },
+    {
+      icon: "fas fa-clock",
+      title: "Радно време",
+      value: workingHours?.hours || "07:00 - 20:00",
+      href: "#",
+      desc: workingHours?.days || "Понедељак - Петак",
+    },
+  ];
+
+  const emergencyPhone = contact?.emergencyPhone || "194";
 
   return (
     <>
@@ -98,76 +113,7 @@ export default function KontaktPage() {
                 </div>
               </div>
 
-              {submitted ? (
-                <div className={styles.successMessage}>
-                  <div className={styles.successIcon}>
-                    <i className="fas fa-check-circle" aria-hidden />
-                  </div>
-                  <h3>Порука је послата!</h3>
-                  <p>Хвала вам на поруци. Одговорићемо вам у најкраћем могућем року.</p>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className={styles.form}>
-                  <div className={styles.formRow}>
-                    <div className={styles.formGroup}>
-                      <label htmlFor="ime">
-                        Име <span className={styles.required}>*</span>
-                      </label>
-                      <input
-                        type="text"
-                        id="ime"
-                        required
-                        value={formData.ime}
-                        onChange={(e) => setFormData({ ...formData, ime: e.target.value })}
-                        placeholder="Ваше име"
-                      />
-                    </div>
-                    <div className={styles.formGroup}>
-                      <label htmlFor="prezime">Презиме</label>
-                      <input
-                        type="text"
-                        id="prezime"
-                        value={formData.prezime}
-                        onChange={(e) => setFormData({ ...formData, prezime: e.target.value })}
-                        placeholder="Ваше презиме"
-                      />
-                    </div>
-                  </div>
-
-                  <div className={styles.formGroup}>
-                    <label htmlFor="email">
-                      Е-маил <span className={styles.required}>*</span>
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      required
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      placeholder="vasa@adresa.com"
-                    />
-                  </div>
-
-                  <div className={styles.formGroup}>
-                    <label htmlFor="poruka">
-                      Порука <span className={styles.required}>*</span>
-                    </label>
-                    <textarea
-                      id="poruka"
-                      required
-                      rows={5}
-                      value={formData.poruka}
-                      onChange={(e) => setFormData({ ...formData, poruka: e.target.value })}
-                      placeholder="Напишите вашу поруку..."
-                    />
-                  </div>
-
-                  <button type="submit" className={styles.submitBtn}>
-                    <i className="fas fa-paper-plane" aria-hidden />
-                    Пошаљите поруку
-                  </button>
-                </form>
-              )}
+              <KontaktForm />
             </div>
 
             {/* Map + info */}
@@ -213,13 +159,13 @@ export default function KontaktPage() {
             <div>
               <h3>Хитни случајеви</h3>
               <p>
-                У случају хитне медицинске помоћи, позовите <strong>194</strong> или
+                У случају хитне медицинске помоћи, позовите <strong>{emergencyPhone}</strong> или
                 се јавите на пријемну амбуланту Института. Наш тим је доступан 24/7.
               </p>
             </div>
-            <a href="tel:194" className={styles.emergencyBtn}>
+            <a href={`tel:${emergencyPhone}`} className={styles.emergencyBtn}>
               <i className="fas fa-phone" aria-hidden />
-              194
+              {emergencyPhone}
             </a>
           </div>
         </Container>

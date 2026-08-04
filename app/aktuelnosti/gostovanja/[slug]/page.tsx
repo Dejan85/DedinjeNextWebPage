@@ -1,37 +1,81 @@
-"use client";
-
-import { use, useState } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Container, PageHeader, Section } from "@/components/shared";
-import { GOSTOVANJA } from "../constants";
+import { client } from "@/sanity/lib/client";
+import { VIDEOS_QUERY, VIDEO_BY_SLUG_QUERY } from "@/sanity/lib/queries";
+import type { VideoItem } from "@/sanity/types";
+import { GOSTOVANJA, type Gostovanje } from "../constants";
+import GostovanjeVideo, { YouTubeThumbnail } from "./GostovanjeVideo";
 import styles from "./page.module.css";
 
-function YouTubeThumbnail({ youtubeId }: { youtubeId: string }) {
-  return (
-    <img
-      src={`https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`}
-      alt=""
-      className={styles.thumbnail}
-      loading="lazy"
-    />
-  );
+interface GostovanjeDetail {
+  id: string;
+  slug: string;
+  youtubeId: string;
+  title: string;
+  date: string;
+  source: string;
+  fullText: string;
+  isNew?: boolean;
 }
 
-export default function GostovanjePage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = use(params);
-  const [playing, setPlaying] = useState(false);
-  const gostovanje = GOSTOVANJA.find((g) => g.slug === slug);
+function fromSanity(v: VideoItem): GostovanjeDetail {
+  return {
+    id: v._id,
+    slug: v.slug.current,
+    youtubeId: v.youtubeId,
+    title: v.title,
+    date: v.date || "",
+    source: v.source || "",
+    fullText: v.fullText || v.description || "",
+    isNew: v.isNew,
+  };
+}
+
+function fromFallback(g: Gostovanje): GostovanjeDetail {
+  return {
+    id: g.id,
+    slug: g.slug,
+    youtubeId: g.youtubeId,
+    title: g.title,
+    date: g.date,
+    source: g.source,
+    fullText: g.fullText,
+    isNew: g.isNew,
+  };
+}
+
+async function getGostovanjeData(
+  slug: string,
+): Promise<{ item: GostovanjeDetail | null; all: GostovanjeDetail[] }> {
+  try {
+    const [item, all] = await Promise.all([
+      client.fetch<VideoItem | null>(VIDEO_BY_SLUG_QUERY, { slug }),
+      client.fetch<VideoItem[]>(VIDEOS_QUERY),
+    ]);
+    if (item && all && all.length > 0) {
+      return { item: fromSanity(item), all: all.map(fromSanity) };
+    }
+  } catch (error) {
+    console.error("Error fetching gostovanje:", error);
+  }
+  const all = GOSTOVANJA.map(fromFallback);
+  const item = all.find((g) => g.slug === slug) || null;
+  return { item, all };
+}
+
+export default async function GostovanjePage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const { item: gostovanje, all } = await getGostovanjeData(slug);
 
   if (!gostovanje) {
     notFound();
   }
 
-  const currentIndex = GOSTOVANJA.findIndex((g) => g.slug === slug);
-  const prev = currentIndex > 0 ? GOSTOVANJA[currentIndex - 1] : null;
-  const next = currentIndex < GOSTOVANJA.length - 1 ? GOSTOVANJA[currentIndex + 1] : null;
-
-  const related = GOSTOVANJA.filter((g) => g.id !== gostovanje.id).slice(0, 3);
+  const currentIndex = all.findIndex((g) => g.slug === slug);
+  const prev = currentIndex > 0 ? all[currentIndex - 1] : null;
+  const next = currentIndex < all.length - 1 ? all[currentIndex + 1] : null;
+  const related = all.filter((g) => g.id !== gostovanje.id).slice(0, 3);
 
   return (
     <>
@@ -50,31 +94,7 @@ export default function GostovanjePage({ params }: { params: Promise<{ slug: str
       <Section padding="medium" background="white">
         <Container>
           <article className={styles.article}>
-            <div className={styles.videoWrapper}>
-              {playing ? (
-                <iframe
-                  src={`https://www.youtube.com/embed/${gostovanje.youtubeId}?autoplay=1`}
-                  title={gostovanje.title}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  className={styles.iframe}
-                />
-              ) : (
-                <button
-                  type="button"
-                  className={styles.thumbnailBtn}
-                  onClick={() => setPlaying(true)}
-                  aria-label="Пусти видео"
-                >
-                  <YouTubeThumbnail youtubeId={gostovanje.youtubeId} />
-                  <div className={styles.playOverlay}>
-                    <div className={styles.playBtn}>
-                      <i className="fas fa-play" aria-hidden />
-                    </div>
-                  </div>
-                </button>
-              )}
-            </div>
+            <GostovanjeVideo youtubeId={gostovanje.youtubeId} title={gostovanje.title} />
 
             <div className={styles.meta}>
               {gostovanje.isNew && <span className={styles.badgeNew}>НОВО</span>}

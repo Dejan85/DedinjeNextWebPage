@@ -1,57 +1,3 @@
-/* ========================================
-   INTRO
-======================================== */
-.intro {
-  display: flex;
-  gap: 28px;
-  align-items: flex-start;
-  margin-bottom: 28px;
-}
-
-.introIcon {
-  width: 72px;
-  height: 72px;
-  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-  border-radius: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.introIcon i { font-size: 30px; color: var(--white); }
-
-.introContent { flex: 1; }
-.introContent h2 { font-size: 24px; font-weight: 800; color: var(--gray-800); margin: 0 0 14px; }
-.introContent p { font-size: 15px; line-height: 1.8; color: var(--gray-600); margin: 0; }
-
-/* ========================================
-   STATS BANNER
-======================================== */
-.statsBanner {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 32px;
-  padding: 24px 32px;
-  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-  border-radius: 14px;
-  color: var(--white);
-}
-
-.statItem { text-align: center; }
-.statValue { font-size: 32px; font-weight: 900; opacity: 0.95; }
-.statLabel { font-size: 13px; opacity: 0.75; margin-top: 2px; }
-
-.statDivider {
-  width: 1px;
-  height: 40px;
-  background: rgba(255, 255, 255, 0.2);
-}
-
-/* ========================================
-   SECTION HEADER
-======================================== */
 .sectionHeader {
   display: flex;
   align-items: center;
@@ -61,24 +7,19 @@
   border-bottom: 2px solid var(--gray-200);
 }
 
-.sectionIconWrap {
-  width: 56px;
-  height: 56px;
-  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-  border-radius: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+.sectionHeader h2 {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--gray-800);
+  margin: 0 0 4px;
 }
 
-.sectionIconWrap i { font-size: 22px; color: var(--white); }
-.sectionHeader h2 { font-size: 22px; font-weight: 800; color: var(--gray-800); margin: 0 0 4px; }
-.sectionHeader p { font-size: 14px; color: var(--gray-500); margin: 0; }
+.sectionHeader p {
+  font-size: 14px;
+  color: var(--gray-500);
+  margin: 0;
+}
 
-/* ========================================
-   BOARD CARDS (accordion)
-======================================== */
 .boardsStack {
   display: flex;
   flex-direction: column;
@@ -161,7 +102,6 @@
 
 .boardCardOpen .boardChevron i { color: var(--white); }
 
-/* Body */
 .boardCardBody {
   padding: 0 24px 24px;
   border-top: 1px solid var(--gray-100);
@@ -169,7 +109,6 @@
   padding-top: 20px;
 }
 
-/* Leader cards */
 .leaderCard {
   display: flex;
   align-items: center;
@@ -224,7 +163,6 @@
   color: var(--gray-800);
 }
 
-/* Members */
 .membersBlock {
   margin-top: 16px;
 }
@@ -290,41 +228,7 @@
   margin-top: 1px;
 }
 
-/* ========================================
-   CTA
-======================================== */
-.ctaSection {
-  padding: 72px 0;
-  background: var(--gray-50);
-  border-top: 1px solid var(--gray-200);
-}
-
-.ctaContent { text-align: center; max-width: 600px; margin: 0 auto; }
-
-.ctaIcon {
-  width: 64px;
-  height: 64px;
-  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-  border-radius: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 24px;
-}
-
-.ctaIcon i { font-size: 26px; color: var(--white); }
-.ctaContent h2 { font-size: 24px; font-weight: 800; color: var(--gray-800); margin: 0 0 12px; }
-.ctaContent p { font-size: 15px; color: var(--gray-600); line-height: 1.7; margin: 0 0 28px; }
-
-.ctaButtons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-
-/* ========================================
-   RESPONSIVE
-======================================== */
 @media (max-width: 768px) {
-  .intro { flex-direction: column; gap: 16px; }
-  .statsBanner { flex-direction: column; gap: 16px; }
-  .statDivider { width: 60px; height: 1px; }
   .sectionHeader { flex-direction: column; align-items: flex-start; gap: 12px; }
   .membersList { grid-template-columns: 1fr; }
 }

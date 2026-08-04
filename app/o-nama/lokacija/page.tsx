@@ -3,38 +3,18 @@ import {
   PageHeader,
   Button,
   Section,
+  PageBuilder,
 } from "@/components/shared";
+import { client } from "@/sanity/lib/client";
+import { PAGE_BY_SLUG_QUERY } from "@/sanity/lib/queries";
+import type { PatientPage } from "@/sanity/types";
 import styles from "./page.module.css";
 import { metadata } from "./metadata";
+import { DATA } from "./data";
 
 export { metadata };
 
-const TRANSPORT = [
-  {
-    icon: "fas fa-bus",
-    title: "Аутобус",
-    lines: "Линије 37, 58, 59",
-    desc: 'Станица "Дедиње" — директно испред Института',
-  },
-  {
-    icon: "fas fa-train-tram",
-    title: "Трамвај",
-    lines: "Линије 3, 12",
-    desc: 'Станица "Топчидерска звезда" — 10 минута пешице',
-  },
-  {
-    icon: "fas fa-car",
-    title: "Аутомобил",
-    lines: "Паркинг доступан",
-    desc: "Бесплатан паркинг у кругу Института за пацијенте",
-  },
-  {
-    icon: "fas fa-taxi",
-    title: "Такси",
-    lines: "Све такси службе",
-    desc: "Адреса: Хероја Милана Тепића бр. 1, 11040 Београд",
-  },
-];
+const SLUG = "lokacija";
 
 const INFO_ITEMS = [
   { icon: "fas fa-clock", label: "Радно време", value: "Понедељак - Петак: 07-20h" },
@@ -44,7 +24,17 @@ const INFO_ITEMS = [
   { icon: "fas fa-globe", label: "Веб сајт", value: "www.institutdedinje.rs" },
 ];
 
-export default function LokacijaPage() {
+export default async function LokacijaPage() {
+  let page: PatientPage | null = null;
+
+  try {
+    page = await client.fetch<PatientPage>(PAGE_BY_SLUG_QUERY, { slug: SLUG });
+  } catch (error) {
+    console.error("⚠️ Sanity fetch failed:", error);
+  }
+
+  const data = page ?? DATA;
+
   return (
     <>
       <PageHeader
@@ -53,8 +43,8 @@ export default function LokacijaPage() {
           { label: "О нама" },
           { label: "Локација" },
         ]}
-        title="Локација Института"
-        subtitle="Како доћи до Института за кардиоваскуларне болести Дедиње"
+        title={data.title}
+        subtitle={data.subtitle}
       />
 
       <Section padding="medium" background="white">
@@ -107,50 +97,7 @@ export default function LokacijaPage() {
         </Container>
       </Section>
 
-      <Section padding="medium" background="gray">
-        <Container>
-          <div className={styles.sectionHeader}>
-            <span className={styles.sectionIconWrap}>
-              <i className="fas fa-route" aria-hidden />
-            </span>
-            <div>
-              <h2>Како до нас</h2>
-              <p>Доступне опције јавног и приватног превоза</p>
-            </div>
-          </div>
-
-          <div className={styles.transportGrid}>
-            {TRANSPORT.map((item, idx) => (
-              <div key={idx} className={styles.transportCard}>
-                <div className={styles.transportCardIcon}>
-                  <i className={item.icon} aria-hidden />
-                </div>
-                <h4>{item.title}</h4>
-                <span className={styles.transportLines}>{item.lines}</span>
-                <p>{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </Container>
-      </Section>
-
-      <section className={styles.highlightBanner}>
-        <Container>
-          <div className={styles.highlightContent}>
-            <div className={styles.highlightIcon}>
-              <i className="fas fa-parking" aria-hidden />
-            </div>
-            <div>
-              <h3>Паркинг за пацијенте</h3>
-              <p>
-                Бесплатан паркинг простор је доступан у кругу Института. За
-                пацијенте који долазе на хируршке интервенције, обезбеђен је
-                паркинг у непосредној близини главног улаза.
-              </p>
-            </div>
-          </div>
-        </Container>
-      </section>
+      <PageBuilder blocks={data.pageBuilder} />
 
       <section className={styles.ctaSection}>
         <Container>

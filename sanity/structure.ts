@@ -28,6 +28,15 @@ export const structure: StructureResolver = (S) =>
               singleton(S, "aboutPage", "О институту"),
               singleton(S, "biographyPage", "Биографија"),
               singleton(S, "bibliographyPage", "Библиографија"),
+              S.listItem()
+                .title("Остале странице (Локација, Одбори, Акредитација...)")
+                .id("o-nama-ostalo")
+                .child(
+                  S.documentTypeList("page")
+                    .id("o-nama-ostalo-list")
+                    .title("О нама — остале странице")
+                    .filter('_type == "page" && section == "ostalo"'),
+                ),
             ]),
         ),
 
@@ -102,14 +111,30 @@ export const structure: StructureResolver = (S) =>
         ),
 
       S.listItem()
+        .title("Актуелности")
+        .id("aktuelnosti")
+        .child(
+          S.list()
+            .id("aktuelnosti-list")
+            .title("Актуелности")
+            .items([
+              S.documentTypeListItem("news").id("news").title("Вести"),
+              S.documentTypeListItem("video").id("video").title("Гостовања"),
+              S.documentTypeListItem("announcement").id("announcement").title("Обавештења"),
+              S.documentTypeListItem("jobPosting").id("jobPosting").title("Огласи и конкурси"),
+              S.documentTypeListItem("magazineIssue").id("magazineIssue").title("Часопис Дедиње — издања"),
+              singleton(S, "informatorPage", "Информатор о раду"),
+            ]),
+        ),
+
+      S.listItem()
         .title("Новости и садржај")
         .id("novosti-sadrzaj")
         .child(
           S.list()
             .id("novosti-sadrzaj-list")
-            .title("Новости и садржај (napomena: /aktuelnosti ruta je i dalje hardkodovana, ovi tipovi još nisu prikazani na sajtu)")
+            .title("Новости и садржај (napomena: publication/testimonial tipovi još nisu prikazani na sajtu)")
             .items([
-              S.documentTypeListItem("news").id("news").title("Novosti"),
               S.documentTypeListItem("publication").id("publication").title("Publikacije"),
               S.documentTypeListItem("testimonial").id("testimonial").title("Testimonials"),
             ]),

@@ -134,6 +134,37 @@
   margin: 0;
 }
 
+.cardContactPerson {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--gray-700);
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--gray-100);
+}
+
+.cardContacts {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.cardContactLink {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--gray-600);
+}
+
+.cardContactLink:hover {
+  color: var(--primary);
+}
+
 @media (max-width: 768px) {
   .sectionHeader {
     flex-direction: column;

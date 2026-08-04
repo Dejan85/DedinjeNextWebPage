@@ -85,8 +85,55 @@
   margin: 0;
 }
 
+.introList {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--gray-600);
+}
+
+.focusGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.focusCard {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 14px;
+  padding: 20px 22px;
+}
+
+.focusCard h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--gray-800);
+  margin: 0 0 10px;
+}
+
+.focusCard p {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--gray-600);
+  margin: 0;
+}
+
+.focusCard ul {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--gray-600);
+}
+
 @media (max-width: 768px) {
   .blocksGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .focusGrid {
     grid-template-columns: 1fr;
   }
 

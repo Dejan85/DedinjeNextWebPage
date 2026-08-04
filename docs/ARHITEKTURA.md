@@ -21,33 +21,36 @@ out/                    build artefakt od `build:static` (nije izvor istine, ne 
 
 ## 2. Rute (app/) — pregled po sekcijama
 
-- `/` — početna (hero slider, info boxovi, statistike, usluge, "zašto mi", klinike, tim, vesti, kontakt CTA, partneri).
+- `/` — početna (hero slider, info boxovi, statistike, usluge, "zašto mi", klinike, tim, vesti, kontakt CTA, partneri) — Sanity-backed, vidi §3.
 - `/rec-direktora`, `/o-institutu`, `/biografija`, `/bibliografija` — Sanity-backed singletoni (vidi §3 ispod).
-- `/o-nama/{lokacija,nemedicinski-poslovi,odbori-i-organi-instituta,zdravstvena-akreditacija}` — hardkodovane info-stranice.
-- `/klinike` + 20 podstranica — 19 Sanity-backed (`clinicPage` multi-instance tip, vidi §3 ispod), sve kroz zajednički `ClinicPageTemplate` (proširen opcionim `proceduresList`/`staffList`/`patientInstructions` blokovima); izuzetak je `kardiohirurgija` koja ostaje hardkodovana, sa custom page + `units.ts` za 5 pod-jedinica (ne staje u generički `clinicPage` tip).
-- `/za-pacijente` + 12 podstranica — 12 Sanity-backed (`page` multi-instance tip sa 8 reusable pageBuilder blokova, vidi §3 ispod).
-- `/nauka-istrazivanje` + podstranice (NIO, centar izuzetnih vrednosti, SAIGE projekat, lista istraživača — Sanity-backed; CardioView3D lab — spojena stranica sa 3 taba, ostaje hardkodovana, stara `/workshop` ruta radi redirect — namerni izuzetak).
+- `/o-nama/{lokacija,nemedicinski-poslovi,odbori-i-organi-instituta,zdravstvena-akreditacija}` — Sanity-backed (`page` dokumenti, `section: "ostalo"`); mapa/adresa/CTA dugmad ostaju u template kodu (nisu editorski sadržaj).
+- `/klinike` + 20 podstranica — svih 20 Sanity-backed (`clinicPage` multi-instance tip, vidi §3 ispod), sve kroz zajednički `ClinicPageTemplate` (opcioni `proceduresList`/`staffList`/`patientInstructions`/`stats`/`highlights`/`organizationalStructure`/`units` blokovi — poslednja 4 trenutno popunjena samo za `kardiohirurgija`, koja i dalje ima i 5 pod-ruta `/klinike/kardiohirurgija/<unit-slug>` čitanih iz `clinicPage.units[]`).
+- `/za-pacijente` + 12 podstranica — 12 Sanity-backed (`page` multi-instance tip sa reusable pageBuilder blokovima, vidi §3 ispod).
+- `/nauka-istrazivanje` + podstranice (NIO, centar izuzetnih vrednosti, SAIGE projekat, lista istraživača, CardioView3D lab) — svih 7 Sanity-backed (`page` multi-instance tip); stara `/workshop` ruta i dalje radi čist redirect (bez sadržaja).
 - `/edukacija` + 16 podstranica (KME, kongresi, radionice, `sestrinska-edukacija` hub + 4 podstranice) — 13 Sanity-backed (`page` multi-instance tip), + 3 škole (`/edukacija/programi/skola-*`) Sanity-backed kroz bespoke `schoolPage` multi-instance tip (vidi §3 ispod).
-- `/aktuelnosti` + `[slug]` + podsekcije (vesti, gostovanja, obaveštenja, oglasi-konkursi, časopis Dedinje, informator) — sadržaj u `constants.ts` fajlovima po sekciji.
-- `/kontakt` — kontakt info + forma (forma trenutno ne šalje nikuda, vidi `PROJECT_STATUS.md`).
+- `/aktuelnosti` + `[slug]` + podsekcije (vesti, gostovanja, obaveštenja, oglasi-konkursi, časopis Dedinje, informator) — svih 9 Sanity-backed (`news`/`video`/`announcement`/`jobPosting`/`magazineIssue` multi-instance tipovi + `informatorPage` singleton, vidi §3 ispod).
+- `/kontakt` — Sanity-backed sadržaj (kontakt kartice čitaju `siteSettings` singleton, ne dupliraju vrednosti); forma i dalje ne šalje nikuda (infra pitanje, vidi `PROJECT_STATUS.md`), mapa/CTA tekst ostaju u template kodu.
 - `/studio/[[...tool]]` — Sanity Studio, montiran direktno u Next.js app.
+- Glavni meni (`Header.tsx`) — Sanity-backed (`navigation` singleton, 3 nivoa), vidi §3.
 
-## 3. Content model — hibridni pristup (CMS + hardkodovano)
+## 3. Content model — hibridni pristup (CMS + hardkodovani fallback)
 
-Projekat je **usred postepene migracije** sa hardkodovanog sadržaja ka Sanity CMS-u, stranica po stranica. Za tačan status po ruti vidi [`TASKS.md`](TASKS.md); za obrazac kako se migracija sprovodi vidi [`MIGRACIJA.md`](MIGRACIJA.md).
+Projekat je **prošao kroz postepenu migraciju** sa hardkodovanog sadržaja ka Sanity CMS-u, stranica po stranica — od 2026-08-03 praktično svaka ruta na sajtu je Sanity-backed. Za tačan status po ruti vidi [`TASKS.md`](TASKS.md); za obrazac kako se migracija sprovodi vidi [`MIGRACIJA.md`](MIGRACIJA.md).
 
-**Već Sanity-backed** (svaka ima i pun hardkodovani fallback u samom `page.tsx` ako Sanity fetch ne uspe):
-- Početna (`page: _id "homepage"`, `HOMEPAGE_QUERY`, page-builder sekcije)
+**Bitno:** "Sanity-backed" ovde znači da je Sanity **izvor istine**, ne da je svaki fetch garantovano uspešan — svaka migrirana stranica namerno zadržava **pun hardkodovani fallback** u kodu (isti sadržaj kao poslednji poznati Sanity export) koji se koristi ako fetch ne uspe, tako da sajt nikad ne padne zbog nedostupnog Sanity-ja. To NIJE "nedovršena migracija", to je namerni deo obrasca (vidi `MIGRACIJA.md`).
+
+**Sanity-backed** (svaka ima hardkodovani fallback u `page.tsx`/`data.ts`):
+- Početna (`page: _id "homepage"`, `HOMEPAGE_QUERY`, page-builder sekcije, uklj. hero slajdove i "brze linkove" — vidi §3.1)
 - `footer` (singleton, `FOOTER_QUERY`)
-- `directorPage` (`/rec-direktora`)
-- `aboutPage` (`/o-institutu`)
-- `biographyPage` (`/biografija`)
-- `bibliographyPage` (`/bibliografija`)
-- `clinicPage` (`/klinike/*`, 19 od 20 stranica — multi-instance document tip, vidi §3.1 i [`MIGRACIJA.md`](MIGRACIJA.md))
-- `page` (`/za-pacijente/*`, 12 od 12 stranica; `/edukacija/*`, 13 od 16 stranica; `/nauka-istrazivanje/*`, 5 od 7 stranica — multi-instance document tip sa 11 reusable pageBuilder blok tipova, vidi §3.1 i [`MIGRACIJA.md`](MIGRACIJA.md))
+- `navigation` (singleton, `NAVIGATION_QUERY`, glavni meni — fetch-uje se preko `components/shared/Header/HeaderData.tsx` server wrappera, prosleđuje `menu` prop klijentskom `Header.tsx`)
+- `siteSettings` (singleton, `SITE_SETTINGS_QUERY` — kontakt info/radno vreme, koristi ga `/kontakt` i `/o-nama/lokacija`)
+- `directorPage` (`/rec-direktora`), `aboutPage` (`/o-institutu`), `biographyPage` (`/biografija`), `bibliographyPage` (`/bibliografija`)
+- `clinicPage` (`/klinike/*`, 20 od 20 stranica — multi-instance document tip, vidi §3.1 i [`MIGRACIJA.md`](MIGRACIJA.md))
+- `page` (`/za-pacijente/*` 12/12, `/edukacija/*` 13/16, `/nauka-istrazivanje/*` 7/7, `/o-nama/*` 4/4, `/kontakt` — multi-instance document tip sa reusable pageBuilder blok tipovima, vidi §3.1 i [`MIGRACIJA.md`](MIGRACIJA.md))
 - `schoolPage` (`/edukacija/programi/skola-*`, 3 od 3 stranice — multi-instance document tip po uzoru na `clinicPage`, za sadržaj koji ne staje u generički `page` builder, vidi §3.1)
+- `news`/`video`/`announcement`/`jobPosting`/`magazineIssue` (`/aktuelnosti/*`, svih 9 stranica — multi-instance document tipovi, jedan po podsekciji jer se polja bitno razlikuju) + `informatorPage` (singleton)
 
-**Još uvek potpuno hardkodovano** (nema Sanity fetch): `klinike/kardiohirurgija` (+ `units.ts`), `nauka-istrazivanje/cardioview3d-lab` (namerni izuzetak — specifična ugnježdena struktura koja se ne ponavlja drugde, po projektnoj politici ne opravdava custom block), `aktuelnosti/*`. Editovanje sadržaja ovih stranica znači direktno menjanje `page.tsx`/`constants.ts`, Sanity Studio tu ne pomaže.
+**Namerno van Sanity-ja** (nije "sadržaj" u smislu editorskog teksta): kontakt forma (slanje emaila — infra pitanje, ne CMS), Google Maps iframe-ovi (`/kontakt`, `/o-nama/lokacija`), CTA dugmad/navigacija unutar template-a. Ovo su funkcionalni/strukturni delovi koda, ne redovi koje editor treba da menja.
 
 Sanity fajlovi od interesa: `sanity/lib/client.ts` (klijent, `useCdn: false`), `sanity/lib/queries.ts` (sve GROQ upite), `sanity/lib/image.ts` (`urlFor()`), `sanity/types.ts` (ručno pisani TS tipovi), `sanity/schemas/{documents,singletons,objects}/`, `sanity/structure.ts` (custom Studio meni, vidi §3.4).
 
@@ -62,12 +65,16 @@ Sanity fajlovi od interesa: `sanity/lib/client.ts` (klijent, `useCdn: false`), `
 - `news` — vesti/blog (kategorije, rich text, featured marker).
 - `publication` — naučne publikacije (DOI, PMID, Impact Factor, kategorije M21a+/M21a/M21/M22/M23, reference ka lekarima).
 - `testimonial` — iskustva pacijenata (citati, rating, featured marker).
-- `clinicPage` — stranice klinika (title/slug/subtitle, areas, opcioni proceduresList/staffList/patientInstructions) — jedan tip, 19 dokumenata (jedan po klinici, `_id: clinicPage-<slug>`), `order` polje za redosled na `/klinike` hub-u.
+- `clinicPage` — stranice klinika (title/slug/subtitle, areas, opcioni proceduresList/staffList/patientInstructions/organizationalStructure/stats/highlights/units) — jedan tip, 20 dokumenata (jedan po klinici, `_id: clinicPage-<slug>`), `order` polje za redosled na `/klinike` hub-u. `units[]` (samo `kardiohirurgija`) nosi 5 pod-jedinica (slug/title/heroImage/heroSubtitle/sections[] paragraph|list) za `/klinike/kardiohirurgija/<unit-slug>` rute. `staffList.groups[].members[]` (ime+uloga objekti) je alternativa prostom `names[]` kad treba prikaz kartica sa ulogom.
 - `schoolPage` — stranice edukativnih škola (title/slug/subtitle/breadcrumbLabel, opcioni intro/programNav/stats, courseSections[] sa detaljima/metaLines/highlight, opcioni requirementsSection/examSection/team/techTeam) — jedan tip, 3 dokumenta (`_id: schoolPage-<slug>`), po uzoru na `clinicPage` za sadržaj koji ne staje u generički `page` builder.
+- `video` — gostovanja u medijima (title/slug/youtubeId/source/date/description/fullText/isNew/order).
+- `announcement` — obaveštenja (title/date/icon/type/text/important/order).
+- `jobPosting` — oglasi i konkursi (title/date/type/icon/text/active/deadline/order).
+- `magazineIssue` — izdanja Časopisa Dedinje (volume/number/year/title/topics[]/pdfUrl/coverColor/order).
 
-**Singletons** (jedinstveni dokumenti): `siteSettings` (naziv/opis sajta, kontakt, radno vreme, social, globalni SEO), `navigation` (glavni meni + footer meni), plus stranični singletoni iz §3 iznad (`directorPage`, `aboutPage`, `biographyPage`, `bibliographyPage`, `footer`, homepage).
+**Singletons** (jedinstveni dokumenti): `siteSettings` (naziv/opis sajta, kontakt, radno vreme, social, globalni SEO), `navigation` (glavni meni, `mainMenu[]` do 3 nivoa dubine + footer meni), `informatorPage` (hero tekst/datumi/PDF link/sections[]/kontakt, za `/aktuelnosti/informator`), plus stranični singletoni iz §3 iznad (`directorPage`, `aboutPage`, `biographyPage`, `bibliographyPage`, `footer`, homepage).
 
-**Objects** (reusable blokovi): `hero`, `contentBlock`, `timeline`, `seoMetadata`, `infoBox`, `statItem`, `introSection` (icon, heading, paragraphs[], badges[], stats[]), `bannerBlock` (variant, icon, title, text), `cardGridBlock` (heading, subtitle, intro, numbered, cards[] — opciono `href` po kartici za nav/hub stranice, opciono `date`/`category` metapodaci), `checklistBlock` (heading, intro, items[]), `contactDirectoryBlock` (heading, subtitle, categories[] sa kontaktima), `accordionBlock` (defaultOpenId, items[] sa sekcijama), `faqBlock` (title, subtitle, items[] sa Q/A), `tabsBlock` (defaultTabId, tabs[] sa slikama/infoBlocks[]), `timelineBlock` (heading, intro, items[] — wrapuje `timeline` object), `lectureScheduleBlock` (heading, subtitle, defaultTabId, tabs[] sa items/sections predavanja — koristi `TemePredavaciTabs` na frontend strani), `documentListBlock` (heading, subtitle, items[] sa icon/label/href/year — za PDF/dokument liste).
+**Objects** (reusable blokovi): `hero`, `contentBlock`, `timeline`, `seoMetadata`, `infoBox`, `statItem`, `introSection` (icon, heading, paragraphs[], badges[], stats[]), `bannerBlock` (variant, icon, title, text), `cardGridBlock` (heading, subtitle, intro, numbered, cards[] — opciono `href`/`date`/`category`/`contactPerson`/`phone`/`email` po kartici), `checklistBlock` (heading, intro, items[]), `contactDirectoryBlock` (heading, subtitle, categories[] sa kontaktima), `accordionBlock` (defaultOpenId, items[] sa sekcijama), `faqBlock` (title, subtitle, items[] sa Q/A), `tabsBlock` (defaultTabId, tabs[] sa slikama/infoBlocks[]/introList[]/focusCards[]/outroParagraphs[]), `timelineBlock` (heading, intro, items[] — wrapuje `timeline` object), `lectureScheduleBlock` (heading, subtitle, defaultTabId, tabs[] sa items/sections predavanja — koristi `TemePredavaciTabs` na frontend strani), `documentListBlock` (heading, subtitle, items[] sa icon/label/href/year — za PDF/dokument liste), `boardListBlock` (heading, subtitle, boards[] sa icon/title/chairman/viceChairman/membersLabel/members[] — akordeon odbora/organa, koristi `BoardListBlock.tsx`), `heroSlidesSection` (slides[] sa badge/title/subtitle/video/image — homepage hero slajder), `clinicsFeaturedSection`/`patientLinksSection` (icon/heading/subheading/items[] sa icon/title/desc/href — homepage "brzi linkovi" sekcije).
 
 ### 3.2 GROQ primeri
 
@@ -113,14 +120,17 @@ grupiše sadržaj po redosledu stvarne navigacije sajta, ne po redosledu schema
 tipova:
 
 Почетна (pinovan `page` dokument `_id: "homepage"`) → О нама (4 singleton linka:
-Реч директора/О институту/Биографија/Библиографија) → Клинике (`clinicPage`,
-sortirano po `order`) → За пацијенте / Наука и истраживање / Едукација (svaka
-lista `page` dokumente filtrirane po `section` polju, Едукација dodatno ima
-podlistu `schoolPage`) → *divider* → Тим и услуге (`doctor`/`department`/`service`)
-→ Новости и садржај (`news`/`publication`/`testimonial` — napomena: `/aktuelnosti`
-ruta i dalje čita hardkodovani `constants.ts`, ovi tipovi još nisu prikazani na
-sajtu, vidi `TASKS.md` §5) → *divider* → Навигација/Footer/Подешавања сајта
-(flat root stavke, ne fasciklovane).
+Реч директора/О институту/Биографија/Библиографија + podgrana "Остале странице"
+za `page` dokumente sa `section == "ostalo"`: Локација/Немедицински послови/
+Одбори и органи/Здравствена акредитација) → Клинике (`clinicPage`, sortirano
+po `order`, uklj. kardiohirurgiju) → За пацијенте / Наука и истраживање /
+Едукација (svaka lista `page` dokumente filtrirane po `section` polju,
+Едукација dodatno ima podlistu `schoolPage`) → *divider* → Тим и услуге
+(`doctor`/`department`/`service`) → Актуелности (`news`/`video`/`announcement`/
+`jobPosting`/`magazineIssue` + `informatorPage` singleton) → Новости и садржај
+(`publication`/`testimonial` — ovi tipovi još nisu prikazani na sajtu) →
+*divider* → Навигација/Footer/Подешавања сајта (flat root stavke, ne
+fasciklovane).
 
 `page` dokument tip ima `section` polje (`"za-pacijente" | "edukacija" |
 "nauka-istrazivanje" | "ostalo"`, required, `initialValue: "ostalo"`) čisto radi

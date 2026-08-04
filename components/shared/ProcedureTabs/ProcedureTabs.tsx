@@ -9,6 +9,12 @@ export interface ProcedureInfoBlock {
   answerParagraphs?: string[];
 }
 
+export interface ProcedureFocusCard {
+  title: string;
+  text?: string;
+  items?: string[];
+}
+
 export interface ProcedureTab {
   tabId: string;
   label: string;
@@ -17,6 +23,9 @@ export interface ProcedureTab {
   introHeading?: string;
   introParagraphs?: string[];
   infoBlocks?: ProcedureInfoBlock[];
+  introList?: string[];
+  focusCards?: ProcedureFocusCard[];
+  outroParagraphs?: string[];
 }
 
 interface ProcedureTabsProps {
@@ -73,6 +82,34 @@ export default function ProcedureTabs({
             ))}
           </div>
         )}
+
+        {tab.introList && tab.introList.length > 0 && (
+          <ul className={styles.introList}>
+            {tab.introList.map((item, idx) => (
+              <li key={idx}>{item}</li>
+            ))}
+          </ul>
+        )}
+
+        {tab.focusCards && tab.focusCards.length > 0 && (
+          <div className={styles.focusGrid}>
+            {tab.focusCards.map((card, idx) => (
+              <div key={idx} className={styles.focusCard}>
+                <h4>{card.title}</h4>
+                {card.text && <p>{card.text}</p>}
+                {card.items && card.items.length > 0 && (
+                  <ul>
+                    {card.items.map((item, itemIdx) => (
+                      <li key={itemIdx}>{item}</li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+
+        {tab.outroParagraphs?.map((p, idx) => <p key={idx}>{p}</p>)}
       </div>
     ),
   }));

@@ -2,12 +2,59 @@ import Image from "next/image";
 import Link from "next/link";
 import { Container, PageHeader, Section } from "@/components/shared";
 import { Heading } from "@/components/typography";
+import { client } from "@/sanity/lib/client";
+import {
+  NEWS_QUERY,
+  VIDEOS_QUERY,
+  ANNOUNCEMENTS_QUERY,
+  JOB_POSTINGS_QUERY,
+} from "@/sanity/lib/queries";
+import { urlFor } from "@/sanity/lib/image";
+import type { News, VideoItem, Announcement, JobPosting } from "@/sanity/types";
+import { formatSrDate } from "./formatDate";
 import { GOSTOVANJA } from "./gostovanja/constants";
 import { VESTI } from "./constants";
 import { generateMetadata } from "./metadata";
 import styles from "./page.module.css";
 
-const OBAVESTENJA = [
+export { generateMetadata };
+
+interface HubVest {
+  id: string;
+  slug: string;
+  title: string;
+  date: string;
+  author: string;
+  category: string;
+  image: string;
+}
+
+interface HubVideo {
+  id: string;
+  slug: string;
+  youtubeId: string;
+  title: string;
+  date: string;
+  source: string;
+  description: string;
+}
+
+interface HubObavestenje {
+  id: string;
+  date: string;
+  title: string;
+  text: string;
+}
+
+interface HubOglas {
+  id: string;
+  date: string;
+  title: string;
+  type: string;
+  active: boolean;
+}
+
+const OBAVESTENJA_FALLBACK: HubObavestenje[] = [
   {
     id: "1",
     date: "15. феб 2026.",
@@ -28,7 +75,7 @@ const OBAVESTENJA = [
   },
 ];
 
-const OGLASI = [
+const OGLASI_FALLBACK: HubOglas[] = [
   {
     id: "1",
     date: "10. феб 2026.",
@@ -52,13 +99,92 @@ const OGLASI = [
   },
 ];
 
-export { generateMetadata };
+async function getHubData() {
+  const vestiFallback: HubVest[] = VESTI.map((v) => ({
+    id: v.id,
+    slug: v.slug,
+    title: v.title,
+    date: v.date,
+    author: v.author,
+    category: v.category,
+    image: v.image,
+  }));
+  const videosFallback: HubVideo[] = GOSTOVANJA.map((g) => ({
+    id: g.id,
+    slug: g.slug,
+    youtubeId: g.youtubeId,
+    title: g.title,
+    date: g.date,
+    source: g.source,
+    description: g.description,
+  }));
 
-export default function AktuelnostiPage() {
-  const latestVideo = GOSTOVANJA[0];
-  const moreVideos = GOSTOVANJA.slice(1, 4);
-  const featuredVest = VESTI[0];
-  const moreVesti = VESTI.slice(1, 5);
+  let vesti = vestiFallback;
+  let videos = videosFallback;
+  let obavestenja = OBAVESTENJA_FALLBACK;
+  let oglasi = OGLASI_FALLBACK;
+
+  try {
+    const [newsRes, videosRes, announcementsRes, jobsRes] = await Promise.all([
+      client.fetch<News[]>(NEWS_QUERY),
+      client.fetch<VideoItem[]>(VIDEOS_QUERY),
+      client.fetch<Announcement[]>(ANNOUNCEMENTS_QUERY),
+      client.fetch<JobPosting[]>(JOB_POSTINGS_QUERY),
+    ]);
+
+    if (newsRes && newsRes.length > 0) {
+      vesti = newsRes.map((n) => ({
+        id: n._id,
+        slug: n.slug.current,
+        title: n.title,
+        date: formatSrDate(n.publishedAt),
+        author: n.author || "",
+        category: n.category || "",
+        image: urlFor(n.mainImage).width(800).height(450).url(),
+      }));
+    }
+    if (videosRes && videosRes.length > 0) {
+      videos = videosRes.map((v) => ({
+        id: v._id,
+        slug: v.slug.current,
+        youtubeId: v.youtubeId,
+        title: v.title,
+        date: v.date || "",
+        source: v.source || "",
+        description: v.description || "",
+      }));
+    }
+    if (announcementsRes && announcementsRes.length > 0) {
+      obavestenja = announcementsRes.slice(0, 3).map((o) => ({
+        id: o._id,
+        date: o.date || "",
+        title: o.title,
+        text: o.text || "",
+      }));
+    }
+    if (jobsRes && jobsRes.length > 0) {
+      oglasi = jobsRes.slice(0, 3).map((o) => ({
+        id: o._id,
+        date: o.date || "",
+        title: o.title,
+        type: o.type || "",
+        active: o.active ?? true,
+      }));
+    }
+  } catch (error) {
+    console.error("Error fetching aktuelnosti hub data:", error);
+  }
+
+  return { vesti, videos, obavestenja, oglasi };
+}
+
+export default async function AktuelnostiPage() {
+  const { vesti, videos, obavestenja, oglasi } = await getHubData();
+
+  const featuredVest = vesti[0];
+  const moreVesti = vesti.slice(1, 5);
+  const latestVideo = videos[0];
+  const moreVideos = videos.slice(1, 4);
 
   return (
     <>
@@ -172,7 +298,7 @@ export default function AktuelnostiPage() {
                 </Link>
               </div>
               <div className={styles.announcementsList}>
-                {OBAVESTENJA.map((item) => (
+                {obavestenja.map((item) => (
                   <div key={item.id} className={styles.announcementItem}>
                     <span className={styles.announcementDate}>{item.date}</span>
                     <h4>{item.title}</h4>
@@ -231,7 +357,7 @@ export default function AktuelnostiPage() {
                 </Link>
               </div>
               <div className={styles.jobsList}>
-                {OGLASI.map((item) => (
+                {oglasi.map((item) => (
                   <div key={item.id} className={styles.jobItem}>
                     <div className={styles.jobTop}>
                       <span className={`${styles.jobBadge} ${item.active ? styles.jobActive : styles.jobClosed}`}>

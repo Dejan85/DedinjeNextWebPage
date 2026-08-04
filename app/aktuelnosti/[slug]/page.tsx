@@ -1,25 +1,84 @@
-"use client";
-
-import { use } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Container, PageHeader, Section } from "@/components/shared";
-import { VESTI } from "../constants";
+import { client } from "@/sanity/lib/client";
+import { NEWS_QUERY, NEWS_BY_SLUG_QUERY } from "@/sanity/lib/queries";
+import { urlFor } from "@/sanity/lib/image";
+import type { News } from "@/sanity/types";
+import { formatSrDate } from "../formatDate";
+import { VESTI, type Vest } from "../constants";
 import styles from "./page.module.css";
 
-export default function VestPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = use(params);
-  const vest = VESTI.find((v) => v.slug === slug);
+interface VestDetail {
+  id: string;
+  slug: string;
+  title: string;
+  date: string;
+  author: string;
+  category: string;
+  image: string;
+  excerpt: string;
+  fullText: string;
+}
+
+function fromSanity(n: News): VestDetail {
+  return {
+    id: n._id,
+    slug: n.slug.current,
+    title: n.title,
+    date: formatSrDate(n.publishedAt),
+    author: n.author || "",
+    category: n.category || "",
+    image: urlFor(n.mainImage).width(1200).height(675).url(),
+    excerpt: n.excerpt || "",
+    fullText: n.fullText || n.excerpt || "",
+  };
+}
+
+function fromFallback(v: Vest): VestDetail {
+  return {
+    id: v.id,
+    slug: v.slug,
+    title: v.title,
+    date: v.date,
+    author: v.author,
+    category: v.category,
+    image: v.image,
+    excerpt: v.excerpt,
+    fullText: v.fullText,
+  };
+}
+
+async function getVestData(slug: string): Promise<{ vest: VestDetail | null; all: VestDetail[] }> {
+  try {
+    const [vest, all] = await Promise.all([
+      client.fetch<News | null>(NEWS_BY_SLUG_QUERY, { slug }),
+      client.fetch<News[]>(NEWS_QUERY),
+    ]);
+    if (vest && all && all.length > 0) {
+      return { vest: fromSanity(vest), all: all.map(fromSanity) };
+    }
+  } catch (error) {
+    console.error("Error fetching vest:", error);
+  }
+  const all = VESTI.map(fromFallback);
+  const vest = all.find((v) => v.slug === slug) || null;
+  return { vest, all };
+}
+
+export default async function VestPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const { vest, all } = await getVestData(slug);
 
   if (!vest) {
     notFound();
   }
 
-  const currentIndex = VESTI.findIndex((v) => v.slug === slug);
-  const prev = currentIndex > 0 ? VESTI[currentIndex - 1] : null;
-  const next = currentIndex < VESTI.length - 1 ? VESTI[currentIndex + 1] : null;
-  const related = VESTI.filter((v) => v.id !== vest.id).slice(0, 3);
+  const currentIndex = all.findIndex((v) => v.slug === slug);
+  const prev = currentIndex > 0 ? all[currentIndex - 1] : null;
+  const next = currentIndex < all.length - 1 ? all[currentIndex + 1] : null;
+  const related = all.filter((v) => v.id !== vest.id).slice(0, 3);
 
   return (
     <>

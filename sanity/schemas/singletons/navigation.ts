@@ -25,8 +25,27 @@ export default defineType({
                   type: "object",
                   fields: [
                     { name: "title", title: "Naslov", type: "string" },
-                    { name: "link", title: "Link", type: "string" },
+                    {
+                      name: "link",
+                      title: "Link (prazno = grupa sa pod-stavkama)",
+                      type: "string",
+                    },
                     { name: "icon", title: "Ikonica", type: "string" },
+                    {
+                      name: "items",
+                      title: "Pod-stavke (treći nivo)",
+                      type: "array",
+                      of: [
+                        {
+                          type: "object",
+                          fields: [
+                            { name: "title", title: "Naslov", type: "string" },
+                            { name: "link", title: "Link", type: "string" },
+                            { name: "icon", title: "Ikonica", type: "string" },
+                          ],
+                        },
+                      ],
+                    },
                   ],
                 },
               ],

@@ -1,13 +1,14 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import Header from "../Header/Header";
 
 export default function SiteChrome({
   children,
+  header,
   footer,
 }: {
   children: React.ReactNode;
+  header: React.ReactNode;
   footer: React.ReactNode;
 }) {
   const pathname = usePathname();
@@ -18,7 +19,7 @@ export default function SiteChrome({
 
   return (
     <>
-      <Header />
+      {header}
       {children}
       {footer}
     </>

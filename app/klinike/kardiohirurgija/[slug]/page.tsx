@@ -4,10 +4,12 @@ import {
   PageHeader,
   Section,
 } from "@/components/shared";
+import { client } from "@/sanity/lib/client";
+import { CLINIC_PAGE_QUERY } from "@/sanity/lib/queries";
+import type { ClinicPage, ClinicUnit, ClinicUnitSection } from "@/sanity/types";
 import {
   getKardiohirurgijaUnit,
   kardiohirurgijaUnits,
-  type KardiohirurgijaUnitSection,
 } from "../units";
 import styles from "./page.module.css";
 
@@ -29,7 +31,7 @@ function getSectionIcon(title: string) {
   return SECTION_ICONS[title] || "fas fa-notes-medical";
 }
 
-function RenderSection({ section }: { section: KardiohirurgijaUnitSection }) {
+function RenderSection({ section }: { section: ClinicUnitSection }) {
   const icon = getSectionIcon(section.title);
 
   if (section.type === "paragraph") {
@@ -72,18 +74,30 @@ export function generateStaticParams() {
   return kardiohirurgijaUnits.map((u) => ({ slug: u.slug }));
 }
 
+async function getUnit(slug: string): Promise<ClinicUnit | null> {
+  try {
+    const clinic = await client.fetch<ClinicPage>(CLINIC_PAGE_QUERY, { slug: "kardiohirurgija" });
+    const unit = clinic?.units?.find((u) => u.slug === slug);
+    if (unit) return unit;
+  } catch (error) {
+    console.error("⚠️ Sanity fetch failed:", error);
+  }
+  const fallback = getKardiohirurgijaUnit(slug);
+  return fallback ? (fallback as unknown as ClinicUnit) : null;
+}
+
 export default async function KardiohirurgijaUnitPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const unit = getKardiohirurgijaUnit(slug);
+  const unit = await getUnit(slug);
 
   if (!unit) notFound();
 
   const firstParagraph = unit.sections.find((s) => s.type === "paragraph") as
-    | Extract<KardiohirurgijaUnitSection, { type: "paragraph" }>
+    | Extract<ClinicUnitSection, { type: "paragraph" }>
     | undefined;
   const restSections = unit.sections.filter((s) => s !== firstParagraph);
 

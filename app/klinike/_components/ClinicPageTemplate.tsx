@@ -13,9 +13,26 @@ export interface ClinicArea {
   desc: string;
 }
 
+export interface ClinicStaffMember {
+  name: string;
+  role?: string;
+}
+
 export interface ClinicStaffGroup {
   heading?: string;
-  names: string[];
+  names?: string[];
+  members?: ClinicStaffMember[];
+}
+
+export interface ClinicStat {
+  value: string;
+  label: string;
+  icon?: string;
+}
+
+export interface ClinicHighlight {
+  icon?: string;
+  text: string;
 }
 
 export interface ClinicPageData {
@@ -26,11 +43,14 @@ export interface ClinicPageData {
   introTitle: string;
   introText: string;
   introParagraphs?: string[];
+  organizationalStructure?: string;
   areas: ClinicArea[];
   areasTitle?: string;
   areasSubtitle?: string;
   areasIcon?: string;
   extraBanner?: { value: string; label: string; desc: string };
+  stats?: ClinicStat[];
+  highlights?: ClinicHighlight[];
   proceduresList?: { title: string; items: string[] };
   staffList?: { title: string; groups: ClinicStaffGroup[] };
   patientInstructions?: { title: string; paragraphs: string[] };
@@ -61,8 +81,28 @@ export function ClinicPageTemplate({ data }: { data: ClinicPageData }) {
               {data.introParagraphs?.map((para, idx) => (
                 <p key={idx}>{para}</p>
               ))}
+              {data.organizationalStructure && (
+                <>
+                  <h3 className={styles.subheading}>Организациона структура</h3>
+                  <p>{data.organizationalStructure}</p>
+                </>
+              )}
             </div>
           </div>
+
+          {data.stats && data.stats.length > 0 && (
+            <div className={styles.statsGrid}>
+              {data.stats.map((stat, idx) => (
+                <div key={idx} className={styles.statCard}>
+                  <div className={styles.statIcon}>
+                    <i className={stat.icon} aria-hidden />
+                  </div>
+                  <div className={styles.statValue}>{stat.value}</div>
+                  <div className={styles.statLabel}>{stat.label}</div>
+                </div>
+              ))}
+            </div>
+          )}
 
           {data.extraBanner && (
             <div className={styles.banner}>
@@ -90,6 +130,29 @@ export function ClinicPageTemplate({ data }: { data: ClinicPageData }) {
         </Container>
       </Section>
 
+      {data.highlights && data.highlights.length > 0 && (
+        <section className={styles.highlightSection}>
+          <Container>
+            <div className={styles.highlightHeader}>
+              <div className={styles.highlightHeaderIcon}>
+                <i className="fas fa-trophy" aria-hidden />
+              </div>
+              <h2>Најзначајнији резултати</h2>
+            </div>
+            <div className={styles.highlightGrid}>
+              {data.highlights.map((item, idx) => (
+                <div key={idx} className={styles.highlightCard}>
+                  <span className={styles.highlightCardIcon}>
+                    <i className={item.icon} aria-hidden />
+                  </span>
+                  <p>{item.text}</p>
+                </div>
+              ))}
+            </div>
+          </Container>
+        </section>
+      )}
+
       {data.staffList && (
         <Section padding="medium" background="gray">
           <Container>
@@ -99,11 +162,22 @@ export function ClinicPageTemplate({ data }: { data: ClinicPageData }) {
                 {data.staffList.groups.map((group, idx) => (
                   <div key={idx} className={styles.staffGroup}>
                     {group.heading && <h4>{group.heading}</h4>}
-                    <ul>
-                      {group.names.map((name, nameIdx) => (
-                        <li key={nameIdx}>{name}</li>
-                      ))}
-                    </ul>
+                    {group.members && group.members.length > 0 ? (
+                      <ul>
+                        {group.members.map((member, memberIdx) => (
+                          <li key={memberIdx}>
+                            <strong>{member.name}</strong>
+                            {member.role && <span> — {member.role}</span>}
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <ul>
+                        {group.names?.map((name, nameIdx) => (
+                          <li key={nameIdx}>{name}</li>
+                        ))}
+                      </ul>
+                    )}
                   </div>
                 ))}
               </div>

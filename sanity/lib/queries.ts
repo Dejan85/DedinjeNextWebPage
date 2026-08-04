@@ -261,6 +261,48 @@ export const HOMEPAGE_QUERY = groq`
           icon,
           name
         }
+      },
+      // HeroSlidesSection fields
+      _type == "heroSlidesSection" => {
+        slides[] {
+          _key,
+          badge,
+          title,
+          subtitle,
+          video,
+          image {
+            asset-> {
+              _id,
+              url
+            }
+          }
+        }
+      },
+      // ClinicsFeaturedSection fields
+      _type == "clinicsFeaturedSection" => {
+        icon,
+        heading,
+        subheading,
+        items[] {
+          _key,
+          icon,
+          title,
+          desc,
+          href
+        }
+      },
+      // PatientLinksSection fields
+      _type == "patientLinksSection" => {
+        icon,
+        heading,
+        subheading,
+        items[] {
+          _key,
+          icon,
+          title,
+          desc,
+          href
+        }
       }
     }
   }
@@ -364,6 +406,7 @@ export const NEWS_QUERY = groq`
     title,
     slug,
     excerpt,
+    fullText,
     mainImage,
     category,
     author,
@@ -379,11 +422,99 @@ export const NEWS_BY_SLUG_QUERY = groq`
     slug,
     excerpt,
     content,
+    fullText,
     mainImage,
     category,
     author,
     publishedAt,
     seo
+  }
+`;
+
+// Gostovanja (video)
+export const VIDEOS_QUERY = groq`
+  *[_type == "video"] | order(order asc) {
+    _id,
+    title,
+    slug,
+    youtubeId,
+    source,
+    date,
+    description,
+    isNew
+  }
+`;
+
+export const VIDEO_BY_SLUG_QUERY = groq`
+  *[_type == "video" && slug.current == $slug][0] {
+    _id,
+    title,
+    slug,
+    youtubeId,
+    source,
+    date,
+    description,
+    fullText,
+    isNew
+  }
+`;
+
+// Obaveštenja
+export const ANNOUNCEMENTS_QUERY = groq`
+  *[_type == "announcement"] | order(order asc) {
+    _id,
+    title,
+    date,
+    icon,
+    type,
+    text,
+    important
+  }
+`;
+
+// Oglasi i konkursi
+export const JOB_POSTINGS_QUERY = groq`
+  *[_type == "jobPosting"] | order(order asc) {
+    _id,
+    title,
+    date,
+    type,
+    icon,
+    text,
+    active,
+    deadline
+  }
+`;
+
+// Časopis Dedinje
+export const MAGAZINE_ISSUES_QUERY = groq`
+  *[_type == "magazineIssue"] | order(order asc) {
+    _id,
+    volume,
+    number,
+    year,
+    title,
+    topics,
+    pdfUrl,
+    coverColor
+  }
+`;
+
+// Informator o radu (singleton)
+export const INFORMATOR_QUERY = groq`
+  *[_type == "informatorPage"][0] {
+    heroHeading,
+    heroText,
+    publishDate,
+    updatedDate,
+    pdfUrl,
+    sections,
+    contactHeading,
+    contactText,
+    contactPerson,
+    contactPhone,
+    contactEmail,
+    contactAddress
   }
 `;
 
@@ -728,6 +859,7 @@ export const CLINIC_PAGE_QUERY = groq`
     introTitle,
     introText,
     introParagraphs,
+    organizationalStructure,
     areas[] {
       _key,
       icon,
@@ -742,6 +874,17 @@ export const CLINIC_PAGE_QUERY = groq`
       label,
       desc
     },
+    stats[] {
+      _key,
+      value,
+      label,
+      icon
+    },
+    highlights[] {
+      _key,
+      icon,
+      text
+    },
     proceduresList {
       title,
       items
@@ -751,12 +894,31 @@ export const CLINIC_PAGE_QUERY = groq`
       groups[] {
         _key,
         heading,
-        names
+        names,
+        members[] {
+          _key,
+          name,
+          role
+        }
       }
     },
     patientInstructions {
       title,
       paragraphs
+    },
+    units[] {
+      _key,
+      slug,
+      title,
+      heroImage,
+      heroSubtitle,
+      sections[] {
+        _key,
+        type,
+        title,
+        text,
+        items
+      }
     },
     seo {
       title,

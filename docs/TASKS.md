@@ -22,6 +22,14 @@ da su sve hardkodovane, nema Sanity fetch). Schema strategija po tipu
 sadržaja objašnjena u [`MIGRACIJA.md`](MIGRACIJA.md#schema-strategija-po-tipu-sadržaja).
 Radi se sekcija po sekciju, redosled ispod.
 
+**Status 2026-08-03: svih 6 sekcija ✅ gotovo** (Klinike, Za pacijente,
+Edukacija, Nauka i istraživanje, Aktuelnosti, + Header/navigacija + O nama +
+Kontakt u sekciji 6) — nema više rute na sajtu bez Sanity fetch-a, osim
+stranica koje uopšte ne postoje (mrtvi linkovi, vidi Backlog) i tehničke
+infrastrukture koja nije "sadržaj" (slanje email-a sa kontakt forme). Svaka
+migrirana stranica i dalje zadržava hardkodovani fallback u kodu — to je
+namerno (vidi `MIGRACIJA.md`), ne "nedovršena migracija".
+
 ### 1. Klinike (`clinicPage` document tip, multi-instance) — raditi prvo
 
 - ✅ Schema `sanity/schemas/documents/clinicPage.ts` — polja iz `ClinicPageData`
@@ -31,8 +39,8 @@ Radi se sekcija po sekciju, redosled ispod.
 - ✅ TS tip `ClinicPage` u `sanity/types.ts`
 - ✅ `scripts/migrate-clinics.ts` (`npm run migrate:clinics`) — kreira 19 dokumenata iz `data.ts` fajlova (sve osim kardiohirurgije), potvrđeno upitom na javni Sanity API
 - ✅ Konvertovano svih 19 `app/klinike/<slug>/page.tsx` (ClinicPageTemplate stranice) u server component: fetch by slug + fallback na `./data.ts` (izdvojen iz starog `const DATA`)
-- ✅ `/klinike` hub — fetch liste za kartice (kardiohirurgija ostaje hardkodovana prva kartica), fallback na statičku listu ako Sanity fetch ne uspe
-- ❌ Kardiohirurgija (custom page + `units.ts`, 5 pod-jedinica) — poseban task, širi schema (ne staje u generički `clinicPage`)
+- ✅ `/klinike` hub — fetch liste za kartice (uključujući kardiohirurgiju, `order: 0`), fallback na statičku listu ako Sanity fetch ne uspe
+- ✅ **Kardiohirurgija (20. klinika, 2026-08-03)** — `clinicPage` schema proširen opcionim poljima `organizationalStructure`, `stats[]`, `highlights[]`, `staffList.groups[].members[]` (ime+uloga, alternativa prostom `names[]`), i `units[]` (5 pod-jedinica: slug/title/heroImage/heroSubtitle/sections[] paragraph|list) — jedan `clinicPage` tip i dalje pokriva svih 20 klinika, ništa nije breaking za postojećih 19. `ClinicPageTemplate.tsx` proširen render-blokovima za `stats`/`highlights`/`organizationalStructure` + `staffList` sad renderuje `members` (ime+uloga kartice) ako postoji, inače stari `names`. `app/klinike/kardiohirurgija/[slug]/page.tsx` (5 unit ruta) konvertovan sa čitanja isključivo iz `units.ts` na fetch `clinicPage.units[]` po slug-u klinike + `find` po unit slug-u, fallback i dalje na `units.ts`. `scripts/migrate-kardiohirurgija.ts` (`npm run migrate:kardiohirurgija`) kreirao `clinicPage-kardiohirurgija` (11 procedura, 12 highlights, 29 kadar, 5 units) — potvrđeno upitom na javni Sanity API (20 klinika ukupno). Orphaned `page.module.css` obrisan.
 
 `npm run build` i `npx tsc --noEmit` prolaze bez grešaka; `npm run lint` na baseline-u (31 problem, nepromenjeno). Migrirane klinike: vaskularna-hirurgija, anesteziologija, invazivna-dijagnostika, elektrofiziologija, neurokardioloska-laboratorija, cusmo, neinvazivna-dijagnostika-srca, centar-srcana-slabost, poliklinika, klinicka-patologija, kardiologija, kv-dijagnostika, telemedicina, edukacija-prevencija, fizikalna-medicina, kardiovaskularna-rehabilitacija, apteka, laboratorija, transfuzija.
 
@@ -69,19 +77,89 @@ Migrirane rute (sa Sanity `page` document slug-ima): ambulante ("ambulante", acc
 - ✅ 5 od 7 stranica migrirano na `page` document tip sa reuse `PAGE_BY_SLUG_QUERY` + fallback na `data.ts`: `centar-izuzetnih-vrednosti` (introSection + bannerBlock + cardGridBlock + bannerBlock), `saige-projekat` (introSection + bannerBlock + cardGridBlock[numbered] + bannerBlock), `aktuelnosti` (ugnježdeno pod nauka-istrazivanje, slug `nauka-istrazivanje-aktuelnosti` da izbegne koliziju sa root `/aktuelnosti` sekcijom 5), `lista-istrazivaca` (introSection[stats 62 istraživača / 4 kategorije] + accordionBlock, stara bespoke `ResearchersAccordion` komponenta obrisana — data shape je 1:1 sa postojećim `accordionBlock` + `AmbulanteAccordion` renderer), `nio` (introSection[stats 2020/2025/4] + bannerBlock + **nov** `documentListBlock` za PDF listu). `/nio/page.tsx` bio `"use client"` (blokirao Sanity fetch/generateMetadata) → refaktorisan na server component, PDF interaktivnost prebačena u novu client komponentu `DocumentListBlock`.
 - ✅ Schema izmene: `cardGridBlock` dobio opciona `date` i `category` polja (za `aktuelnosti` kartice); **nov** `documentListBlock` object tip (`sanity/schemas/objects/documentListBlock.ts`, registrovan u index.ts i `page.ts` pageBuilder.of[]), reusable infrastruktura za PDF liste na `/aktuelnosti/informator`, `/aktuelnosti/casopis-dedinje`, `/akta-instituta` (u backlogu, čeka materijal od vlasnika).
 - ✅ `scripts/migrate-nauka-istrazivanje.ts` (`npm run migrate:nauka-istrazivanje` dodat u package.json) — 5 `page` dokumenata kreirano, potvrđeno upitom na javni Sanity API. Orphaned `page.module.css` (5 fajlova) obrisani.
-- ❌ **Namerni izuzetak — ne migrira se**: `cardioview3d-lab` ostaje hardkodovana (3 taba, svaki sa bogatijim ugnježdenim sadržajem — paragrafi, "focus grid" kartice sa ugnježdenim listama, contact blok — struktura se ne ponavlja nigde drugde na sajtu, pa ne opravdava novi custom block tip po politici iz `MIGRACIJA.md` — isti presedan kao kardiohirurgija). `cardioview3d-lab/workshop` je čist redirect (bez sadržaja, ništa za migrirati). `npm run build` (exit 0) i `npm run lint` (29 problema, identično baseline-u) — bez regresija.
+- ✅ **`cardioview3d-lab` (2026-08-03, politika izuzetka svesno probijena na eksplicitan zahtev vlasnika sajta — "apsolutno sve na Sanity")**: migrirana kao `page` dokument (slug `cardioview3d-lab`, section `nauka-istrazivanje`) koristeći `tabsBlock` proširen sa 3 nova opciona polja po tabu: `introList[]` (prosta lista odmah posle uvoda, za "3D Print Core" mašine), `focusCards[]` (naslov + tekst ili lista stavki, za "focus grid" kartice), `outroParagraphs[]` (zaključni tekst posle kartica). `ProcedureTabs.tsx` i `ProcedureTabs.module.css` prošireni odgovarajućim render-blokovima. Stara custom stranica (ručni `TabbedPanel` sa inline JSX) zamenjena sa `PageBuilder`/`ProcedureTabs` — ista infrastruktura kao ostatak sajta, umesto jedne poslednje bespoke stranice. `scripts/migrate-cardioview3d-lab.ts` (`npm run migrate:cardioview3d-lab`) kreirao dokument, potvrđeno upitom na API (3 taba). Orphaned `page.module.css` obrisan. `/workshop` redirect ostaje nepromenjen (nema sadržaja).
 
-### 5. Aktuelnosti (9 stranica, `news`-tipa multi-instance dokumenti)
+### 5. Aktuelnosti (9 stranica — ✅ gotovo, 2026-08-03)
 
-- ❌ Proveriti/proširiti postojeći `sanity/schemas/documents/news.ts` (već postoji, neiskorišćen) — dodati polje za kategoriju (vest/obaveštenje/oglas/gostovanje) ako fali
-- ❌ `NEWS_LIST_QUERY` (po kategoriji) + `NEWS_BY_SLUG_QUERY` u queries.ts
-- ❌ Migraciona skripta za postojeće hardkodovane stavke iz `vesti`, `obavestenja`, `oglasi-konkursi`, `gostovanja`
-- ❌ Konvertovati hub + `[slug]` dinamičku rutu da fetch-uju sa Sanity-ja
-- ❌ ☁️ `casopis-dedinje` i `informator` — ne migrirati još, blokirano poznatim bugom sa pogrešnim PDF linkovima, čeka pravi materijal od vlasnika (vidi Backlog niže)
+Korisnik eksplicitno tražio migraciju **uključujući poznati PDF-link bug** —
+sadržaj (i greška) preneti as-is u Sanity, admin ispravlja kroz Studio umesto
+u kodu. Jedan generički `news` tip nije pokrivao sve podsekcije (bitno
+različita polja), pa je urađeno više multi-instance document tipova:
+
+- ✅ `news.ts` (postojeći, dopunjen poljem `fullText`) — **vesti** (6 dokumenata, `mainImage` stvarno upload-ovan iz `public/images/*.jpg` u Sanity asset preko migracione skripte, ne samo putanja)
+- ✅ **nov** `video.ts` — **gostovanja** (6 dokumenata: youtubeId/source/date/description/fullText/isNew/order)
+- ✅ **nov** `announcement.ts` — **obaveštenja** (7 dokumenata: date/icon/type/text/important/order)
+- ✅ **nov** `jobPosting.ts` — **oglasi i konkursi** (6 dokumenata: date/type/icon/text/active/deadline/order)
+- ✅ **nov** `magazineIssue.ts` — **Časopis Dedinje izdanja** (6 dokumenata: volume/number/year/title/topics/pdfUrl/coverColor/order — `pdfUrl` prenet sa postojećom greškom, i dalje vodi na CV direktora umesto na pravi časopis)
+- ✅ **nov** singleton `informatorPage.ts` — hero tekst/datumi/PDF link/6 sekcija sadržaja/kontakt (isti PDF-link bug prenet as-is)
+- ✅ Queries u `sanity/lib/queries.ts`: `NEWS_QUERY`/`NEWS_BY_SLUG_QUERY` (dopunjeni), `VIDEOS_QUERY`/`VIDEO_BY_SLUG_QUERY`, `ANNOUNCEMENTS_QUERY`, `JOB_POSTINGS_QUERY`, `MAGAZINE_ISSUES_QUERY`, `INFORMATOR_QUERY`. TS tipovi: `News` (dopunjen), `VideoItem`, `Announcement`, `JobPosting`, `MagazineIssue`, `InformatorPage`/`InformatorSection`.
+- ✅ `scripts/migrate-aktuelnosti.ts` (`npm run migrate:aktuelnosti`) — svih 6+6+7+6+6+1 dokumenata kreirano, potvrđeno `count()` upitom na javni Sanity API po tipu.
+- ✅ Konvertovane sve rute: `vesti/page.tsx` i `[slug]/page.tsx` + `metadata.ts` (server component, `urlFor()` za sliku, `formatSrDate()` helper za ISO→srpski format), `gostovanja/page.tsx` (server wrapper + nov client `GostovanjaClient.tsx` sa filter/search/sort logikom nepromenjenom), `gostovanja/[slug]/page.tsx` (server + mali client `GostovanjeVideo.tsx` samo za play-state), `obavestenja/page.tsx` (server wrapper + `ObavestenjaClient.tsx`), `oglasi-konkursi/page.tsx` (server wrapper + `OglasiKonkursiClient.tsx`), `casopis-dedinje/page.tsx` (server wrapper + `CasopisDedinjeClient.tsx`, PDF-viewer toggle state ostaje client), `informator/page.tsx` (server wrapper + `InformatorClient.tsx`), `page.tsx` (hub — fetch top-N iz svih tipova umesto zasebnih hardkodovanih preview nizova).
+- ✅ Homepage (`app/page.tsx`) prešao sa `import { VESTI }`/`import { GOSTOVANJA }` na Sanity fetch (`NEWS_QUERY`/`VIDEOS_QUERY`), fallback ostaje na `constants.ts` nizove.
 
 **Napomena uz sve sekcije:** svaka stranica zadržava hardkodovani fallback
-(isti obrazac kao 5 postojećih Sanity stranica) — ako Sanity fetch ne uspe,
-stranica i dalje radi.
+(isti obrazac kao ostale Sanity stranice) — ako Sanity fetch ne uspe,
+stranica i dalje radi. Svi hardkodovani `constants.ts`/inline-nizovi namerno
+ostavljeni u kodu kao taj fallback izvor (ne brisani).
+
+### 6. Header/navigacija, početna (ostatak), O nama podstranice, Kontakt — ✅ gotovo, 2026-08-03
+
+Korisnikov eksplicitan zahtev: "apsolutno sve mora biti na Sanity-ju" — poslednji
+krug pokrivao je sve preostale hardkodovane delove sajta van klinika/za-pacijente/
+edukacije/nauke/aktuelnosti.
+
+- ✅ **Header/glavni meni** — `navigation` singleton proširen na 3 nivoa
+  (`mainMenu[].submenu[].items[]`, ranije samo 2). `NAVIGATION_QUERY` postojao
+  ali se nigde nije koristio (orphaned) — sada ga fetch-uje nov
+  `components/shared/Header/HeaderData.tsx` (async server wrapper, isti obrazac
+  kao `Footer.tsx`) i prosleđuje `menu` prop klijentskom `Header.tsx`
+  (i dalje `"use client"` zbog scroll/mobile-menu state-a, ali sad prima
+  podatke umesto hardkodovanog JSX-a; stari sadržaj ostaje kao `DEFAULT_MENU`
+  fallback konstanta). `SiteChrome.tsx` prima `header` prop analogno postojećem
+  `footer` propu. `scripts/migrate-navigation.ts` (`npm run migrate:navigation`)
+  seed-ovao tačnu trenutnu strukturu menija, potvrđeno upitom na API.
+- ✅ **Početna strana, preostali hardkod** — nova 3 pageBuilder section tipa:
+  `heroSlidesSection` (zamenjuje hardkodovan `videoHeroSlides` niz, 4 video
+  slajda), `clinicsFeaturedSection`, `patientLinksSection` (zamenjuju
+  `CLINICS_FEATURED`/`PATIENT_LINKS` nizove). `scripts/migrate-homepage-extra.ts`
+  (`npm run migrate:homepage-extra`) dopunio postojeći `homepage` `page`
+  dokument (patch/append, ne diraju se postojeće sekcije). Tim/testimonials/stats
+  sekcije već behu Sanity-backed (samo sadržajno demo/fabrikovane — ostaje
+  poznat backlog item, van scope-a "da li je na Sanity-ju").
+- ✅ **`/o-nama/*` (4 podstranice)** — sve migrirane kao `page` dokumenti
+  (`section: "ostalo"`): `lokacija` (`cardGridBlock` transport + `bannerBlock`
+  parking; adresa/radno-vreme/mapa/CTA ostaju u template kodu), `nemedicinski-poslovi`
+  (`introSection` + `bannerBlock` koordinator + `cardGridBlock` 5 odeljenja),
+  `odbori-i-organi-instituta` (`introSection` sa `stats` pilulama + **nov**
+  reusable pageBuilder blok `boardListBlock` — 4 odbora sa
+  chairman/viceChairman/members, nova komponenta `BoardListBlock.tsx`,
+  potpuno zamenjuje staru bespoke `OdboriIOrganiClient.tsx`, obrisana),
+  `zdravstvena-akreditacija` (`introSection` + `bannerBlock` + `cardGridBlock`
+  2 koordinatora + `documentListBlock` 2 PDF-a). `cardGridBlock` dobio 3 nova
+  opciona polja (`contactPerson`/`phone`/`email`) za kontakt-kartice
+  (Nemedicinski poslovi odeljenja). `scripts/migrate-o-nama.ts`
+  (`npm run migrate:o-nama`) kreirao sva 4, potvrđeno upitom na API. Nov
+  Studio structure.ts granu "О нама → Остале странице" (filter
+  `section == "ostalo"`) da budu vidljive u meniju.
+- ✅ **`/kontakt`** — `siteSettings` singleton **nije uopšte postojao u
+  datasetu** (potvrđeno `*[_type=="siteSettings"][0]` → `null` pre ovog taska,
+  i pored toga što je Studio/kod odavno referencirao tip) — kreiran preko
+  novog `scripts/migrate-site-settings.ts` (`npm run migrate:site-settings`)
+  sa pravim kontakt podacima (telefon/email/adresa/radno vreme/hitni broj
+  194). `app/kontakt/page.tsx` prešao sa punog `"use client"` na server
+  component (dodat i prvi `export const metadata` za ovu rutu — ranije
+  nije imala SEO metadata uopšte) koji fetch-uje `siteSettings` i puni
+  kontakt-kartice iz njega (umesto duplog hardkodovanog izvora); forma
+  izdvojena u client-only `KontaktForm.tsx` (server shell + client ostrvo,
+  isti obrazac kao `ProcedureTabs`). Mapa/CTA tekst ostaju u template kodu.
+  **Slanje emaila kroz formu i dalje nije povezano — to je infra odluka
+  (email servis), ne CMS/sadržaj pitanje, ostaje u Backlogu.**
+
+`npx tsc --noEmit`, `npm run build` (exit 0) i `npm run lint` (27 problema —
+**2 manje** nego baseline od 29: `react/no-unescaped-entities` greške u
+`OdboriIOrganiClient.tsx` i `zdravstvena-akreditacija/page.tsx` nestale kao
+sporedni efekat prelaska teksta iz literalnog JSX-a u Sanity/`data.ts`
+stringove) — bez regresija, posle svakog WP-a u ovom krugu posebno provereno.
 
 ## Sadržaj za unos — `docs za ubacivanje/` (gitignored, samo lokalno)
 
@@ -191,16 +269,16 @@ Radi se u batch-evima, jedan po jedan, uz javljanje posle svakog.
   tu informaciju). Postojećih 30 `page` dokumenata + homepage popunjeni
   jednokratnim `npm run migrate:backfill-page-section` (0 propuštenih).
   Vidi `docs/ARHITEKTURA.md` §3.4.
-- ❌ ☁️ Kontakt forma — odlučiti email servis (Resend/Nodemailer/itd.), povezati `app/kontakt/page.tsx` na pravu `/api` rutu. Detalji: [`PROJECT_STATUS.md`](PROJECT_STATUS.md).
+- ❌ ☁️ Kontakt forma — odlučiti email servis (Resend/Nodemailer/itd.), povezati `app/kontakt/page.tsx` na pravu `/api` rutu. Sadržaj stranice (kontakt kartice, iz `siteSettings`) je od 2026-08-03 na Sanity-ju, ovo je čisto infra pitanje slanja emaila. Detalji: [`PROJECT_STATUS.md`](PROJECT_STATUS.md).
 - ❌ 5 mrtvih linkova u meniju (`/nauka-istrazivanje/korisni-linkovi/*`, `/nauka-istrazivanje/monografija`) — kreirati stranice ili ukloniti linkove iz `Header.tsx`.
 - ❌ ☁️ Testovi/CI odluka — da li ima smisla za marketinški sajt, ili samo build+lint gate.
 - ❌ ☁️ `useCdn: false` razmatranje (CDN + revalidacija ako saobraćaj poraste).
 - ❌ ☁️ Hardkodovani Sanity `projectId`/`dataset` na više mesta — rizik samo ako se pravi drugi Sanity projekat/dataset.
 - ❌ `public/doctor-milan-nikolic.png` — orphan asset, povezati sa doktorom ili obrisati.
 - ❌ ☁️ **Pogrešni/izmišljeni PDF linkovi na 2 stranice — placeholder-bug, nađeno tokom Batch 7.**
-  - `/aktuelnosti/casopis-dedinje` — `IZDANJA` niz u `page.tsx` ima izmišljene naslove/teme po izdanju (npr. "Vol 12, Br 1 (2025) — Kardiovaskularna hirurgija...") i svih 6 `pdfUrl` pogrešno vodi na `АКАДЕМИК-CV-...pdf`/`РАДОВИ-ДИРЕКТОРА-...pdf` (CV/bibliografija direktora, ne časopis). Live sajt (`ikvbd.org/o-nama/casopis-dedinje/`) ima pravi arhiv od 27 sekvencijalnih brojeva sa pravim PDF-ovima.
-  - `/aktuelnosti/informator` — dugmad "Читај"/"Преузми" takođe vode na `/pdf/АКАДЕМИК-CV-АВГУСТ-2025.pdf` umesto na pravi Informator o radu dokument.
-  - Oba trenutno prikazuju netačne informacije javno — treba pravi PDF materijal od vlasnika sajta pre popravke.
+  - `/aktuelnosti/casopis-dedinje` — `magazineIssue` dokumenti (6, Sanity od 2026-08-03) imaju izmišljene naslove/teme po izdanju (npr. "Vol 12, Br 1 (2025) — Kardiovaskularna hirurgija...") i svih 6 `pdfUrl` pogrešno vodi na `АКАДЕМИК-CV-...pdf`/`РАДОВИ-ДИРЕКТОРА-...pdf` (CV/bibliografija direktora, ne časopis). Live sajt (`ikvbd.org/o-nama/casopis-dedinje/`) ima pravi arhiv od 27 sekvencijalnih brojeva sa pravim PDF-ovima.
+  - `/aktuelnosti/informator` — `informatorPage` singleton (Sanity od 2026-08-03), dugme "Преузми"/PDF viewer takođe vode na `/pdf/АКАДЕМИК-CV-АВГУСТ-2025.pdf` umesto na pravi Informator o radu dokument.
+  - Oba i dalje prikazuju netačne informacije javno — sadržaj je sada editable kroz Sanity Studio (nije više potrebna izmena koda), ali i dalje treba pravi PDF materijal od vlasnika sajta da se ispravi.
 - ❌ ☁️ `/klinike/fizikalna-medicina` vs `/klinike/kardiovaskularna-rehabilitacija` — moguće preklapanje. Live sajt (ikvbd.org) ima JEDNU stranicu "Centar za kardiovaskularnu rehabilitaciju" na `/klinike/fizikalna-medicina-i-rehabilitacija/`; ovde postoje DVE odvojene rute. Proveriti sa vlasnikom sajta da li je podela namerna ili treba spajanje/redirect.
 - ❌ "Kućni red" (pravilnik, PDF) nije linkovan nigde u `/za-pacijente/` rutama — na live sajtu postoji kao PDF link sa te stranice. Dodati link/dokument.
 - ❌ `/edukacija/medjunarodni-kongresi` — live sajt ima novije kongrese iz 2025/2026 (Dedinje Vascular Symposium 2026, COVID kongres 2026, Neurocard 2026, Aorta Masterclass, TAVI Academy, Workshop 3D Mapping) koji kod nas ne postoje; nisu dodati jer nemamo prave slike/opise za te događaje (rizik od "praznih" kartica) — treba materijal od vlasnika sajta.
@@ -208,11 +286,12 @@ Radi se u batch-evima, jedan po jedan, uz javljanje posle svakog.
 - ❌ `/akta-instituta` — postoji na live ikvbd.org (linkovano sa „О нама"), nema ekvivalentnu rutu kod nas. Otkriveno tokom Batch 1 popune sadržaja.
 - ❌ ☁️ `/klinike/kardiohirurgija` — stat "95,5% Стопа преживљавања" nema potvrđen izvor (nije u docx `УВОДНА РЕЧ.docx` ni u stari-sajt sweep beleškama); "3.000+ годишње операција" zaokruženo naviše od docx raspona "2500-3000". Otkriveno tokom docx-audit sweep-a 2026-07-21, vidi `popunjene-stranice-2026-07-21.md`. Treba potvrda vlasnika sajta.
 - ❌ ☁️ `/za-pacijente/preoperativna-priprema` — docx izvor ima stavku "Хсердоксо" u listi antikoagulanasa koja nije uneta u kod (nejasno da li je OCR artefakt ili stvaran nedostajući lek). Otkriveno tokom docx-audit sweep-a 2026-07-21, vidi `popunjene-stranice-2026-07-21.md`. Treba potvrda Odeljenja za preoperativnu pripremu.
-- ❌ **Homepage (`app/page.tsx`) je najvećim delom neizmenjen demo-seed** iz `scripts/migrate-all.ts` — potvrđeno direktnim upitom na javni Sanity API (ne pretpostavka). Detalji u `popunjene-stranice-2026-07-21.md` → "Audit početne strane". Ukratko:
+- 🟡 **Homepage (`app/page.tsx`) je delom demo-seed** iz `scripts/migrate-all.ts` — potvrđeno direktnim upitom na javni Sanity API (ne pretpostavka). Detalji u `popunjene-stranice-2026-07-21.md` → "Audit početne strane". Ukratko:
   - ✅ `Header.tsx` telefon ispravljen (668→700).
   - ✅ Footer (Sanity singleton) telefon/email ispravljen (668/669→700, info@ikvbd.rs→info@ikvbd.com) — `SANITY_API_TOKEN` u `.env.local` nadograđen na Editor token, i `scripts/migrate-footer.ts` ažuriran da ne vrati grešku.
-  - ❌ ☁️ Sekcije "Тим" (4 izmišljena doktora) i "Шта кажу наши пацијенти" (3 izmišljena pacijenta) na početnoj imaju fabrikovane ljude sa stock fotografijama — namerno ostavljeno dok se ne dobije pravi materijal ili odluka da se sekcije uklone.
-  - ❌ ☁️ Stats sekcija (15.000 operacija/god, 200 lekara, 65 god., 50.000 pacijenata) i emergency telefon "011 3601 600" (treći različit broj) — neprovereni brojevi iz demo seed-a.
-  - ❌ Orphaned Sanity sadržaj koji se nigde ne renderuje (`departmentsSection`, `newsSection`, Sanity `hero` slajdovi) — cleanup, nije hitno.
+  - ✅ Hero slajdovi, "Наше клинике" i "За пацијенте" brzi linkovi (2026-08-03) — prešli sa hardkodovanih nizova (`videoHeroSlides`/`CLINICS_FEATURED`/`PATIENT_LINKS`) na Sanity `heroSlidesSection`/`clinicsFeaturedSection`/`patientLinksSection`, sadržaj je i dalje tačan (prenet 1:1), samo je sad editable kroz Studio.
+  - ❌ ☁️ Sekcije "Тим" (4 izmišljena doktora) i "Шта кажу наши пацијенти" (3 izmišljena pacijenta) na početnoj imaju fabrikovane ljude sa stock fotografijama — namerno ostavljeno dok se ne dobije pravi materijal ili odluka da se sekcije uklone. **Napomena:** ova sekcija JESTE Sanity-backed (flat array u `teamSection`/`testimonialsSection`), problem je isključivo sadržajni (demo podaci), ne arhitekturni.
+  - ❌ ☁️ Stats sekcija (15.000 operacija/god, 200 lekara, 65 god., 50.000 pacijenata) i emergency telefon "011 3601 600" (treći različit broj) — neprovereni brojevi iz demo seed-a. Isto — Sanity-backed, sadržaj neproveren.
+  - ❌ Orphaned Sanity sadržaj koji se nigde ne renderuje (`departmentsSection`, `newsSection`, `contactSection`, pojedinačni `hero` object tip — ne meša se sa novim `heroSlidesSection`) — cleanup, nije hitno.
 
 **☁️** = zahteva infra/odluku vlasnika sajta pre nego što se dirne kod.

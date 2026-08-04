@@ -5,8 +5,121 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Container from "../Container/Container";
 import styles from "./Header.module.css";
+import type { Navigation } from "@/sanity/types";
 
-export default function Header() {
+type MenuItem = NonNullable<Navigation["mainMenu"]>[number];
+
+// Fallback ako Sanity fetch ne uspe ili navigation dokument nema mainMenu.
+const DEFAULT_MENU: MenuItem[] = [
+  { title: "ПОЧЕТНА", link: "/" },
+  {
+    title: "О НАМА",
+    submenu: [
+      { title: "Реч директора", link: "/rec-direktora", icon: "fas fa-user-tie" },
+      { title: "О институту", link: "/o-institutu", icon: "fas fa-building" },
+      {
+        title: "Немедицински послови",
+        link: "/o-nama/nemedicinski-poslovi",
+        icon: "fas fa-briefcase",
+      },
+      {
+        title: "Одбори и органи Института",
+        link: "/o-nama/odbori-i-organi-instituta",
+        icon: "fas fa-users",
+      },
+      {
+        title: "Здравствена акредитација Института",
+        link: "/o-nama/zdravstvena-akreditacija",
+        icon: "fas fa-certificate",
+      },
+      { title: "Монографија Института", link: "#", icon: "fas fa-book" },
+      { title: "Акт института", link: "#", icon: "fas fa-file-alt" },
+      { title: "Локација", link: "/o-nama/lokacija", icon: "fas fa-map-marker-alt" },
+    ],
+  },
+  { title: "КЛИНИКЕ", link: "/klinike" },
+  {
+    title: "ЗА ПАЦИЈЕНТЕ",
+    submenu: [
+      { title: "Честа питања", link: "/za-pacijente/cesta-pitanja" },
+      { title: "Амбуланте", link: "/za-pacijente/ambulante" },
+      {
+        title: "Информације",
+        items: [
+          { title: "Васкуларна хирургија – информације за пацијенте", link: "/za-pacijente/vaskularna-hirurgija" },
+          { title: "Кардиологија – информације за пацијенте", link: "/za-pacijente/kardiologija" },
+          { title: "Обавештење за електрофизиолошке процедуре", link: "/za-pacijente/elektrofizioloske-procedure" },
+          { title: "Обавештење за електростимулативне процедуре", link: "/za-pacijente/elektrostimulativne-procedure" },
+        ],
+      },
+      { title: "Пријем у болницу", link: "/za-pacijente/prijem" },
+      { title: "Преоперативна припрема", link: "/za-pacijente/preoperativna-priprema" },
+      {
+        title: "Информације о здравственом стању пацијента",
+        link: "/za-pacijente/informacije-o-stanju",
+      },
+      { title: "Кардиохируршки конзилијум", link: "/za-pacijente/kardiohirurski-konzilijum" },
+      { title: "Васкуларни конзилијум", link: "/za-pacijente/vaskularni-konzilijum" },
+      {
+        title: "О вашем здрављу",
+        items: [{ title: "План исхране", link: "/za-pacijente/plan-ishrane" }],
+      },
+    ],
+  },
+  {
+    title: "НАУКА И ИСТРАЖИВАЊЕ",
+    submenu: [
+      { title: "NIO", link: "/nauka-istrazivanje/nio" },
+      { title: "Центар изузетних вредности", link: "/nauka-istrazivanje/centar-izuzetnih-vrednosti" },
+      { title: "SAIGE пројекат", link: "/nauka-istrazivanje/saige-projekat" },
+      { title: "Актуелности из науке", link: "/nauka-istrazivanje/aktuelnosti" },
+      { title: "Листа истраживача", link: "/nauka-istrazivanje/lista-istrazivaca" },
+      { title: "CardioView3D LAB", link: "/nauka-istrazivanje/cardioview3d-lab" },
+      {
+        title: "Корисни линкови",
+        items: [
+          { title: "НИТРА", link: "/nauka-istrazivanje/korisni-linkovi/nitra" },
+          { title: "AMPREC", link: "/nauka-istrazivanje/korisni-linkovi/amprec" },
+          { title: "КОБСОН", link: "/nauka-istrazivanje/korisni-linkovi/kobson" },
+          { title: "Заједница института", link: "/nauka-istrazivanje/korisni-linkovi/zajednica-instituta" },
+        ],
+      },
+      { title: "Монографија Института", link: "/nauka-istrazivanje/monografija" },
+    ],
+  },
+  {
+    title: "ЕДУКАЦИЈА",
+    submenu: [
+      { title: "Едукација Институт Дедиње", link: "/edukacija" },
+      { title: "KME 2024", link: "/edukacija/kme-2024" },
+      { title: "Едукативни програми", link: "/edukacija/programi" },
+      { title: "Интерна едукација", link: "/edukacija/interna-edukacija" },
+      {
+        title: "Едукација медицинских сестара и техничара",
+        link: "/edukacija/sestrinska-edukacija",
+      },
+      { title: "Радионице", link: "/edukacija/radionice" },
+      { title: "Конгреси", link: "/edukacija/kongresi" },
+      { title: "Међународни конгреси", link: "/edukacija/medjunarodni-kongresi" },
+    ],
+  },
+  {
+    title: "АКТУЕЛНОСТИ",
+    submenu: [
+      { title: "Актуелности", link: "/aktuelnosti" },
+      { title: "Вести", link: "/aktuelnosti/vesti" },
+      { title: "Гостовања", link: "/aktuelnosti/gostovanja" },
+      { title: "Обавештења", link: "/aktuelnosti/obavestenja" },
+      { title: "Огласи и конкурси", link: "/aktuelnosti/oglasi-konkursi" },
+      { title: "Часопис Дедиње", link: "/aktuelnosti/casopis-dedinje" },
+      { title: "Информатор о раду", link: "/aktuelnosti/informator" },
+    ],
+  },
+  { title: "КОНТАКТ", link: "/kontakt" },
+];
+
+export default function Header({ menu }: { menu?: MenuItem[] | null }) {
+  const items = menu && menu.length > 0 ? menu : DEFAULT_MENU;
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -109,270 +222,58 @@ export default function Header() {
           <Container>
             <nav className={`${styles.mainNav} ${isMobileMenuOpen ? styles.open : ""}`}>
               <ul className={styles.navMenu}>
-                <li>
-                  <Link href="/" onClick={closeMenu}>ПОЧЕТНА</Link>
-                </li>
-                <li className={`${styles.hasDropdown} ${openDropdown === "o-nama" ? styles.open : ""}`}>
-                  <button type="button" onClick={() => toggleDropdown("o-nama")}>
-                    О НАМА <i className="fas fa-chevron-down"></i>
-                  </button>
-                  <ul className={styles.dropdown}>
-                    <li>
-                      <Link href="/rec-direktora" onClick={closeMenu}>
-                        <i className="fas fa-user-tie"></i> Реч директора
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href="/o-institutu" onClick={closeMenu}>
-                        <i className="fas fa-building"></i> О институту
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href="/o-nama/nemedicinski-poslovi" onClick={closeMenu}>
-                        <i className="fas fa-briefcase"></i> Немедицински
-                        послови
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href="/o-nama/odbori-i-organi-instituta" onClick={closeMenu}>
-                        <i className="fas fa-users"></i> Одбори и органи
-                        Института
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href="/o-nama/zdravstvena-akreditacija" onClick={closeMenu}>
-                        <i className="fas fa-certificate"></i> Здравствена
-                        акредитација Института
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href="#" onClick={closeMenu}>
-                        <i className="fas fa-book"></i> Монографија Института
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href="#" onClick={closeMenu}>
-                        <i className="fas fa-file-alt"></i> Акт института
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href="/o-nama/lokacija" onClick={closeMenu}>
-                        <i className="fas fa-map-marker-alt"></i> Локација
-                      </Link>
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  <Link href="/klinike" onClick={closeMenu}>КЛИНИКЕ</Link>
-                </li>
-                <li className={`${styles.hasDropdown} ${openDropdown === "za-pacijente" ? styles.open : ""}`}>
-                  <button type="button" onClick={() => toggleDropdown("za-pacijente")}>
-                    ЗА ПАЦИЈЕНТЕ <i className="fas fa-chevron-down"></i>
-                  </button>
-                  <ul className={styles.dropdown}>
-                    <li>
-                      <Link href="/za-pacijente/cesta-pitanja" onClick={closeMenu}>
-                        Честа питања
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href="/za-pacijente/ambulante" onClick={closeMenu}>Амбуланте</Link>
-                    </li>
-                    <li className={styles.hasSubmenu}>
-                      <span>
-                        Информације <i className="fas fa-chevron-right"></i>
-                      </span>
-                      <ul className={styles.submenu}>
-                        <li>
-                          <Link href="/za-pacijente/vaskularna-hirurgija" onClick={closeMenu}>
-                            Васкуларна хирургија – информације за пацијенте
-                          </Link>
-                        </li>
-                        <li>
-                          <Link href="/za-pacijente/kardiologija" onClick={closeMenu}>
-                            Кардиологија – информације за пацијенте
-                          </Link>
-                        </li>
-                        <li>
-                          <Link href="/za-pacijente/elektrofizioloske-procedure" onClick={closeMenu}>
-                            Обавештење за електрофизиолошке процедуре
-                          </Link>
-                        </li>
-                        <li>
-                          <Link href="/za-pacijente/elektrostimulativne-procedure" onClick={closeMenu}>
-                            Обавештење за електростимулативне процедуре
-                          </Link>
-                        </li>
+                {items.map((item, i) => {
+                  const itemKey = item._key ?? `main-${i}`;
+                  if (!item.submenu || item.submenu.length === 0) {
+                    return (
+                      <li key={itemKey}>
+                        <Link href={item.link || "#"} onClick={closeMenu}>
+                          {item.title}
+                        </Link>
+                      </li>
+                    );
+                  }
+                  return (
+                    <li
+                      key={itemKey}
+                      className={`${styles.hasDropdown} ${openDropdown === itemKey ? styles.open : ""}`}
+                    >
+                      <button type="button" onClick={() => toggleDropdown(itemKey)}>
+                        {item.title} <i className="fas fa-chevron-down"></i>
+                      </button>
+                      <ul className={styles.dropdown}>
+                        {item.submenu.map((sub, j) => {
+                          const subKey = sub._key ?? `${itemKey}-${j}`;
+                          if (sub.items && sub.items.length > 0) {
+                            return (
+                              <li key={subKey} className={styles.hasSubmenu}>
+                                <span>
+                                  {sub.title} <i className="fas fa-chevron-right"></i>
+                                </span>
+                                <ul className={styles.submenu}>
+                                  {sub.items.map((it, k) => (
+                                    <li key={it._key ?? `${subKey}-${k}`}>
+                                      <Link href={it.link} onClick={closeMenu}>
+                                        {it.icon && <i className={it.icon}></i>} {it.title}
+                                      </Link>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </li>
+                            );
+                          }
+                          return (
+                            <li key={subKey}>
+                              <Link href={sub.link || "#"} onClick={closeMenu}>
+                                {sub.icon && <i className={sub.icon}></i>} {sub.title}
+                              </Link>
+                            </li>
+                          );
+                        })}
                       </ul>
                     </li>
-                    <li>
-                      <Link href="/za-pacijente/prijem" onClick={closeMenu}>Пријем у болницу</Link>
-                    </li>
-                    <li>
-                      <Link href="/za-pacijente/preoperativna-priprema" onClick={closeMenu}>
-                        Преоперативна припрема
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href="/za-pacijente/informacije-o-stanju" onClick={closeMenu}>
-                        Информације о здравственом стању пацијента
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href="/za-pacijente/kardiohirurski-konzilijum" onClick={closeMenu}>
-                        Кардиохируршки конзилијум
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href="/za-pacijente/vaskularni-konzilijum" onClick={closeMenu}>
-                        Васкуларни конзилијум
-                      </Link>
-                    </li>
-                    <li className={styles.hasSubmenu}>
-                      <span>
-                        О вашем здрављу <i className="fas fa-chevron-right"></i>
-                      </span>
-                      <ul className={styles.submenu}>
-                        <li>
-                          <Link href="/za-pacijente/plan-ishrane" onClick={closeMenu}>
-                            План исхране
-                          </Link>
-                        </li>
-                      </ul>
-                    </li>
-                  </ul>
-                </li>
-                <li className={`${styles.hasDropdown} ${openDropdown === "nauka" ? styles.open : ""}`}>
-                  <button type="button" onClick={() => toggleDropdown("nauka")}>
-                    НАУКА И ИСТРАЖИВАЊЕ <i className="fas fa-chevron-down"></i>
-                  </button>
-                  <ul className={styles.dropdown}>
-                    <li>
-                      <Link href="/nauka-istrazivanje/nio" onClick={closeMenu}>NIO</Link>
-                    </li>
-                    <li>
-                      <Link href="/nauka-istrazivanje/centar-izuzetnih-vrednosti" onClick={closeMenu}>
-                        Центар изузетних вредности
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href="/nauka-istrazivanje/saige-projekat" onClick={closeMenu}>
-                        SAIGE пројекат
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href="/nauka-istrazivanje/aktuelnosti" onClick={closeMenu}>
-                        Актуелности из науке
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href="/nauka-istrazivanje/lista-istrazivaca" onClick={closeMenu}>
-                        Листа истраживача
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href="/nauka-istrazivanje/cardioview3d-lab" onClick={closeMenu}>
-                        CardioView3D LAB
-                      </Link>
-                    </li>
-                    <li className={styles.hasSubmenu}>
-                      <span>
-                        Корисни линкови <i className="fas fa-chevron-right"></i>
-                      </span>
-                      <ul className={styles.submenu}>
-                        <li>
-                          <Link href="/nauka-istrazivanje/korisni-linkovi/nitra" onClick={closeMenu}>
-                            НИТРА
-                          </Link>
-                        </li>
-                        <li>
-                          <Link href="/nauka-istrazivanje/korisni-linkovi/amprec" onClick={closeMenu}>
-                            AMPREC
-                          </Link>
-                        </li>
-                        <li>
-                          <Link href="/nauka-istrazivanje/korisni-linkovi/kobson" onClick={closeMenu}>
-                            КОБСОН
-                          </Link>
-                        </li>
-                        <li>
-                          <Link href="/nauka-istrazivanje/korisni-linkovi/zajednica-instituta" onClick={closeMenu}>
-                            Заједница института
-                          </Link>
-                        </li>
-                      </ul>
-                    </li>
-                    <li>
-                      <Link href="/nauka-istrazivanje/monografija" onClick={closeMenu}>
-                        Монографија Института
-                      </Link>
-                    </li>
-                  </ul>
-                </li>
-                <li className={`${styles.hasDropdown} ${openDropdown === "edukacija" ? styles.open : ""}`}>
-                  <button type="button" onClick={() => toggleDropdown("edukacija")}>
-                    ЕДУКАЦИЈА <i className="fas fa-chevron-down"></i>
-                  </button>
-                  <ul className={styles.dropdown}>
-                    <li>
-                      <Link href="/edukacija" onClick={closeMenu}>Едукација Институт Дедиње</Link>
-                    </li>
-                    <li>
-                      <Link href="/edukacija/kme-2024" onClick={closeMenu}>KME 2024</Link>
-                    </li>
-                    <li>
-                      <Link href="/edukacija/programi" onClick={closeMenu}>Едукативни програми</Link>
-                    </li>
-                    <li>
-                      <Link href="/edukacija/interna-edukacija" onClick={closeMenu}>Интерна едукација</Link>
-                    </li>
-                    <li>
-                      <Link href="/edukacija/sestrinska-edukacija" onClick={closeMenu}>
-                        Едукација медицинских сестара и техничара
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href="/edukacija/radionice" onClick={closeMenu}>Радионице</Link>
-                    </li>
-                    <li>
-                      <Link href="/edukacija/kongresi" onClick={closeMenu}>Конгреси</Link>
-                    </li>
-                    <li>
-                      <Link href="/edukacija/medjunarodni-kongresi" onClick={closeMenu}>Међународни конгреси</Link>
-                    </li>
-                  </ul>
-                </li>
-                <li className={`${styles.hasDropdown} ${openDropdown === "aktuelnosti" ? styles.open : ""}`}>
-                  <button type="button" onClick={() => toggleDropdown("aktuelnosti")}>
-                    АКТУЕЛНОСТИ <i className="fas fa-chevron-down"></i>
-                  </button>
-                  <ul className={styles.dropdown}>
-                    <li>
-                      <Link href="/aktuelnosti" onClick={closeMenu}>Актуелности</Link>
-                    </li>
-                    <li>
-                      <Link href="/aktuelnosti/vesti" onClick={closeMenu}>Вести</Link>
-                    </li>
-                    <li>
-                      <Link href="/aktuelnosti/gostovanja" onClick={closeMenu}>Гостовања</Link>
-                    </li>
-                    <li>
-                      <Link href="/aktuelnosti/obavestenja" onClick={closeMenu}>Обавештења</Link>
-                    </li>
-                    <li>
-                      <Link href="/aktuelnosti/oglasi-konkursi" onClick={closeMenu}>Огласи и конкурси</Link>
-                    </li>
-                    <li>
-                      <Link href="/aktuelnosti/casopis-dedinje" onClick={closeMenu}>Часопис Дедиње</Link>
-                    </li>
-                    <li>
-                      <Link href="/aktuelnosti/informator" onClick={closeMenu}>Информатор о раду</Link>
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  <Link href="/kontakt" onClick={closeMenu}>КОНТАКТ</Link>
-                </li>
+                  );
+                })}
               </ul>
               <button className={styles.navSearch}>
                 <i className="fas fa-search"></i>
@@ -389,4 +290,4 @@ export default function Header() {
       />
     </>
   );
-}
+}

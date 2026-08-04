@@ -15,6 +15,7 @@ import styles from "./page.module.css";
 export { metadata };
 
 const FALLBACK_CLINICS: { icon: string; title: string; subtitle: string; slug: string }[] = [
+  { icon: "fas fa-heart-pulse", title: "Клиника за кардиохирургију", subtitle: "Оперативно лечење срчаних обољења", slug: "kardiohirurgija" },
   { icon: "fas fa-stethoscope", title: "Клиника за васкуларну хирургију", subtitle: "Лечење крвних судова", slug: "vaskularna-hirurgija" },
   { icon: "fas fa-syringe", title: "Клиника за анестезију и интензивно лечење", subtitle: "Анестезија и постоперативна нега", slug: "anesteziologija" },
   { icon: "fas fa-heartbeat", title: "Инвазивна и интервентна кардиоваскуларна дијагностика и терапија", subtitle: "Модерне дијагностичке методе", slug: "invazivna-dijagnostika" },
@@ -113,12 +114,6 @@ export default async function KlinikePage() {
           </div>
 
           <ClinicCardGrid>
-            <ClinicCard
-              icon="fas fa-heart-pulse"
-              title="Клиника за кардиохирургију"
-              subtitle="Оперативно лечење срчаних обољења"
-              href="/klinike/kardiohirurgija"
-            />
             {clinicCards.map((clinic) => (
               <ClinicCard
                 key={clinic.slug}

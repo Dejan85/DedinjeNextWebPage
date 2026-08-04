@@ -160,6 +160,22 @@ export default defineType({
           type: "documentListBlock",
           title: "📄 Lista dokumenata",
         },
+        {
+          type: "boardListBlock",
+          title: "🏛️ Lista odbora/organa",
+        },
+        {
+          type: "heroSlidesSection",
+          title: "🎬 Hero slajder (video)",
+        },
+        {
+          type: "clinicsFeaturedSection",
+          title: "🏥 Istaknute klinike (početna)",
+        },
+        {
+          type: "patientLinksSection",
+          title: "🩺 Brzi linkovi za pacijente (početna)",
+        },
       ],
     }),
     defineField({

@@ -64,6 +64,44 @@ export default defineType({
       of: [{ type: "text", rows: 4 }],
     }),
     defineField({
+      name: "organizationalStructure",
+      title: "Organizaciona struktura (opciono)",
+      description: "Poseban paragraf o unutrašnjoj organizaciji klinike (odeljenja/odseci).",
+      type: "text",
+      rows: 4,
+    }),
+    defineField({
+      name: "stats",
+      title: "Statistika (opciono)",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          fields: [
+            { name: "value", title: "Vrednost", type: "string" },
+            { name: "label", title: "Label", type: "string" },
+            { name: "icon", title: "Ikonica", type: "string" },
+          ],
+          preview: { select: { title: "value", subtitle: "label" } },
+        },
+      ],
+    }),
+    defineField({
+      name: "highlights",
+      title: "Najznačajniji rezultati (opciono)",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          fields: [
+            { name: "icon", title: "Ikonica", type: "string" },
+            { name: "text", title: "Tekst", type: "text", rows: 2 },
+          ],
+          preview: { select: { title: "text" } },
+        },
+      ],
+    }),
+    defineField({
       name: "areas",
       title: "Ključne oblasti rada",
       type: "array",
@@ -136,9 +174,26 @@ export default defineType({
                 { name: "heading", title: "Naslov grupe", type: "string" },
                 {
                   name: "names",
-                  title: "Imena",
+                  title: "Imena (prost spisak)",
                   type: "array",
                   of: [{ type: "string" }],
+                },
+                {
+                  name: "members",
+                  title: "Članovi sa ulogom (opciono, alternativa 'Imena')",
+                  description:
+                    "Ako je popunjeno, koristi se umesto 'Imena' za prikaz kartica ime+uloga.",
+                  type: "array",
+                  of: [
+                    {
+                      type: "object",
+                      fields: [
+                        { name: "name", title: "Ime", type: "string" },
+                        { name: "role", title: "Uloga", type: "string" },
+                      ],
+                      preview: { select: { title: "name", subtitle: "role" } },
+                    },
+                  ],
                 },
               ],
               preview: { select: { title: "heading" } },
@@ -158,6 +213,60 @@ export default defineType({
           title: "Paragrafi",
           type: "array",
           of: [{ type: "text", rows: 3 }],
+        },
+      ],
+    }),
+    defineField({
+      name: "units",
+      title: "Pod-jedinice (opciono, npr. odeljenja kardiohirurgije)",
+      description:
+        "Za klinike sa sopstvenim pod-stranicama (npr. Одељење кардиохирургије 1/2) — svaka stavka postaje ruta /klinike/<slug klinike>/<slug jedinice>.",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          name: "clinicUnit",
+          fields: [
+            { name: "slug", title: "Slug (deo URL-a)", type: "string" },
+            { name: "title", title: "Naslov", type: "string" },
+            { name: "heroImage", title: "Slika (putanja ili URL)", type: "string" },
+            { name: "heroSubtitle", title: "Podnaslov", type: "text", rows: 2 },
+            {
+              name: "sections",
+              title: "Sekcije sadržaja",
+              type: "array",
+              of: [
+                {
+                  type: "object",
+                  name: "clinicUnitParagraph",
+                  title: "Paragraf",
+                  fields: [
+                    { name: "type", title: "Tip", type: "string", initialValue: "paragraph", readOnly: true },
+                    { name: "title", title: "Naslov", type: "string" },
+                    { name: "text", title: "Tekst", type: "text", rows: 4 },
+                  ],
+                  preview: { select: { title: "title" } },
+                },
+                {
+                  type: "object",
+                  name: "clinicUnitList",
+                  title: "Lista",
+                  fields: [
+                    { name: "type", title: "Tip", type: "string", initialValue: "list", readOnly: true },
+                    { name: "title", title: "Naslov", type: "string" },
+                    {
+                      name: "items",
+                      title: "Stavke",
+                      type: "array",
+                      of: [{ type: "string" }],
+                    },
+                  ],
+                  preview: { select: { title: "title" } },
+                },
+              ],
+            },
+          ],
+          preview: { select: { title: "title", subtitle: "slug" } },
         },
       ],
     }),

@@ -90,4 +90,9 @@ export {
   default as DocumentListBlock,
   type DocumentListItem,
 } from "./DocumentListBlock/DocumentListBlock";
+export {
+  default as BoardListBlock,
+  type BoardItem,
+  type BoardMember,
+} from "./BoardListBlock/BoardListBlock";
 export { default as PageBuilder } from "./PageBuilder/PageBuilder";
