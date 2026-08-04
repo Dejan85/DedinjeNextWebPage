@@ -4,6 +4,7 @@ import { Container, PageHeader, Section } from "@/components/shared";
 import { client } from "@/sanity/lib/client";
 import { NEWS_QUERY } from "@/sanity/lib/queries";
 import { urlFor } from "@/sanity/lib/image";
+import { localize, type Locale } from "@/sanity/lib/locale";
 import type { News } from "@/sanity/types";
 import { formatSrDate } from "../formatDate";
 import { VESTI } from "../constants";
@@ -23,9 +24,10 @@ interface VestListItem {
   excerpt: string;
 }
 
-async function getVesti(): Promise<VestListItem[]> {
+async function getVesti(locale: Locale): Promise<VestListItem[]> {
   try {
-    const news = await client.fetch<News[]>(NEWS_QUERY);
+    const newsRaw = await client.fetch<News[]>(NEWS_QUERY);
+    const news = newsRaw ? localize(newsRaw, locale) : newsRaw;
     if (news && news.length > 0) {
       return news.map((n) => ({
         id: n._id,
@@ -44,8 +46,13 @@ async function getVesti(): Promise<VestListItem[]> {
   return VESTI;
 }
 
-export default async function VestiPage() {
-  const vesti = await getVesti();
+export default async function VestiPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const vesti = await getVesti(locale as Locale);
   const featured = vesti[0];
   const secondary = vesti.slice(1, 3);
   const rest = vesti.slice(3);

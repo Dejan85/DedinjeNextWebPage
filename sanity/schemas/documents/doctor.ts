@@ -25,20 +25,20 @@ export default defineType({
     defineField({
       name: "title",
       title: "Titula",
-      type: "string",
+      type: "localeString",
       description: 'npr. "Akademik prof. dr"',
     }),
     defineField({
       name: "position",
       title: "Pozicija",
-      type: "string",
+      type: "localeString",
       description: 'npr. "Direktor Instituta"',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "specialization",
       title: "Specijalizacija",
-      type: "string",
+      type: "localeString",
       description: 'npr. "Kardiohirurg"',
     }),
     defineField({
@@ -53,8 +53,7 @@ export default defineType({
     defineField({
       name: "biography",
       title: "Biografija",
-      type: "array",
-      of: [{ type: "block" }],
+      type: "localePortableText",
     }),
     defineField({
       name: "timeline",
@@ -70,10 +69,10 @@ export default defineType({
         {
           type: "object",
           fields: [
-            { name: "degree", title: "Stepen", type: "string" },
+            { name: "degree", title: "Stepen", type: "localeString" },
             { name: "institution", title: "Institucija", type: "string" },
             { name: "year", title: "Godina", type: "string" },
-            { name: "description", title: "Opis", type: "text" },
+            { name: "description", title: "Opis", type: "localeText" },
           ],
         },
       ],
@@ -125,7 +124,7 @@ export default defineType({
   preview: {
     select: {
       title: "name",
-      subtitle: "position",
+      subtitle: "position.sr",
       media: "image",
     },
   },

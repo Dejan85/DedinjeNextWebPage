@@ -5,6 +5,7 @@ import { Container, PageHeader, Section } from "@/components/shared";
 import { client } from "@/sanity/lib/client";
 import { NEWS_QUERY, NEWS_BY_SLUG_QUERY } from "@/sanity/lib/queries";
 import { urlFor } from "@/sanity/lib/image";
+import { localize, type Locale } from "@/sanity/lib/locale";
 import type { News } from "@/sanity/types";
 import { formatSrDate } from "../formatDate";
 import { VESTI, type Vest } from "../constants";
@@ -62,12 +63,17 @@ export async function generateStaticParams() {
   return VESTI.map((v) => ({ slug: v.slug }));
 }
 
-async function getVestData(slug: string): Promise<{ vest: VestDetail | null; all: VestDetail[] }> {
+async function getVestData(
+  slug: string,
+  locale: Locale
+): Promise<{ vest: VestDetail | null; all: VestDetail[] }> {
   try {
-    const [vest, all] = await Promise.all([
+    const [vestRaw, allRaw] = await Promise.all([
       client.fetch<News | null>(NEWS_BY_SLUG_QUERY, { slug }),
       client.fetch<News[]>(NEWS_QUERY),
     ]);
+    const vest = vestRaw ? localize(vestRaw, locale) : vestRaw;
+    const all = allRaw ? localize(allRaw, locale) : allRaw;
     if (vest && all && all.length > 0) {
       return { vest: fromSanity(vest), all: all.map(fromSanity) };
     }
@@ -79,9 +85,13 @@ async function getVestData(slug: string): Promise<{ vest: VestDetail | null; all
   return { vest, all };
 }
 
-export default async function VestPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-  const { vest, all } = await getVestData(slug);
+export default async function VestPage({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>;
+}) {
+  const { locale, slug } = await params;
+  const { vest, all } = await getVestData(slug, locale as Locale);
 
   if (!vest) {
     notFound();

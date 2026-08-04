@@ -14,7 +14,7 @@ export default defineType({
         {
           type: "object",
           fields: [
-            { name: "title", title: "Naslov", type: "string" },
+            { name: "title", title: "Naslov", type: "localeString" },
             { name: "link", title: "Link", type: "string" },
             {
               name: "submenu",
@@ -24,7 +24,7 @@ export default defineType({
                 {
                   type: "object",
                   fields: [
-                    { name: "title", title: "Naslov", type: "string" },
+                    { name: "title", title: "Naslov", type: "localeString" },
                     {
                       name: "link",
                       title: "Link (prazno = grupa sa pod-stavkama)",
@@ -39,7 +39,7 @@ export default defineType({
                         {
                           type: "object",
                           fields: [
-                            { name: "title", title: "Naslov", type: "string" },
+                            { name: "title", title: "Naslov", type: "localeString" },
                             { name: "link", title: "Link", type: "string" },
                             { name: "icon", title: "Ikonica", type: "string" },
                           ],
@@ -62,7 +62,7 @@ export default defineType({
         {
           type: "object",
           fields: [
-            { name: "title", title: "Naslov", type: "string" },
+            { name: "title", title: "Naslov", type: "localeString" },
             { name: "link", title: "Link", type: "string" },
           ],
         },

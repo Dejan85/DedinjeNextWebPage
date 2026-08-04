@@ -17,6 +17,7 @@ import {
 import { Heading, Text, Badge } from "@/components/typography";
 import { client } from "@/sanity/lib/client";
 import { HOMEPAGE_QUERY, NEWS_QUERY, VIDEOS_QUERY } from "@/sanity/lib/queries";
+import { localize, type Locale } from "@/sanity/lib/locale";
 import styles from "./page.module.css";
 import type {
   WelcomeSection,
@@ -141,13 +142,18 @@ const CLINICS_FEATURED = [
   },
 ];
 
-export default async function Home() {
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
   let pageBuilder: PageBuilder[] = [];
   let sanityError = false;
 
   try {
     const homepage = await client.fetch(HOMEPAGE_QUERY);
-    pageBuilder = homepage?.pageBuilder || [];
+    pageBuilder = homepage ? localize(homepage, locale as Locale)?.pageBuilder || [] : [];
   } catch (error) {
     console.error("Sanity fetch failed, using fallback:", error);
     sanityError = true;
@@ -156,10 +162,12 @@ export default async function Home() {
   let homepageVesti = VESTI;
   let homepageGostovanja = GOSTOVANJA;
   try {
-    const [newsRes, videosRes] = await Promise.all([
+    const [newsResRaw, videosResRaw] = await Promise.all([
       client.fetch<News[]>(NEWS_QUERY),
       client.fetch<VideoItem[]>(VIDEOS_QUERY),
     ]);
+    const newsRes = newsResRaw ? localize(newsResRaw, locale as Locale) : newsResRaw;
+    const videosRes = videosResRaw ? localize(videosResRaw, locale as Locale) : videosResRaw;
     if (newsRes && newsRes.length > 0) {
       homepageVesti = newsRes.map((n) => ({
         id: n._id,

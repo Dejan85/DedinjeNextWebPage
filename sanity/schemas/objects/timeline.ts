@@ -14,24 +14,23 @@ export default defineType({
     defineField({
       name: "title",
       title: "Naslov",
-      type: "string",
+      type: "localeString",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "subtitle",
       title: "Podnaslov",
-      type: "string",
+      type: "localeString",
     }),
     defineField({
       name: "description",
       title: "Opis",
-      type: "text",
-      rows: 3,
+      type: "localeText",
     }),
   ],
   preview: {
     select: {
-      title: "title",
+      title: "title.sr",
       subtitle: "year",
     },
   },

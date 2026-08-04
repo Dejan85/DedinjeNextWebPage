@@ -9,13 +9,13 @@ export default defineType({
     defineField({
       name: "badge",
       title: "Badge tekst",
-      type: "string",
+      type: "localeString",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "heading",
       title: "Glavni naslov",
-      type: "string",
+      type: "localeString",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -31,8 +31,7 @@ export default defineType({
             {
               name: "quote",
               title: "Citat/Iskustvo",
-              type: "text",
-              rows: 5,
+              type: "localeText",
               validation: (Rule) => Rule.required(),
             },
             {
@@ -44,7 +43,7 @@ export default defineType({
             {
               name: "authorRole",
               title: "Pozicija/Status autora",
-              type: "string",
+              type: "localeString",
               validation: (Rule) => Rule.required(),
             },
             {
@@ -60,8 +59,8 @@ export default defineType({
           preview: {
             select: {
               name: "authorName",
-              role: "authorRole",
-              quote: "quote",
+              role: "authorRole.sr",
+              quote: "quote.sr",
               media: "authorImage",
             },
             prepare({ name, role, quote, media }) {
@@ -79,7 +78,7 @@ export default defineType({
   ],
   preview: {
     select: {
-      heading: "heading",
+      heading: "heading.sr",
       testimonials: "testimonials",
     },
     prepare({ heading, testimonials }) {

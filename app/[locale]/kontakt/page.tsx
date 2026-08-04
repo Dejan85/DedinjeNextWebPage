@@ -6,6 +6,7 @@ import {
 } from "@/components/shared";
 import { client } from "@/sanity/lib/client";
 import { SITE_SETTINGS_QUERY } from "@/sanity/lib/queries";
+import { localize, type Locale } from "@/sanity/lib/locale";
 import type { SiteSettings } from "@/sanity/types";
 import KontaktForm from "./KontaktForm";
 import styles from "./page.module.css";
@@ -21,17 +22,23 @@ function toTelHref(phone: string): string {
   return `tel:+${digits.replace(/^0/, "381")}`;
 }
 
-async function getSiteSettings(): Promise<SiteSettings | null> {
+async function getSiteSettings(locale: Locale): Promise<SiteSettings | null> {
   try {
-    return await client.fetch<SiteSettings>(SITE_SETTINGS_QUERY);
+    const raw = await client.fetch<SiteSettings>(SITE_SETTINGS_QUERY);
+    return raw ? localize(raw, locale) : null;
   } catch (error) {
     console.error("⚠️ Sanity fetch failed:", error);
     return null;
   }
 }
 
-export default async function KontaktPage() {
-  const settings = await getSiteSettings();
+export default async function KontaktPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const settings = await getSiteSettings(locale as Locale);
   const contact = settings?.contact;
   const workingHours = settings?.workingHours?.[0];
 

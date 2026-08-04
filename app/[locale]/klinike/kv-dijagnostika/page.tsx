@@ -1,6 +1,7 @@
 import { ClinicPageTemplate } from "../_components/ClinicPageTemplate";
 import { client } from "@/sanity/lib/client";
 import { CLINIC_PAGE_QUERY } from "@/sanity/lib/queries";
+import { localize, type Locale } from "@/sanity/lib/locale";
 import type { ClinicPage } from "@/sanity/types";
 import { DATA } from "./data";
 import { metadata } from "./metadata";
@@ -9,11 +10,17 @@ export { metadata };
 
 const SLUG = "kv-dijagnostika";
 
-export default async function KVDijagnostikaPage() {
+export default async function KVDijagnostikaPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
   let clinic: ClinicPage | null = null;
 
   try {
-    clinic = await client.fetch<ClinicPage>(CLINIC_PAGE_QUERY, { slug: SLUG });
+    const raw = await client.fetch<ClinicPage>(CLINIC_PAGE_QUERY, { slug: SLUG });
+    clinic = raw ? localize(raw, locale as Locale) : null;
   } catch (error) {
     console.error("⚠️ Sanity fetch failed:", error);
   }

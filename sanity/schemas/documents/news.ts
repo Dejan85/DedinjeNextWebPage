@@ -9,7 +9,7 @@ export default defineType({
     defineField({
       name: "title",
       title: "Naslov",
-      type: "string",
+      type: "localeString",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -17,7 +17,7 @@ export default defineType({
       title: "URL Slug",
       type: "slug",
       options: {
-        source: "title",
+        source: "title.sr",
         maxLength: 96,
       },
       validation: (Rule) => Rule.required(),
@@ -25,21 +25,18 @@ export default defineType({
     defineField({
       name: "excerpt",
       title: "Kratak izvod",
-      type: "text",
-      rows: 3,
+      type: "localeText",
     }),
     defineField({
       name: "content",
       title: "Sadržaj (portable text, trenutno neiskorišćeno na sajtu)",
-      type: "array",
-      of: [{ type: "block" }],
+      type: "localePortableText",
     }),
     defineField({
       name: "fullText",
       title: "Pun tekst vesti",
       description: "Pasusi odvojeni praznim redom.",
-      type: "text",
-      rows: 10,
+      type: "localeText",
     }),
     defineField({
       name: "mainImage",
@@ -68,8 +65,8 @@ export default defineType({
     defineField({
       name: "author",
       title: "Autor",
-      type: "string",
-      initialValue: "Medicinski tim",
+      type: "localeString",
+      initialValue: { sr: "Medicinski tim", en: "Medical team" },
     }),
     defineField({
       name: "publishedAt",
@@ -92,7 +89,7 @@ export default defineType({
   ],
   preview: {
     select: {
-      title: "title",
+      title: "title.sr",
       subtitle: "publishedAt",
       media: "mainImage",
     },

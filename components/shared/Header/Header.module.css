@@ -54,13 +54,6 @@
     display: flex;
     align-items: center;
     gap: 24px;
-    transition: max-height 0.3s ease, opacity 0.3s ease;
-    overflow: hidden;
-}
-
-.mainHeader.scrolled .contactStrip {
-    max-height: 0;
-    opacity: 0;
 }
 
 .headerToggles {

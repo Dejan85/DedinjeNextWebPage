@@ -9,27 +9,25 @@ export default defineType({
     defineField({
       name: "badge",
       title: "Badge tekst",
-      type: "string",
+      type: "localeString",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "heading",
       title: "Glavni naslov",
-      type: "string",
+      type: "localeString",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "leadText",
       title: "Lead tekst (uvodni)",
-      type: "text",
-      rows: 3,
+      type: "localeText",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "bodyText",
       title: "Body tekst (glavni sadržaj)",
-      type: "text",
-      rows: 5,
+      type: "localeText",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -50,13 +48,13 @@ export default defineType({
             {
               name: "text",
               title: "Tekst",
-              type: "string",
+              type: "localeString",
               validation: (Rule) => Rule.required(),
             },
           ],
           preview: {
             select: {
-              text: "text",
+              text: "text.sr",
               icon: "icon",
             },
             prepare({ text, icon }) {
@@ -78,7 +76,7 @@ export default defineType({
         {
           name: "text",
           title: "Tekst dugmeta",
-          type: "string",
+          type: "localeString",
           validation: (Rule) => Rule.required(),
         },
         {
@@ -121,7 +119,7 @@ export default defineType({
         {
           name: "text",
           title: "Tekst",
-          type: "string",
+          type: "localeString",
           description: 'Npr. "ГОДИНА ИСКУСТВА"',
         },
       ],
@@ -129,9 +127,9 @@ export default defineType({
   ],
   preview: {
     select: {
-      title: "heading",
+      title: "heading.sr",
       media: "image",
-      badge: "badge",
+      badge: "badge.sr",
     },
     prepare({ title, media, badge }) {
       return {

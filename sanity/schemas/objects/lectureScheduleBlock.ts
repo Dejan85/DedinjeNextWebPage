@@ -9,12 +9,12 @@ export default defineType({
     defineField({
       name: "heading",
       title: "Naslov",
-      type: "string",
+      type: "localeString",
     }),
     defineField({
       name: "subtitle",
       title: "Podnaslov",
-      type: "string",
+      type: "localeString",
     }),
     defineField({
       name: "defaultTabId",
@@ -30,7 +30,7 @@ export default defineType({
           type: "object",
           fields: [
             { name: "tabId", title: "ID (godina)", type: "string", validation: (Rule) => Rule.required() },
-            { name: "label", title: "Naziv taba", type: "string", validation: (Rule) => Rule.required() },
+            { name: "label", title: "Naziv taba", type: "localeString", validation: (Rule) => Rule.required() },
             {
               name: "items",
               title: "Predavanja (ravna lista — koristi se kad nema sekcija)",
@@ -40,10 +40,10 @@ export default defineType({
                   type: "object",
                   fields: [
                     { name: "date", title: "Datum (opciono)", type: "string" },
-                    { name: "title", title: "Naslov predavanja", type: "string", validation: (Rule) => Rule.required() },
+                    { name: "title", title: "Naslov predavanja", type: "localeString", validation: (Rule) => Rule.required() },
                     { name: "lecturer", title: "Predavač", type: "string", validation: (Rule) => Rule.required() },
                   ],
-                  preview: { select: { title: "title", subtitle: "lecturer" } },
+                  preview: { select: { title: "title.sr", subtitle: "lecturer" } },
                 },
               ],
             },
@@ -55,7 +55,7 @@ export default defineType({
                 {
                   type: "object",
                   fields: [
-                    { name: "title", title: "Naslov sekcije", type: "string", validation: (Rule) => Rule.required() },
+                    { name: "title", title: "Naslov sekcije", type: "localeString", validation: (Rule) => Rule.required() },
                     {
                       name: "items",
                       title: "Predavanja",
@@ -65,20 +65,20 @@ export default defineType({
                           type: "object",
                           fields: [
                             { name: "date", title: "Datum (opciono)", type: "string" },
-                            { name: "title", title: "Naslov predavanja", type: "string", validation: (Rule) => Rule.required() },
+                            { name: "title", title: "Naslov predavanja", type: "localeString", validation: (Rule) => Rule.required() },
                             { name: "lecturer", title: "Predavač", type: "string", validation: (Rule) => Rule.required() },
                           ],
-                          preview: { select: { title: "title", subtitle: "lecturer" } },
+                          preview: { select: { title: "title.sr", subtitle: "lecturer" } },
                         },
                       ],
                     },
                   ],
-                  preview: { select: { title: "title" } },
+                  preview: { select: { title: "title.sr" } },
                 },
               ],
             },
           ],
-          preview: { select: { title: "label" } },
+          preview: { select: { title: "label.sr" } },
         },
       ],
       validation: (Rule) => Rule.required().min(1),

@@ -1,11 +1,13 @@
+import { getLocale } from "next-intl/server";
 import { client } from "@/sanity/lib/client";
 import { NAVIGATION_QUERY } from "@/sanity/lib/queries";
+import { localize, type Locale } from "@/sanity/lib/locale";
 import type { Navigation } from "@/sanity/types";
 import Header from "./Header";
 
-async function getNavigationData() {
+async function getNavigationData(locale: Locale) {
   try {
-    return await client.fetch<Navigation | null>(
+    const raw = await client.fetch<Navigation | null>(
       NAVIGATION_QUERY,
       {},
       {
@@ -13,6 +15,7 @@ async function getNavigationData() {
         next: { revalidate: 3600 },
       },
     );
+    return raw ? localize(raw, locale) : raw;
   } catch (error) {
     console.error("Error fetching navigation:", error);
     return null;
@@ -20,6 +23,7 @@ async function getNavigationData() {
 }
 
 export default async function HeaderData() {
-  const navigation = await getNavigationData();
+  const locale = (await getLocale()) as Locale;
+  const navigation = await getNavigationData(locale);
   return <Header menu={navigation?.mainMenu} />;
 }

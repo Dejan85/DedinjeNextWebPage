@@ -1,12 +1,14 @@
 import { client } from "@/sanity/lib/client";
 import { VIDEOS_QUERY } from "@/sanity/lib/queries";
+import { localize, type Locale } from "@/sanity/lib/locale";
 import type { VideoItem } from "@/sanity/types";
 import { GOSTOVANJA } from "./constants";
 import GostovanjaClient, { type GostovanjeItem } from "./GostovanjaClient";
 
-async function getGostovanja(): Promise<GostovanjeItem[]> {
+async function getGostovanja(locale: Locale): Promise<GostovanjeItem[]> {
   try {
-    const videos = await client.fetch<VideoItem[]>(VIDEOS_QUERY);
+    const videosRaw = await client.fetch<VideoItem[]>(VIDEOS_QUERY);
+    const videos = videosRaw ? localize(videosRaw, locale) : videosRaw;
     if (videos && videos.length > 0) {
       return videos.map((v) => ({
         id: v._id,
@@ -25,7 +27,12 @@ async function getGostovanja(): Promise<GostovanjeItem[]> {
   return GOSTOVANJA;
 }
 
-export default async function GostovanjaPage() {
-  const items = await getGostovanja();
+export default async function GostovanjaPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const items = await getGostovanja(locale as Locale);
   return <GostovanjaClient items={items} />;
 }

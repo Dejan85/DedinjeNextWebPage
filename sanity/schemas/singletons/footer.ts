@@ -15,20 +15,19 @@ export default defineType({
     defineField({
       name: "instituteName",
       title: "Naziv instituta",
-      type: "string",
-      initialValue: "ДЕДИЊЕ",
+      type: "localeString",
+      initialValue: { sr: "ДЕДИЊЕ", en: "DEDINJE" },
     }),
     defineField({
       name: "instituteSubtitle",
       title: "Podnaslov instituta",
-      type: "string",
-      initialValue: "Институт за КВБ",
+      type: "localeString",
+      initialValue: { sr: "Институт за КВБ", en: "" },
     }),
     defineField({
       name: "description",
       title: "Opis",
-      type: "text",
-      rows: 4,
+      type: "localeText",
       description: "Kratak opis instituta",
     }),
     defineField({
@@ -71,8 +70,8 @@ export default defineType({
         defineField({
           name: "heading",
           title: "Naslov sekcije",
-          type: "string",
-          initialValue: "Брзи линкови",
+          type: "localeString",
+          initialValue: { sr: "Брзи линкови", en: "Quick links" },
         }),
         defineField({
           name: "links",
@@ -85,7 +84,7 @@ export default defineType({
                 defineField({
                   name: "title",
                   title: "Naslov",
-                  type: "string",
+                  type: "localeString",
                 }),
                 defineField({
                   name: "href",
@@ -106,8 +105,8 @@ export default defineType({
         defineField({
           name: "heading",
           title: "Naslov sekcije",
-          type: "string",
-          initialValue: "Услуге",
+          type: "localeString",
+          initialValue: { sr: "Услуге", en: "Services" },
         }),
         defineField({
           name: "links",
@@ -120,7 +119,7 @@ export default defineType({
                 defineField({
                   name: "title",
                   title: "Naslov",
-                  type: "string",
+                  type: "localeString",
                 }),
                 defineField({
                   name: "href",
@@ -141,8 +140,8 @@ export default defineType({
         defineField({
           name: "heading",
           title: "Naslov sekcije",
-          type: "string",
-          initialValue: "Контакт",
+          type: "localeString",
+          initialValue: { sr: "Контакт", en: "Contact" },
         }),
         defineField({
           name: "address",
@@ -177,14 +176,14 @@ export default defineType({
             defineField({
               name: "weekdays",
               title: "Radni dani",
-              type: "string",
-              initialValue: "Пон - Пет: 08:00 - 19:00",
+              type: "localeString",
+              initialValue: { sr: "Пон - Пет: 08:00 - 19:00", en: "Mon - Fri: 08:00 - 19:00" },
             }),
             defineField({
               name: "weekend",
               title: "Vikend",
-              type: "string",
-              initialValue: "Викенд: 09:00 - 15:00",
+              type: "localeString",
+              initialValue: { sr: "Викенд: 09:00 - 15:00", en: "Weekend: 09:00 - 15:00" },
             }),
           ],
         }),
@@ -193,9 +192,11 @@ export default defineType({
     defineField({
       name: "copyright",
       title: "Copyright tekst",
-      type: "string",
-      initialValue:
-        "© 2026 Институт за кардиоваскуларне болести Дедиње. Сва права задржана.",
+      type: "localeString",
+      initialValue: {
+        sr: "© 2026 Институт за кардиоваскуларне болести Дедиње. Сва права задржана.",
+        en: "© 2026 Institute for Cardiovascular Diseases Dedinje. All rights reserved.",
+      },
     }),
     defineField({
       name: "legalLinks",
@@ -209,7 +210,7 @@ export default defineType({
             defineField({
               name: "title",
               title: "Naslov",
-              type: "string",
+              type: "localeString",
             }),
             defineField({
               name: "href",

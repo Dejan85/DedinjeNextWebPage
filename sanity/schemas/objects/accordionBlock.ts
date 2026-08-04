@@ -9,12 +9,12 @@ export default defineType({
     defineField({
       name: "title",
       title: "Naslov",
-      type: "string",
+      type: "localeString",
     }),
     defineField({
       name: "subtitle",
       title: "Podnaslov",
-      type: "string",
+      type: "localeString",
     }),
     defineField({
       name: "defaultOpenId",
@@ -35,7 +35,7 @@ export default defineType({
               type: "string",
               validation: (Rule) => Rule.required(),
             },
-            { name: "title", title: "Naslov", type: "string" },
+            { name: "title", title: "Naslov", type: "localeString" },
             { name: "icon", title: "Ikonica", type: "string" },
             {
               name: "sections",
@@ -45,7 +45,7 @@ export default defineType({
                 {
                   type: "object",
                   fields: [
-                    { name: "title", title: "Naslov sekcije", type: "string" },
+                    { name: "title", title: "Naslov sekcije", type: "localeString" },
                     {
                       name: "kind",
                       title: "Tip sadržaja",
@@ -64,30 +64,30 @@ export default defineType({
                       name: "text",
                       title: "Paragrafi",
                       type: "array",
-                      of: [{ type: "text", rows: 2 }],
+                      of: [{ type: "localeText" }],
                       hidden: ({ parent }) => parent?.kind !== "text",
                     },
                     {
                       name: "list",
                       title: "Stavke liste",
                       type: "array",
-                      of: [{ type: "string" }],
+                      of: [{ type: "localeString" }],
                       hidden: ({ parent }) => parent?.kind !== "list",
                     },
                   ],
-                  preview: { select: { title: "title" } },
+                  preview: { select: { title: "title.sr" } },
                 },
               ],
             },
           ],
-          preview: { select: { title: "title" } },
+          preview: { select: { title: "title.sr" } },
         },
       ],
       validation: (Rule) => Rule.required().min(1),
     }),
   ],
   preview: {
-    select: { title: "title" },
+    select: { title: "title.sr" },
     prepare({ title }) {
       return { title: `📋 ${title || "Akordeon"}` };
     },

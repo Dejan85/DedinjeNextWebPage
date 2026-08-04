@@ -9,19 +9,19 @@ export default defineType({
     defineField({
       name: "badge",
       title: "Badge tekst",
-      type: "string",
+      type: "localeString",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "heading",
       title: "Glavni naslov",
-      type: "string",
+      type: "localeString",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "subheading",
       title: "Podnaslov",
-      type: "string",
+      type: "localeString",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -42,14 +42,13 @@ export default defineType({
             {
               name: "title",
               title: "Naslov usluge",
-              type: "string",
+              type: "localeString",
               validation: (Rule) => Rule.required(),
             },
             {
               name: "description",
               title: "Opis",
-              type: "text",
-              rows: 3,
+              type: "localeText",
               validation: (Rule) => Rule.required(),
             },
             {
@@ -70,7 +69,7 @@ export default defineType({
                     {
                       name: "text",
                       title: "Tekst",
-                      type: "string",
+                      type: "localeString",
                       validation: (Rule) => Rule.required(),
                     },
                     {
@@ -81,7 +80,7 @@ export default defineType({
                   ],
                   preview: {
                     select: {
-                      text: "text",
+                      text: "text.sr",
                     },
                     prepare({ text }) {
                       return {
@@ -96,8 +95,8 @@ export default defineType({
             {
               name: "ctaText",
               title: "CTA dugme tekst",
-              type: "string",
-              initialValue: "Сазнајте више",
+              type: "localeString",
+              initialValue: { sr: "Сазнајте више", en: "Learn more" },
             },
             {
               name: "ctaLink",
@@ -107,7 +106,7 @@ export default defineType({
           ],
           preview: {
             select: {
-              title: "title",
+              title: "title.sr",
               icon: "icon",
               featured: "featured",
             },
@@ -125,7 +124,7 @@ export default defineType({
   ],
   preview: {
     select: {
-      heading: "heading",
+      heading: "heading.sr",
       services: "services",
     },
     prepare({ heading, services }) {

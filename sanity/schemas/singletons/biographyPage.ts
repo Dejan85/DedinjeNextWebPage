@@ -15,13 +15,13 @@ export default defineType({
         {
           name: "title",
           title: "Naslov",
-          type: "string",
+          type: "localeString",
           validation: (Rule) => Rule.required(),
         },
         {
           name: "subtitle",
           title: "Podnaslov",
-          type: "string",
+          type: "localeString",
         },
       ],
     }),
@@ -48,13 +48,12 @@ export default defineType({
         {
           name: "position",
           title: "Pozicija",
-          type: "string",
+          type: "localeString",
         },
         {
           name: "shortBio",
           title: "Kratka biografija",
-          type: "text",
-          rows: 3,
+          type: "localeText",
         },
         {
           name: "highlights",
@@ -72,18 +71,18 @@ export default defineType({
                 {
                   name: "title",
                   title: "Naslov",
-                  type: "string",
+                  type: "localeString",
                 },
                 {
                   name: "description",
                   title: "Opis",
-                  type: "string",
+                  type: "localeString",
                 },
               ],
               preview: {
                 select: {
-                  title: "title",
-                  subtitle: "description",
+                  title: "title.sr",
+                  subtitle: "description.sr",
                 },
               },
             },
@@ -102,14 +101,14 @@ export default defineType({
         {
           name: "badge",
           title: "Badge",
-          type: "string",
-          initialValue: "Каријера",
+          type: "localeString",
+          initialValue: { sr: "Каријера", en: "Career" },
         },
         {
           name: "heading",
           title: "Naslov",
-          type: "string",
-          initialValue: "Професионални пут",
+          type: "localeString",
+          initialValue: { sr: "Професионални пут", en: "Professional path" },
         },
         {
           name: "timeline",
@@ -128,7 +127,7 @@ export default defineType({
                 {
                   name: "title",
                   title: "Naslov pozicije",
-                  type: "string",
+                  type: "localeString",
                   validation: (Rule) => Rule.required(),
                 },
                 {
@@ -139,13 +138,12 @@ export default defineType({
                 {
                   name: "description",
                   title: "Opis",
-                  type: "text",
-                  rows: 4,
+                  type: "localeText",
                 },
               ],
               preview: {
                 select: {
-                  title: "title",
+                  title: "title.sr",
                   subtitle: "year",
                 },
               },
@@ -164,14 +162,14 @@ export default defineType({
         {
           name: "badge",
           title: "Badge",
-          type: "string",
-          initialValue: "Образовање",
+          type: "localeString",
+          initialValue: { sr: "Образовање", en: "Education" },
         },
         {
           name: "heading",
           title: "Naslov",
-          type: "string",
-          initialValue: "Академска квалификација",
+          type: "localeString",
+          initialValue: { sr: "Академска квалификација", en: "Academic qualifications" },
         },
         {
           name: "qualifications",
@@ -189,7 +187,7 @@ export default defineType({
                 {
                   name: "degree",
                   title: "Stepen obrazovanja",
-                  type: "string",
+                  type: "localeString",
                   validation: (Rule) => Rule.required(),
                 },
                 {
@@ -206,13 +204,12 @@ export default defineType({
                 {
                   name: "description",
                   title: "Opis/Tema rada",
-                  type: "text",
-                  rows: 3,
+                  type: "localeText",
                 },
               ],
               preview: {
                 select: {
-                  title: "degree",
+                  title: "degree.sr",
                   subtitle: "institution",
                 },
               },
@@ -231,19 +228,18 @@ export default defineType({
                 {
                   name: "title",
                   title: "Naslov",
-                  type: "string",
+                  type: "localeString",
                   validation: (Rule) => Rule.required(),
                 },
                 {
                   name: "content",
                   title: "Sadržaj",
-                  type: "text",
-                  rows: 5,
+                  type: "localeText",
                 },
               ],
               preview: {
                 select: {
-                  title: "title",
+                  title: "title.sr",
                 },
               },
             },
@@ -269,24 +265,19 @@ export default defineType({
                 {
                   name: "heading",
                   title: "Naslov sekcije",
-                  type: "string",
+                  type: "localeString",
                   validation: (Rule) => Rule.required(),
                 },
                 {
                   name: "paragraphs",
                   title: "Paragrafi",
                   type: "array",
-                  of: [
-                    {
-                      type: "text",
-                      rows: 5,
-                    },
-                  ],
+                  of: [{ type: "localeText" }],
                 },
               ],
               preview: {
                 select: {
-                  title: "heading",
+                  title: "heading.sr",
                 },
               },
             },
@@ -301,8 +292,8 @@ export default defineType({
         {
           name: "pdfButtonText",
           title: "Tekst dugmeta za preuzimanje",
-          type: "string",
-          initialValue: "Преузмите комплетну биографију (PDF)",
+          type: "localeString",
+          initialValue: { sr: "Преузмите комплетну биографију (PDF)", en: "Download full biography (PDF)" },
         },
       ],
     }),
@@ -316,7 +307,7 @@ export default defineType({
         {
           name: "heading",
           title: "Naslov",
-          type: "string",
+          type: "localeString",
         },
         {
           name: "buttons",
@@ -329,7 +320,7 @@ export default defineType({
                 {
                   name: "text",
                   title: "Tekst",
-                  type: "string",
+                  type: "localeString",
                 },
                 {
                   name: "href",
@@ -364,19 +355,18 @@ export default defineType({
         {
           name: "title",
           title: "SEO Naslov",
-          type: "string",
+          type: "localeString",
         },
         {
           name: "description",
           title: "SEO Opis",
-          type: "text",
-          rows: 3,
+          type: "localeText",
         },
         {
           name: "keywords",
           title: "Ključne reči",
           type: "array",
-          of: [{ type: "string" }],
+          of: [{ type: "localeString" }],
         },
       ],
     }),

@@ -7,6 +7,7 @@ import {
 } from "@/components/shared";
 import { client } from "@/sanity/lib/client";
 import { PAGE_BY_SLUG_QUERY } from "@/sanity/lib/queries";
+import { localize, type Locale } from "@/sanity/lib/locale";
 import type { PatientPage } from "@/sanity/types";
 import styles from "./page.module.css";
 import { metadata } from "./metadata";
@@ -24,11 +25,17 @@ const INFO_ITEMS = [
   { icon: "fas fa-globe", label: "Веб сајт", value: "www.institutdedinje.rs" },
 ];
 
-export default async function LokacijaPage() {
+export default async function LokacijaPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
   let page: PatientPage | null = null;
 
   try {
-    page = await client.fetch<PatientPage>(PAGE_BY_SLUG_QUERY, { slug: SLUG });
+    const raw = await client.fetch<PatientPage>(PAGE_BY_SLUG_QUERY, { slug: SLUG });
+    page = raw ? localize(raw, locale as Locale) : null;
   } catch (error) {
     console.error("⚠️ Sanity fetch failed:", error);
   }

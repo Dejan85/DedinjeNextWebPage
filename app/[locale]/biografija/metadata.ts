@@ -1,10 +1,17 @@
 import { Metadata } from "next";
 import { client } from "@/sanity/lib/client";
 import { BIOGRAPHY_PAGE_QUERY } from "@/sanity/lib/queries";
+import { localize, type Locale } from "@/sanity/lib/locale";
 import type { BiographyPage } from "@/sanity/types";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const data = await client.fetch<BiographyPage>(BIOGRAPHY_PAGE_QUERY);
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const raw = await client.fetch<BiographyPage>(BIOGRAPHY_PAGE_QUERY);
+  const data = raw ? localize(raw, locale as Locale) : raw;
 
   return {
     title:

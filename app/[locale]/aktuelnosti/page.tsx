@@ -10,6 +10,7 @@ import {
   JOB_POSTINGS_QUERY,
 } from "@/sanity/lib/queries";
 import { urlFor } from "@/sanity/lib/image";
+import { localize, type Locale } from "@/sanity/lib/locale";
 import type { News, VideoItem, Announcement, JobPosting } from "@/sanity/types";
 import { formatSrDate } from "./formatDate";
 import { GOSTOVANJA } from "./gostovanja/constants";
@@ -99,7 +100,7 @@ const OGLASI_FALLBACK: HubOglas[] = [
   },
 ];
 
-async function getHubData() {
+async function getHubData(locale: Locale) {
   const vestiFallback: HubVest[] = VESTI.map((v) => ({
     id: v.id,
     slug: v.slug,
@@ -125,12 +126,16 @@ async function getHubData() {
   let oglasi = OGLASI_FALLBACK;
 
   try {
-    const [newsRes, videosRes, announcementsRes, jobsRes] = await Promise.all([
+    const [newsResRaw, videosResRaw, announcementsResRaw, jobsResRaw] = await Promise.all([
       client.fetch<News[]>(NEWS_QUERY),
       client.fetch<VideoItem[]>(VIDEOS_QUERY),
       client.fetch<Announcement[]>(ANNOUNCEMENTS_QUERY),
       client.fetch<JobPosting[]>(JOB_POSTINGS_QUERY),
     ]);
+    const newsRes = newsResRaw ? localize(newsResRaw, locale) : newsResRaw;
+    const videosRes = videosResRaw ? localize(videosResRaw, locale) : videosResRaw;
+    const announcementsRes = announcementsResRaw ? localize(announcementsResRaw, locale) : announcementsResRaw;
+    const jobsRes = jobsResRaw ? localize(jobsResRaw, locale) : jobsResRaw;
 
     if (newsRes && newsRes.length > 0) {
       vesti = newsRes.map((n) => ({
@@ -178,8 +183,13 @@ async function getHubData() {
   return { vesti, videos, obavestenja, oglasi };
 }
 
-export default async function AktuelnostiPage() {
-  const { vesti, videos, obavestenja, oglasi } = await getHubData();
+export default async function AktuelnostiPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const { vesti, videos, obavestenja, oglasi } = await getHubData(locale as Locale);
 
   const featuredVest = vesti[0];
   const moreVesti = vesti.slice(1, 5);

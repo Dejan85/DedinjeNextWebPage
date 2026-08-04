@@ -9,24 +9,23 @@ export default defineType({
     defineField({
       name: "heading",
       title: "Naslov",
-      type: "string",
+      type: "localeString",
     }),
     defineField({
       name: "intro",
       title: "Uvodni tekst (opciono)",
-      type: "text",
-      rows: 2,
+      type: "localeText",
     }),
     defineField({
       name: "items",
       title: "Stavke",
       type: "array",
-      of: [{ type: "text", rows: 2 }],
+      of: [{ type: "localeText" }],
       validation: (Rule) => Rule.required().min(1),
     }),
   ],
   preview: {
-    select: { title: "heading" },
+    select: { title: "heading.sr" },
     prepare({ title }) {
       return { title: `✅ ${title || "Checklist"}` };
     },

@@ -9,19 +9,19 @@ export default defineType({
     defineField({
       name: "badge",
       title: "Badge tekst",
-      type: "string",
+      type: "localeString",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "heading",
       title: "Glavni naslov",
-      type: "string",
+      type: "localeString",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "subheading",
       title: "Podnaslov",
-      type: "string",
+      type: "localeString",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -46,7 +46,7 @@ export default defineType({
             {
               name: "category",
               title: "Kategorija",
-              type: "string",
+              type: "localeString",
               validation: (Rule) => Rule.required(),
             },
             {
@@ -58,19 +58,18 @@ export default defineType({
             {
               name: "author",
               title: "Autor",
-              type: "string",
+              type: "localeString",
             },
             {
               name: "title",
               title: "Naslov",
-              type: "string",
+              type: "localeString",
               validation: (Rule) => Rule.required(),
             },
             {
               name: "description",
               title: "Opis",
-              type: "text",
-              rows: 3,
+              type: "localeText",
             },
             {
               name: "linkHref",
@@ -93,8 +92,8 @@ export default defineType({
           ],
           preview: {
             select: {
-              title: "title",
-              category: "category",
+              title: "title.sr",
+              category: "category.sr",
               date: "date",
               media: "image",
               size: "size",
@@ -114,7 +113,7 @@ export default defineType({
   ],
   preview: {
     select: {
-      heading: "heading",
+      heading: "heading.sr",
       news: "news",
     },
     prepare({ heading, news }) {

@@ -8,20 +8,19 @@ export default defineType({
     defineField({
       name: "badge",
       title: "Badge Text",
-      type: "string",
+      type: "localeString",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "heading",
       title: "Heading",
-      type: "string",
+      type: "localeString",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "subheading",
       title: "Subheading",
-      type: "text",
-      rows: 3,
+      type: "localeText",
     }),
     defineField({
       name: "features",
@@ -40,19 +39,18 @@ export default defineType({
             {
               name: "title",
               title: "Title",
-              type: "string",
+              type: "localeString",
             },
             {
               name: "description",
               title: "Description",
-              type: "text",
-              rows: 2,
+              type: "localeText",
             },
           ],
           preview: {
             select: {
-              title: "title",
-              subtitle: "description",
+              title: "title.sr",
+              subtitle: "description.sr",
               icon: "icon",
             },
             prepare({ title, subtitle, icon }) {
@@ -77,8 +75,8 @@ export default defineType({
   ],
   preview: {
     select: {
-      title: "heading",
-      subtitle: "badge",
+      title: "heading.sr",
+      subtitle: "badge.sr",
     },
     prepare({ title, subtitle }) {
       return {

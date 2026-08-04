@@ -1,5 +1,6 @@
 import { client } from "@/sanity/lib/client";
 import { ANNOUNCEMENTS_QUERY } from "@/sanity/lib/queries";
+import { localize, type Locale } from "@/sanity/lib/locale";
 import type { Announcement } from "@/sanity/types";
 import ObavestenjaClient, { type ObavestenjeItem } from "./ObavestenjaClient";
 
@@ -69,9 +70,10 @@ const OBAVESTENJA_FALLBACK: ObavestenjeItem[] = [
   },
 ];
 
-async function getObavestenja(): Promise<ObavestenjeItem[]> {
+async function getObavestenja(locale: Locale): Promise<ObavestenjeItem[]> {
   try {
-    const items = await client.fetch<Announcement[]>(ANNOUNCEMENTS_QUERY);
+    const itemsRaw = await client.fetch<Announcement[]>(ANNOUNCEMENTS_QUERY);
+    const items = itemsRaw ? localize(itemsRaw, locale) : itemsRaw;
     if (items && items.length > 0) {
       return items.map((o) => ({
         id: o._id,
@@ -89,7 +91,12 @@ async function getObavestenja(): Promise<ObavestenjeItem[]> {
   return OBAVESTENJA_FALLBACK;
 }
 
-export default async function ObavestenjaPage() {
-  const items = await getObavestenja();
+export default async function ObavestenjaPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const items = await getObavestenja(locale as Locale);
   return <ObavestenjaClient items={items} />;
 }

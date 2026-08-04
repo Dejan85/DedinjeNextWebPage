@@ -1,5 +1,6 @@
 import { client } from "@/sanity/lib/client";
 import { INFORMATOR_QUERY } from "@/sanity/lib/queries";
+import { localize, type Locale } from "@/sanity/lib/locale";
 import type { InformatorPage as InformatorPageData } from "@/sanity/types";
 import InformatorClient, { type InformatorData } from "./InformatorClient";
 
@@ -55,9 +56,10 @@ const FALLBACK: InformatorData = {
   contactAddress: "Хероја Милана Тепића 1, 11040 Београд",
 };
 
-async function getInformator(): Promise<InformatorData> {
+async function getInformator(locale: Locale): Promise<InformatorData> {
   try {
-    const data = await client.fetch<InformatorPageData | null>(INFORMATOR_QUERY);
+    const dataRaw = await client.fetch<InformatorPageData | null>(INFORMATOR_QUERY);
+    const data = dataRaw ? localize(dataRaw, locale) : dataRaw;
     if (data && data.sections && data.sections.length > 0) {
       return {
         heroHeading: data.heroHeading || FALLBACK.heroHeading,
@@ -84,7 +86,12 @@ async function getInformator(): Promise<InformatorData> {
   return FALLBACK;
 }
 
-export default async function InformatorPage() {
-  const data = await getInformator();
+export default async function InformatorPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const data = await getInformator(locale as Locale);
   return <InformatorClient data={data} />;
 }

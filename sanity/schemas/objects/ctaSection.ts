@@ -9,14 +9,13 @@ export default defineType({
     defineField({
       name: "heading",
       title: "Glavni naslov",
-      type: "string",
+      type: "localeString",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "bodyText",
       title: "Tekst opisa",
-      type: "text",
-      rows: 3,
+      type: "localeText",
     }),
     defineField({
       name: "buttons",
@@ -31,7 +30,7 @@ export default defineType({
             {
               name: "text",
               title: "Tekst dugmeta",
-              type: "string",
+              type: "localeString",
               validation: (Rule) => Rule.required(),
             },
             {
@@ -62,7 +61,7 @@ export default defineType({
           ],
           preview: {
             select: {
-              title: "text",
+              title: "text.sr",
               variant: "variant",
               icon: "icon",
             },
@@ -80,8 +79,8 @@ export default defineType({
   ],
   preview: {
     select: {
-      title: "heading",
-      bodyText: "bodyText",
+      title: "heading.sr",
+      bodyText: "bodyText.sr",
       buttons: "buttons",
     },
     prepare({ title, bodyText, buttons }) {

@@ -24,6 +24,9 @@ import bibliographyPage from "./singletons/bibliographyPage";
 import informatorPage from "./singletons/informatorPage";
 
 // Objects
+import localeString from "./objects/localeString";
+import localeText from "./objects/localeText";
+import localePortableText from "./objects/localePortableText";
 import hero from "./objects/hero";
 import contentBlock from "./objects/contentBlock";
 import timeline from "./objects/timeline";
@@ -84,6 +87,9 @@ export const schemaTypes = [
   magazineIssue,
 
   // Objects
+  localeString,
+  localeText,
+  localePortableText,
   hero,
   contentBlock,
   timeline,

@@ -12,14 +12,14 @@ export default defineType({
     defineField({
       name: "title",
       title: "Naslov (tema izdanja)",
-      type: "string",
+      type: "localeString",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "topics",
       title: "Teme",
       type: "array",
-      of: [{ type: "string" }],
+      of: [{ type: "localeString" }],
     }),
     defineField({
       name: "pdfUrl",
@@ -38,7 +38,7 @@ export default defineType({
     }),
   ],
   preview: {
-    select: { title: "title", volume: "volume", number: "number", year: "year" },
+    select: { title: "title.sr", volume: "volume", number: "number", year: "year" },
     prepare({ title, volume, number, year }) {
       return {
         title,

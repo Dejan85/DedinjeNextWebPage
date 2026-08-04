@@ -11,14 +11,21 @@ import { Heading, Text } from "@/components/typography";
 import { client } from "@/sanity/lib/client";
 import { BIOGRAPHY_PAGE_QUERY } from "@/sanity/lib/queries";
 import { urlFor } from "@/sanity/lib/image";
+import { localize, type Locale } from "@/sanity/lib/locale";
 import type { BiographyPage } from "@/sanity/types";
 import { generateMetadata } from "./metadata";
 import styles from "./page.module.css";
 
 export { generateMetadata };
 
-export default async function BiografijaPage() {
-  const data = await client.fetch<BiographyPage>(BIOGRAPHY_PAGE_QUERY);
+export default async function BiografijaPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const raw = await client.fetch<BiographyPage>(BIOGRAPHY_PAGE_QUERY);
+  const data = raw ? localize(raw, locale as Locale) : raw;
 
   const pageHeader = data?.pageHeader || {
     title: "Биографија",

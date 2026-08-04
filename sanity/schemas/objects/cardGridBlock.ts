@@ -9,18 +9,17 @@ export default defineType({
     defineField({
       name: "heading",
       title: "Naslov sekcije",
-      type: "string",
+      type: "localeString",
     }),
     defineField({
       name: "subtitle",
       title: "Podnaslov sekcije",
-      type: "string",
+      type: "localeString",
     }),
     defineField({
       name: "intro",
       title: "Uvodni tekst pre kartica (opciono)",
-      type: "text",
-      rows: 3,
+      type: "localeText",
     }),
     defineField({
       name: "numbered",
@@ -37,28 +36,28 @@ export default defineType({
           type: "object",
           fields: [
             { name: "icon", title: "Ikonica", type: "string" },
-            { name: "title", title: "Naslov", type: "string" },
+            { name: "title", title: "Naslov", type: "localeString" },
             {
               name: "value",
               title: "Vrednost (opciono, npr. \"1200\" za kcal)",
               type: "string",
             },
-            { name: "description", title: "Opis", type: "text", rows: 2 },
+            { name: "description", title: "Opis", type: "localeText" },
             { name: "href", title: "Link (opciono — kartica postaje klikabilna)", type: "string" },
             { name: "date", title: "Datum (opciono, npr. za vesti/aktuelnosti)", type: "string" },
-            { name: "category", title: "Kategorija (opciono, npr. za vesti/aktuelnosti)", type: "string" },
+            { name: "category", title: "Kategorija (opciono, npr. za vesti/aktuelnosti)", type: "localeString" },
             { name: "contactPerson", title: "Kontakt osoba (opciono)", type: "string" },
             { name: "phone", title: "Telefon (opciono)", type: "string" },
             { name: "email", title: "Email (opciono)", type: "string" },
           ],
-          preview: { select: { title: "title", subtitle: "description" } },
+          preview: { select: { title: "title.sr", subtitle: "description.sr" } },
         },
       ],
       validation: (Rule) => Rule.required().min(1),
     }),
   ],
   preview: {
-    select: { title: "heading" },
+    select: { title: "heading.sr" },
     prepare({ title }) {
       return { title: `🗂️ ${title || "Grid kartica"}` };
     },

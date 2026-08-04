@@ -1,5 +1,6 @@
 import { client } from "@/sanity/lib/client";
 import { JOB_POSTINGS_QUERY } from "@/sanity/lib/queries";
+import { localize, type Locale } from "@/sanity/lib/locale";
 import type { JobPosting } from "@/sanity/types";
 import OglasiKonkursiClient, { type OglasItem } from "./OglasiKonkursiClient";
 
@@ -64,9 +65,10 @@ const OGLASI_FALLBACK: OglasItem[] = [
   },
 ];
 
-async function getOglasi(): Promise<OglasItem[]> {
+async function getOglasi(locale: Locale): Promise<OglasItem[]> {
   try {
-    const items = await client.fetch<JobPosting[]>(JOB_POSTINGS_QUERY);
+    const itemsRaw = await client.fetch<JobPosting[]>(JOB_POSTINGS_QUERY);
+    const items = itemsRaw ? localize(itemsRaw, locale) : itemsRaw;
     if (items && items.length > 0) {
       return items.map((o) => ({
         id: o._id,
@@ -85,7 +87,12 @@ async function getOglasi(): Promise<OglasItem[]> {
   return OGLASI_FALLBACK;
 }
 
-export default async function OglasiKonkursiPage() {
-  const items = await getOglasi();
+export default async function OglasiKonkursiPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const items = await getOglasi(locale as Locale);
   return <OglasiKonkursiClient items={items} />;
 }

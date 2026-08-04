@@ -8,7 +8,11 @@ import {
 import { Heading, Text } from "@/components/typography";
 import { client } from "@/sanity/lib/client";
 import { BIBLIOGRAPHY_PAGE_QUERY } from "@/sanity/lib/queries";
+import { localize, type Locale } from "@/sanity/lib/locale";
 import type { BibliographyPage } from "@/sanity/types";
+import { generateMetadata } from "./metadata";
+
+export { generateMetadata };
 
 // Fallback data
 const fallbackData: BibliographyPage = {
@@ -43,14 +47,17 @@ const fallbackData: BibliographyPage = {
   },
 };
 
-export default async function BibliografijaPage() {
+export default async function BibliografijaPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
   let data: BibliographyPage;
 
   try {
-    data = await client.fetch(BIBLIOGRAPHY_PAGE_QUERY);
-    if (!data) {
-      data = fallbackData;
-    }
+    const raw = await client.fetch(BIBLIOGRAPHY_PAGE_QUERY);
+    data = raw ? localize(raw, locale as Locale) : fallbackData;
   } catch (error) {
     console.error("Error fetching bibliography data:", error);
     data = fallbackData;

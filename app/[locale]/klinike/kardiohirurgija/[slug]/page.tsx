@@ -6,6 +6,7 @@ import {
 } from "@/components/shared";
 import { client } from "@/sanity/lib/client";
 import { CLINIC_PAGE_QUERY } from "@/sanity/lib/queries";
+import { localize, type Locale } from "@/sanity/lib/locale";
 import type { ClinicPage, ClinicUnit, ClinicUnitSection } from "@/sanity/types";
 import {
   getKardiohirurgijaUnit,
@@ -74,10 +75,11 @@ export function generateStaticParams() {
   return kardiohirurgijaUnits.map((u) => ({ slug: u.slug }));
 }
 
-async function getUnit(slug: string): Promise<ClinicUnit | null> {
+async function getUnit(slug: string, locale: Locale): Promise<ClinicUnit | null> {
   try {
     const clinic = await client.fetch<ClinicPage>(CLINIC_PAGE_QUERY, { slug: "kardiohirurgija" });
-    const unit = clinic?.units?.find((u) => u.slug === slug);
+    const localized = clinic ? localize(clinic, locale) : null;
+    const unit = localized?.units?.find((u) => u.slug === slug);
     if (unit) return unit;
   } catch (error) {
     console.error("⚠️ Sanity fetch failed:", error);
@@ -89,10 +91,10 @@ async function getUnit(slug: string): Promise<ClinicUnit | null> {
 export default async function KardiohirurgijaUnitPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }) {
-  const { slug } = await params;
-  const unit = await getUnit(slug);
+  const { locale, slug } = await params;
+  const unit = await getUnit(slug, locale as Locale);
 
   if (!unit) notFound();
 

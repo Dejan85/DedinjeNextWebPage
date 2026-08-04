@@ -9,14 +9,14 @@ export default defineType({
     defineField({
       name: "title",
       title: "Наслов",
-      type: "string",
+      type: "localeString",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "slug",
       title: "Slug (ruta)",
       type: "slug",
-      options: { source: "title", maxLength: 96 },
+      options: { source: "title.sr", maxLength: 96 },
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -27,14 +27,13 @@ export default defineType({
     defineField({
       name: "breadcrumbLabel",
       title: "Breadcrumb tekst",
-      type: "string",
+      type: "localeString",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "subtitle",
       title: "Podnaslov",
-      type: "text",
-      rows: 2,
+      type: "localeText",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -47,28 +46,26 @@ export default defineType({
     defineField({
       name: "introTitle",
       title: "Naslov intro sekcije",
-      type: "string",
+      type: "localeString",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "introText",
       title: "Tekst intro sekcije",
-      type: "text",
-      rows: 4,
+      type: "localeText",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "introParagraphs",
       title: "Dodatni paragrafi (istorijat i sl.)",
       type: "array",
-      of: [{ type: "text", rows: 4 }],
+      of: [{ type: "localeText" }],
     }),
     defineField({
       name: "organizationalStructure",
       title: "Organizaciona struktura (opciono)",
       description: "Poseban paragraf o unutrašnjoj organizaciji klinike (odeljenja/odseci).",
-      type: "text",
-      rows: 4,
+      type: "localeText",
     }),
     defineField({
       name: "stats",
@@ -79,10 +76,10 @@ export default defineType({
           type: "object",
           fields: [
             { name: "value", title: "Vrednost", type: "string" },
-            { name: "label", title: "Label", type: "string" },
+            { name: "label", title: "Label", type: "localeString" },
             { name: "icon", title: "Ikonica", type: "string" },
           ],
-          preview: { select: { title: "value", subtitle: "label" } },
+          preview: { select: { title: "value", subtitle: "label.sr" } },
         },
       ],
     }),
@@ -95,9 +92,9 @@ export default defineType({
           type: "object",
           fields: [
             { name: "icon", title: "Ikonica", type: "string" },
-            { name: "text", title: "Tekst", type: "text", rows: 2 },
+            { name: "text", title: "Tekst", type: "localeText" },
           ],
-          preview: { select: { title: "text" } },
+          preview: { select: { title: "text.sr" } },
         },
       ],
     }),
@@ -110,10 +107,10 @@ export default defineType({
           type: "object",
           fields: [
             { name: "icon", title: "Ikonica", type: "string" },
-            { name: "title", title: "Naslov", type: "string" },
-            { name: "desc", title: "Opis", type: "text", rows: 2 },
+            { name: "title", title: "Naslov", type: "localeString" },
+            { name: "desc", title: "Opis", type: "localeText" },
           ],
-          preview: { select: { title: "title", subtitle: "desc" } },
+          preview: { select: { title: "title.sr", subtitle: "desc.sr" } },
         },
       ],
       validation: (Rule) => Rule.required().min(1),
@@ -121,12 +118,12 @@ export default defineType({
     defineField({
       name: "areasTitle",
       title: "Naslov sekcije oblasti rada",
-      type: "string",
+      type: "localeString",
     }),
     defineField({
       name: "areasSubtitle",
       title: "Podnaslov sekcije oblasti rada",
-      type: "string",
+      type: "localeString",
     }),
     defineField({
       name: "areasIcon",
@@ -139,8 +136,8 @@ export default defineType({
       type: "object",
       fields: [
         { name: "value", title: "Vrednost", type: "string" },
-        { name: "label", title: "Label", type: "string" },
-        { name: "desc", title: "Opis", type: "string" },
+        { name: "label", title: "Label", type: "localeString" },
+        { name: "desc", title: "Opis", type: "localeString" },
       ],
     }),
     defineField({
@@ -148,12 +145,12 @@ export default defineType({
       title: "Lista procedura (opciono)",
       type: "object",
       fields: [
-        { name: "title", title: "Naslov", type: "string" },
+        { name: "title", title: "Naslov", type: "localeString" },
         {
           name: "items",
           title: "Stavke",
           type: "array",
-          of: [{ type: "string" }],
+          of: [{ type: "localeString" }],
         },
       ],
     }),
@@ -162,7 +159,7 @@ export default defineType({
       title: "Kadar (opciono)",
       type: "object",
       fields: [
-        { name: "title", title: "Naslov", type: "string" },
+        { name: "title", title: "Naslov", type: "localeString" },
         {
           name: "groups",
           title: "Grupe",
@@ -171,7 +168,7 @@ export default defineType({
             {
               type: "object",
               fields: [
-                { name: "heading", title: "Naslov grupe", type: "string" },
+                { name: "heading", title: "Naslov grupe", type: "localeString" },
                 {
                   name: "names",
                   title: "Imena (prost spisak)",
@@ -189,14 +186,14 @@ export default defineType({
                       type: "object",
                       fields: [
                         { name: "name", title: "Ime", type: "string" },
-                        { name: "role", title: "Uloga", type: "string" },
+                        { name: "role", title: "Uloga", type: "localeString" },
                       ],
-                      preview: { select: { title: "name", subtitle: "role" } },
+                      preview: { select: { title: "name", subtitle: "role.sr" } },
                     },
                   ],
                 },
               ],
-              preview: { select: { title: "heading" } },
+              preview: { select: { title: "heading.sr" } },
             },
           ],
         },
@@ -207,12 +204,12 @@ export default defineType({
       title: "Uputstvo za pacijente (opciono)",
       type: "object",
       fields: [
-        { name: "title", title: "Naslov", type: "string" },
+        { name: "title", title: "Naslov", type: "localeString" },
         {
           name: "paragraphs",
           title: "Paragrafi",
           type: "array",
-          of: [{ type: "text", rows: 3 }],
+          of: [{ type: "localeText" }],
         },
       ],
     }),
@@ -228,9 +225,9 @@ export default defineType({
           name: "clinicUnit",
           fields: [
             { name: "slug", title: "Slug (deo URL-a)", type: "string" },
-            { name: "title", title: "Naslov", type: "string" },
+            { name: "title", title: "Naslov", type: "localeString" },
             { name: "heroImage", title: "Slika (putanja ili URL)", type: "string" },
-            { name: "heroSubtitle", title: "Podnaslov", type: "text", rows: 2 },
+            { name: "heroSubtitle", title: "Podnaslov", type: "localeText" },
             {
               name: "sections",
               title: "Sekcije sadržaja",
@@ -242,10 +239,10 @@ export default defineType({
                   title: "Paragraf",
                   fields: [
                     { name: "type", title: "Tip", type: "string", initialValue: "paragraph", readOnly: true },
-                    { name: "title", title: "Naslov", type: "string" },
-                    { name: "text", title: "Tekst", type: "text", rows: 4 },
+                    { name: "title", title: "Naslov", type: "localeString" },
+                    { name: "text", title: "Tekst", type: "localeText" },
                   ],
-                  preview: { select: { title: "title" } },
+                  preview: { select: { title: "title.sr" } },
                 },
                 {
                   type: "object",
@@ -253,20 +250,20 @@ export default defineType({
                   title: "Lista",
                   fields: [
                     { name: "type", title: "Tip", type: "string", initialValue: "list", readOnly: true },
-                    { name: "title", title: "Naslov", type: "string" },
+                    { name: "title", title: "Naslov", type: "localeString" },
                     {
                       name: "items",
                       title: "Stavke",
                       type: "array",
-                      of: [{ type: "string" }],
+                      of: [{ type: "localeString" }],
                     },
                   ],
-                  preview: { select: { title: "title" } },
+                  preview: { select: { title: "title.sr" } },
                 },
               ],
             },
           ],
-          preview: { select: { title: "title", subtitle: "slug" } },
+          preview: { select: { title: "title.sr", subtitle: "slug" } },
         },
       ],
     }),
@@ -275,12 +272,12 @@ export default defineType({
       title: "SEO",
       type: "object",
       fields: [
-        { name: "title", title: "Meta naslov", type: "string" },
-        { name: "description", title: "Meta opis", type: "text", rows: 3 },
+        { name: "title", title: "Meta naslov", type: "localeString" },
+        { name: "description", title: "Meta opis", type: "localeText" },
       ],
     }),
   ],
   preview: {
-    select: { title: "title", subtitle: "subtitle" },
+    select: { title: "title.sr", subtitle: "subtitle.sr" },
   },
 });

@@ -9,12 +9,12 @@ export default defineType({
     defineField({
       name: "title",
       title: "Naslov",
-      type: "string",
+      type: "localeString",
     }),
     defineField({
       name: "subtitle",
       title: "Podnaslov",
-      type: "string",
+      type: "localeString",
     }),
     defineField({
       name: "items",
@@ -27,31 +27,30 @@ export default defineType({
             {
               name: "question",
               title: "Pitanje",
-              type: "string",
+              type: "localeString",
               validation: (Rule) => Rule.required(),
             },
             {
               name: "answer",
               title: "Odgovor",
-              type: "text",
-              rows: 3,
+              type: "localeText",
               validation: (Rule) => Rule.required(),
             },
             {
               name: "category",
               title: "Kategorija",
-              type: "string",
+              type: "localeString",
               validation: (Rule) => Rule.required(),
             },
           ],
-          preview: { select: { title: "question", subtitle: "category" } },
+          preview: { select: { title: "question.sr", subtitle: "category.sr" } },
         },
       ],
       validation: (Rule) => Rule.required().min(1),
     }),
   ],
   preview: {
-    select: { title: "title" },
+    select: { title: "title.sr" },
     prepare({ title }) {
       return { title: `❓ ${title || "FAQ"}` };
     },

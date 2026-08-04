@@ -9,13 +9,13 @@ export default defineType({
     defineField({
       name: "heading",
       title: "Glavni naslov",
-      type: "string",
+      type: "localeString",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "subheading",
       title: "Podnaslov",
-      type: "string",
+      type: "localeString",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -43,14 +43,14 @@ export default defineType({
             {
               name: "label",
               title: "Label (tekst ispod broja)",
-              type: "string",
+              type: "localeString",
               validation: (Rule) => Rule.required(),
             },
           ],
           preview: {
             select: {
               number: "number",
-              label: "label",
+              label: "label.sr",
               icon: "icon",
             },
             prepare({ number, label, icon }) {
@@ -67,7 +67,7 @@ export default defineType({
   ],
   preview: {
     select: {
-      heading: "heading",
+      heading: "heading.sr",
       stats: "stats",
     },
     prepare({ heading, stats }) {

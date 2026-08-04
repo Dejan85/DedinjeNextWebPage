@@ -9,7 +9,7 @@ export default defineType({
     defineField({
       name: "name",
       title: "Naziv usluge",
-      type: "string",
+      type: "localeString",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -17,7 +17,7 @@ export default defineType({
       title: "URL Slug",
       type: "slug",
       options: {
-        source: "name",
+        source: "name.sr",
         maxLength: 96,
       },
       validation: (Rule) => Rule.required(),
@@ -25,14 +25,12 @@ export default defineType({
     defineField({
       name: "description",
       title: "Kratak opis",
-      type: "text",
-      rows: 3,
+      type: "localeText",
     }),
     defineField({
       name: "content",
       title: "Detaljan sadržaj",
-      type: "array",
-      of: [{ type: "block" }],
+      type: "localePortableText",
     }),
     defineField({
       name: "icon",
@@ -52,7 +50,7 @@ export default defineType({
       name: "features",
       title: "Karakteristike",
       type: "array",
-      of: [{ type: "string" }],
+      of: [{ type: "localeString" }],
     }),
     defineField({
       name: "department",
@@ -79,8 +77,8 @@ export default defineType({
   ],
   preview: {
     select: {
-      title: "name",
-      subtitle: "description",
+      title: "name.sr",
+      subtitle: "description.sr",
       media: "image",
     },
   },

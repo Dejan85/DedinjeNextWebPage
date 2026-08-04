@@ -1,11 +1,18 @@
 import { Metadata } from "next";
 import { client } from "@/sanity/lib/client";
 import { BIBLIOGRAPHY_PAGE_QUERY } from "@/sanity/lib/queries";
+import { localize, type Locale } from "@/sanity/lib/locale";
 import type { BibliographyPage } from "@/sanity/types";
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
   try {
-    const data: BibliographyPage = await client.fetch(BIBLIOGRAPHY_PAGE_QUERY);
+    const raw: BibliographyPage = await client.fetch(BIBLIOGRAPHY_PAGE_QUERY);
+    const data = raw ? localize(raw, locale as Locale) : raw;
 
     if (data?.seo) {
       return {

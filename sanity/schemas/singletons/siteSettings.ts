@@ -9,14 +9,13 @@ export default defineType({
     defineField({
       name: "siteName",
       title: "Naziv sajta",
-      type: "string",
+      type: "localeString",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "siteDescription",
       title: "Opis sajta",
-      type: "text",
-      rows: 3,
+      type: "localeText",
     }),
     defineField({
       name: "logo",
@@ -48,7 +47,7 @@ export default defineType({
         {
           type: "object",
           fields: [
-            { name: "days", title: "Dani", type: "string" },
+            { name: "days", title: "Dani", type: "localeString" },
             { name: "hours", title: "Vreme", type: "string" },
           ],
         },

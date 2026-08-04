@@ -31,10 +31,12 @@
     "migrate:edukacija": "tsx scripts/migrate-edukacija.ts",
     "migrate:nauka-istrazivanje": "tsx scripts/migrate-nauka-istrazivanje.ts",
     "migrate:backfill-page-section": "tsx scripts/backfill-page-section.ts",
+    "migrate:i18n-schema": "tsx scripts/migrate-i18n-schema.ts",
     "check:homepage": "tsx scripts/check-homepage.ts"
   },
   "dependencies": {
     "@sanity/image-url": "^1.1.0",
+    "@sanity/ui": "^3.5.1",
     "@sanity/vision": "^5.31.1",
     "framer-motion": "^12.29.0",
     "next": "16.1.4",

@@ -8,17 +8,24 @@ import {
 import { Heading, Text, Badge } from "@/components/typography";
 import { client } from "@/sanity/lib/client";
 import { DIRECTOR_PAGE_QUERY } from "@/sanity/lib/queries";
+import { localize, type Locale } from "@/sanity/lib/locale";
 import type { DirectorPage } from "@/sanity/types";
 import { generateMetadata } from "./metadata";
 import styles from "./page.module.css";
 
 export { generateMetadata };
 
-export default async function RecDirektoraPage() {
+export default async function RecDirektoraPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
   let directorData: DirectorPage | null = null;
 
   try {
-    directorData = await client.fetch<DirectorPage>(DIRECTOR_PAGE_QUERY);
+    const raw = await client.fetch<DirectorPage>(DIRECTOR_PAGE_QUERY);
+    directorData = raw ? localize(raw, locale as Locale) : null;
   } catch (error) {
     console.error("⚠️ Sanity fetch failed:", error);
   }

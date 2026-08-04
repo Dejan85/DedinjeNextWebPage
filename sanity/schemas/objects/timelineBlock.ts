@@ -9,13 +9,12 @@ export default defineType({
     defineField({
       name: "heading",
       title: "Naslov",
-      type: "string",
+      type: "localeString",
     }),
     defineField({
       name: "intro",
       title: "Uvodni tekst (opciono)",
-      type: "text",
-      rows: 3,
+      type: "localeText",
     }),
     defineField({
       name: "items",
@@ -26,7 +25,7 @@ export default defineType({
     }),
   ],
   preview: {
-    select: { title: "heading" },
+    select: { title: "heading.sr" },
     prepare({ title }) {
       return { title: `🕰️ ${title || "Timeline"}` };
     },

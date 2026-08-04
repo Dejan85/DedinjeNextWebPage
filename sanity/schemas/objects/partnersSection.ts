@@ -8,7 +8,7 @@ export default defineType({
     defineField({
       name: "heading",
       title: "Heading",
-      type: "string",
+      type: "localeString",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -45,7 +45,7 @@ export default defineType({
   ],
   preview: {
     select: {
-      title: "heading",
+      title: "heading.sr",
       partners: "partners",
     },
     prepare({ title, partners }) {

@@ -9,19 +9,19 @@ export default defineType({
     defineField({
       name: "badge",
       title: "Badge tekst",
-      type: "string",
+      type: "localeString",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "heading",
       title: "Glavni naslov",
-      type: "string",
+      type: "localeString",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "subheading",
       title: "Podnaslov",
-      type: "string",
+      type: "localeString",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -52,14 +52,13 @@ export default defineType({
             {
               name: "role",
               title: "Pozicija/Specijalnost",
-              type: "string",
+              type: "localeString",
               validation: (Rule) => Rule.required(),
             },
             {
               name: "description",
               title: "Opis",
-              type: "text",
-              rows: 3,
+              type: "localeText",
               validation: (Rule) => Rule.required(),
             },
             {
@@ -109,7 +108,7 @@ export default defineType({
           preview: {
             select: {
               name: "name",
-              role: "role",
+              role: "role.sr",
               media: "image",
             },
             prepare({ name, role, media }) {
@@ -132,7 +131,7 @@ export default defineType({
         {
           name: "text",
           title: "Tekst dugmeta",
-          type: "string",
+          type: "localeString",
         },
         {
           name: "link",
@@ -144,7 +143,7 @@ export default defineType({
   ],
   preview: {
     select: {
-      heading: "heading",
+      heading: "heading.sr",
       team: "team",
     },
     prepare({ heading, team }) {

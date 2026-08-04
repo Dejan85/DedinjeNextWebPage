@@ -15,14 +15,14 @@ export default defineType({
     defineField({
       name: "heading",
       title: "Naslov",
-      type: "string",
+      type: "localeString",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "paragraphs",
       title: "Paragrafi",
       type: "array",
-      of: [{ type: "text", rows: 3 }],
+      of: [{ type: "localeText" }],
       validation: (Rule) => Rule.required().min(1),
     }),
     defineField({
@@ -34,9 +34,9 @@ export default defineType({
           type: "object",
           fields: [
             { name: "icon", title: "Ikonica", type: "string" },
-            { name: "label", title: "Tekst", type: "string" },
+            { name: "label", title: "Tekst", type: "localeString" },
           ],
-          preview: { select: { title: "label" } },
+          preview: { select: { title: "label.sr" } },
         },
       ],
     }),
@@ -49,15 +49,15 @@ export default defineType({
           type: "object",
           fields: [
             { name: "value", title: "Vrednost", type: "string" },
-            { name: "label", title: "Label", type: "string" },
+            { name: "label", title: "Label", type: "localeString" },
           ],
-          preview: { select: { title: "value", subtitle: "label" } },
+          preview: { select: { title: "value", subtitle: "label.sr" } },
         },
       ],
     }),
   ],
   preview: {
-    select: { title: "heading" },
+    select: { title: "heading.sr" },
     prepare({ title }) {
       return { title: `👋 ${title || "Uvodna sekcija"}` };
     },

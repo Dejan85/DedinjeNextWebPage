@@ -31,8 +31,39 @@ out/                    build artefakt od `build:static` (nije izvor istine, ne 
 **bez prefiksa** (`/aktuelnosti`, identično kao pre uvođenja i18n), EN je
 **novo, prefiksovano** (`/en/aktuelnosti`). `app/[locale]/layout.tsx` je
 ugnježdeni layout (samo next-intl setup), NE novi root — pravi root ostaje
-`app/layout.tsx`, deljen i sa `/studio`. Detaljan status faza (3a gotovo,
-3b–3f u toku/planirano) u [`TASKS.md`](TASKS.md#internacionalizacija--srpeng-i18n-počelo-2026-08-04)
+`app/layout.tsx`, deljen i sa `/studio`. Detaljan status faza (3a/3b/3c/3e
+gotovo, 3d/3f planirano) u
+[`TASKS.md`](TASKS.md#internacionalizacija--srpeng-i18n-počelo-2026-08-04).
+
+**Lokalizacija Sanity šeme (Faza 3b — ✅ gotovo):** reusable object tipovi
+`localeString`/`localeText`/`localePortableText` (`sanity/schemas/objects/`,
+`{sr, en}` shape) zamenjuju `type:"string"/"text"`/portable text nizove polje
+po polje — NE `document-internationalization` plugin (forkovao bi cele
+dokumente). Deljena Studio input komponenta `sanity/components/LocaleTabInput.tsx`
+renderuje sr/en kao tabove. Primenjeno na svih 51 schema fajl (12 dokument
+tipova, 8 singletona, 31 objekat/blok) — izuzeci: `publication.ts`/
+`bibliographyPage.categories[].publications[].text` (bibliografski citati) i
+`contentBlock.content` (bespoke portable text konfiguracija, nekorišćena na
+frontend-u).
+
+**Migracija postojećeg sadržaja (Faza 3c — ✅ gotovo):**
+`scripts/migrate-i18n-schema.ts` (`npm run migrate:i18n-schema`) — schema-driven
+(čita `sanity/schemas/index.ts` direktno, ne ručno pisanu allowlist mapu),
+idempotentna, `--dry-run`/`--dataset=`/`--type=` flagovi. Pokrenuta na
+`production`: 99 dokumenata/423 polja plain-string → `{sr,en}`.
+
+**Frontend čitanje lokalizovanog sadržaja (Faza 3e — ✅ gotovo):**
+`sanity/lib/locale.ts` ima dva helpera — `pick<T>(field, locale)` (leaf-level,
+EN pada nazad na SR) i `localize<T>(data, locale)` (rekurzivno hoda kroz ceo
+fetch-ovan objekat/niz, vraća identičan plain-string oblik kakav je postojao
+pre 3b/3c). Konvencija: svaki fetch call-site (`page.tsx`/`metadata.ts`/
+`HeaderData.tsx`/`Footer.tsx`) poziva `localize(rawFetchResult, locale)`
+odmah posle `client.fetch(...)`, pre prosleđivanja dalje — downstream
+komponente (`PageBuilder.tsx`, `ClinicPageTemplate.tsx`, sve leaf blok
+komponente) ostaju netaknute jer im podatak stiže kao plain string. `locale`
+se čita iz `params.locale` (route-level) ili `getLocale()` iz
+`next-intl/server` (za `HeaderData.tsx`/`Footer.tsx`, van route-param
+konteksta).
 — ovaj fajl opisuje samo trenutnu strukturu, ne plan.
 
 `npm run build:static` (`output:"export"`) ne podržava next-intl middleware

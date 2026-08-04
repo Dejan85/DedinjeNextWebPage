@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Container, PageHeader, Section } from "@/components/shared";
 import { client } from "@/sanity/lib/client";
 import { VIDEOS_QUERY, VIDEO_BY_SLUG_QUERY } from "@/sanity/lib/queries";
+import { localize, type Locale } from "@/sanity/lib/locale";
 import type { VideoItem } from "@/sanity/types";
 import { GOSTOVANJA, type Gostovanje } from "../constants";
 import GostovanjeVideo, { YouTubeThumbnail } from "./GostovanjeVideo";
@@ -59,12 +60,15 @@ export async function generateStaticParams() {
 
 async function getGostovanjeData(
   slug: string,
+  locale: Locale,
 ): Promise<{ item: GostovanjeDetail | null; all: GostovanjeDetail[] }> {
   try {
-    const [item, all] = await Promise.all([
+    const [itemRaw, allRaw] = await Promise.all([
       client.fetch<VideoItem | null>(VIDEO_BY_SLUG_QUERY, { slug }),
       client.fetch<VideoItem[]>(VIDEOS_QUERY),
     ]);
+    const item = itemRaw ? localize(itemRaw, locale) : itemRaw;
+    const all = allRaw ? localize(allRaw, locale) : allRaw;
     if (item && all && all.length > 0) {
       return { item: fromSanity(item), all: all.map(fromSanity) };
     }
@@ -76,9 +80,13 @@ async function getGostovanjeData(
   return { item, all };
 }
 
-export default async function GostovanjePage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-  const { item: gostovanje, all } = await getGostovanjeData(slug);
+export default async function GostovanjePage({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>;
+}) {
+  const { locale, slug } = await params;
+  const { item: gostovanje, all } = await getGostovanjeData(slug, locale as Locale);
 
   if (!gostovanje) {
     notFound();

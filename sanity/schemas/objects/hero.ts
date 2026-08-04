@@ -9,13 +9,12 @@ export default defineType({
     defineField({
       name: "heading",
       title: "Naslov",
-      type: "string",
+      type: "localeString",
     }),
     defineField({
       name: "subheading",
       title: "Podnaslov",
-      type: "text",
-      rows: 2,
+      type: "localeText",
     }),
     defineField({
       name: "image",
@@ -43,7 +42,7 @@ export default defineType({
   ],
   preview: {
     select: {
-      title: "heading",
+      title: "heading.sr",
       media: "image",
     },
     prepare({ title, media }) {

@@ -9,12 +9,12 @@ export default defineType({
     defineField({
       name: "heading",
       title: "Naslov",
-      type: "string",
+      type: "localeString",
     }),
     defineField({
       name: "subtitle",
       title: "Podnaslov",
-      type: "string",
+      type: "localeString",
     }),
     defineField({
       name: "categories",
@@ -24,7 +24,7 @@ export default defineType({
         {
           type: "object",
           fields: [
-            { name: "title", title: "Naslov kategorije", type: "string" },
+            { name: "title", title: "Naslov kategorije", type: "localeString" },
             { name: "icon", title: "Ikonica", type: "string" },
             {
               name: "contacts",
@@ -34,19 +34,19 @@ export default defineType({
                 {
                   type: "object",
                   fields: [
-                    { name: "title", title: "Naslov", type: "string" },
-                    { name: "note", title: "Napomena (opciono)", type: "string" },
+                    { name: "title", title: "Naslov", type: "localeString" },
+                    { name: "note", title: "Napomena (opciono)", type: "localeString" },
                     { name: "phone", title: "Telefon (prikaz)", type: "string" },
                     { name: "href", title: "tel: link", type: "string" },
-                    { name: "time", title: "Vreme / termin", type: "string" },
+                    { name: "time", title: "Vreme / termin", type: "localeString" },
                   ],
-                  preview: { select: { title: "title", subtitle: "phone" } },
+                  preview: { select: { title: "title.sr", subtitle: "phone" } },
                 },
               ],
             },
           ],
           preview: {
-            select: { title: "title", contacts: "contacts" },
+            select: { title: "title.sr", contacts: "contacts" },
             prepare({ title, contacts }) {
               return {
                 title: title,
@@ -60,7 +60,7 @@ export default defineType({
     }),
   ],
   preview: {
-    select: { title: "heading" },
+    select: { title: "heading.sr" },
     prepare({ title }) {
       return { title: `📞 ${title || "Kontakt direktorijum"}` };
     },

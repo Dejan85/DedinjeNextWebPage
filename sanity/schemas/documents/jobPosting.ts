@@ -9,7 +9,7 @@ export default defineType({
     defineField({
       name: "title",
       title: "Naslov",
-      type: "string",
+      type: "localeString",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -34,8 +34,7 @@ export default defineType({
     defineField({
       name: "text",
       title: "Tekst",
-      type: "text",
-      rows: 4,
+      type: "localeText",
     }),
     defineField({
       name: "active",
@@ -56,7 +55,7 @@ export default defineType({
     }),
   ],
   preview: {
-    select: { title: "title", subtitle: "type" },
+    select: { title: "title.sr", subtitle: "type" },
   },
   orderings: [
     { title: "Redosled", name: "orderAsc", by: [{ field: "order", direction: "asc" }] },

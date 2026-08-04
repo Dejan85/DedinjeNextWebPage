@@ -15,7 +15,7 @@ export default defineType({
     defineField({
       name: "role",
       title: "Opis",
-      type: "string",
+      type: "localeString",
       description: 'npr. "Pacijent, Kardiohirurgija"',
     }),
     defineField({
@@ -29,8 +29,7 @@ export default defineType({
     defineField({
       name: "quote",
       title: "Iskustvo",
-      type: "text",
-      rows: 5,
+      type: "localeText",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -56,7 +55,7 @@ export default defineType({
   preview: {
     select: {
       title: "name",
-      subtitle: "role",
+      subtitle: "role.sr",
       media: "image",
     },
   },

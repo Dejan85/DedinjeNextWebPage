@@ -1,13 +1,15 @@
 import Link from "next/link";
+import { getLocale } from "next-intl/server";
 import { client } from "@/sanity/lib/client";
 import { FOOTER_QUERY } from "@/sanity/lib/queries";
+import { localize, type Locale } from "@/sanity/lib/locale";
 import type { Footer as FooterType } from "@/sanity/types";
 import Container from "../Container/Container";
 import styles from "./Footer.module.css";
 
-async function getFooterData() {
+async function getFooterData(locale: Locale) {
   try {
-    const footer = await client.fetch<FooterType>(
+    const raw = await client.fetch<FooterType>(
       FOOTER_QUERY,
       {},
       {
@@ -15,7 +17,7 @@ async function getFooterData() {
         next: { revalidate: 3600 }, // Revalidate every hour
       },
     );
-    return footer;
+    return raw ? localize(raw, locale) : raw;
   } catch (error) {
     console.error("Error fetching footer:", error);
     return null;
@@ -23,7 +25,8 @@ async function getFooterData() {
 }
 
 export default async function Footer() {
-  const footer = await getFooterData();
+  const locale = (await getLocale()) as Locale;
+  const footer = await getFooterData(locale);
 
   // Fallback values if Sanity data is not available
   const instituteName = footer?.instituteName || "ДЕДИЊЕ";

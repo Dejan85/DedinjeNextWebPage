@@ -9,7 +9,7 @@ export default defineType({
     defineField({
       name: "heading",
       title: "Naslov",
-      type: "string",
+      type: "localeString",
     }),
     defineField({
       name: "content",
@@ -72,7 +72,7 @@ export default defineType({
   ],
   preview: {
     select: {
-      title: "heading",
+      title: "heading.sr",
       layout: "layout",
       content: "content",
     },

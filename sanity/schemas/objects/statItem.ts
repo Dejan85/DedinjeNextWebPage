@@ -15,7 +15,7 @@ export default defineType({
     defineField({
       name: "label",
       title: "Labela",
-      type: "string",
+      type: "localeString",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -27,7 +27,7 @@ export default defineType({
   ],
   preview: {
     select: {
-      title: "label",
+      title: "label.sr",
       number: "number",
       icon: "icon",
     },

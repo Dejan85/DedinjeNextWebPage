@@ -9,7 +9,7 @@ export default defineType({
     defineField({
       name: "title",
       title: "Naslov",
-      type: "string",
+      type: "localeString",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -17,7 +17,7 @@ export default defineType({
       title: "URL Slug",
       type: "slug",
       options: {
-        source: "title",
+        source: "title.sr",
         maxLength: 96,
       },
       validation: (Rule) => Rule.required(),
@@ -25,8 +25,7 @@ export default defineType({
     defineField({
       name: "subtitle",
       title: "Podnaslov (PageHeader)",
-      type: "text",
-      rows: 2,
+      type: "localeText",
     }),
     defineField({
       name: "section",
@@ -187,7 +186,7 @@ export default defineType({
   ],
   preview: {
     select: {
-      title: "title",
+      title: "title.sr",
       slug: "slug.current",
     },
     prepare({ title, slug }) {

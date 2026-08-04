@@ -32,18 +32,17 @@ export default defineType({
     defineField({
       name: "title",
       title: "Naslov (opciono)",
-      type: "string",
+      type: "localeString",
     }),
     defineField({
       name: "text",
       title: "Tekst",
-      type: "text",
-      rows: 3,
+      type: "localeText",
       validation: (Rule) => Rule.required(),
     }),
   ],
   preview: {
-    select: { title: "title", text: "text", variant: "variant" },
+    select: { title: "title.sr", text: "text.sr", variant: "variant" },
     prepare({ title, text, variant }) {
       return {
         title: `📢 ${title || text?.substring(0, 50) || "Banner"}`,

@@ -1,5 +1,6 @@
 import { client } from "@/sanity/lib/client";
 import { MAGAZINE_ISSUES_QUERY } from "@/sanity/lib/queries";
+import { localize, type Locale } from "@/sanity/lib/locale";
 import type { MagazineIssue } from "@/sanity/types";
 import CasopisDedinjeClient, { type IzdanjeItem } from "./CasopisDedinjeClient";
 
@@ -66,9 +67,10 @@ const IZDANJA_FALLBACK: IzdanjeItem[] = [
   },
 ];
 
-async function getIzdanja(): Promise<IzdanjeItem[]> {
+async function getIzdanja(locale: Locale): Promise<IzdanjeItem[]> {
   try {
-    const items = await client.fetch<MagazineIssue[]>(MAGAZINE_ISSUES_QUERY);
+    const itemsRaw = await client.fetch<MagazineIssue[]>(MAGAZINE_ISSUES_QUERY);
+    const items = itemsRaw ? localize(itemsRaw, locale) : itemsRaw;
     if (items && items.length > 0) {
       return items.map((izd) => ({
         id: izd._id,
@@ -87,7 +89,12 @@ async function getIzdanja(): Promise<IzdanjeItem[]> {
   return IZDANJA_FALLBACK;
 }
 
-export default async function CasopisDedinjePage() {
-  const items = await getIzdanja();
+export default async function CasopisDedinjePage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const items = await getIzdanja(locale as Locale);
   return <CasopisDedinjeClient items={items} />;
 }

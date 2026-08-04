@@ -16,9 +16,9 @@ export default defineType({
           name: "heroSlide",
           title: "Slajd",
           fields: [
-            { name: "badge", title: "Badge tekst", type: "string" },
-            { name: "title", title: "Naslov", type: "string" },
-            { name: "subtitle", title: "Podnaslov", type: "text", rows: 2 },
+            { name: "badge", title: "Badge tekst", type: "localeString" },
+            { name: "title", title: "Naslov", type: "localeString" },
+            { name: "subtitle", title: "Podnaslov", type: "localeText" },
             {
               name: "video",
               title: "Video URL",
@@ -33,7 +33,7 @@ export default defineType({
             },
           ],
           preview: {
-            select: { title: "title", subtitle: "badge" },
+            select: { title: "title.sr", subtitle: "badge.sr" },
           },
         },
       ],

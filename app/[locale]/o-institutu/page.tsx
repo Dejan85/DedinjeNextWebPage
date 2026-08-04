@@ -12,6 +12,7 @@ import {
 } from "@/components/shared";
 import { client } from "@/sanity/lib/client";
 import { ABOUT_PAGE_QUERY } from "@/sanity/lib/queries";
+import { localize, type Locale } from "@/sanity/lib/locale";
 import type { AboutPage } from "@/sanity/types";
 import { urlFor } from "@/sanity/lib/image";
 import { generateMetadata } from "./metadata";
@@ -45,11 +46,17 @@ function toButtonVariant(value: unknown): ButtonVariant {
   return "primary";
 }
 
-export default async function OInstitutu() {
+export default async function OInstitutu({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
   let aboutData: AboutPage | null = null;
 
   try {
-    aboutData = await client.fetch<AboutPage>(ABOUT_PAGE_QUERY);
+    const raw = await client.fetch<AboutPage>(ABOUT_PAGE_QUERY);
+    aboutData = raw ? localize(raw, locale as Locale) : null;
   } catch (error) {
     console.error("⚠️ Sanity fetch failed:", error);
   }

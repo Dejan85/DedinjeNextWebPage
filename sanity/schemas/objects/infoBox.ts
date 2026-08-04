@@ -16,7 +16,7 @@ export default defineType({
     defineField({
       name: "title",
       title: "Naslov",
-      type: "string",
+      type: "localeString",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -38,14 +38,13 @@ export default defineType({
     defineField({
       name: "description",
       title: "Opis",
-      type: "text",
-      rows: 3,
+      type: "localeText",
       hidden: ({ parent }) => parent?.variant !== "regular",
     }),
     defineField({
       name: "linkText",
       title: "Tekst linka",
-      type: "string",
+      type: "localeString",
       hidden: ({ parent }) => parent?.variant !== "regular",
     }),
     defineField({
@@ -66,7 +65,7 @@ export default defineType({
             {
               name: "days",
               title: "Dani",
-              type: "string",
+              type: "localeString",
               validation: (Rule) => Rule.required(),
             },
             {
@@ -78,7 +77,7 @@ export default defineType({
           ],
           preview: {
             select: {
-              days: "days",
+              days: "days.sr",
               hours: "hours",
             },
             prepare({ days, hours }) {
@@ -101,13 +100,13 @@ export default defineType({
     defineField({
       name: "emergencyNote",
       title: "Napomena",
-      type: "string",
+      type: "localeString",
       hidden: ({ parent }) => parent?.variant !== "emergency",
     }),
   ],
   preview: {
     select: {
-      title: "title",
+      title: "title.sr",
       variant: "variant",
       icon: "icon",
     },

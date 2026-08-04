@@ -23,7 +23,7 @@ export default defineType({
                 {
                   name: "label",
                   title: "Tekst",
-                  type: "string",
+                  type: "localeString",
                 },
                 {
                   name: "href",
@@ -37,13 +37,13 @@ export default defineType({
         {
           name: "title",
           title: "Naslov",
-          type: "string",
+          type: "localeString",
           validation: (Rule) => Rule.required(),
         },
         {
           name: "subtitle",
           title: "Podnaslov",
-          type: "string",
+          type: "localeString",
         },
       ],
     }),
@@ -57,13 +57,12 @@ export default defineType({
         {
           name: "heading",
           title: "Naslov",
-          type: "string",
+          type: "localeString",
         },
         {
           name: "description",
           title: "Opis",
-          type: "text",
-          rows: 3,
+          type: "localeText",
         },
         {
           name: "stats",
@@ -82,13 +81,13 @@ export default defineType({
                 {
                   name: "label",
                   title: "Label",
-                  type: "string",
+                  type: "localeString",
                   validation: (Rule) => Rule.required(),
                 },
               ],
               preview: {
                 select: {
-                  title: "label",
+                  title: "label.sr",
                   subtitle: "value",
                 },
               },
@@ -124,13 +123,13 @@ export default defineType({
             {
               name: "title",
               title: "Naslov kategorije",
-              type: "string",
+              type: "localeString",
               validation: (Rule) => Rule.required(),
             },
             {
               name: "description",
               title: "Opis kategorije",
-              type: "string",
+              type: "localeString",
             },
             {
               name: "publications",
@@ -187,7 +186,7 @@ export default defineType({
           ],
           preview: {
             select: {
-              title: "title",
+              title: "title.sr",
               categoryId: "categoryId",
             },
             prepare(selection) {
@@ -211,18 +210,18 @@ export default defineType({
         {
           name: "heading",
           title: "Naslov",
-          type: "string",
+          type: "localeString",
         },
         {
           name: "description",
           title: "Opis",
-          type: "string",
+          type: "localeString",
         },
         {
           name: "buttonText",
           title: "Tekst dugmeta",
-          type: "string",
-          initialValue: "Преузми комплетну библиографију (PDF)",
+          type: "localeString",
+          initialValue: { sr: "Преузми комплетну библиографију (PDF)", en: "Download full bibliography (PDF)" },
         },
         {
           name: "fileUrl",
@@ -242,19 +241,18 @@ export default defineType({
         {
           name: "title",
           title: "SEO Naslov",
-          type: "string",
+          type: "localeString",
         },
         {
           name: "description",
           title: "SEO Opis",
-          type: "text",
-          rows: 3,
+          type: "localeText",
         },
         {
           name: "keywords",
           title: "Ključne reči",
           type: "array",
-          of: [{ type: "string" }],
+          of: [{ type: "localeString" }],
         },
       ],
     }),

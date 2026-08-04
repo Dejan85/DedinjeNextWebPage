@@ -8,23 +8,20 @@ export default defineType({
     defineField({
       name: "metaTitle",
       title: "Meta naslov",
-      type: "string",
+      type: "localeString",
       description: "Optimalan: 50-60 karaktera",
-      validation: (Rule) => Rule.max(60),
     }),
     defineField({
       name: "metaDescription",
       title: "Meta opis",
-      type: "text",
-      rows: 3,
+      type: "localeText",
       description: "Optimalan: 150-160 karaktera",
-      validation: (Rule) => Rule.max(160),
     }),
     defineField({
       name: "metaKeywords",
       title: "Ključne reči",
       type: "array",
-      of: [{ type: "string" }],
+      of: [{ type: "localeString" }],
     }),
     defineField({
       name: "ogImage",

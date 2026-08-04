@@ -8,6 +8,7 @@ import {
 } from "@/components/shared";
 import { client } from "@/sanity/lib/client";
 import { CLINICS_LIST_QUERY } from "@/sanity/lib/queries";
+import { localize, type Locale } from "@/sanity/lib/locale";
 import type { ClinicPage as ClinicPageDoc } from "@/sanity/types";
 import { metadata } from "./metadata";
 import styles from "./page.module.css";
@@ -37,11 +38,17 @@ const FALLBACK_CLINICS: { icon: string; title: string; subtitle: string; slug: s
   { icon: "fas fa-droplet", title: "Болничка банка крви - трансфузија", subtitle: "Трансфузиона медицина", slug: "transfuzija" },
 ];
 
-export default async function KlinikePage() {
+export default async function KlinikePage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
   let clinics: Pick<ClinicPageDoc, "title" | "subtitle" | "introIcon" | "slug">[] = [];
 
   try {
-    clinics = await client.fetch(CLINICS_LIST_QUERY);
+    const raw = await client.fetch(CLINICS_LIST_QUERY);
+    clinics = raw ? localize(raw, locale as Locale) : [];
   } catch (error) {
     console.error("⚠️ Sanity fetch failed:", error);
   }

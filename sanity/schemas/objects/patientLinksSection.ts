@@ -7,8 +7,8 @@ export default defineType({
   icon: () => "🩺",
   fields: [
     defineField({ name: "icon", title: "Ikonica badge-a", type: "string" }),
-    defineField({ name: "heading", title: "Naslov", type: "string" }),
-    defineField({ name: "subheading", title: "Podnaslov", type: "string" }),
+    defineField({ name: "heading", title: "Naslov", type: "localeString" }),
+    defineField({ name: "subheading", title: "Podnaslov", type: "localeString" }),
     defineField({
       name: "items",
       title: "Linkovi",
@@ -19,12 +19,12 @@ export default defineType({
           name: "patientLinkItem",
           fields: [
             { name: "icon", title: "Ikonica", type: "string" },
-            { name: "title", title: "Naslov", type: "string" },
-            { name: "desc", title: "Opis", type: "string" },
+            { name: "title", title: "Naslov", type: "localeString" },
+            { name: "desc", title: "Opis", type: "localeString" },
             { name: "href", title: "Link", type: "string" },
           ],
           preview: {
-            select: { title: "title", subtitle: "href" },
+            select: { title: "title.sr", subtitle: "href" },
           },
         },
       ],
@@ -32,7 +32,7 @@ export default defineType({
     }),
   ],
   preview: {
-    select: { heading: "heading", items: "items" },
+    select: { heading: "heading.sr", items: "items" },
     prepare({ heading, items }) {
       return {
         title: `🩺 ${heading || "Brzi linkovi za pacijente"}`,

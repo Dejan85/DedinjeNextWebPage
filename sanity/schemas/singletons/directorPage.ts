@@ -22,20 +22,20 @@ export default defineType({
         {
           name: "badge",
           title: "Badge tekst",
-          type: "string",
+          type: "localeString",
           validation: (Rule) => Rule.required(),
         },
         {
           name: "title",
           title: "Naslov",
-          type: "string",
+          type: "localeString",
           description: "Koristi <br /> za prelazak u novi red",
           validation: (Rule) => Rule.required(),
         },
         {
           name: "subtitle",
           title: "Podnaslov",
-          type: "string",
+          type: "localeString",
           validation: (Rule) => Rule.required(),
         },
         {
@@ -65,18 +65,17 @@ export default defineType({
             {
               name: "title",
               title: "Naslov",
-              type: "string",
+              type: "localeString",
             },
             {
               name: "description",
               title: "Opis",
-              type: "text",
-              rows: 2,
+              type: "localeText",
             },
             {
               name: "buttonText",
               title: "Tekst dugmeta",
-              type: "string",
+              type: "localeString",
             },
             {
               name: "buttonHref",
@@ -92,8 +91,8 @@ export default defineType({
           ],
           preview: {
             select: {
-              title: "title",
-              subtitle: "description",
+              title: "title.sr",
+              subtitle: "description.sr",
             },
           },
         },
@@ -110,13 +109,13 @@ export default defineType({
         {
           name: "badge",
           title: "Badge",
-          type: "string",
-          initialValue: "Реч директора",
+          type: "localeString",
+          initialValue: { sr: "Реч директора", en: "Director's message" },
         },
         {
           name: "heading",
           title: "Naslov",
-          type: "string",
+          type: "localeString",
         },
         {
           name: "paragraphs",
@@ -129,8 +128,7 @@ export default defineType({
                 {
                   name: "text",
                   title: "Tekst",
-                  type: "text",
-                  rows: 4,
+                  type: "localeText",
                 },
                 {
                   name: "variant",
@@ -147,7 +145,7 @@ export default defineType({
               ],
               preview: {
                 select: {
-                  text: "text",
+                  text: "text.sr",
                   variant: "variant",
                 },
                 prepare({ text, variant }) {
@@ -175,12 +173,12 @@ export default defineType({
         {
           name: "videoOverlayText",
           title: "Video overlay tekst",
-          type: "string",
+          type: "localeString",
         },
         {
           name: "videoCaption",
           title: "Video caption",
-          type: "string",
+          type: "localeString",
         },
       ],
     }),
@@ -194,8 +192,7 @@ export default defineType({
         {
           name: "text",
           title: "Tekst citata",
-          type: "text",
-          rows: 3,
+          type: "localeText",
         },
         {
           name: "author",
@@ -214,12 +211,12 @@ export default defineType({
         {
           name: "badge",
           title: "Badge",
-          type: "string",
+          type: "localeString",
         },
         {
           name: "heading",
           title: "Naslov",
-          type: "string",
+          type: "localeString",
         },
         {
           name: "items",
@@ -230,13 +227,13 @@ export default defineType({
               type: "object",
               fields: [
                 { name: "value", title: "Vrednost", type: "string" },
-                { name: "label", title: "Label", type: "string" },
+                { name: "label", title: "Label", type: "localeString" },
                 { name: "icon", title: "Ikonica", type: "string" },
               ],
               preview: {
                 select: {
                   value: "value",
-                  label: "label",
+                  label: "label.sr",
                 },
                 prepare({ value, label }) {
                   return {
@@ -260,7 +257,7 @@ export default defineType({
         {
           name: "heading",
           title: "Naslov",
-          type: "string",
+          type: "localeString",
         },
         {
           name: "items",
@@ -271,7 +268,7 @@ export default defineType({
               type: "object",
               fields: [
                 { name: "icon", title: "Ikonica", type: "string" },
-                { name: "text", title: "Tekst", type: "string" },
+                { name: "text", title: "Tekst", type: "localeString" },
               ],
             },
           ],
@@ -288,13 +285,12 @@ export default defineType({
         {
           name: "title",
           title: "Meta naslov",
-          type: "string",
+          type: "localeString",
         },
         {
           name: "description",
           title: "Meta opis",
-          type: "text",
-          rows: 3,
+          type: "localeText",
         },
       ],
     }),

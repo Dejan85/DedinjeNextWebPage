@@ -9,19 +9,19 @@ export default defineType({
     defineField({
       name: "badge",
       title: "Badge tekst",
-      type: "string",
+      type: "localeString",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "heading",
       title: "Glavni naslov",
-      type: "string",
+      type: "localeString",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "subheading",
       title: "Podnaslov",
-      type: "string",
+      type: "localeString",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -46,14 +46,13 @@ export default defineType({
             {
               name: "title",
               title: "Naziv odeljenja",
-              type: "string",
+              type: "localeString",
               validation: (Rule) => Rule.required(),
             },
             {
               name: "description",
               title: "Opis",
-              type: "text",
-              rows: 3,
+              type: "localeText",
               validation: (Rule) => Rule.required(),
             },
             {
@@ -65,8 +64,8 @@ export default defineType({
           ],
           preview: {
             select: {
-              title: "title",
-              description: "description",
+              title: "title.sr",
+              description: "description.sr",
               media: "image",
             },
             prepare({ title, description, media }) {
@@ -84,7 +83,7 @@ export default defineType({
   ],
   preview: {
     select: {
-      heading: "heading",
+      heading: "heading.sr",
       departments: "departments",
     },
     prepare({ heading, departments }) {

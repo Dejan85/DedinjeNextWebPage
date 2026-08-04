@@ -9,14 +9,14 @@ export default defineType({
     defineField({
       name: "title",
       title: "Naslov",
-      type: "string",
+      type: "localeString",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "slug",
       title: "URL Slug",
       type: "slug",
-      options: { source: "title", maxLength: 96 },
+      options: { source: "title.sr", maxLength: 96 },
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -42,15 +42,13 @@ export default defineType({
     defineField({
       name: "description",
       title: "Kratak opis",
-      type: "text",
-      rows: 3,
+      type: "localeText",
     }),
     defineField({
       name: "fullText",
       title: "Pun tekst",
       description: "Pasusi odvojeni praznim redom.",
-      type: "text",
-      rows: 10,
+      type: "localeText",
     }),
     defineField({
       name: "isNew",
@@ -65,7 +63,7 @@ export default defineType({
     }),
   ],
   preview: {
-    select: { title: "title", subtitle: "date" },
+    select: { title: "title.sr", subtitle: "date" },
   },
   orderings: [
     { title: "Redosled", name: "orderAsc", by: [{ field: "order", direction: "asc" }] },
