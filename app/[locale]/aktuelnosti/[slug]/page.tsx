@@ -50,6 +50,18 @@ function fromFallback(v: Vest): VestDetail {
   };
 }
 
+export async function generateStaticParams() {
+  try {
+    const all = await client.fetch<News[]>(NEWS_QUERY);
+    if (all && all.length > 0) {
+      return all.map((n) => ({ slug: n.slug.current }));
+    }
+  } catch (error) {
+    console.error("generateStaticParams (aktuelnosti) failed:", error);
+  }
+  return VESTI.map((v) => ({ slug: v.slug }));
+}
+
 async function getVestData(slug: string): Promise<{ vest: VestDetail | null; all: VestDetail[] }> {
   try {
     const [vest, all] = await Promise.all([

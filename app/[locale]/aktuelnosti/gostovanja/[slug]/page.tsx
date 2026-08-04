@@ -45,6 +45,18 @@ function fromFallback(g: Gostovanje): GostovanjeDetail {
   };
 }
 
+export async function generateStaticParams() {
+  try {
+    const all = await client.fetch<VideoItem[]>(VIDEOS_QUERY);
+    if (all && all.length > 0) {
+      return all.map((v) => ({ slug: v.slug.current }));
+    }
+  } catch (error) {
+    console.error("generateStaticParams (gostovanja) failed:", error);
+  }
+  return GOSTOVANJA.map((g) => ({ slug: g.slug }));
+}
+
 async function getGostovanjeData(
   slug: string,
 ): Promise<{ item: GostovanjeDetail | null; all: GostovanjeDetail[] }> {

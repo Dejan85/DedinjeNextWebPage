@@ -1,27 +1,27 @@
 import { createClient } from "@sanity/client";
 import dotenv from "dotenv";
 
-import { DATA as anesteziologija } from "../app/klinike/anesteziologija/data";
-import { DATA as apteka } from "../app/klinike/apteka/data";
-import { DATA as centarSrcanaSlabost } from "../app/klinike/centar-srcana-slabost/data";
-import { DATA as cusmo } from "../app/klinike/cusmo/data";
-import { DATA as edukacijaPrevencija } from "../app/klinike/edukacija-prevencija/data";
-import { DATA as elektrofiziologija } from "../app/klinike/elektrofiziologija/data";
-import { DATA as fizikalnaMedicina } from "../app/klinike/fizikalna-medicina/data";
-import { DATA as invazivnaDijagnostika } from "../app/klinike/invazivna-dijagnostika/data";
-import { DATA as kardiologija } from "../app/klinike/kardiologija/data";
-import { DATA as kardiovaskularnaRehabilitacija } from "../app/klinike/kardiovaskularna-rehabilitacija/data";
-import { DATA as klinickaPatologija } from "../app/klinike/klinicka-patologija/data";
-import { DATA as kvDijagnostika } from "../app/klinike/kv-dijagnostika/data";
-import { DATA as laboratorija } from "../app/klinike/laboratorija/data";
-import { DATA as neinvazivnaDijagnostikaSrca } from "../app/klinike/neinvazivna-dijagnostika-srca/data";
-import { DATA as neurokardioloskaLaboratorija } from "../app/klinike/neurokardioloska-laboratorija/data";
-import { DATA as poliklinika } from "../app/klinike/poliklinika/data";
-import { DATA as telemedicina } from "../app/klinike/telemedicina/data";
-import { DATA as transfuzija } from "../app/klinike/transfuzija/data";
-import { DATA as vaskularnaHirurgija } from "../app/klinike/vaskularna-hirurgija/data";
+import { DATA as anesteziologija } from "../app/[locale]/klinike/anesteziologija/data";
+import { DATA as apteka } from "../app/[locale]/klinike/apteka/data";
+import { DATA as centarSrcanaSlabost } from "../app/[locale]/klinike/centar-srcana-slabost/data";
+import { DATA as cusmo } from "../app/[locale]/klinike/cusmo/data";
+import { DATA as edukacijaPrevencija } from "../app/[locale]/klinike/edukacija-prevencija/data";
+import { DATA as elektrofiziologija } from "../app/[locale]/klinike/elektrofiziologija/data";
+import { DATA as fizikalnaMedicina } from "../app/[locale]/klinike/fizikalna-medicina/data";
+import { DATA as invazivnaDijagnostika } from "../app/[locale]/klinike/invazivna-dijagnostika/data";
+import { DATA as kardiologija } from "../app/[locale]/klinike/kardiologija/data";
+import { DATA as kardiovaskularnaRehabilitacija } from "../app/[locale]/klinike/kardiovaskularna-rehabilitacija/data";
+import { DATA as klinickaPatologija } from "../app/[locale]/klinike/klinicka-patologija/data";
+import { DATA as kvDijagnostika } from "../app/[locale]/klinike/kv-dijagnostika/data";
+import { DATA as laboratorija } from "../app/[locale]/klinike/laboratorija/data";
+import { DATA as neinvazivnaDijagnostikaSrca } from "../app/[locale]/klinike/neinvazivna-dijagnostika-srca/data";
+import { DATA as neurokardioloskaLaboratorija } from "../app/[locale]/klinike/neurokardioloska-laboratorija/data";
+import { DATA as poliklinika } from "../app/[locale]/klinike/poliklinika/data";
+import { DATA as telemedicina } from "../app/[locale]/klinike/telemedicina/data";
+import { DATA as transfuzija } from "../app/[locale]/klinike/transfuzija/data";
+import { DATA as vaskularnaHirurgija } from "../app/[locale]/klinike/vaskularna-hirurgija/data";
 
-import type { ClinicPageData } from "../app/klinike/_components/ClinicPageTemplate";
+import type { ClinicPageData } from "../app/[locale]/klinike/_components/ClinicPageTemplate";
 
 dotenv.config({ path: ".env.local" });
 

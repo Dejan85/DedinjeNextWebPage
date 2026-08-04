@@ -1,11 +1,11 @@
 import { createClient } from "@sanity/client";
 import dotenv from "dotenv";
 
-import { DATA as centarIzuzetnihVrednosti } from "../app/nauka-istrazivanje/centar-izuzetnih-vrednosti/data";
-import { DATA as saigeProjekat } from "../app/nauka-istrazivanje/saige-projekat/data";
-import { DATA as aktuelnosti } from "../app/nauka-istrazivanje/aktuelnosti/data";
-import { DATA as listaIstrazivaca } from "../app/nauka-istrazivanje/lista-istrazivaca/data";
-import { DATA as nio } from "../app/nauka-istrazivanje/nio/data";
+import { DATA as centarIzuzetnihVrednosti } from "../app/[locale]/nauka-istrazivanje/centar-izuzetnih-vrednosti/data";
+import { DATA as saigeProjekat } from "../app/[locale]/nauka-istrazivanje/saige-projekat/data";
+import { DATA as aktuelnosti } from "../app/[locale]/nauka-istrazivanje/aktuelnosti/data";
+import { DATA as listaIstrazivaca } from "../app/[locale]/nauka-istrazivanje/lista-istrazivaca/data";
+import { DATA as nio } from "../app/[locale]/nauka-istrazivanje/nio/data";
 
 import type { PatientPage } from "../sanity/types";
 

@@ -1,18 +1,18 @@
 import { createClient } from "@sanity/client";
 import dotenv from "dotenv";
 
-import { DATA as ambulante } from "../app/za-pacijente/ambulante/data";
-import { DATA as cestaPitanja } from "../app/za-pacijente/cesta-pitanja/data";
-import { DATA as elektrofizioloskeProcedure } from "../app/za-pacijente/elektrofizioloske-procedure/data";
-import { DATA as elektrostimulativneProcedure } from "../app/za-pacijente/elektrostimulativne-procedure/data";
-import { DATA as informacijeOStanju } from "../app/za-pacijente/informacije-o-stanju/data";
-import { DATA as kardiohirurskiKonzilijum } from "../app/za-pacijente/kardiohirurski-konzilijum/data";
-import { DATA as kardiologija } from "../app/za-pacijente/kardiologija/data";
-import { DATA as planIshrane } from "../app/za-pacijente/plan-ishrane/data";
-import { DATA as preoperativnaPriprema } from "../app/za-pacijente/preoperativna-priprema/data";
-import { DATA as prijem } from "../app/za-pacijente/prijem/data";
-import { DATA as vaskularnaHirurgija } from "../app/za-pacijente/vaskularna-hirurgija/data";
-import { DATA as vaskularniKonzilijum } from "../app/za-pacijente/vaskularni-konzilijum/data";
+import { DATA as ambulante } from "../app/[locale]/za-pacijente/ambulante/data";
+import { DATA as cestaPitanja } from "../app/[locale]/za-pacijente/cesta-pitanja/data";
+import { DATA as elektrofizioloskeProcedure } from "../app/[locale]/za-pacijente/elektrofizioloske-procedure/data";
+import { DATA as elektrostimulativneProcedure } from "../app/[locale]/za-pacijente/elektrostimulativne-procedure/data";
+import { DATA as informacijeOStanju } from "../app/[locale]/za-pacijente/informacije-o-stanju/data";
+import { DATA as kardiohirurskiKonzilijum } from "../app/[locale]/za-pacijente/kardiohirurski-konzilijum/data";
+import { DATA as kardiologija } from "../app/[locale]/za-pacijente/kardiologija/data";
+import { DATA as planIshrane } from "../app/[locale]/za-pacijente/plan-ishrane/data";
+import { DATA as preoperativnaPriprema } from "../app/[locale]/za-pacijente/preoperativna-priprema/data";
+import { DATA as prijem } from "../app/[locale]/za-pacijente/prijem/data";
+import { DATA as vaskularnaHirurgija } from "../app/[locale]/za-pacijente/vaskularna-hirurgija/data";
+import { DATA as vaskularniKonzilijum } from "../app/[locale]/za-pacijente/vaskularni-konzilijum/data";
 
 import type { PatientPage } from "../sanity/types";
 

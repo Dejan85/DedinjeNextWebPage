@@ -1,5 +1,9 @@
 import type { MetadataRoute } from "next";
 
+// Potrebno za `output: "export"` (build:static) — bez ovoga, korišćenje
+// `new Date()` u lastModified čini rutu "dinamičkom" što export ne dozvoljava.
+export const dynamic = "force-static";
+
 const BASE_URL = "https://www.institutdedinje.rs";
 
 const STATIC_ROUTES = [
@@ -73,10 +77,16 @@ const STATIC_ROUTES = [
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return STATIC_ROUTES.map((route) => ({
-    url: `${BASE_URL}${route}`,
-    lastModified: new Date(),
-    changeFrequency: route === "/" ? "daily" : "weekly",
-    priority: route === "/" ? 1 : 0.7,
-  }));
+  // SR (podrazumevani jezik) ostaje bez prefiksa, EN ide pod /en — vidi
+  // i18n/routing.ts (localePrefix: "as-needed").
+  return STATIC_ROUTES.flatMap((route) => {
+    const entry = (url: string): MetadataRoute.Sitemap[number] => ({
+      url,
+      lastModified: new Date(),
+      changeFrequency: route === "/" ? "daily" : "weekly",
+      priority: route === "/" ? 1 : 0.7,
+    });
+    const enPath = route === "/" ? "/en" : `/en${route}`;
+    return [entry(`${BASE_URL}${route}`), entry(`${BASE_URL}${enPath}`)];
+  });
 }

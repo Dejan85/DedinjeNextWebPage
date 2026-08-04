@@ -1,23 +1,23 @@
 import { createClient } from "@sanity/client";
 import dotenv from "dotenv";
 
-import { DATA as edukacija } from "../app/edukacija/data";
-import { DATA as internaEdukacija } from "../app/edukacija/interna-edukacija/data";
-import { DATA as kme2024 } from "../app/edukacija/kme-2024/data";
-import { DATA as kmeMedicinskeSestreTehnicari } from "../app/edukacija/kme-2024/kme-medicinske-sestre-tehnicari/data";
-import { DATA as kongresi } from "../app/edukacija/kongresi/data";
-import { DATA as medjunarodniKongresi } from "../app/edukacija/medjunarodni-kongresi/data";
-import { DATA as programi } from "../app/edukacija/programi/data";
-import { DATA as radionice } from "../app/edukacija/radionice/data";
-import { DATA as sestrinskaEdukacija } from "../app/edukacija/sestrinska-edukacija/data";
-import { DATA as istorijat } from "../app/edukacija/sestrinska-edukacija/istorijat/data";
-import { DATA as kprKurs } from "../app/edukacija/sestrinska-edukacija/kpr-kurs/data";
-import { DATA as pripravnickiStaz } from "../app/edukacija/sestrinska-edukacija/pripravnicki-staz/data";
-import { DATA as programKratkihStudija } from "../app/edukacija/sestrinska-edukacija/program-kratkih-studija/data";
+import { DATA as edukacija } from "../app/[locale]/edukacija/data";
+import { DATA as internaEdukacija } from "../app/[locale]/edukacija/interna-edukacija/data";
+import { DATA as kme2024 } from "../app/[locale]/edukacija/kme-2024/data";
+import { DATA as kmeMedicinskeSestreTehnicari } from "../app/[locale]/edukacija/kme-2024/kme-medicinske-sestre-tehnicari/data";
+import { DATA as kongresi } from "../app/[locale]/edukacija/kongresi/data";
+import { DATA as medjunarodniKongresi } from "../app/[locale]/edukacija/medjunarodni-kongresi/data";
+import { DATA as programi } from "../app/[locale]/edukacija/programi/data";
+import { DATA as radionice } from "../app/[locale]/edukacija/radionice/data";
+import { DATA as sestrinskaEdukacija } from "../app/[locale]/edukacija/sestrinska-edukacija/data";
+import { DATA as istorijat } from "../app/[locale]/edukacija/sestrinska-edukacija/istorijat/data";
+import { DATA as kprKurs } from "../app/[locale]/edukacija/sestrinska-edukacija/kpr-kurs/data";
+import { DATA as pripravnickiStaz } from "../app/[locale]/edukacija/sestrinska-edukacija/pripravnicki-staz/data";
+import { DATA as programKratkihStudija } from "../app/[locale]/edukacija/sestrinska-edukacija/program-kratkih-studija/data";
 
-import { DATA as skolaEhokardiografije } from "../app/edukacija/programi/skola-ehokardiografije-prof-dr-aleksandra-nikolic/data";
-import { DATA as skolaHipertenzije } from "../app/edukacija/programi/skola-hipertenzije-i-redukcije-kardiovaskularnih-faktora-rizika/data";
-import { DATA as skolaVaskularnogUltrazvuka } from "../app/edukacija/programi/skola-vaskularnog-ultrazvuka/data";
+import { DATA as skolaEhokardiografije } from "../app/[locale]/edukacija/programi/skola-ehokardiografije-prof-dr-aleksandra-nikolic/data";
+import { DATA as skolaHipertenzije } from "../app/[locale]/edukacija/programi/skola-hipertenzije-i-redukcije-kardiovaskularnih-faktora-rizika/data";
+import { DATA as skolaVaskularnogUltrazvuka } from "../app/[locale]/edukacija/programi/skola-vaskularnog-ultrazvuka/data";
 
 import type { PatientPage, SchoolPage } from "../sanity/types";
 
