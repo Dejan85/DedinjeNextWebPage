@@ -161,6 +161,186 @@ edukacije/nauke/aktuelnosti.
 sporedni efekat prelaska teksta iz literalnog JSX-a u Sanity/`data.ts`
 stringove) — bez regresija, posle svakog WP-a u ovom krugu posebno provereno.
 
+## Internacionalizacija — SRP/ENG i18n (počelo 2026-08-04)
+
+Vlasnik sajta traži punu funkcionalnu i18n infrastrukturu (ne samo UI
+placeholder) + AI prevod postojećeg sadržaja. Ovo je veliki, višefazni
+zahvat — plan i kontekst originalno u `~/.claude/plans/jel-kapiras-sta-treba-tidy-taco.md`
+(lokalni fajl, van repo-a, ne oslanjati se na njega u budućim sesijama).
+Ovaj odeljak je izvor istine za nastavak. Svaka faza mora proći
+`npm run lint` + `npm run build` pre prelaska na sledeću.
+
+**Usput urađeno (nezavisno od i18n, ali u istoj sesiji):**
+- ✅ Header spojen u jedan segment (logo/kontakt/meni), Ćir/Lat transliteracioni
+  toggle (`lib/transliteration/`, `components/shared/ScriptProvider`,
+  `components/shared/ScriptToggle`) — vidi `PROJECT_STATUS.md` dnevnik
+  2026-08-04.
+
+### Faza 3a — i18n rutiranje — ✅ gotovo (2026-08-04)
+
+`next-intl` (`^4.13.5`, potvrđeno kompatibilan sa Next 16.1.4/React 19.2.3)
+sa `localePrefix: "as-needed"`: **SR (podrazumevani) ostaje bez prefiksa**
+(`/aktuelnosti`, identično kao pre), **EN je novo, prefiksovano** (`/en/aktuelnosti`).
+Odluka potvrđena sa vlasnikom sajta (SEO/postojeći linkovi > jednostavnost).
+
+- ✅ `i18n/routing.ts`, `i18n/navigation.ts`, `i18n/request.ts` — next-intl konfiguracija.
+- ✅ `proxy.ts` (root) — next-intl middleware. **Next.js 16 preimenovao
+  "middleware" konvenciju u "proxy"** (bio `middleware.ts`, deprecation warning
+  bez preimenovanja). Isključuje `/studio`, `/api`, `_next`, statičke fajlove
+  (`matcher` u fajlu).
+- ✅ `next.config.ts` — `createNextIntlPlugin("./i18n/request.ts")`.
+- ✅ Sve postojeće rute (~77) premeštene `app/*` → `app/[locale]/*` (git mv,
+  istorija očuvana). `app/[locale]/layout.tsx` je **ugnježdeni** layout (ne
+  novi root) — `app/layout.tsx` ostaje jedini pravi root sa `<html>/<body>`,
+  deljen i sa `/studio` (koji ostaje van `[locale]`, nema i18n). Nema potrebe
+  za "multiple root layouts" komplikacijom — pojednostavljeno u odnosu na
+  originalni plan.
+- ✅ `app/sitemap.ts`, `app/robots.ts` — ostali van `[locale]`, sitemap sad
+  nabraja i SR (bez prefiksa) i EN (`/en/*`) varijantu svake rute; oba fajla
+  dobila `export const dynamic = "force-static"` (potrebno za build:static).
+- ✅ `scripts/build-static.mjs` — wrapper koji privremeno uklanja `proxy.ts`
+  pre static exporta (Next ne dozvoljava proxy/middleware sa
+  `output:"export"`) i vraća ga posle; `package.json` `build:static` sad
+  poziva ovaj skript umesto `next build` direktno.
+- ✅ 4 migracione skripte (`migrate-clinics.ts`, `migrate-edukacija.ts`,
+  `migrate-nauka-istrazivanje.ts`, `migrate-za-pacijente.ts`) imale
+  hardkodovane `../app/<ruta>/data` importe — ažurirano na `../app/[locale]/<ruta>/data`.
+- ✅ Usput popravljeno da `build:static` uopšte krene (van i18n scope-a, ali
+  blokiralo verifikaciju): `generateStaticParams` dodat na
+  `app/[locale]/aktuelnosti/[slug]/page.tsx` i
+  `app/[locale]/aktuelnosti/gostovanja/[slug]/page.tsx` (fale, sad fetch-uju
+  sve slugove sa Sanity-ja + fallback na lokalni const niz);
+  `app/studio/[[...tool]]/page.tsx` dobio `generateStaticParams() { return [{tool: []}] }`.
+- ⚠️ **Poznato ograničenje:** `build:static` i dalje NE prolazi do kraja —
+  dublji, nevezan problem (skoro sve stranice koriste dinamički/`revalidate:0`
+  Sanity fetch nekompatibilan sa `output:"export"`). Dokumentovano kao
+  poseban Backlog item niže (☁️ `build:static` fundamentalno...). **`npm run
+  build` (Vercel, primarna platforma) potvrđeno radi čisto sa `/sr` i `/en`
+  rutama.**
+- ✅ Verifikovano: `npm run lint` (27 problema, isti baseline kao pre, nema
+  novih), `npm run build` (exit 0), Playwright screenshot provera `/`, `/en`,
+  `/aktuelnosti`, `/en/aktuelnosti`, `/studio` (svi 200, bez console grešaka).
+
+### Faza 3b — Sanity šema lokalizacija — ❌ sledeće na redu
+
+**Pristup:** reusable lokalizovani object tipovi (`{sr, en}` shape) koji se
+swap-uju umesto `type:"string"/"text"`/portable text nizova u postojećim
+poljima — NE Sanity `document-internationalization` plugin (forkuje cele
+dokumente, teža migracija, kida 1:1 strukturnu paritetnost).
+
+**Korak 1 — infrastruktura (uraditi prvo, izolovano, ništa ne dira postojeće šeme):**
+- `sanity/schemas/objects/localeString.ts` — object tip, polja `sr`/`en`
+  (oba `type:"string"`).
+- `sanity/schemas/objects/localeText.ts` — isto, `type:"text"` (za duže
+  opise/paragraf polja).
+- `sanity/schemas/objects/localePortableText.ts` — `sr`/`en` polja tipa
+  `array of block` (za rich text sadržaj).
+- Deljena Studio input komponenta (tabovi Srpski/English u jednom polju,
+  umesto dva odvojena stacked polja) — Sanity `components: { input: ... }`
+  na sva tri tipa gore. Ovo je bitno za urednički UX, ne preskočiti.
+- `sanity/lib/locale.ts` — `pick<T>(field, locale)` helper:
+  `locale === "en" ? (field.en ?? field.sr) : field.sr` (fallback na SR ako
+  EN prazan — bitno da `/en/*` rute ne budu prazne pre nego što se prevod uradi).
+- Registrovati nova 3 tipa u `sanity/schemas/index.ts`.
+- **Proof-of-concept pre punog rollout-a:** primeniti SAMO na
+  `sanity/schemas/documents/page.ts` (`title`, `subtitle` polja) i
+  `sanity/schemas/objects/hero.ts` (`heading`, `subheading`) — pokrenuti
+  Studio (`npm run dev:sanity` ili `npm run dev`), otvoriti par postojećih
+  `page`/`hero` dokumenata, **potvrditi sa vlasnikom sajta da mu se sviđa
+  tabbed sr/en UX** pre nego što se isti pattern primeni na preostalih ~49 fajlova.
+
+**Korak 2 — pun rollout (posle potvrde UX-a), polje po polje, po fajlu:**
+
+Dokument tipovi (`sanity/schemas/documents/`):
+- `page.ts` (title, subtitle — urađeno u proof-of-concept)
+- `news.ts`, `clinicPage.ts`, `announcement.ts`, `jobPosting.ts`,
+  `magazineIssue.ts`, `schoolPage.ts`, `service.ts`, `department.ts`,
+  `doctor.ts`, `publication.ts`, `testimonial.ts`, `video.ts` — pregledati
+  svako polje, lokalizovati samo tekst namenjen čitaocu (naslovi, opisi,
+  citati), NE slug/boje/ikone/URL/reference/brojeve/datume/boolean.
+
+Singleton-i (`sanity/schemas/singletons/`):
+- `navigation.ts` (naslovi menija), `siteSettings.ts` (slobodna tekst
+  polja — NE telefon/email/adresa, to je jednako na oba jezika), `footer.ts`,
+  `aboutPage.ts`, `bibliographyPage.ts`, `biographyPage.ts`,
+  `directorPage.ts`, `informatorPage.ts`.
+
+Object/block tipovi (`sanity/schemas/objects/`, ~29 preostalih fajlova) —
+svaki od ovih ima tekstualna polja (heading/title/description/text/itd.)
+koja treba `localeString`/`localeText`, i bar jedan (verovatno više) ima
+portable text/rich-text polje koje treba `localePortableText`:
+`accordionBlock`, `bannerBlock`, `boardListBlock`, `cardGridBlock`,
+`checklistBlock`, `clinicsFeaturedSection`, `contactDirectoryBlock`,
+`contactSection`, `contentBlock`, `ctaSection`, `departmentsSection`,
+`documentListBlock`, `faqBlock`, `heroSlidesSection`, `infoBox`,
+`introSection`, `lectureScheduleBlock`, `newsSection`, `partnersSection`,
+`patientLinksSection`, `seoMetadata` (SEO title/description — bitno za
+per-locale SEO!), `servicesSection`, `statItem`, `statsSection`,
+`tabsBlock`, `teamSection`, `testimonialsSection`, `timeline`,
+`timelineBlock`, `welcomeSection`, `whyChooseUsSection`.
+
+**Napomena:** ovo je mehanički ali dug posao — realno više radnih sesija,
+ne jedan prolaz. Raditi u manjim batch-evima (npr. 5-8 fajlova po sesiji),
+proveravati Studio posle svakog batch-a (schema greške se odmah vide kao
+crveni error u Studio-u pri otvaranju dokumenta).
+
+### Faza 3c — migraciona skripta — ❌ čeka 3b
+
+`scripts/migrate-i18n-schema.ts` (prati postojeći `scripts/migrate-*.ts`
+obrazac, `SANITY_API_TOKEN`). Hardkodovana allowlist mapa
+`LOCALIZED_FIELDS: Record<blockType, string[]>` izvedena direktno iz 3b
+izmena (NE generička "wrap every string" heuristika — pogrešno bi wrapovala
+slugove/ikone/boje/URL-ove). Transformiše postojeći `"Neki tekst"` →
+`{ _type: "localeString", sr: "Neki tekst", en: "" }`. Idempotentna
+(preskače polja već u `{_type,sr,en}` obliku). **Testirati prvo na
+kloniranom dataset-u** (`sanity dataset copy production production-i18n-test`)
+pre diranja `production` — ovo je destruktivna operacija nad živim sadržajem,
+oprez.
+
+### Faza 3d — AI prevod sadržaja — ❌ čeka 3c
+
+`scripts/translate-content.ts`. Fetch dokumenata gde je `sr` popunjen a `en`
+prazan. LLM poziv (Claude API, `@anthropic-ai/sdk`) po polju, sistemski
+prompt kalibrisan za formalni srpski medicinski/institucionalni registar.
+Portable text: prevod na nivou `block.children[].text` span-a, struktura
+(`_type`/`style`/`markDefs`/marks) netaknuta. Idempotentna (popunjava samo
+prazan `en`). Dodati `enReviewed: boolean` flag (skripta postavlja `false`,
+čovek potvrđuje posle provere) — **obavezan human review gate**, ovo je
+medicinski/institucionalni sadržaj gde greška u prevodu ima realnu težinu.
+Do potvrde review-a: `/en/klinike/*` i `/en/za-pacijente/*` isključiti iz
+`sitemap.ts` / dodati `noindex`.
+
+### Faza 3e — ožičenje stranica na locale — ❌ čeka 3b (delimično nezavisno)
+
+- `sanity/lib/queries.ts` (1000+ linija) — većina projekcija već vraća
+  `{sr,en}` oblik automatski posle 3b (spread/as-is projekcije), bez izmene
+  upita. `pick()` helper (3b) poziva se na komponentnom nivou.
+  GROQ `coalesce(field[$lang], field.sr)` samo za retke slučajeve gde treba
+  server-side sort/filter po lokalizovanom tekstu.
+- `components/shared/PageBuilder/PageBuilder.tsx` — najveći poluga-fajl
+  (centralni block-type dispatcher), koncentrisati većinu `pick(...,locale)`
+  poziva tu i u ~30 leaf blok komponenti koje poziva.
+- 78 `page.tsx` fajlova — izvući `params.locale` (sad dostupno posle 3a
+  restrukturiranja), proslediti `<PageBuilder locale={locale} .../>`.
+  Mehanička izmena, kandidat za codemod.
+- ~70 `metadata.ts` fajlova (client-page metadata obrazac) — sa statičkog
+  `export const metadata` na `generateMetadata({ params })` koji čita
+  `locale` i koristi lokalizovan `seoMetadata` (3b). Takođe codemod-abilno.
+- `HeaderData.tsx`/`Header.tsx`/`Footer` — `locale` threading za nazive
+  menija; `siteSettings.contact` (telefon/email/adresa) NE treba lokalizaciju
+  sadržaja (isti broj na oba jezika) ali `Header.tsx` trenutno uopšte ne
+  fetch-uje iz `siteSettings` (hardkoduje inline) — popraviti u istom prolazu.
+- `app/layout.tsx` `<html lang="sr">` — trenutno hardkodovano na oba jezika
+  (i `/studio` i `[locale]` dele isti root layout, vidi 3a). Ako smeta,
+  rešenje: mali client component koji setuje `document.documentElement.lang`
+  na osnovu `useParams().locale` — odloženo za 3e, ne rešeno u 3a.
+
+### Faza 3f — zatvaranje — ❌ čeka 3d
+
+- Ukloniti noindex gate-ove posle review-a, ažurirati sitemap.
+- Ažurirati ovaj fajl + `PROJECT_STATUS.md` + `ARHITEKTURA.md` po standardnoj
+  "Definicija završenog taska" konvenciji.
+
 ## Sadržaj za unos — `docs za ubacivanje/` (gitignored, samo lokalno)
 
 Materijal koji su odeljenja/klinike poslale IT sektoru u okviru revizije sajta

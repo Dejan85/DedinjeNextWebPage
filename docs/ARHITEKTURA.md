@@ -10,14 +10,36 @@ sadržaja na Sanity: [`MIGRACIJA.md`](MIGRACIJA.md). Šta je već migrirano vs.
 ## 1. Struktura repozitorijuma
 
 ```
-app/                    rute (App Router), svaka sa page.tsx + page.module.css (+ metadata.ts kad treba)
+app/[locale]/           SVE rute (App Router), svaka sa page.tsx + page.module.css (+ metadata.ts kad treba) — ugnježdene pod dinamički [locale] segment (next-intl, vidi §2.1)
+app/studio/             Sanity Studio, van [locale] (nema i18n)
+app/layout.tsx          root layout (html/body), deljen između /studio i /[locale]/* — NEMA "multiple root layouts"
+i18n/                   next-intl konfiguracija (routing.ts, navigation.ts, request.ts)
+messages/               next-intl statički UI stringovi po jeziku (sr.json/en.json) — trenutno prazni, sadržaj ide kroz Sanity
+proxy.ts                next-intl middleware (Next.js 16 preimenovao "middleware"→"proxy" konvenciju)
 components/shared/      ~50 reusable UI komponenti, svaka u svom folderu, barrel export iz index.ts
 components/typography/  Heading, Text, Badge, Link — dizajn-sistem primitivi
+lib/transliteration/     Ćirilica→Latinica transliteracija (cyrillicToLatin.ts, transliterateDom.ts)
 sanity/                 schemas/ (documents, singletons, objects), lib/ (client, queries, image), types.ts
 scripts/                jednokratne migracione skripte (tsx), pune Sanity dataset iz hardkodovanog sadržaja
 public/                 images/, videos/ (hero pozadine), pdf/ (CV, bibliografija)
 out/                    build artefakt od `build:static` (nije izvor istine, ne editovati ručno)
 ```
+
+### 1.1 i18n rutiranje (SRP/ENG, počelo 2026-08-04)
+
+`next-intl` sa `localePrefix: "as-needed"` — SR (podrazumevani jezik) ostaje
+**bez prefiksa** (`/aktuelnosti`, identično kao pre uvođenja i18n), EN je
+**novo, prefiksovano** (`/en/aktuelnosti`). `app/[locale]/layout.tsx` je
+ugnježdeni layout (samo next-intl setup), NE novi root — pravi root ostaje
+`app/layout.tsx`, deljen i sa `/studio`. Detaljan status faza (3a gotovo,
+3b–3f u toku/planirano) u [`TASKS.md`](TASKS.md#internacionalizacija--srpeng-i18n-počelo-2026-08-04)
+— ovaj fajl opisuje samo trenutnu strukturu, ne plan.
+
+`npm run build:static` (`output:"export"`) ne podržava next-intl middleware
+(`proxy.ts`) — `scripts/build-static.mjs` ga privremeno uklanja pre exporta.
+Posledica: static export gubi "SR bez prefiksa" trik. Osim toga, static
+export ima i deo pre-postojećeg, nevezanog ograničenja — vidi
+`PROJECT_STATUS.md` Blokeri (`build:static` fundamentalno...).
 
 ## 2. Rute (app/) — pregled po sekcijama
 
