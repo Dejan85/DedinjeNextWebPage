@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Container from "../Container/Container";
+import ScriptToggle from "../ScriptToggle/ScriptToggle";
 import styles from "./Header.module.css";
 import type { Navigation } from "@/sanity/types";
 
@@ -156,21 +157,12 @@ export default function Header({ menu }: { menu?: MenuItem[] | null }) {
 
   return (
     <>
-      <div
+      <header
         className={`${styles.mainHeader} ${isScrolled ? styles.scrolled : ""}`}
       >
-        {/* Top Bar */}
-        <div className={styles.topBar}>
-          <Container>
-            <button
-              className={styles.mobileToggle}
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              aria-label="Мени"
-              aria-expanded={isMobileMenuOpen}
-            >
-              <i className={`fas ${isMobileMenuOpen ? "fa-xmark" : "fa-bars"}`}></i>
-            </button>
-            <div className={styles.topBarContent}>
+        <Container>
+          <div className={styles.headerCard}>
+            <div className={styles.topRow}>
               <Link href="/" className={styles.logo}>
                 <div className={styles.logoIcon}>
                   <img
@@ -183,44 +175,48 @@ export default function Header({ menu }: { menu?: MenuItem[] | null }) {
                   <span className={styles.logoSubtitle}>Институт за КВБ</span>
                 </div>
               </Link>
-              <div className={styles.topBarInfo}>
-                <div className={styles.infoItem}>
-                  <div className={styles.infoIcon}>
-                    <i className="fas fa-phone-alt"></i>
+
+              <div className={styles.contactStrip}>
+                <div className={styles.contactInfo}>
+                  <div className={styles.infoItem}>
+                    <div className={styles.infoIcon}>
+                      <i className="fas fa-phone-alt"></i>
+                    </div>
+                    <div className={styles.infoText}>
+                      <span>011 3601 700</span>
+                    </div>
                   </div>
-                  <div className={styles.infoText}>
-                    <span>011 3601 700</span>
+                  <div className={styles.infoItem}>
+                    <div className={styles.infoIcon}>
+                      <i className="fas fa-at"></i>
+                    </div>
+                    <div className={`${styles.infoText} ${styles.infoTextEmail}`}>
+                      <a href="mailto:dedinje@ikvbd.com">dedinje@ikvbd.com</a>
+                      <a href="mailto:pohvaleizsalbe@institutdedinje.org">
+                        pohvaleizsalbe@institutdedinje.org
+                      </a>
+                    </div>
+                  </div>
+                  <div className={styles.infoItem}>
+                    <div className={styles.infoIcon}>
+                      <i className="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div className={styles.infoText}>
+                      <span>Хероја Милана Тепића 1</span>
+                      <span>11040 Београд, Србија</span>
+                    </div>
                   </div>
                 </div>
-                <div className={styles.infoItem}>
-                  <div className={styles.infoIcon}>
-                    <i className="fas fa-at"></i>
-                  </div>
-                  <div className={`${styles.infoText} ${styles.infoTextEmail}`}>
-                    <a href="mailto:dedinje@ikvbd.com">dedinje@ikvbd.com</a>
-                    <a href="mailto:pohvaleizsalbe@institutdedinje.org">
-                      pohvaleizsalbe@institutdedinje.org
-                    </a>
-                  </div>
-                </div>
-                <div className={styles.infoItem}>
-                  <div className={styles.infoIcon}>
-                    <i className="fas fa-map-marker-alt"></i>
-                  </div>
-                  <div className={styles.infoText}>
-                    <span>Хероја Милана Тепића 1</span>
-                    <span>11040 Београд, Србија</span>
-                  </div>
+                <div className={styles.headerToggles}>
+                  <ScriptToggle />
                 </div>
               </div>
             </div>
-          </Container>
-        </div>
 
-        {/* Navigation */}
-        <header className={styles.header}>
-          <Container>
-            <nav className={`${styles.mainNav} ${isMobileMenuOpen ? styles.open : ""}`}>
+            <nav className={`${styles.navRow} ${isMobileMenuOpen ? styles.open : ""}`}>
+              <div className={styles.mobileToggles}>
+                <ScriptToggle />
+              </div>
               <ul className={styles.navMenu}>
                 {items.map((item, i) => {
                   const itemKey = item._key ?? `main-${i}`;
@@ -279,9 +275,18 @@ export default function Header({ menu }: { menu?: MenuItem[] | null }) {
                 <i className="fas fa-search"></i>
               </button>
             </nav>
-          </Container>
-        </header>
-      </div>
+
+            <button
+              className={styles.mobileToggle}
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Мени"
+              aria-expanded={isMobileMenuOpen}
+            >
+              <i className={`fas ${isMobileMenuOpen ? "fa-xmark" : "fa-bars"}`}></i>
+            </button>
+          </div>
+        </Container>
+      </header>
 
       {/* Mobile Menu Backdrop */}
       <div

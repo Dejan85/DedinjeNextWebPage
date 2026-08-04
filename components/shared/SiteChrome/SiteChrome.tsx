@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import ScriptProvider from "../ScriptProvider/ScriptProvider";
 
 export default function SiteChrome({
   children,
@@ -18,10 +19,10 @@ export default function SiteChrome({
   }
 
   return (
-    <>
+    <ScriptProvider>
       {header}
       {children}
       {footer}
-    </>
+    </ScriptProvider>
   );
 }

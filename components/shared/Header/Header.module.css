@@ -29,31 +29,65 @@
     visibility: visible;
 }
 
-/* ===== Top Bar ===== */
-.topBar {
-    background: transparent;
-    padding: 20px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    transition: all 0.3s ease;
+/* ===== Header Card (logo + contact strip + nav, spojeni u jedan segment) ===== */
+.headerCard {
+    background: var(--primary);
+    border-radius: 12px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    padding: 10px 16px;
+    position: relative;
+    margin: 14px 0;
 }
 
-.mainHeader.scrolled .topBar {
-    max-height: 0;
-    padding: 0;
-    overflow: hidden;
-    opacity: 0;
-}
-
-.topBarContent {
+/* Gornji red: logo + kontakt traka, pune širine kartice */
+.topRow {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 24px;
+    padding-bottom: 8px;
+    margin-bottom: 4px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.contactStrip {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+    overflow: hidden;
+}
+
+.mainHeader.scrolled .contactStrip {
+    max-height: 0;
+    opacity: 0;
+}
+
+.headerToggles {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    color: var(--white);
+}
+
+.mobileToggles {
+    display: none;
+}
+
+/* Nav red dobija punu širinu kartice (ne deli je sa logom) da meni stane u jedan red */
+.navRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
 }
 
 .logo {
     display: flex;
     align-items: center;
     gap: 16px;
+    flex-shrink: 0;
 }
 
 .logoIcon {
@@ -94,7 +128,7 @@
     letter-spacing: 0.5px;
 }
 
-.topBarInfo {
+.contactInfo {
     display: flex;
     gap: 40px;
 }
@@ -157,22 +191,6 @@
 }
 
 /* ===== Navigation ===== */
-.header {
-    background: transparent;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.mainNav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: var(--primary);
-    border-radius: 12px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-    padding: 0 10px;
-}
-
 .navMenu {
     display: flex;
     align-items: center;
@@ -370,7 +388,7 @@
 }
 /* Responsive Styles */
 @media (max-width: 1100px) {
-    .topBarInfo {
+    .contactInfo {
         gap: 20px;
     }
 
@@ -399,18 +417,13 @@
 }
 
 @media (max-width: 768px) {
-    .topBar {
-        position: relative;
+    .topRow {
+        border-bottom: none;
+        padding-bottom: 0;
+        margin-bottom: 0;
     }
 
-    .topBarContent {
-        flex-direction: column;
-        gap: 15px;
-        align-items: flex-start;
-        padding-left: 0;
-    }
-
-    .topBarInfo {
+    .contactStrip {
         display: none;
     }
 
@@ -427,7 +440,7 @@
         display: none;
     }
 
-    .mainNav {
+    .navRow {
         position: fixed;
         top: 0;
         left: 0;
@@ -441,10 +454,22 @@
         transition: transform 0.3s ease;
         z-index: 2000;
         overflow-y: auto;
+        flex-direction: column;
+        align-items: stretch;
     }
 
-    .mainNav.open {
+    .navRow.open {
         transform: translateX(0);
+    }
+
+    .mobileToggles {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 0 25px 15px;
+        margin-bottom: 10px;
+        border-bottom: 1px solid var(--gray-100);
+        color: var(--gray-800);
     }
 
     .navMenu {
