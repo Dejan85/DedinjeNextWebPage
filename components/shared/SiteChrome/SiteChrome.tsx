@@ -1,8 +1,10 @@
 "use client";
 
-import { usePathname } from "next/navigation";
 import ScriptProvider from "../ScriptProvider/ScriptProvider";
 
+// /studio (Sanity Studio) živi van [locale] segmenta (vidi proxy.ts
+// matcher) i nikad se ne renderuje kroz ovaj wrapper, pa ne treba posebna
+// provera rute ovde.
 export default function SiteChrome({
   children,
   header,
@@ -12,12 +14,6 @@ export default function SiteChrome({
   header: React.ReactNode;
   footer: React.ReactNode;
 }) {
-  const pathname = usePathname();
-
-  if (pathname?.startsWith("/studio")) {
-    return <>{children}</>;
-  }
-
   return (
     <ScriptProvider>
       {header}

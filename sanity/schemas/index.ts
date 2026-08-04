@@ -12,6 +12,7 @@ import video from "./documents/video";
 import announcement from "./documents/announcement";
 import jobPosting from "./documents/jobPosting";
 import magazineIssue from "./documents/magazineIssue";
+import event from "./documents/event";
 
 // Singletons
 import siteSettings from "./singletons/siteSettings";
@@ -85,6 +86,7 @@ export const schemaTypes = [
   announcement,
   jobPosting,
   magazineIssue,
+  event,
 
   // Objects
   localeString,

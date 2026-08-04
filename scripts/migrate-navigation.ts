@@ -49,6 +49,7 @@ const mainMenu: MainMenuItem[] = [
     submenu: [
       { _key: "o-nama-1", title: "Реч директора", link: "/rec-direktora", icon: "fas fa-user-tie" },
       { _key: "o-nama-2", title: "О институту", link: "/o-institutu", icon: "fas fa-building" },
+      { _key: "o-nama-tim", title: "Наш тим", link: "/nas-tim", icon: "fas fa-user-md" },
       {
         _key: "o-nama-3",
         title: "Немедицински послови",
@@ -76,6 +77,7 @@ const mainMenu: MainMenuItem[] = [
   {
     _key: "za-pacijente",
     title: "ЗА ПАЦИЈЕНТЕ",
+    link: "/za-pacijente",
     submenu: [
       { _key: "zp-1", title: "Честа питања", link: "/za-pacijente/cesta-pitanja" },
       { _key: "zp-2", title: "Амбуланте", link: "/za-pacijente/ambulante" },

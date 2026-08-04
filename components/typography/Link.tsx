@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import NextLink from "next/link";
+import { Link as NextLink } from "@/i18n/navigation";
 
 interface LinkProps {
   children: ReactNode;

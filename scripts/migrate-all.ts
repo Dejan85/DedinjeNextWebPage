@@ -204,25 +204,24 @@ async function migrateAll() {
       {
         _type: "infoBox",
         _key: "infobox-1",
-        icon: "far fa-clock",
-        title: "Радно време",
-        variant: "schedule",
-        schedule: [
-          { _key: "schedule-1", days: "Пон - Пет", hours: "08:00 - 19:00" },
-          { _key: "schedule-2", days: "Субота", hours: "09:00 - 17:00" },
-          { _key: "schedule-3", days: "Недеља", hours: "09:00 - 15:00" },
-        ],
+        icon: "fas fa-file-medical",
+        title: "Информације за пацијенте",
+        variant: "regular",
+        description:
+          "Све информације о пријему, припреми и боравку у Институту на једном месту.",
+        linkText: "Све информације",
+        linkHref: "/za-pacijente",
       },
       {
         _type: "infoBox",
         _key: "infobox-2",
         icon: "fas fa-hospital",
-        title: "Наша одељења",
+        title: "Наше клинике",
         variant: "regular",
         description:
-          "Упознајте се са свим одељењима и услугама које наш институт нуди пацијентима.",
-        linkText: "Погледај одељења",
-        linkHref: "#departments",
+          "Упознајте се са свим клиникама и услугама које наш институт нуди пацијентима.",
+        linkText: "Погледај клинике",
+        linkHref: "/klinike",
       },
       {
         _type: "infoBox",
@@ -233,16 +232,16 @@ async function migrateAll() {
         description:
           "Упознајте наше лекаре специјалисте и стручњаке који брину о вашем здрављу.",
         linkText: "Упознајте тим",
-        linkHref: "#team",
+        linkHref: "/nas-tim",
       },
       {
         _type: "infoBox",
         _key: "infobox-4",
-        icon: "fas fa-ambulance",
-        title: "Хитни случајеви",
-        variant: "emergency",
-        emergencyPhone: "011 3601 600",
-        emergencyNote: "Доступни 24/7 за хитне случајеве",
+        icon: "fas fa-headset",
+        title: "Контакт",
+        variant: "contact",
+        contactPhone: "011 3601 700",
+        contactFax: "011 2666 445",
       },
     ];
 

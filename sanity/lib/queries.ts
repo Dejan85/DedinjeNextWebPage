@@ -53,7 +53,9 @@ export const HOMEPAGE_QUERY = groq`
           hours
         },
         emergencyPhone,
-        emergencyNote
+        emergencyNote,
+        contactPhone,
+        contactFax
       },
       // WelcomeSection fields
       _type == "welcomeSection" => {
@@ -308,6 +310,48 @@ export const HOMEPAGE_QUERY = groq`
   }
 `;
 
+// Patient links (koristi se na /za-pacijente, sadržaj deli isti pageBuilder blok kao homepage)
+export const PATIENT_LINKS_SECTION_QUERY = groq`
+  *[_type == "page" && _id == "homepage"][0].pageBuilder[_type == "patientLinksSection"][0] {
+    icon,
+    heading,
+    subheading,
+    items[] {
+      _key,
+      icon,
+      title,
+      desc,
+      href
+    }
+  }
+`;
+
+// Team sekcija (koristi se na /nas-tim, sadržaj deli isti pageBuilder blok kao homepage)
+export const TEAM_SECTION_QUERY = groq`
+  *[_type == "page" && _id == "homepage"][0].pageBuilder[_type == "teamSection"][0] {
+    badge,
+    heading,
+    subheading,
+    team[] {
+      _key,
+      image {
+        asset-> {
+          _id,
+          url
+        }
+      },
+      name,
+      role,
+      description,
+      socialLinks[] {
+        _key,
+        platform,
+        url
+      }
+    }
+  }
+`;
+
 // Doctors
 export const DOCTORS_QUERY = groq`
   *[_type == "doctor"] | order(order asc) {
@@ -456,6 +500,18 @@ export const VIDEO_BY_SLUG_QUERY = groq`
     description,
     fullText,
     isNew
+  }
+`;
+
+// Догађаји (predstojeći događaji, homepage vidžet)
+export const EVENTS_QUERY = groq`
+  *[_type == "event" && defined(date)] | order(date asc) {
+    _id,
+    title,
+    date,
+    image,
+    location,
+    link
   }
 `;
 

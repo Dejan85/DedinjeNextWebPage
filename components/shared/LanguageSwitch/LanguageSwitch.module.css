@@ -1,0 +1,114 @@
+.toggle {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    background: var(--toggle-track-bg, rgba(255, 255, 255, 0.14));
+    border-radius: 8px;
+    padding: 3px;
+}
+
+.toggle a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    color: var(--toggle-fg, rgba(255, 255, 255, 0.75));
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.toggle a:hover {
+    background: var(--toggle-hover-bg, rgba(255, 255, 255, 0.18));
+}
+
+.toggle a.active {
+    background: var(--toggle-active-bg, var(--white));
+    color: var(--toggle-active-fg, var(--primary));
+}
+
+.toggle a.active:hover {
+    background: var(--toggle-active-bg, var(--white));
+}
+
+/* ===== Kompaktna dropdown varijanta (desktop header) ===== */
+.dropdown {
+    position: relative;
+}
+
+.ddCurrent {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 9px;
+    border-radius: 6px;
+    background: var(--toggle-track-bg, rgba(255, 255, 255, 0.14));
+    border: none;
+    color: var(--toggle-fg-strong, var(--white));
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: var(--transition);
+}
+
+.ddCurrent i {
+    font-size: 8px;
+    opacity: 0.7;
+}
+
+.ddCurrent:hover {
+    background: var(--toggle-hover-bg, rgba(255, 255, 255, 0.22));
+}
+
+.ddMenu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 8px;
+    min-width: 170px;
+    background: var(--white);
+    border-radius: 8px;
+    box-shadow: var(--shadow-xl);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: var(--transition);
+    z-index: 1000;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    pointer-events: none;
+}
+
+.ddMenu.ddOpen {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.ddMenu a {
+    padding: 10px 14px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--gray-700);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.ddMenu a:hover {
+    background: var(--gray-50);
+    color: var(--primary);
+}
+
+.ddMenu a.ddActive {
+    color: var(--primary);
+    font-weight: 700;
+    background: var(--gray-50);
+}

@@ -172,8 +172,8 @@ Ovaj odeljak je izvor istine za nastavak. Svaka faza mora proći
 
 **Usput urađeno (nezavisno od i18n, ali u istoj sesiji):**
 - ✅ Header spojen u jedan segment (logo/kontakt/meni), Ćir/Lat transliteracioni
-  toggle (`lib/transliteration/`, `components/shared/ScriptProvider`,
-  `components/shared/ScriptToggle`) — vidi `PROJECT_STATUS.md` dnevnik
+  toggle zamenjeno sa UI prekidačem za jezik (`components/shared/LanguageSwitch/LanguageSwitch.tsx`,
+  zamenjuje stare `components/shared/LocaleSwitch/` i `components/shared/ScriptToggle/`) — vidi `PROJECT_STATUS.md` dnevnik
   2026-08-04.
 
 ### Faza 3a — i18n rutiranje — ✅ gotovo (2026-08-04)
@@ -386,21 +386,90 @@ Pokrenuto **direktno na `production`** (vlasnik sajta eksplicitno odobrio —
 (ponovni `--dry-run` posle upisa → 0/99). Klonirani test-dataset korak iz
 originalnog plana namerno preskočen po instrukciji vlasnika.
 
-### Faza 3d — AI prevod sadržaja — ❌ sledeće na redu
+### Faza 3d — AI prevod sadržaja — ✅ gotovo (2026-08-04)
 
-`scripts/translate-content.ts`. Fetch dokumenata gde je `sr` popunjen a `en`
-prazan (svih 423 polja iz 3c trenutno ima `en: ""`). LLM poziv (Claude API,
-`@anthropic-ai/sdk`) po polju, sistemski prompt kalibrisan za formalni
-srpski medicinski/institucionalni registar. Portable text: prevod na nivou
-`block.children[].text` span-a, struktura (`_type`/`style`/`markDefs`/marks)
-netaknuta. Idempotentna (popunjava samo prazan `en`). Dodati
-`enReviewed: boolean` flag (skripta postavlja `false`, čovek potvrđuje posle
-provere) — **obavezan human review gate**, ovo je medicinski/institucionalni
-sadržaj gde greška u prevodu ima realnu težinu. Do potvrde review-a:
-`/en/klinike/*` i `/en/za-pacijente/*` isključiti iz `sitemap.ts` / dodati
-`noindex`. **Do tada** `/en/*` rute pokazuju srpski tekst (fallback ugrađen
-u `localize()`, vidi 3e) — funkcionalno, ne prazno, ali nije stvarni
-prevod.
+**Promena u odnosu na originalni plan:** umesto headless `scripts/translate-content.ts`
+koji programski poziva Claude API (`@anthropic-ai/sdk`, zahteva sopstveni
+`ANTHROPIC_API_KEY`), prevod je odrađen **direktno u Claude Code sesiji** —
+bez novog paketa, bez novog API ključa, bez dodatnog troška po pozivu (vlasnik
+sajta eksplicitno odobrio ovaj pristup kad je postavljeno pitanje čemu služi
+poseban Anthropic ključ). Tok rada:
+
+- ✅ `scripts/i18n-export-untranslated.ts` (`npm run i18n:export-untranslated`) —
+  schema-driven (isti pristup kao `migrate-i18n-schema.ts`): rekurzivno hoda
+  kroz svaki dokument prateći stvarnu schema strukturu i ispisuje JSON niz
+  zadataka za svako `{_type:"localeString"/"localeText"/"localePortableText"}`
+  polje gde je `sr` popunjen a `en` prazan. Svaki zadatak nosi `path` (niz
+  koraka — ime polja ili `{key}` za elemente niza adresirane po `_key`) da
+  omogući tačan Sanity patch path.
+- ✅ Export je vratio **2742 polja** (ne 423 — 423 je bio broj **top-level**
+  dokument-polja izmenjenih u 3c, npr. ceo `pageBuilder` niz broji se kao 1;
+  2742 su individualni leaf `{sr,en}` stringovi unutar tih nizova), raspoređeno
+  na 99 dokumenata (isto kao 3c). 0 `localePortableText` zadataka — jedina 4
+  mesta gde se taj tip koristi (`doctor.biography`, `news.content`,
+  `service.content`, `department.content`) nemaju nijedan realan dokument u
+  datasetu (`doctor`/`service`/`department` su orphaned tipovi, nigde
+  fetch-ovani na frontend-u — potvrđeno grep-om).
+- ✅ 2742 zadatka podeljeno u 11 batch-eva (~250-300 po batch-u, grupisano po
+  `docId` da ceo dokument ide u isti batch radi terminološke doslednosti) i
+  prevedeno **paralelno preko 11 Agent poziva** (formalni medicinski/
+  institucionalni registar, brojevi/datumi/telefoni/email/akronimi (TAVI,
+  PCI, ECG, itd.) sačuvani, lična imena netaknuta/transliterisana na
+  latinicu). Rezultat spojen i validiran skriptom (`merge-and-validate.mjs`,
+  scratchpad, nije u repo-u) — **2742/2742 pokriveno, 0 duplikata, 0
+  propuštenih, 0 nepoznatih ključeva**; 49 slučajeva gde je `en === sr`
+  ručno pregledano i potvrđeno legitimno (akronimi, lična imena, brojevi/
+  vreme, engleski nazivi radionica — ne propust u prevodu).
+- ✅ `scripts/i18n-apply-translations.ts` (`npm run i18n:apply-translations
+  --file=<...>`) — grupiše prevode po dokumentu, gradi granularni Sanity
+  patch path (npr. `pageBuilder[_key=="xxx"].heading.en`) i upisuje `en`
+  vrednost + `enReviewed: false` (eksplicitno, jer schema `initialValue`
+  važi samo za NOVE dokumente kreirane u Studio-u, ne za postojeće
+  patch-ovane preko API-ja) u jednom `.set()` pozivu po dokumentu. Testirano
+  `--dry-run` pa smoke-test na 1 dokumentu (`announcement-1`, potvrđeno
+  upitom da su `en`/`sr`/`enReviewed` tačno na mestu) pre punog upisa.
+  Pokrenuto **direktno na `production`** (isti presedan kao 3c — vlasnik
+  sajta odobrio). Rezultat: **99/99 dokumenata, 2742/2742 polja upisano bez
+  grešaka**; ponovni `i18n:export-untranslated` posle upisa → 0 preostalih
+  zadataka (potvrđena idempotentnost/potpunost).
+- ✅ `enReviewed: boolean` polje (human review gate) dodato na svih **20**
+  document/singleton schema tipova koji imaju lokalizovan sadržaj (12
+  dokument tipova + 8 singletona — isti spisak kao Faza 3b Korak 2),
+  `initialValue: false`. **Granularnost: po dokumentu (99 flagova), ne po
+  polju** (vlasnik sajta eksplicitno odabrao ovu opciju — praktičnije za
+  urednika u Studio-u nego 423+ pojedinačnih checkbox-ova).
+- ✅ `app/sitemap.ts` — dok pojedinačna klinika/za-pacijente stranica nema
+  `enReviewed: true`, njena `/en/*` varijanta se izostavlja iz sitemap-a
+  (SR varijanta ostaje nepromenjena). Fetch-uje `clinicPage`/`page`
+  (`section=="za-pacijente"`) dokumente preko posebnog keširanog klijenta
+  (`useCdn:true`, bez `cache:"no-store"` da ne pokvari `force-static`).
+  Watch-item: 2 `za-pacijente` `page` dokumenta imaju Sanity slug različit
+  od URL segmenta (`kardiologija-za-pacijente`, `vaskularna-hirurgija-za-
+  pacijente` — izbegavaju koliziju sa istoimenim `clinicPage` slug-om,
+  vidi sekciju 2 gore) — `ZA_PACIJENTE_SLUG_OVERRIDES` mapa u `sitemap.ts`
+  to rešava (otkriveno i ispravljeno tokom verifikacije, sitemap je prvo
+  netačno propustio ta 2 kroz gate). Ostale sekcije (o nama, edukacija,
+  nauka, aktuelnosti) namerno NISU gate-ovane (nisu klinički osetljive na
+  isti način kao klinike/za-pacijente).
+- ⚠️ **`noindex` meta tag NIJE dodat** (samo sitemap isključivanje) — pravi
+  `noindex` bi zahtevao da svih ~70 statičnih `metadata.ts` fajlova
+  fetch-uje Sanity `enReviewed` polje, što je već postojeći, veći Backlog
+  item (vidi niže) van scope-a ovog prolaza. Sitemap isključivanje je
+  dovoljno kao primarni signal pretraživačima (stranica i dalje tehnički
+  dostupna na URL-u, samo ne u sitemap-u).
+- ✅ Verifikovano: `npx tsc --noEmit` čisto, `npm run lint` (27 problema,
+  identično baseline-u), `npm run build` (exit 0, sitemap generisan
+  statički bez greške). Ručna provera u browseru (dev server): 5 `/en/*`
+  ruta (kardiohirurgija, za-pacijente/kardiologija sa slug override-om,
+  o-nama/lokacija, aktuelnosti/oglasi-konkursi, edukacija) — svi 200, 0
+  `[object Object]`, engleski tekst se stvarno renderuje (npr. "Clinic for
+  Cardiac Surgery"). `sitemap.xml` provera: `/en/klinike/anesteziologija`
+  i `/en/za-pacijente/kardiologija` odsutni (gated), `/en/klinike` (hub)
+  prisutan (nije gate-ovan, samo listing).
+- **Sledeći korak:** vlasnik sajta pregleda AI prevode u Studio-u (tabbed
+  sr/en input, `LocaleTabInput.tsx`) i čekira `enReviewed` po dokumentu →
+  tek onda Faza 3f (ukloni sitemap gate za potvrđene dokumente, zatvori
+  i18n zadatak). Ovo je ljudski korak, ne nastavlja se automatski.
 
 ### Faza 3e — ožičenje stranica na locale — ✅ gotovo (2026-08-04)
 
@@ -465,13 +534,70 @@ neki render-poziv duboko u nekoj leaf komponenti).
 - `app/layout.tsx` `<html lang="sr">` — i dalje hardkodovano, nije dirano
   (nezavisno od ovog bug-fix prolaza, ostaje kao pre).
 
-### Faza 3f — zatvaranje — ❌ čeka 3d
+### Faza 3f — zatvaranje — ❌ čeka ljudski review (vlasnik sajta)
 
-- Ukloniti noindex gate-ove posle review-a, ažurirati sitemap.
+3d gotovo — čeka se da vlasnik sajta pregleda AI prevode u Studio-u i čekira
+`enReviewed` po dokumentu (99 dokumenata).
+
+- Ukloniti `sitemap.ts` gate za dokumente kod kojih je `enReviewed: true`
+  (ili pojednostaviti gate ako se sve odjednom potvrdi).
 - Ažurirati ovaj fajl + `PROJECT_STATUS.md` + `ARHITEKTURA.md` po standardnoj
   "Definicija završenog taska" konvenciji.
 
-## Sadržaj za unos — `docs za ubacivanje/` (gitignored, samo lokalno)
+## Догађаји — nov Sanity dokument tip + homepage vidžet — ✅ gotovo (2026-08-05)
+
+Nov sadržajni tip za upravljanje predstojećim događajima/skupovima Instituta
+(kongresi, radionice i sl.) sa strukturisanim datumom, na zahtev vlasnika
+sajta (mokap homepage "Добродошли" sekcije — desna kolona sa slikom zamenjena
+vidžetom predstojećih događaja). Detaljno:
+
+- ✅ Nova Sanity šema: `sanity/schemas/documents/event.ts` (`title` localeString,
+  `date` Sanity date tip, `image` obavezno, `location` plain string, `link`
+  opciono, `enReviewed` boolean). Registrovana u `schemas/index.ts` i
+  `structure.ts` (pod Актуелности, između Вести i Гостовања). Minimalna
+  verzija — nema posebnu detalj-stranicu/rutu, koristi se samo za homepage
+  vidžet.
+- ✅ Nov upit `EVENTS_QUERY` u `sanity/lib/queries.ts`, `EventItem` tip u
+  `sanity/types.ts`.
+- ✅ Homepage: `app/[locale]/page.tsx` sada fetch-uje događaje (`EVENTS_QUERY`)
+  paralelno sa vestima/gostovanjima, filtrira za `date >= danas` (ISO string
+  poređenje) i uzima prva 3. Desna kolona `welcomeSection` bloka sada
+  prikazuje nov "Предстојећи догађаји" vidžet (mala slika + naziv + datum +
+  lokacija po događaju, klikljivo ako postoji `link`) kad ima bar 1 predstojeći
+  događaj; inače pada nazad na stari layout (glavna slika + sekundarna slika +
+  "65+ ГОДИНА ИСКУСТВА" bedž — `welcomeSection.image`/`secondaryImage`/
+  `imageBadge` polja NISU uklonjena iz šeme, ostaju kao fallback izvor, isti
+  princip kao "disable ne delete" primenjen ranije na video slajder).
+- ✅ Nove CSS klase u `app/[locale]/page.module.css` (`.eventsWidget`,
+  `.eventsWidgetHeader`, `.eventsWidgetList`, `.eventItem`, `.eventThumb`,
+  `.eventInfo`, `.eventDate`). `.welcomeGrid` promenjen sa `align-items: center`
+  na `align-items: start` (duži `bodyText` bi inače centrirao kraći vidžet
+  neprirodno na sredini kolone — verifikovano Playwright screenshotom pre/posle).
+  Nova `.welcomeBodyText { white-space: pre-line; }` klasa da `\n\n`-razdvojeni
+  pasusi u Sanity `bodyText` polju stvarno prave vizuelne prelome pasusa.
+- ✅ Sadržajna izmena (Sanity patch na produkciji, NE code change — jednokratni
+  scratchpad skript kreiran i pokrenut pa obrisan, isti obrazac kao ranija
+  hero-video izmena 2026-08-04): `homepage.welcomeSection.bodyText.sr`
+  proširen sa postojeće jedne rečenice na tu rečenicu + 5 novih pasusa
+  institucionalnog teksta koji je vlasnik sajta dostavio ("Више од 45
+  година...", zaključno sa "Придружите нам се..."/"Ваш Институт..." pasusima).
+  `bodyText.en` očišćen na `""` (pada nazad na SR prikaz na `/en` preko
+  postojećeg `localize()` EN→SR fallback-a) — čeka standardnu i18n
+  export/translate/apply pipeline (Faza 3d obrazac) za pravi prevod.
+  `leadText` NIJE menjan (već se 1:1 poklapao sa mokapom).
+- ✅ Migraciona skripta `scripts/migrate-events.ts` (`npm run migrate:events`)
+  — seed-uje 3 primer događaja, imena preuzeta iz već poznatih ponavljajućih
+  Institut-skih događaja pomenutih drugde na sajtu (Годишњи конгрес
+  Института, Сретењска радионица, Конгрес кардиоваскуларне превенције/ХИСПА),
+  slike reciklirane iz postojećih `public/images/*` fajlova. **Datumi
+  (2027-02-13, 2027-04-15, 2027-06-10) su procena/placeholder, NISU potvrđeni
+  od vlasnika sajta** — vidi Backlog stavku u `PROJECT_STATUS.md` Blokeri.
+- ✅ Verifikacija: `npx tsc --noEmit` čisto, `npm run lint` (27 problema,
+  baseline nepromenjen), `npm run build` (exit 0), dev server + Playwright
+  screenshot potvrdili da vidžet prikazuje 3 događaja sa slikama/datumima/
+  lokacijama, stari fallback layout ispravno odsutan, puni tekst se renderuje
+  sa ispravnim prelomima pasusa.
+
 
 Materijal koji su odeljenja/klinike poslale IT sektoru u okviru revizije sajta
 (rok 31.05.2026), sirov sadržaj za unos po stranici. Folder je namerno
@@ -608,7 +734,7 @@ Radi se u batch-evima, jedan po jedan, uz javljanje posle svakog.
 - ❌ ☁️ `/klinike/fizikalna-medicina` vs `/klinike/kardiovaskularna-rehabilitacija` — moguće preklapanje. Live sajt (ikvbd.org) ima JEDNU stranicu "Centar za kardiovaskularnu rehabilitaciju" na `/klinike/fizikalna-medicina-i-rehabilitacija/`; ovde postoje DVE odvojene rute. Proveriti sa vlasnikom sajta da li je podela namerna ili treba spajanje/redirect.
 - ❌ "Kućni red" (pravilnik, PDF) nije linkovan nigde u `/za-pacijente/` rutama — na live sajtu postoji kao PDF link sa te stranice. Dodati link/dokument.
 - ❌ `/edukacija/medjunarodni-kongresi` — live sajt ima novije kongrese iz 2025/2026 (Dedinje Vascular Symposium 2026, COVID kongres 2026, Neurocard 2026, Aorta Masterclass, TAVI Academy, Workshop 3D Mapping) koji kod nas ne postoje; nisu dodati jer nemamo prave slike/opise za te događaje (rizik od "praznih" kartica) — treba materijal od vlasnika sajta.
-- ❌ "О вашем здрављу" — na live sajtu postoji kao zbirna kategorija/listing stranica koja grupiše članke (npr. Plan ishrane); ovde postoji samo pojedinačna `/za-pacijente/plan-ishrane` ruta bez listing stranice. Relevantno ako se planira više članaka te vrste.
+- ❌ "О вашем здрављу" — na live sajtu postoji kao zbirna kategorija/listing stranica koja grupiše članke (npr. Plan ishrane); ovde postoji samo pojedinačna `/za-pacijente/plan-ishrane` ruta bez listing stranice. Relevantno ako se planira više članaka te vrste. **Napomena (2026-08-05):** nova `/za-pacijente` landing stranica NIJE isto što je ovaj backlog item — landing je hub sa linkovima na sve 12 `/za-pacijente/*` podstranice (opšti uvod), a "О вашем здрављу" bi bio filter/kategorija za određene članke.
 - ❌ `/akta-instituta` — postoji na live ikvbd.org (linkovano sa „О нама"), nema ekvivalentnu rutu kod nas. Otkriveno tokom Batch 1 popune sadržaja.
 - ❌ ☁️ `/klinike/kardiohirurgija` — stat "95,5% Стопа преживљавања" nema potvrđen izvor (nije u docx `УВОДНА РЕЧ.docx` ni u stari-sajt sweep beleškama); "3.000+ годишње операција" zaokruženo naviše od docx raspona "2500-3000". Otkriveno tokom docx-audit sweep-a 2026-07-21, vidi `popunjene-stranice-2026-07-21.md`. Treba potvrda vlasnika sajta.
 - ❌ ☁️ `/za-pacijente/preoperativna-priprema` — docx izvor ima stavku "Хсердоксо" u listi antikoagulanasa koja nije uneta u kod (nejasno da li je OCR artefakt ili stvaran nedostajući lek). Otkriveno tokom docx-audit sweep-a 2026-07-21, vidi `popunjene-stranice-2026-07-21.md`. Treba potvrda Odeljenja za preoperativnu pripremu.
@@ -616,6 +742,8 @@ Radi se u batch-evima, jedan po jedan, uz javljanje posle svakog.
   - ✅ `Header.tsx` telefon ispravljen (668→700).
   - ✅ Footer (Sanity singleton) telefon/email ispravljen (668/669→700, info@ikvbd.rs→info@ikvbd.com) — `SANITY_API_TOKEN` u `.env.local` nadograđen na Editor token, i `scripts/migrate-footer.ts` ažuriran da ne vrati grešku.
   - ✅ Hero slajdovi, "Наше клинике" i "За пацијенте" brzi linkovi (2026-08-03) — prešli sa hardkodovanih nizova (`videoHeroSlides`/`CLINICS_FEATURED`/`PATIENT_LINKS`) na Sanity `heroSlidesSection`/`clinicsFeaturedSection`/`patientLinksSection`, sadržaj je i dalje tačan (prenet 1:1), samo je sad editable kroz Studio.
+  - ✅ **Hero pretvoren iz 4-slajd slajdera u jedan statičan video (2026-08-04)** — vlasnik sajta odlučio da se ukine slajder ideja, samo jedan video (`public/videos/video-za-slajder.mp4`) sa H1/H2 tekstom preko njega. `HeroSection.tsx` slajder logika (strelice/tačkice) **namerno nije uklonjena iz koda** — `isSlider = slides.length > 1`, pa jedan slajd automatski renderuje statičan hero bez slajder UI-ja (kod ostaje spreman ako se ubuduće doda još slajdova). Promenjeno: `heroSlidesSection.slides` na Sanity `homepage` dokumentu patch-ovano na tačno 1 slajd (naslov "Национални институт за срце и крвне судове" / "National Institute for Heart and Blood Vessels", podnaslov "Традиција и поверење које траје 50 година." / "A tradition of trust spanning 50 years.", bez badge-a), i `videoHeroSlides` fallback niz u `app/[locale]/page.tsx` usklađen (isti sadržaj, za slučaj da Sanity fetch ne uspe). Verifikovano `npm run lint` (27, baseline), `npm run build` (exit 0), Playwright screenshot `/sr` i `/en` (video se vidi i menja frejmove = autoplay radi, nema strelica/tačkica).
+  - ✅ **Info kartice ispod heroa redizajnirane + nove `/za-pacijente` i `/nas-tim` landing stranice (2026-08-05)** — 4 info kartice (istaknute plave) sa linkovima ispod hero sekcije su redizajnirane sa novim sadržajem: Информације за пацијенте → `/za-pacijente`, Наше клинике → `/klinike`, Наш тим → `/nas-tim` (ranije `#team` anchor), Контакт → novi `contact` variant sa `contactPhone`/`contactFax` poljima (pokazuje 011 3601 700 i 011 2666 445 umesto starog emergency broja). Nova `contact` varijanta dodana na `sanity/schemas/objects/infoBox.ts` sa odgovarajućim render logikom u `components/shared/InfoBox/InfoBox.tsx`. Sekcija "За пацијенте" (6 brzih linkova) PREMEŠTENA sa homepage JSX-a na novu stranicu `app/[locale]/za-pacijente/page.tsx` koja linkuje na sve 12 `/za-pacijente/<slug>` podstranice; koristi `patientLinksSection` pageBuilder blok preko novog `PATIENT_LINKS_SECTION_QUERY`. Nova ruta `/nas-tim` (`app/[locale]/nas-tim/page.tsx`) prikazuje `teamSection` sa homepage-a; originalna inline tim sekcija na početnoj zadržana. Sitemap ažuriran sa `/za-pacijente` i `/nas-tim`. `scripts/migrate-homepage-cards-update.ts` (nova skripta) pokrenuta na produkciji; sve 4 kartice potvrđene upitom. `npm run lint` (27, baseline), `npm run build` (exit 0), dev server test (oba ruta 200, sadržaj očekivan).
   - ❌ ☁️ Sekcije "Тим" (4 izmišljena doktora) i "Шта кажу наши пацијенти" (3 izmišljena pacijenta) na početnoj imaju fabrikovane ljude sa stock fotografijama — namerno ostavljeno dok se ne dobije pravi materijal ili odluka da se sekcije uklone. **Napomena:** ova sekcija JESTE Sanity-backed (flat array u `teamSection`/`testimonialsSection`), problem je isključivo sadržajni (demo podaci), ne arhitekturni.
   - ❌ ☁️ Stats sekcija (15.000 operacija/god, 200 lekara, 65 god., 50.000 pacijenata) i emergency telefon "011 3601 600" (treći različit broj) — neprovereni brojevi iz demo seed-a. Isto — Sanity-backed, sadržaj neproveren.
   - ❌ Orphaned Sanity sadržaj koji se nigde ne renderuje (`departmentsSection`, `newsSection`, `contactSection`, pojedinačni `hero` object tip — ne meša se sa novim `heroSlidesSection`) — cleanup, nije hitno.

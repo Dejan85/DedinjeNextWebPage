@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import Container from "../Container/Container";
 import { Section } from "../Section/Section";
 import styles from "./CardGrid.module.css";

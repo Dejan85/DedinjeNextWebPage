@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import {
   HeroSection,
   Button,
@@ -16,7 +16,7 @@ import {
 } from "@/components/shared";
 import { Heading, Text, Badge } from "@/components/typography";
 import { client } from "@/sanity/lib/client";
-import { HOMEPAGE_QUERY, NEWS_QUERY, VIDEOS_QUERY } from "@/sanity/lib/queries";
+import { HOMEPAGE_QUERY, NEWS_QUERY, VIDEOS_QUERY, EVENTS_QUERY } from "@/sanity/lib/queries";
 import { localize, type Locale } from "@/sanity/lib/locale";
 import styles from "./page.module.css";
 import type {
@@ -32,9 +32,9 @@ import type {
   PartnersSection,
   HeroSlidesSection,
   ClinicsFeaturedSection,
-  PatientLinksSection,
   News,
   VideoItem,
+  EventItem,
   InfoBox as InfoBoxType,
   WelcomeFeature as WelcomeFeatureType,
   StatItem,
@@ -50,45 +50,6 @@ interface PageBuilder {
   _type: string;
   _key?: string;
 }
-
-const PATIENT_LINKS = [
-  {
-    icon: "fas fa-hospital-user",
-    title: "Пријем у болницу",
-    desc: "Информације о пријему и припреми",
-    href: "/za-pacijente/prijem",
-  },
-  {
-    icon: "fas fa-circle-question",
-    title: "Честа питања",
-    desc: "Одговори на најчешћа питања",
-    href: "/za-pacijente/cesta-pitanja",
-  },
-  {
-    icon: "fas fa-heart-pulse",
-    title: "Кардиохируршки конзилијум",
-    desc: "Документација и термини",
-    href: "/za-pacijente/kardiohirurski-konzilijum",
-  },
-  {
-    icon: "fas fa-stethoscope",
-    title: "Васкуларни конзилијум",
-    desc: "Процес рада и контакт",
-    href: "/za-pacijente/vaskularni-konzilijum",
-  },
-  {
-    icon: "fas fa-clipboard-list",
-    title: "Амбуланте",
-    desc: "Радно време и локације",
-    href: "/za-pacijente/ambulante",
-  },
-  {
-    icon: "fas fa-utensils",
-    title: "План исхране",
-    desc: "Препоруке за исхрану",
-    href: "/za-pacijente/plan-ishrane",
-  },
-];
 
 const SERVICE_LINK_MAP: Record<string, string> = {
   Кардиохирургија: "/klinike/kardiohirurgija",
@@ -142,6 +103,17 @@ const CLINICS_FEATURED = [
   },
 ];
 
+// Sekcije privremeno isključene na zahtev vlasnika sajta (2026-08-05, vidi
+// PROJECT_STATUS.md dnevnik) — postaviti odgovarajuću vrednost na `true` da
+// se sekcija vrati, ništa nije obrisano iz koda/Sanity-ja.
+const HOMEPAGE_SECTION_TOGGLES = {
+  services: false, // "Комплетна кардиоваскуларна нега"
+  whyChooseUs: false, // "По чему смо другачији"
+  directorQuote: false, // citat direktora
+  ctaBanner: false, // "Ваше здравље је наш приоритет"
+  contactCta: false, // "Контактирајте нас" + mapa
+};
+
 export default async function Home({
   params,
 }: {
@@ -161,13 +133,20 @@ export default async function Home({
 
   let homepageVesti = VESTI;
   let homepageGostovanja = GOSTOVANJA;
+  let upcomingEvents: EventItem[] = [];
   try {
-    const [newsResRaw, videosResRaw] = await Promise.all([
+    const [newsResRaw, videosResRaw, eventsResRaw] = await Promise.all([
       client.fetch<News[]>(NEWS_QUERY),
       client.fetch<VideoItem[]>(VIDEOS_QUERY),
+      client.fetch<EventItem[]>(EVENTS_QUERY),
     ]);
     const newsRes = newsResRaw ? localize(newsResRaw, locale as Locale) : newsResRaw;
     const videosRes = videosResRaw ? localize(videosResRaw, locale as Locale) : videosResRaw;
+    const eventsRes = eventsResRaw ? localize(eventsResRaw, locale as Locale) : eventsResRaw;
+    if (eventsRes) {
+      const today = new Date().toISOString().slice(0, 10);
+      upcomingEvents = eventsRes.filter((e) => e.date >= today).slice(0, 3);
+    }
     if (newsRes && newsRes.length > 0) {
       homepageVesti = newsRes.map((n) => ({
         id: n._id,
@@ -195,37 +174,14 @@ export default async function Home({
       }));
     }
   } catch (error) {
-    console.error("Error fetching news/videos for homepage:", error);
+    console.error("Error fetching news/videos/events for homepage:", error);
   }
 
   const videoHeroSlides = [
     {
-      videoSrc: "/videos/institut-dedinje-video-2.mp4",
-      badge: "Институт",
-      title: 'Институт за кардиоваскуларне болести „Дедиње"',
-      subtitle:
-        "Савремена дијагностика и лечење, врхунски тим стручњака и најновија медицинска технологија — у служби вашег здравља.",
-    },
-    {
-      videoSrc: "/videos/klinike-video.mp4",
-      badge: "Клинике",
-      title: "Врхунска кардиоваскуларна нега",
-      subtitle:
-        "Специјализоване клинике опремљене најсавременијом медицинском технологијом за дијагностику и лечење.",
-    },
-    {
-      videoSrc: "/images/o-institutu.mp4",
-      badge: "О нама",
-      title: "Више од 60 година искуства",
-      subtitle:
-        "Традиција изврсности у кардиоваскуларној медицини, препозната у региону и шире.",
-    },
-    {
-      videoSrc: "/videos/rec-direktora.mp4",
-      badge: "Реч директора",
-      title: "У служби здравља наших пацијената",
-      subtitle:
-        "Мисија Института је пружање најквалитетније здравствене заштите сваком пацијенту.",
+      videoSrc: "/videos/video-za-slajder.mp4",
+      title: "Национални институт за срце и крвне судове",
+      subtitle: "Традиција и поверење које траје 50 година.",
     },
   ];
   let slidesForHero: Array<{
@@ -274,10 +230,6 @@ export default async function Home({
   const clinicsFeaturedSection = pageBuilder.find(
     (section) => section._type === "clinicsFeaturedSection",
   ) as ClinicsFeaturedSection | undefined;
-  const patientLinksSectionData = pageBuilder.find(
-    (section) => section._type === "patientLinksSection",
-  ) as PatientLinksSection | undefined;
-
   if (heroSlidesSection?.slides && heroSlidesSection.slides.length > 0) {
     slidesForHero = heroSlidesSection.slides.map((slide) => ({
       videoSrc: slide.video,
@@ -292,10 +244,6 @@ export default async function Home({
     clinicsFeaturedSection?.items && clinicsFeaturedSection.items.length > 0
       ? clinicsFeaturedSection.items
       : CLINICS_FEATURED;
-  const patientLinkItems =
-    patientLinksSectionData?.items && patientLinksSectionData.items.length > 0
-      ? patientLinksSectionData.items
-      : PATIENT_LINKS;
 
   const latestGostovanja = homepageGostovanja.slice(0, 3);
 
@@ -335,8 +283,12 @@ export default async function Home({
                 linkHref={box.linkHref}
                 emergencyPhone={box.emergencyPhone}
                 emergencyNote={box.emergencyNote}
+                contactPhone={box.contactPhone}
+                contactFax={box.contactFax}
                 className={
-                  box.variant === "emergency" ? "emergency" : undefined
+                  box.variant === "emergency" || box.variant === "contact"
+                    ? "emergency"
+                    : undefined
                 }
               />
             ))}
@@ -353,7 +305,11 @@ export default async function Home({
                 <Badge variant="primary" text={welcomeSection.badge} />
                 <Heading variant="h2" size="lg" text={welcomeSection.heading} />
                 <Text variant="lead" text={welcomeSection.leadText} />
-                <Text variant="body" text={welcomeSection.bodyText} />
+                <Text
+                  variant="body"
+                  text={welcomeSection.bodyText}
+                  className={styles.welcomeBodyText}
+                />
                 <div className={styles.welcomeFeatures}>
                   {welcomeSection.features?.map(
                     (feature: WelcomeFeatureType) => (
@@ -376,51 +332,101 @@ export default async function Home({
                   </div>
                 )}
               </div>
-              <div className={styles.welcomeImages}>
-                <div className={styles.welcomeImgMain}>
-                  <Image
-                    src={
-                      (welcomeSection.image?.asset &&
-                      "url" in welcomeSection.image.asset
-                        ? welcomeSection.image.asset.url
-                        : "") || "/images/o_nama_image.png"
-                    }
-                    alt={welcomeSection.heading}
-                    width={800}
-                    height={600}
-                  />
+              {upcomingEvents.length > 0 ? (
+                <div className={styles.eventsWidget}>
+                  <div className={styles.eventsWidgetHeader}>
+                    <span className={styles.eventsWidgetIcon}>
+                      <i className="fas fa-calendar-days" aria-hidden />
+                    </span>
+                    <h3>Предстојећи догађаји</h3>
+                  </div>
+                  <div className={styles.eventsWidgetList}>
+                    {upcomingEvents.map((event) => {
+                      const eventContent = (
+                        <>
+                          <div className={styles.eventThumb}>
+                            <Image
+                              src={urlFor(event.image).width(160).height(160).url()}
+                              alt={event.title}
+                              width={80}
+                              height={80}
+                            />
+                          </div>
+                          <div className={styles.eventInfo}>
+                            <strong>{event.title}</strong>
+                            <span className={styles.eventDate}>
+                              <i className="fas fa-calendar" aria-hidden />
+                              {formatSrDate(event.date)}
+                              {event.location ? ` · ${event.location}` : ""}
+                            </span>
+                          </div>
+                        </>
+                      );
+                      return event.link ? (
+                        <a
+                          key={event._id}
+                          href={event.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={styles.eventItem}
+                        >
+                          {eventContent}
+                        </a>
+                      ) : (
+                        <div key={event._id} className={styles.eventItem}>
+                          {eventContent}
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
-                {welcomeSection.secondaryImage?.asset &&
-                  "url" in welcomeSection.secondaryImage.asset &&
-                  welcomeSection.secondaryImage.asset.url && (
-                    <div className={styles.welcomeImgSecondary}>
-                      <Image
-                        src={welcomeSection.secondaryImage.asset.url}
-                        alt="Medical equipment"
-                        width={400}
-                        height={300}
+              ) : (
+                <div className={styles.welcomeImages}>
+                  <div className={styles.welcomeImgMain}>
+                    <Image
+                      src={
+                        (welcomeSection.image?.asset &&
+                        "url" in welcomeSection.image.asset
+                          ? welcomeSection.image.asset.url
+                          : "") || "/images/o_nama_image.png"
+                      }
+                      alt={welcomeSection.heading}
+                      width={800}
+                      height={600}
+                    />
+                  </div>
+                  {welcomeSection.secondaryImage?.asset &&
+                    "url" in welcomeSection.secondaryImage.asset &&
+                    welcomeSection.secondaryImage.asset.url && (
+                      <div className={styles.welcomeImgSecondary}>
+                        <Image
+                          src={welcomeSection.secondaryImage.asset.url}
+                          alt="Medical equipment"
+                          width={400}
+                          height={300}
+                        />
+                      </div>
+                    )}
+                  {welcomeSection.imageBadge && (
+                    <div className={styles.experienceBadge}>
+                      <Text
+                        text={welcomeSection.imageBadge.number}
+                        as="span"
+                        color="light"
+                        align="center"
+                        className={styles.expNumber}
+                      />
+                      <Text
+                        text={welcomeSection.imageBadge.text}
+                        as="span"
+                        color="light"
+                        align="center"
+                        className={styles.expText}
                       />
                     </div>
                   )}
-                {welcomeSection.imageBadge && (
-                  <div className={styles.experienceBadge}>
-                    <Text
-                      text={welcomeSection.imageBadge.number}
-                      as="span"
-                      color="light"
-                      align="center"
-                      className={styles.expNumber}
-                    />
-                    <Text
-                      text={welcomeSection.imageBadge.text}
-                      as="span"
-                      color="light"
-                      align="center"
-                      className={styles.expText}
-                    />
-                  </div>
-                )}
-              </div>
+                </div>
+              )}
             </div>
           </Container>
         </section>
@@ -456,7 +462,7 @@ export default async function Home({
       )}
 
       {/* Services */}
-      {servicesSection && (
+      {HOMEPAGE_SECTION_TOGGLES.services && servicesSection && (
         <Section padding="large" background="gray">
           <Container>
             <div className="section-header centered">
@@ -490,7 +496,7 @@ export default async function Home({
       )}
 
       {/* Why Choose Us */}
-      {whyChooseUsSection && (
+      {HOMEPAGE_SECTION_TOGGLES.whyChooseUs && whyChooseUsSection && (
         <Section padding="large" background="white">
           <Container>
             <div className="features-wrapper">
@@ -529,39 +535,41 @@ export default async function Home({
       )}
 
       {/* Director's Word */}
-      <Section padding="medium" background="white">
-        <Container>
-          <div className={styles.directorCard}>
-            <div className={styles.directorLeft}>
-              <div className={styles.directorAvatarLarge}>
-                <i className="fas fa-user-tie" aria-hidden />
+      {HOMEPAGE_SECTION_TOGGLES.directorQuote && (
+        <Section padding="medium" background="white">
+          <Container>
+            <div className={styles.directorCard}>
+              <div className={styles.directorLeft}>
+                <div className={styles.directorAvatarLarge}>
+                  <i className="fas fa-user-tie" aria-hidden />
+                </div>
+                <div className={styles.directorMeta}>
+                  <strong>Академик проф. др Милован М. Бојић</strong>
+                  <span>Директор Института</span>
+                </div>
+                <Link href="/rec-direktora" className={styles.directorLink}>
+                  Прочитајте реч директора
+                  <i className="fas fa-arrow-right" aria-hidden />
+                </Link>
               </div>
-              <div className={styles.directorMeta}>
-                <strong>Академик проф. др Милован М. Бојић</strong>
-                <span>Директор Института</span>
+              <div className={styles.directorRight}>
+                <div className={styles.directorQuoteIcon}>
+                  <i className="fas fa-quote-left" aria-hidden />
+                </div>
+                <blockquote className={styles.directorQuote}>
+                  Наша обавеза је да обезбедимо врхунску услугу у домену
+                  кардиоваскуларне медицине — ефикасне, квалитетне процедуре без
+                  значајних компликација, које омогућавају брз опоравак и повратак
+                  свакодневним активностима.
+                </blockquote>
               </div>
-              <Link href="/rec-direktora" className={styles.directorLink}>
-                Прочитајте реч директора
-                <i className="fas fa-arrow-right" aria-hidden />
-              </Link>
             </div>
-            <div className={styles.directorRight}>
-              <div className={styles.directorQuoteIcon}>
-                <i className="fas fa-quote-left" aria-hidden />
-              </div>
-              <blockquote className={styles.directorQuote}>
-                Наша обавеза је да обезбедимо врхунску услугу у домену
-                кардиоваскуларне медицине — ефикасне, квалитетне процедуре без
-                значајних компликација, које омогућавају брз опоравак и повратак
-                свакодневним активностима.
-              </blockquote>
-            </div>
-          </div>
-        </Container>
-      </Section>
+          </Container>
+        </Section>
+      )}
 
       {/* CTA Banner */}
-      {ctaSection && (
+      {HOMEPAGE_SECTION_TOGGLES.ctaBanner && ctaSection && (
         <section className="parallax-section parallax-cta">
           <div className="parallax-overlay gradient"></div>
           <div className="parallax-content">
@@ -635,32 +643,6 @@ export default async function Home({
               <i className="fas fa-hospital" aria-hidden />
               Погледајте све клинике
             </Button>
-          </div>
-        </Container>
-      </Section>
-
-      {/* For Patients */}
-      <Section padding="medium" background="white">
-        <Container>
-          <div className={styles.sectionHeader}>
-            <span className={styles.sectionIconWrap}>
-              <i className={patientLinksSectionData?.icon || "fas fa-user-shield"} aria-hidden />
-            </span>
-            <div>
-              <h2>{patientLinksSectionData?.heading || "За пацијенте"}</h2>
-              <p>{patientLinksSectionData?.subheading || "Брз приступ најважнијим информацијама"}</p>
-            </div>
-          </div>
-          <div className={styles.patientGrid}>
-            {patientLinkItems.map((item, idx) => (
-              <Link key={idx} href={item.href || "#"} className={styles.patientCard}>
-                <div className={styles.patientCardIcon}>
-                  <i className={item.icon} aria-hidden />
-                </div>
-                <h4>{item.title}</h4>
-                <p>{item.desc}</p>
-              </Link>
-            ))}
           </div>
         </Container>
       </Section>
@@ -846,76 +828,78 @@ export default async function Home({
       </Section>
 
       {/* Contact CTA */}
-      <section className={styles.contactCta}>
-        <Container>
-          <div className={styles.contactCtaInner}>
-            <div className={styles.contactCtaInfo}>
-              <div className={styles.contactCtaIcon}>
-                <i className="fas fa-headset" aria-hidden />
-              </div>
-              <h2>Контактирајте нас</h2>
-              <p>
-                Потребна вам је помоћ? Наш тим стручњака је спреман да одговори
-                на сва ваша питања.
-              </p>
-              <div className={styles.contactCtaDetails}>
-                <a href="tel:+381113601700" className={styles.contactCtaItem}>
-                  <span className={styles.contactCtaItemIcon}>
-                    <i className="fas fa-phone" aria-hidden />
-                  </span>
-                  <div>
-                    <span>Call центар</span>
-                    <strong>011 3601 700</strong>
-                  </div>
-                </a>
-                <a
-                  href="mailto:info@ikvbd.com"
-                  className={styles.contactCtaItem}
-                >
-                  <span className={styles.contactCtaItemIcon}>
-                    <i className="fas fa-envelope" aria-hidden />
-                  </span>
-                  <div>
-                    <span>Е-пошта</span>
-                    <strong>info@ikvbd.com</strong>
-                  </div>
-                </a>
-                <div className={styles.contactCtaItem}>
-                  <span className={styles.contactCtaItemIcon}>
-                    <i className="fas fa-location-dot" aria-hidden />
-                  </span>
-                  <div>
-                    <span>Адреса</span>
-                    <strong>Хероја Милана Тепића 1, Београд</strong>
+      {HOMEPAGE_SECTION_TOGGLES.contactCta && (
+        <section className={styles.contactCta}>
+          <Container>
+            <div className={styles.contactCtaInner}>
+              <div className={styles.contactCtaInfo}>
+                <div className={styles.contactCtaIcon}>
+                  <i className="fas fa-headset" aria-hidden />
+                </div>
+                <h2>Контактирајте нас</h2>
+                <p>
+                  Потребна вам је помоћ? Наш тим стручњака је спреман да
+                  одговори на сва ваша питања.
+                </p>
+                <div className={styles.contactCtaDetails}>
+                  <a href="tel:+381113601700" className={styles.contactCtaItem}>
+                    <span className={styles.contactCtaItemIcon}>
+                      <i className="fas fa-phone" aria-hidden />
+                    </span>
+                    <div>
+                      <span>Call центар</span>
+                      <strong>011 3601 700</strong>
+                    </div>
+                  </a>
+                  <a
+                    href="mailto:info@ikvbd.com"
+                    className={styles.contactCtaItem}
+                  >
+                    <span className={styles.contactCtaItemIcon}>
+                      <i className="fas fa-envelope" aria-hidden />
+                    </span>
+                    <div>
+                      <span>Е-пошта</span>
+                      <strong>info@ikvbd.com</strong>
+                    </div>
+                  </a>
+                  <div className={styles.contactCtaItem}>
+                    <span className={styles.contactCtaItemIcon}>
+                      <i className="fas fa-location-dot" aria-hidden />
+                    </span>
+                    <div>
+                      <span>Адреса</span>
+                      <strong>Хероја Милана Тепића 1, Београд</strong>
+                    </div>
                   </div>
                 </div>
+                <div className={styles.contactCtaButtons}>
+                  <Button variant="primary" href="/kontakt">
+                    <i className="fas fa-paper-plane" aria-hidden />
+                    Пошаљите поруку
+                  </Button>
+                  <Button variant="outline" href="/o-nama/lokacija">
+                    <i className="fas fa-map-location-dot" aria-hidden />
+                    Како до нас
+                  </Button>
+                </div>
               </div>
-              <div className={styles.contactCtaButtons}>
-                <Button variant="primary" href="/kontakt">
-                  <i className="fas fa-paper-plane" aria-hidden />
-                  Пошаљите поруку
-                </Button>
-                <Button variant="outline" href="/o-nama/lokacija">
-                  <i className="fas fa-map-location-dot" aria-hidden />
-                  Како до нас
-                </Button>
+              <div className={styles.contactCtaMap}>
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2832.5!2d20.4565!3d44.7733!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x475a7009d2b5e8d3%3A0x5f8e8b6f7c6d3e0!2z0JjQvdGB0YLQuNGC0YPRgiDQt9CwINC60LDRgNC00LjQvtCy0LDRgdC60YPQu9Cw0YDQvdC1INCx0L7Qu9C10YHRgtC4INCU0LXQtNC40ZrQtQ!5e0!3m2!1ssr!2srs!4v1700000000000!5m2!1ssr!2srs"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Локација Института"
+                />
               </div>
             </div>
-            <div className={styles.contactCtaMap}>
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2832.5!2d20.4565!3d44.7733!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x475a7009d2b5e8d3%3A0x5f8e8b6f7c6d3e0!2z0JjQvdGB0YLQuNGC0YPRgiDQt9CwINC60LDRgNC00LjQvtCy0LDRgdC60YPQu9Cw0YDQvdC1INCx0L7Qu9C10YHRgtC4INCU0LXQtNC40ZrQtQ!5e0!3m2!1ssr!2srs!4v1700000000000!5m2!1ssr!2srs"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Локација Института"
-              />
-            </div>
-          </div>
-        </Container>
-      </section>
+          </Container>
+        </section>
+      )}
 
       {/* Partners */}
       {partnersSection && (

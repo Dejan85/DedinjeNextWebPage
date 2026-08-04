@@ -70,6 +70,14 @@ export default defineType({
       title: "Globalna SEO podešavanja",
       type: "seoMetadata",
     }),
+    defineField({
+      name: "enReviewed",
+      title: "🌍 EN prevod pregledan",
+      description:
+        "Označi tek nakon što pregledaš AI-generisani engleski prevod ovog dokumenta (Faza 3d i18n). Dok je isključeno, /en/* varijanta izostaje iz sitemap-a.",
+      type: "boolean",
+      initialValue: false,
+    }),
   ],
   preview: {
     prepare() {

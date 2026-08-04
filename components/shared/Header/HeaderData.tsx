@@ -25,5 +25,5 @@ async function getNavigationData(locale: Locale) {
 export default async function HeaderData() {
   const locale = (await getLocale()) as Locale;
   const navigation = await getNavigationData(locale);
-  return <Header menu={navigation?.mainMenu} />;
+  return <Header menu={navigation?.mainMenu} locale={locale} />;
 }

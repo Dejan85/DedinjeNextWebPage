@@ -119,6 +119,7 @@ export const structure: StructureResolver = (S) =>
             .title("Актуелности")
             .items([
               S.documentTypeListItem("news").id("news").title("Вести"),
+              S.documentTypeListItem("event").id("event").title("Догађаји"),
               S.documentTypeListItem("video").id("video").title("Гостовања"),
               S.documentTypeListItem("announcement").id("announcement").title("Обавештења"),
               S.documentTypeListItem("jobPosting").id("jobPosting").title("Огласи и конкурси"),

@@ -14,6 +14,8 @@ interface InfoBoxProps {
   schedule?: ScheduleRow[];
   emergencyPhone?: string;
   emergencyNote?: string;
+  contactPhone?: string;
+  contactFax?: string;
   className?: string;
 }
 
@@ -26,6 +28,8 @@ export default function InfoBox({
   schedule,
   emergencyPhone,
   emergencyNote,
+  contactPhone,
+  contactFax,
   className = "",
 }: InfoBoxProps) {
   return (
@@ -57,6 +61,24 @@ export default function InfoBox({
             <div className={styles.emergencyPhone}>{emergencyPhone}</div>
             {emergencyNote && <p>{emergencyNote}</p>}
           </>
+        )}
+
+        {/* Contact section (call centar + faks) */}
+        {(contactPhone || contactFax) && (
+          <div className={styles.contactInfo}>
+            {contactPhone && (
+              <a href={`tel:${contactPhone.replace(/[^\d+]/g, "")}`} className={styles.contactRow}>
+                <i className="fas fa-phone" aria-hidden />
+                <span>{contactPhone}</span>
+              </a>
+            )}
+            {contactFax && (
+              <div className={styles.contactRow}>
+                <i className="fas fa-fax" aria-hidden />
+                <span>{contactFax}</span>
+              </div>
+            )}
+          </div>
         )}
 
         {/* Link section */}

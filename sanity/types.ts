@@ -377,6 +377,16 @@ export interface VideoItem {
   isNew?: boolean;
 }
 
+export interface EventItem {
+  _id: string;
+  _type: "event";
+  title: string;
+  date: string;
+  image: SanityImage;
+  location?: string;
+  link?: string;
+}
+
 export interface Announcement {
   _id: string;
   _type: "announcement";
@@ -595,7 +605,7 @@ export interface InfoBox {
   _key?: string;
   icon: string;
   title: string;
-  variant: "regular" | "schedule" | "emergency";
+  variant: "regular" | "schedule" | "emergency" | "contact";
   // Regular variant
   description?: string;
   linkText?: string;
@@ -605,6 +615,9 @@ export interface InfoBox {
   // Emergency variant
   emergencyPhone?: string;
   emergencyNote?: string;
+  // Contact variant
+  contactPhone?: string;
+  contactFax?: string;
 }
 
 export interface StatItem {

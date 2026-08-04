@@ -17,7 +17,9 @@
     "migrate:footer": "tsx scripts/migrate-footer.ts",
     "migrate:navigation": "tsx scripts/migrate-navigation.ts",
     "migrate:homepage-extra": "tsx scripts/migrate-homepage-extra.ts",
+    "migrate:homepage-cards-update": "tsx scripts/migrate-homepage-cards-update.ts",
     "migrate:aktuelnosti": "tsx scripts/migrate-aktuelnosti.ts",
+    "migrate:events": "tsx scripts/migrate-events.ts",
     "migrate:kardiohirurgija": "tsx scripts/migrate-kardiohirurgija.ts",
     "migrate:cardioview3d-lab": "tsx scripts/migrate-cardioview3d-lab.ts",
     "migrate:o-nama": "tsx scripts/migrate-o-nama.ts",
@@ -32,6 +34,8 @@
     "migrate:nauka-istrazivanje": "tsx scripts/migrate-nauka-istrazivanje.ts",
     "migrate:backfill-page-section": "tsx scripts/backfill-page-section.ts",
     "migrate:i18n-schema": "tsx scripts/migrate-i18n-schema.ts",
+    "i18n:export-untranslated": "tsx scripts/i18n-export-untranslated.ts",
+    "i18n:apply-translations": "tsx scripts/i18n-apply-translations.ts",
     "check:homepage": "tsx scripts/check-homepage.ts"
   },
   "dependencies": {

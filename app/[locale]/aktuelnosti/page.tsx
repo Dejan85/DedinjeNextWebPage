@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { Container, PageHeader, Section } from "@/components/shared";
 import { Heading } from "@/components/typography";
 import { client } from "@/sanity/lib/client";

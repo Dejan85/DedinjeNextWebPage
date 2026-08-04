@@ -62,7 +62,13 @@ export default function StatCounter({ target, label, icon }: StatCounterProps) {
       <div className={styles.statIcon}>
         <i className={icon}></i>
       </div>
-      <div className={styles.statNumber}>{count.toLocaleString()}</div>
+      {/* data-no-translit: brojka se menja posle mount-a (animacija); globalni
+          transliteration MutationObserver kešira "originalni" tekst samo pri
+          prvom viđenju node-a i posle prepisuje svaku React izmenu preko toga,
+          pa bi bez ovoga brojač uvek ostajao zaglavljen na "0". */}
+      <div className={styles.statNumber} data-no-translit>
+        {count.toLocaleString()}
+      </div>
       <div className={styles.statLabel}>{label}</div>
     </div>
   );

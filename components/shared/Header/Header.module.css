@@ -59,9 +59,14 @@
 .headerToggles {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     flex-shrink: 0;
     color: var(--white);
+    --toggle-track-bg: rgba(255, 255, 255, 0.14);
+    --toggle-fg: rgba(255, 255, 255, 0.75);
+    --toggle-hover-bg: rgba(255, 255, 255, 0.22);
+    --toggle-active-bg: var(--white);
+    --toggle-active-fg: var(--primary);
 }
 
 .mobileToggles {
@@ -200,6 +205,8 @@
     align-items: center;
     gap: 5px;
     padding: 18px 18px;
+    margin: 10px 2px;
+    border-radius: 8px;
     font-size: 12px;
     font-weight: 700;
     color: var(--white);
@@ -214,9 +221,14 @@
 }
 
 .navMenu>li>a:hover,
-.navMenu>li>a.active,
 .navMenu>li>button:hover {
-    background: rgba(0, 0, 0, 0.15);
+    background: rgba(255, 255, 255, 0.14);
+}
+
+.navMenu>li>a.active,
+.navMenu>li>button.active {
+    background: var(--white);
+    color: var(--primary);
 }
 
 .navMenu>li>a i,
@@ -291,6 +303,12 @@
     padding-left: 25px;
 }
 
+.dropdown li a.active {
+    background: var(--gray-50);
+    color: var(--primary);
+    font-weight: 700;
+}
+
 /* Pod-meniji (Информације, О вашем здрављу) */
 .hasSubmenu {
     position: relative;
@@ -316,12 +334,14 @@
     margin-left: auto;
 }
 
-.hasSubmenu:hover > span {
+.hasSubmenu:hover > span,
+.hasSubmenu.active > span {
     background: var(--gray-50);
     color: var(--primary);
 }
 
-.hasSubmenu:hover > span i {
+.hasSubmenu:hover > span i,
+.hasSubmenu.active > span i {
     color: var(--primary);
 }
 
@@ -350,6 +370,12 @@
 
 .submenu li a {
     border-bottom: 1px solid var(--gray-100);
+}
+
+.submenu li a.active {
+    background: var(--gray-50);
+    color: var(--primary);
+    font-weight: 700;
 }
 
 .submenu li:last-child a {
@@ -458,11 +484,16 @@
     .mobileToggles {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 8px;
         padding: 0 25px 15px;
         margin-bottom: 10px;
         border-bottom: 1px solid var(--gray-100);
         color: var(--gray-800);
+        --toggle-track-bg: var(--gray-100);
+        --toggle-fg: var(--gray-600);
+        --toggle-hover-bg: var(--gray-200);
+        --toggle-active-bg: var(--primary);
+        --toggle-active-fg: var(--white);
     }
 
     .navMenu {
@@ -474,6 +505,8 @@
     .navMenu>li>button {
         color: var(--gray-800);
         padding: 16px 25px;
+        margin: 0;
+        border-radius: 0;
         border-bottom: 1px solid var(--gray-100);
         width: 100%;
         text-align: left;
@@ -481,8 +514,12 @@
     }
 
     .navMenu>li>a:hover,
-    .navMenu>li>a.active,
     .navMenu>li>button:hover {
+        background: var(--gray-50);
+    }
+
+    .navMenu>li>a.active,
+    .navMenu>li>button.active {
         background: var(--primary);
         color: var(--white);
     }

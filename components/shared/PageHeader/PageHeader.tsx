@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import Container from "../Container/Container";
 import { Heading, Text } from "@/components/typography";
 import styles from "./PageHeader.module.css";

@@ -1,10 +1,9 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
 import Container from "../Container/Container";
-import ScriptToggle from "../ScriptToggle/ScriptToggle";
+import LanguageSwitch from "../LanguageSwitch/LanguageSwitch";
 import styles from "./Header.module.css";
 import type { Navigation } from "@/sanity/types";
 
@@ -18,6 +17,7 @@ const DEFAULT_MENU: MenuItem[] = [
     submenu: [
       { title: "Реч директора", link: "/rec-direktora", icon: "fas fa-user-tie" },
       { title: "О институту", link: "/o-institutu", icon: "fas fa-building" },
+      { title: "Наш тим", link: "/nas-tim", icon: "fas fa-user-md" },
       {
         title: "Немедицински послови",
         link: "/o-nama/nemedicinski-poslovi",
@@ -41,6 +41,7 @@ const DEFAULT_MENU: MenuItem[] = [
   { title: "КЛИНИКЕ", link: "/klinike" },
   {
     title: "ЗА ПАЦИЈЕНТЕ",
+    link: "/za-pacijente",
     submenu: [
       { title: "Честа питања", link: "/za-pacijente/cesta-pitanja" },
       { title: "Амбуланте", link: "/za-pacijente/ambulante" },
@@ -119,7 +120,13 @@ const DEFAULT_MENU: MenuItem[] = [
   { title: "КОНТАКТ", link: "/kontakt" },
 ];
 
-export default function Header({ menu }: { menu?: MenuItem[] | null }) {
+export default function Header({
+  menu,
+  locale = "sr",
+}: {
+  menu?: MenuItem[] | null;
+  locale?: "sr" | "en";
+}) {
   const items = menu && menu.length > 0 ? menu : DEFAULT_MENU;
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -154,6 +161,26 @@ export default function Header({ menu }: { menu?: MenuItem[] | null }) {
     setIsMobileMenuOpen(false);
     setOpenDropdown(null);
   }, []);
+
+  const isLinkActive = useCallback(
+    (link?: string) => {
+      if (!link || link === "#") return false;
+      if (link === "/") return pathname === "/";
+      return pathname === link || pathname.startsWith(`${link}/`);
+    },
+    [pathname],
+  );
+
+  const hasActiveDescendant = useCallback(
+    (submenu?: MenuItem["submenu"]) => {
+      if (!submenu) return false;
+      return submenu.some(
+        (sub) =>
+          isLinkActive(sub.link) || sub.items?.some((it) => isLinkActive(it.link)),
+      );
+    },
+    [isLinkActive],
+  );
 
   return (
     <>
@@ -208,14 +235,14 @@ export default function Header({ menu }: { menu?: MenuItem[] | null }) {
                   </div>
                 </div>
                 <div className={styles.headerToggles}>
-                  <ScriptToggle />
+                  <LanguageSwitch locale={locale} variant="dropdown" />
                 </div>
               </div>
             </div>
 
             <nav className={`${styles.navRow} ${isMobileMenuOpen ? styles.open : ""}`}>
               <div className={styles.mobileToggles}>
-                <ScriptToggle />
+                <LanguageSwitch locale={locale} />
               </div>
               <ul className={styles.navMenu}>
                 {items.map((item, i) => {
@@ -223,33 +250,70 @@ export default function Header({ menu }: { menu?: MenuItem[] | null }) {
                   if (!item.submenu || item.submenu.length === 0) {
                     return (
                       <li key={itemKey}>
-                        <Link href={item.link || "#"} onClick={closeMenu}>
+                        <Link
+                          href={item.link || "#"}
+                          onClick={closeMenu}
+                          className={isLinkActive(item.link) ? styles.active : undefined}
+                        >
                           {item.title}
                         </Link>
                       </li>
                     );
                   }
+                  const parentActive = hasActiveDescendant(item.submenu);
                   return (
                     <li
                       key={itemKey}
                       className={`${styles.hasDropdown} ${openDropdown === itemKey ? styles.open : ""}`}
                     >
-                      <button type="button" onClick={() => toggleDropdown(itemKey)}>
-                        {item.title} <i className="fas fa-chevron-down"></i>
-                      </button>
+                      {item.link ? (
+                        <Link
+                          href={item.link}
+                          onClick={closeMenu}
+                          className={
+                            isLinkActive(item.link) || parentActive ? styles.active : undefined
+                          }
+                        >
+                          {item.title}
+                          <i
+                            className="fas fa-chevron-down"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              toggleDropdown(itemKey);
+                            }}
+                          ></i>
+                        </Link>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={() => toggleDropdown(itemKey)}
+                          className={parentActive ? styles.active : undefined}
+                        >
+                          {item.title} <i className="fas fa-chevron-down"></i>
+                        </button>
+                      )}
                       <ul className={styles.dropdown}>
                         {item.submenu.map((sub, j) => {
                           const subKey = sub._key ?? `${itemKey}-${j}`;
                           if (sub.items && sub.items.length > 0) {
+                            const subActive = sub.items.some((it) => isLinkActive(it.link));
                             return (
-                              <li key={subKey} className={styles.hasSubmenu}>
+                              <li
+                                key={subKey}
+                                className={`${styles.hasSubmenu} ${subActive ? styles.active : ""}`}
+                              >
                                 <span>
                                   {sub.title} <i className="fas fa-chevron-right"></i>
                                 </span>
                                 <ul className={styles.submenu}>
                                   {sub.items.map((it, k) => (
                                     <li key={it._key ?? `${subKey}-${k}`}>
-                                      <Link href={it.link} onClick={closeMenu}>
+                                      <Link
+                                        href={it.link}
+                                        onClick={closeMenu}
+                                        className={isLinkActive(it.link) ? styles.active : undefined}
+                                      >
                                         {it.icon && <i className={it.icon}></i>} {it.title}
                                       </Link>
                                     </li>
@@ -260,7 +324,11 @@ export default function Header({ menu }: { menu?: MenuItem[] | null }) {
                           }
                           return (
                             <li key={subKey}>
-                              <Link href={sub.link || "#"} onClick={closeMenu}>
+                              <Link
+                                href={sub.link || "#"}
+                                onClick={closeMenu}
+                                className={isLinkActive(sub.link) ? styles.active : undefined}
+                              >
                                 {sub.icon && <i className={sub.icon}></i>} {sub.title}
                               </Link>
                             </li>

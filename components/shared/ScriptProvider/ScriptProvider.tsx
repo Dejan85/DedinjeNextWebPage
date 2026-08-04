@@ -66,12 +66,17 @@ export default function ScriptProvider({ children }: { children: React.ReactNode
     writeScript(script === "cyr" ? "lat" : "cyr");
   }, [script]);
 
+  // Ćirilica/latinica postoje samo za srpski sadržaj — na /en rutama se
+  // transliteracija nikad ne pokreće (engleski tekst kroz sr-lat→ćirilica
+  // mapu bi se pretvorio u besmislen niz karaktera).
+  const isEnglish = pathname?.startsWith("/en");
+
   // Re-transliterira ceo poddrvo pri svakoj promeni script-a ili rute, i
   // hvata dinamički učitan sadržaj preko MutationObserver-a (disconnect/
   // reconnect oko sopstvenih upisa da se izbegne beskonačna petlja).
   useEffect(() => {
     const root = rootRef.current;
-    if (!root) return;
+    if (!root || isEnglish) return;
 
     const observer = new MutationObserver(() => {
       observer.disconnect();
@@ -83,7 +88,7 @@ export default function ScriptProvider({ children }: { children: React.ReactNode
     observer.observe(root, { childList: true, subtree: true, characterData: true });
 
     return () => observer.disconnect();
-  }, [script, pathname]);
+  }, [script, pathname, isEnglish]);
 
   const value = useMemo(
     () => ({ script, setScript, toggleScript }),

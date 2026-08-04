@@ -28,6 +28,7 @@ export default defineType({
           { title: "Običan (sa opisom i linkom)", value: "regular" },
           { title: "Radno vreme", value: "schedule" },
           { title: "Hitni slučaj (Emergency)", value: "emergency" },
+          { title: "Kontakt (telefon i faks)", value: "contact" },
         ],
         layout: "radio",
       },
@@ -103,6 +104,19 @@ export default defineType({
       type: "localeString",
       hidden: ({ parent }) => parent?.variant !== "emergency",
     }),
+    // Contact box polja
+    defineField({
+      name: "contactPhone",
+      title: "Call centar (telefon)",
+      type: "string",
+      hidden: ({ parent }) => parent?.variant !== "contact",
+    }),
+    defineField({
+      name: "contactFax",
+      title: "Faks",
+      type: "string",
+      hidden: ({ parent }) => parent?.variant !== "contact",
+    }),
   ],
   preview: {
     select: {
@@ -112,13 +126,21 @@ export default defineType({
     },
     prepare({ title, variant, icon }) {
       const variantEmoji =
-        variant === "schedule" ? "⏰" : variant === "emergency" ? "🚨" : "📦";
+        variant === "schedule"
+          ? "⏰"
+          : variant === "emergency"
+            ? "🚨"
+            : variant === "contact"
+              ? "☎️"
+              : "📦";
       const variantLabel =
         variant === "schedule"
           ? "Radno vreme"
           : variant === "emergency"
             ? "Emergency"
-            : "Info Box";
+            : variant === "contact"
+              ? "Kontakt"
+              : "Info Box";
 
       return {
         title: `${variantEmoji} ${title || "Bez naslova"}`,
