@@ -63,130 +63,44 @@ export default defineType({
       ],
     }),
     defineField({
-      name: "quickLinks",
-      title: "Brzi linkovi",
-      type: "object",
-      fields: [
-        defineField({
-          name: "heading",
-          title: "Naslov sekcije",
-          type: "localeString",
-          initialValue: { sr: "Брзи линкови", en: "Quick links" },
-        }),
-        defineField({
-          name: "links",
-          title: "Linkovi",
-          type: "array",
-          of: [
-            {
-              type: "object",
-              fields: [
-                defineField({
-                  name: "title",
-                  title: "Naslov",
-                  type: "localeString",
-                }),
-                defineField({
-                  name: "href",
-                  title: "URL",
-                  type: "string",
-                }),
-              ],
-            },
-          ],
-        }),
-      ],
-    }),
-    defineField({
-      name: "services",
-      title: "Usluge",
-      type: "object",
-      fields: [
-        defineField({
-          name: "heading",
-          title: "Naslov sekcije",
-          type: "localeString",
-          initialValue: { sr: "Услуге", en: "Services" },
-        }),
-        defineField({
-          name: "links",
-          title: "Linkovi",
-          type: "array",
-          of: [
-            {
-              type: "object",
-              fields: [
-                defineField({
-                  name: "title",
-                  title: "Naslov",
-                  type: "localeString",
-                }),
-                defineField({
-                  name: "href",
-                  title: "URL",
-                  type: "string",
-                }),
-              ],
-            },
-          ],
-        }),
-      ],
-    }),
-    defineField({
-      name: "contact",
-      title: "Kontakt informacije",
-      type: "object",
-      fields: [
-        defineField({
-          name: "heading",
-          title: "Naslov sekcije",
-          type: "localeString",
-          initialValue: { sr: "Контакт", en: "Contact" },
-        }),
-        defineField({
-          name: "address",
-          title: "Adresa",
-          type: "string",
-        }),
-        defineField({
-          name: "city",
-          title: "Grad",
-          type: "string",
-        }),
-        defineField({
-          name: "phone1",
-          title: "Telefon 1",
-          type: "string",
-        }),
-        defineField({
-          name: "phone2",
-          title: "Telefon 2",
-          type: "string",
-        }),
-        defineField({
-          name: "email",
-          title: "Email",
-          type: "string",
-        }),
-        defineField({
-          name: "workingHours",
-          title: "Radno vreme",
+      name: "locations",
+      title: "Lokacije (mape)",
+      description:
+        "Tri bloka u footeru — svaki sa naslovom, Google Maps embed linkom i adresom (npr. Дедиње 1/2/3).",
+      type: "array",
+      validation: (Rule) => Rule.max(3),
+      of: [
+        {
           type: "object",
+          name: "footerLocation",
           fields: [
             defineField({
-              name: "weekdays",
-              title: "Radni dani",
+              name: "title",
+              title: "Naslov",
               type: "localeString",
-              initialValue: { sr: "Пон - Пет: 08:00 - 19:00", en: "Mon - Fri: 08:00 - 19:00" },
             }),
             defineField({
-              name: "weekend",
-              title: "Vikend",
-              type: "localeString",
-              initialValue: { sr: "Викенд: 09:00 - 15:00", en: "Weekend: 09:00 - 15:00" },
+              name: "mapEmbedUrl",
+              title: "Google Maps embed URL",
+              description:
+                "URL iz Google Maps 'Embed a map' opcije (src atribut iframe-a).",
+              type: "url",
+            }),
+            defineField({
+              name: "address",
+              title: "Adresa",
+              type: "string",
+            }),
+            defineField({
+              name: "city",
+              title: "Grad",
+              type: "string",
             }),
           ],
-        }),
+          preview: {
+            select: { title: "title.sr", subtitle: "address" },
+          },
+        },
       ],
     }),
     defineField({

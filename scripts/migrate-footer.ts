@@ -30,97 +30,32 @@ async function migrateFooter() {
         linkedin: "#",
         youtube: "#",
       },
-      quickLinks: {
-        heading: "Брзи линкови",
-        links: [
-          {
-            _key: "quick-1",
-            title: "Реч директора",
-            href: "/rec-direktora",
-          },
-          {
-            _key: "quick-2",
-            title: "Биографија",
-            href: "/biografija",
-          },
-          {
-            _key: "quick-3",
-            title: "О нама",
-            href: "/o-institutu",
-          },
-          {
-            _key: "quick-4",
-            title: "Услуге",
-            href: "#services",
-          },
-          {
-            _key: "quick-5",
-            title: "Одељења",
-            href: "#departments",
-          },
-          {
-            _key: "quick-6",
-            title: "Наш тим",
-            href: "#team",
-          },
-          {
-            _key: "quick-7",
-            title: "Новости",
-            href: "#news",
-          },
-          {
-            _key: "quick-8",
-            title: "Контакт",
-            href: "#contact",
-          },
-        ],
-      },
-      services: {
-        heading: "Услуге",
-        links: [
-          {
-            _key: "service-1",
-            title: "Кардиохирургија",
-            href: "#",
-          },
-          {
-            _key: "service-2",
-            title: "Кардиологија",
-            href: "#",
-          },
-          {
-            _key: "service-3",
-            title: "Васкуларна хирургија",
-            href: "#",
-          },
-          {
-            _key: "service-4",
-            title: "Интервентна кардиологија",
-            href: "#",
-          },
-          {
-            _key: "service-5",
-            title: "Рехабилитација",
-            href: "#",
-          },
-          {
-            _key: "service-6",
-            title: "Дијагностика",
-            href: "#",
-          },
-        ],
-      },
-      contact: {
-        heading: "Контакт",
-        address: "Хероја Милана Тепића 1",
-        city: "11040 Београд, Србија",
-        phone1: "011 3601 700",
-        email: "info@ikvbd.com",
-        workingHours: {
-          weekdays: "Пон - Пет: 08:00 - 19:00",
-          weekend: "Викенд: 09:00 - 15:00",
+      locations: [
+        {
+          _key: "dedinje-1",
+          title: { _type: "localeString", sr: "ДЕДИЊЕ 1", en: "DEDINJE 1" },
+          mapEmbedUrl:
+            "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2832.5!2d20.4565!3d44.7733!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x475a7009d2b5e8d3%3A0x5f8e8b6f7c6d3e0!2z0JjQvdGB0YLQuNGC0YPRgiDQt9CwINC60LDRgNC00LjQvtCy0LDRgdC60YPQu9Cw0YDQvdC1INCx0L7Qu9C10YHRgtC4INCU0LXQtNC40ZrQtQ!5e0!3m2!1ssr!2srs!4v1700000000000!5m2!1ssr!2srs",
+          address: "Хероја Милана Тепића бр. 1",
+          city: "11040 Београд, Србија",
         },
-      },
+        {
+          _key: "dedinje-2",
+          title: { _type: "localeString", sr: "ДЕДИЊЕ 2", en: "DEDINJE 2" },
+          mapEmbedUrl:
+            "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2832.5!2d20.4565!3d44.7733!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x475a7009d2b5e8d3%3A0x5f8e8b6f7c6d3e0!2z0JjQvdGB0YLQuNGC0YPRgiDQt9CwINC60LDRgNC00LjQvtCy0LDRgdC60YPQu9Cw0YDQvdC1INCx0L7Qu9C10YHRgtC4INCU0LXQtNC40ZrQtQ!5e0!3m2!1ssr!2srs!4v1700000000000!5m2!1ssr!2srs",
+          address: "Хероја Милана Тепића бр. 1",
+          city: "11040 Београд, Србија",
+        },
+        {
+          _key: "dedinje-3",
+          title: { _type: "localeString", sr: "ДЕДИЊЕ 3", en: "DEDINJE 3" },
+          mapEmbedUrl:
+            "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2832.5!2d20.4565!3d44.7733!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x475a7009d2b5e8d3%3A0x5f8e8b6f7c6d3e0!2z0JjQvdGB0YLQuNGC0YPRgiDQt9CwINC60LDRgNC00LjQvtCy0LDRgdC60YPQu9Cw0YDQvdC1INCx0L7Qu9C10YHRgtC4INCU0LXQtNC40ZrQtQ!5e0!3m2!1ssr!2srs!4v1700000000000!5m2!1ssr!2srs",
+          address: "Хероја Милана Тепића бр. 1",
+          city: "11040 Београд, Србија",
+        },
+      ],
       copyright:
         "© 2026 Институт за кардиоваскуларне болести Дедиње. Сва права задржана.",
       legalLinks: [
@@ -149,8 +84,7 @@ async function migrateFooter() {
     console.log("═══════════════════════════════════════════════\n");
     console.log("📊 Statistika:");
     console.log(`  📄 Document ID: ${result._id}`);
-    console.log(`  🔗 Brzi linkovi: ${footer.quickLinks.links.length}`);
-    console.log(`  💼 Usluge: ${footer.services.links.length}`);
+    console.log(`  📍 Lokacije: ${footer.locations.length}`);
     console.log(`  📜 Pravni linkovi: ${footer.legalLinks.length}`);
     console.log(`  🌐 Društvene mreže: 5\n`);
 

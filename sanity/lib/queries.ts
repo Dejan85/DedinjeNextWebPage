@@ -639,33 +639,12 @@ export const FOOTER_QUERY = groq`
       linkedin,
       youtube
     },
-    quickLinks {
-      heading,
-      links[] {
-        _key,
-        title,
-        href
-      }
-    },
-    services {
-      heading,
-      links[] {
-        _key,
-        title,
-        href
-      }
-    },
-    contact {
-      heading,
+    locations[] {
+      _key,
+      title,
+      mapEmbedUrl,
       address,
-      city,
-      phone1,
-      phone2,
-      email,
-      workingHours {
-        weekdays,
-        weekend
-      }
+      city
     },
     copyright,
     legalLinks[] {

@@ -534,22 +534,12 @@ export interface FooterLink {
   href: string;
 }
 
-export interface FooterLinkSection {
-  heading: string;
-  links: FooterLink[];
-}
-
-export interface FooterContact {
-  heading: string;
+export interface FooterLocation {
+  _key: string;
+  title?: string;
+  mapEmbedUrl?: string;
   address?: string;
   city?: string;
-  phone1?: string;
-  phone2?: string;
-  email?: string;
-  workingHours?: {
-    weekdays?: string;
-    weekend?: string;
-  };
 }
 
 export interface FooterSocialLinks {
@@ -568,9 +558,7 @@ export interface Footer {
   instituteSubtitle?: string;
   description?: string;
   socialLinks?: FooterSocialLinks;
-  quickLinks?: FooterLinkSection;
-  services?: FooterLinkSection;
-  contact?: FooterContact;
+  locations?: FooterLocation[];
   copyright?: string;
   legalLinks?: FooterLink[];
 }

@@ -7,6 +7,33 @@ import type { Footer as FooterType } from "@/sanity/types";
 import Container from "../Container/Container";
 import styles from "./Footer.module.css";
 
+const DEFAULT_MAP_EMBED_URL =
+  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2832.5!2d20.4565!3d44.7733!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x475a7009d2b5e8d3%3A0x5f8e8b6f7c6d3e0!2z0JjQvdGB0YLQuNGC0YPRgiDQt9CwINC60LDRgNC00LjQvtCy0LDRgdC60YPQu9Cw0YDQvdC1INCx0L7Qu9C10YHRgtC4INCU0LXQtNC40ZrQtQ!5e0!3m2!1ssr!2srs!4v1700000000000!5m2!1ssr!2srs";
+
+const DEFAULT_LOCATIONS = [
+  {
+    _key: "dedinje-1",
+    title: "ДЕДИЊЕ 1",
+    mapEmbedUrl: DEFAULT_MAP_EMBED_URL,
+    address: "Хероја Милана Тепића бр. 1",
+    city: "11040 Београд, Србија",
+  },
+  {
+    _key: "dedinje-2",
+    title: "ДЕДИЊЕ 2",
+    mapEmbedUrl: DEFAULT_MAP_EMBED_URL,
+    address: "Хероја Милана Тепића бр. 1",
+    city: "11040 Београд, Србија",
+  },
+  {
+    _key: "dedinje-3",
+    title: "ДЕДИЊЕ 3",
+    mapEmbedUrl: DEFAULT_MAP_EMBED_URL,
+    address: "Хероја Милана Тепића бр. 1",
+    city: "11040 Београд, Србија",
+  },
+];
+
 async function getFooterData(locale: Locale) {
   try {
     const raw = await client.fetch<FooterType>(
@@ -37,6 +64,11 @@ export default async function Footer() {
   const copyright =
     footer?.copyright ||
     "© 2026 Институт за кардиоваскуларне болести Дедиње. Сва права задржана.";
+
+  const locations =
+    footer?.locations && footer.locations.length > 0
+      ? footer.locations
+      : DEFAULT_LOCATIONS;
 
   return (
     <footer className={styles.footer}>
@@ -115,90 +147,40 @@ export default async function Footer() {
               )}
             </div>
 
-            {/* Quick Links */}
-            {footer?.quickLinks && footer.quickLinks.links.length > 0 && (
-              <div className={styles.footerCol}>
-                <h4>{footer.quickLinks.heading}</h4>
-                <ul>
-                  {footer.quickLinks.links.map((link) => (
-                    <li key={link._key}>
-                      <Link href={link.href}>{link.title}</Link>
-                    </li>
-                  ))}
-                </ul>
+            {/* Locations */}
+            {locations.map((location) => (
+              <div key={location._key} className={`${styles.footerCol} ${styles.location}`}>
+                {location.title && <h4>{location.title}</h4>}
+                {location.mapEmbedUrl && (
+                  <div className={styles.locationMap}>
+                    <iframe
+                      src={location.mapEmbedUrl}
+                      width="100%"
+                      height="100%"
+                      style={{ border: 0 }}
+                      allowFullScreen
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                      title={location.title || "Локација Института Дедиње"}
+                    />
+                  </div>
+                )}
+                {(location.address || location.city) && (
+                  <p className={styles.locationAddress}>
+                    <i className="fas fa-map-marker-alt"></i>
+                    <span>
+                      {location.address && (
+                        <>
+                          {location.address}
+                          <br />
+                        </>
+                      )}
+                      {location.city}
+                    </span>
+                  </p>
+                )}
               </div>
-            )}
-
-            {/* Services */}
-            {footer?.services && footer.services.links.length > 0 && (
-              <div className={styles.footerCol}>
-                <h4>{footer.services.heading}</h4>
-                <ul>
-                  {footer.services.links.map((link) => (
-                    <li key={link._key}>
-                      <Link href={link.href}>{link.title}</Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-
-            {/* Contact */}
-            {footer?.contact && (
-              <div className={`${styles.footerCol} ${styles.contact}`}>
-                <h4>{footer.contact.heading}</h4>
-                <ul className={styles.footerContact}>
-                  {(footer.contact.address || footer.contact.city) && (
-                    <li>
-                      <i className="fas fa-map-marker-alt"></i>
-                      <span>
-                        {footer.contact.address && (
-                          <>
-                            {footer.contact.address}
-                            <br />
-                          </>
-                        )}
-                        {footer.contact.city}
-                      </span>
-                    </li>
-                  )}
-                  {(footer.contact.phone1 || footer.contact.phone2) && (
-                    <li>
-                      <i className="fas fa-phone-alt"></i>
-                      <span>
-                        {footer.contact.phone1}
-                        {footer.contact.phone2 && (
-                          <>
-                            <br />
-                            {footer.contact.phone2}
-                          </>
-                        )}
-                      </span>
-                    </li>
-                  )}
-                  {footer.contact.email && (
-                    <li>
-                      <i className="fas fa-envelope"></i>
-                      <span>{footer.contact.email}</span>
-                    </li>
-                  )}
-                  {footer.contact.workingHours && (
-                    <li>
-                      <i className="fas fa-clock"></i>
-                      <span>
-                        {footer.contact.workingHours.weekdays && (
-                          <>
-                            {footer.contact.workingHours.weekdays}
-                            <br />
-                          </>
-                        )}
-                        {footer.contact.workingHours.weekend}
-                      </span>
-                    </li>
-                  )}
-                </ul>
-              </div>
-            )}
+            ))}
           </div>
         </Container>
       </div>
