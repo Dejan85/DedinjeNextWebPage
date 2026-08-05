@@ -543,6 +543,152 @@ neki render-poziv duboko u nekoj leaf komponenti).
 - Ažurirati ovaj fajl + `PROJECT_STATUS.md` + `ARHITEKTURA.md` po standardnoj
   "Definicija završenog taska" konvenciji.
 
+## Header — uklonjene ikonice iz kontakt trake, header sad `position: absolute` (skroluje se sa stranicom) — ✅ gotovo (2026-08-05)
+
+Vlasnik sajta poslao anotirani screenshot kontakt trake u header-u (telefon/@/pin
+ikonice pored 011 3601 700 / dedinje@ikvbd.com / adrese) sa zahtevom "Skloniti
+ove ikonice" — ovo je od početka nesporno i implementirano prvo.
+
+Ponašanje menija pri skrolovanju je prošlo kroz **tri iteracije** u istom
+tasku pre nego što je konačno razjašnjeno:
+
+1. Prva formulacija ("ne moj da navigacija bude sticky nego neka se scroluje
+   gore") protumačena kao "ugasi `position: fixed`, header treba da nestane
+   sa skrolom" → promenjeno na `position: static` + kompenzovana `PageHeader`
+   padding (200px → 80px na desktopu i sl.).
+2. Vlasnik sajta reagovao da to nije dobro i tražio "treba da ostane isto
+   onako kako je bilo samo da prati scroll" + "MENU ne treba da bude sticky,
+   već da ostane na vrhu kad se krene scroll na dole" → protumačeno kao
+   "vrati na `position: fixed` (uvek pribijen na vrh, kako je i bio)" — sve
+   `static`/padding promene vraćene nazad na originalne vrednosti.
+3. Vlasnik sajta (frustriran ponovljenim pogrešnim tumačenjem) eksplicitno
+   potvrdio da gleda **lokalni** sajt (ne produkciju) i dao nedvosmislenu
+   instrukciju: **"postavi navigaciju u apsolutnu poziciju i kada krene da
+   scroluje user stranicu neka se normalno skroluje sa ostatkom sadržaja
+   gore"** → ovo je KONAČNO rešenje: `position: absolute` (ne `fixed`, ne
+   `sticky`, ne `static`). `absolute` bez pozicioniranog roditelja (nijedan
+   ancestor Header-a u `SiteChrome`/`layout.tsx` nema `position: relative`)
+   se pozicionira u odnosu na sam dokument (isti vizuelni efekat kao `fixed`
+   na vrhu stranice — header i dalje "pluta" preko hero slike pri učitavanju,
+   "zadržava normalan izgled kao što ga ima i sada") ali FIZIČKI skroluje
+   zajedno sa ostatkom sadržaja (za razliku od `fixed` koji ostaje zalepljen
+   za viewport) — potvrđeno screenshot-om da header nestaje sa vrha već posle
+   ~300px skrola.
+
+- ✅ `components/shared/Header/Header.tsx` — `contactStrip` renderuje samo
+  tekst (broj telefona / email adrese / adresa), bez `infoIcon` wrapper
+  div-ova (fa-phone-alt/fa-at/fa-map-marker-alt ikonice uklonjene). CSS klase
+  `.infoIcon`/`.infoIcon i` ostavljene u `Header.module.css` neiskorišćene
+  (lako vratiti ikonice nazad ako se vlasnik sajta predomisli).
+- ✅ `components/shared/Header/Header.module.css` `.mainHeader` — **finalno:
+  `position: absolute; top: 0; left: 0;`** i na desktopu i u mobile media
+  query-ju (`max-width: 768px`, koji je pre ovog taska koristio
+  `position: sticky` — takođe promenjen na `absolute` radi konzistentnosti).
+  `PageHeader.module.css` top padding (200px desktop / 100px @768px / 80px
+  @480px) OSTAJE nepromenjen u odnosu na original — i dalje neophodan jer je
+  `absolute`, baš kao `fixed`, van normalnog document flow-a (ne gura sadržaj
+  ispod sebe), pa unutrašnje stranice i dalje trebaju tu rezervisanu visinu
+  da se banner ne bi renderovao ispod/iza header-a.
+- ✅ Verifikacija: `npm run lint` (28 problema, identičan baseline). Dev
+  server + Playwright (`playwright` paket iz globalnog `npm -g`, cache-ovan
+  Chromium u `~/AppData/Local/ms-playwright/`, pošto `chromium-cli` alat nije
+  dostupan u ovom okruženju) screenshot na 0px/300px/900px skrola potvrdio:
+  header identično izgleda na vrhu stranice (plutajuća kartica preko hero
+  slike), a već na 300px skrola je potpuno nestao sa ekrana zajedno sa
+  ostatkom sadržaja — ikonice u kontakt traci odsutne.
+- 🟡 **Napomena:** sve izmene u ovom tasku (i "Наш тим" i "Најновије вести"
+  taskovi ranije istog dana) su i dalje samo lokalne/necommit-ovane
+  (`git status` pokazuje sve fajlove kao modified/untracked) — ništa nije
+  push-ovano niti deploy-ovano na Vercel. Vlasnik sajta ih je testirao preko
+  sopstvenog lokalnog `npm run dev`.
+
+## Homepage "Наш тим" — demo lekari zamenjeni pravima, uklonjene ikonice društvenih mreža — ✅ gotovo (2026-08-05)
+
+Vlasnik sajta poslao anotirani screenshot homepage tim-sekcije: crveni okvir
+oko facebook/linkedin/email ikonica preko slike Dr Ane Petrović uz komentar
+"Skloniti ove ikonice za društvene mreže", i komentar "Ubaciti lekare i
+njihove slike iz priloga mejla" — 4 prave fotografije lekara Instituta
+(sa "Дедиње" logom na mantilu) sačuvane u `public/images/nasi_strucnjaci/`
+(vlasnik sajta ih ubacio direktno u repo folder, imena/specijalnosti u
+nazivima fajlova).
+
+- ✅ `components/shared/TeamCard/TeamCard.tsx` — hover overlay sa
+  facebook/linkedin/email ikonicama sad uslovljen `socialLinks.length > 0`
+  (ranije se uvek renderovao, samo prazan ako nema linkova). Utiče na SVE
+  korisnike `TeamCard`-a (homepage + `/nas-tim`) — ali u praksi samo
+  demo-seed (`scripts/migrate-all.ts`) je ikad postavljao `socialLinks`
+  (sve `"#"` placeholder URL-ovi), tako da je ovo čisto "sakrij prazan
+  overlay" ispravka bez promene ponašanja za bilo koji pravi sadržaj.
+- ✅ Nova migraciona skripta `scripts/migrate-homepage-team-update.ts`
+  (`npm run migrate:homepage-team-update`) upload-uje 4 slike iz
+  `public/images/nasi_strucnjaci/` u Sanity i patch-uje
+  `homepage.pageBuilder[_type=="teamSection"].team` sa 4 prava lekara —
+  **bez `socialLinks` polja** (izostavljeno, ne prazan niz): Др Јелена
+  Кљајевић (Радиолог), Клин. асс. др сци. мед. Драгана Унић Стојановић
+  (Анестезиолог са реаниматологијом), Др Милан Добрић (Интервентни
+  кардиолог), Проф. др сци. мед. Иван Стојановић (Специјалиста минимално
+  инвазивне хирургије). Опис сваког лекара је намерно кратак и чисто
+  чињеничан (специјалност + "Институт за кардиоваскуларне болести
+  „Дедиње"") — БЕЗ измишљених тврдњи (година искуства, "водећи
+  специјалиста" и сл. — то је било у демо подацима, свесно НЕ пренето на
+  праве лекаре без потврде од власника сајта). Стари демо лекари (Марко
+  Јовановић/Ана Петровић/Милан Николић/Јелена Стојковић, stock fotografije)
+  potpuno zamenjeni (`set` na ceo `team` niz, ne append).
+- ✅ Verifikacija: `npm run lint` — 28 problema (identičan baseline, nula
+  novih). Dev server pokrenut, server-rendered HTML potvrdio: sva 4 nova
+  imena prisutna, stara 4 demo imena odsutna, `teamOverlay`/`teamSocial`
+  CSS klase (ikonice) odsutne sa cele stranice (Footer-ove nepovezane
+  facebook/linkedin ikonice i dalje prisutne, kako i treba), slike
+  ispravno serving-uju kroz Sanity CDN (`_next/image` proxy potvrđen u
+  HTML-u).
+- 🟡 **Watch-item:** role/description tekst za sva 4 lekara je minimalan
+  placeholder (samo specijalnost) — vlasnik sajta može poslati duži/precizniji
+  opis kroz Studio kasnije, isto kao i za ostale delove sajta koji čekaju
+  finalni sadržaj.
+
+## Homepage "Најновије вести" sekcija — isključena, premeštena u events vidžet — ✅ gotovo (2026-08-05)
+
+Vlasnik sajta poslao anotirane screenshotove: donja dvokolonska sekcija
+"Најновије вести"/"Гостовања у медијима" (dno homepage-a) precrtana uz
+komentar da se ugasi jer se vesti sad prikazuju gore; "Добродошли" sekcija
+anotirana da se ispod "Предстојећи догађаји" vidžeta doda isti-format blok
+za poslednje 3 vesti. Eksplicitno dinamički toggle, ne brisanje.
+
+- ✅ `HOMEPAGE_SECTION_TOGGLES` (`app/[locale]/page.tsx`) proširen sa
+  `newsGostovanja: false` — cela "News + Gostovanja combined" `<Section>`
+  (dve kolone: vesti + gostovanja u medijima) uslovljena tim flagom, isti
+  obrazac kao 4 ranija toggle-a iz istog dana. JSX/CSS nije obrisan.
+- ✅ Desna kolona `welcomeSection` bloka: `eventsWidget` (kad ima
+  predstojećih događaja) više nije usamljen — sad je umotan u nov
+  `eventsColumn` wrapper (flex column, gap 24px) koji stack-uje DVA vidžeta
+  istog vizuelnog stila: postojeći "Предстојећи догађаji" i nov "Најновије
+  вести" (prve 3 iz `homepageVesti`, ikonica `fa-newspaper`, linkuje na
+  `/aktuelnosti/{slug}`, reciklira iste `eventItem`/`eventThumb`/
+  `eventInfo`/`eventDate` CSS klase — nema novih klasa za sam sadržaj vesti,
+  samo za layout: `.eventsColumn`). Svaki od dva vidžeta se prikazuje
+  nezavisno (uslovljen svojim izvorom podataka), stari statička-slika/bedž
+  fallback ostaje za slučaj da NEMA ni događaja ni vesti.
+- ✅ Verifikacija: `npm run lint` — 28 problema; `git stash`/`git stash pop`
+  poređenje potvrdilo da je to identičan baseline kao pre izmene (nula novih
+  grešaka/warning-a uvedeno ovim taskom).
+- ✅ Naknadni zahtev istog dana: oba vidžeta (događaji i vesti) prošireni sa
+  3 na 4 prikazane stavke (`upcomingEvents` fetch slice i `homepageVesti`
+  slice u news vidžetu, oba `slice(0, 3)` → `slice(0, 4)`). `npm run lint`
+  i dalje 28 problema, nula novih.
+- ✅ Vesti strana automatski ima >4 stavke (Sanity `news`), ali `event`
+  dataset je imao samo 3 seed-ovana dokumenta pa je vidžet i dalje prikazivao
+  3 — dodat 4. placeholder u `scripts/migrate-events.ts` ("Школа
+  ехокардиографије — нови циклус базичног курса", 2026-09-14, slika
+  `/images/4-600x443.png` recikliran generic foto sa postojeće
+  `/edukacija/programi/skola-ehokardiografije-prof-dr-aleksandra-nikolic`
+  stranice, datum procenjen na "2 kursa godišnje" obrazac otud — 33. kurs
+  završen kraj maja 2026). Korisnik eksplicitno potvrdio da doda placeholder
+  (pitan kroz AskUserQuestion pre write-a na produkciju). `npm run
+  migrate:events` pokrenut — sad 4 `event` dokumenta u produkciji (ostala 3
+  ponovo upisana identično, `createOrReplace` idempotentno). Isti
+  "nepotvrđen datum" watch-item kao ostala 3, vidi `PROJECT_STATUS.md`
+  Blokeri.
+
 ## Догађаји — nov Sanity dokument tip + homepage vidžet — ✅ gotovo (2026-08-05)
 
 Nov sadržajni tip za upravljanje predstojećim događajima/skupovima Instituta
@@ -787,8 +933,10 @@ Radi se u batch-evima, jedan po jedan, uz javljanje posle svakog.
   - ✅ **Hero pretvoren iz 4-slajd slajdera u jedan statičan video (2026-08-04)** — vlasnik sajta odlučio da se ukine slajder ideja, samo jedan video (`public/videos/video-za-slajder.mp4`) sa H1/H2 tekstom preko njega. `HeroSection.tsx` slajder logika (strelice/tačkice) **namerno nije uklonjena iz koda** — `isSlider = slides.length > 1`, pa jedan slajd automatski renderuje statičan hero bez slajder UI-ja (kod ostaje spreman ako se ubuduće doda još slajdova). Promenjeno: `heroSlidesSection.slides` na Sanity `homepage` dokumentu patch-ovano na tačno 1 slajd (naslov "Национални институт за срце и крвне судове" / "National Institute for Heart and Blood Vessels", podnaslov "Традиција и поверење које траје 50 година." / "A tradition of trust spanning 50 years.", bez badge-a), i `videoHeroSlides` fallback niz u `app/[locale]/page.tsx` usklađen (isti sadržaj, za slučaj da Sanity fetch ne uspe). Verifikovano `npm run lint` (27, baseline), `npm run build` (exit 0), Playwright screenshot `/sr` i `/en` (video se vidi i menja frejmove = autoplay radi, nema strelica/tačkica).
   - ✅ **Info kartice ispod heroa redizajnirane + nove `/za-pacijente` i `/nas-tim` landing stranice (2026-08-05)** — 4 info kartice (istaknute plave) sa linkovima ispod hero sekcije su redizajnirane sa novim sadržajem: Информације за пацијенте → `/za-pacijente`, Наше клинике → `/klinike`, Наш тим → `/nas-tim` (ranije `#team` anchor), Контакт → novi `contact` variant sa `contactPhone`/`contactFax` poljima (pokazuje 011 3601 700 i 011 2666 445 umesto starog emergency broja). Nova `contact` varijanta dodana na `sanity/schemas/objects/infoBox.ts` sa odgovarajućim render logikom u `components/shared/InfoBox/InfoBox.tsx`. Sekcija "За пацијенте" (6 brzih linkova) PREMEŠTENA sa homepage JSX-a na novu stranicu `app/[locale]/za-pacijente/page.tsx` koja linkuje na sve 12 `/za-pacijente/<slug>` podstranice; koristi `patientLinksSection` pageBuilder blok preko novog `PATIENT_LINKS_SECTION_QUERY`. Nova ruta `/nas-tim` (`app/[locale]/nas-tim/page.tsx`) prikazuje `teamSection` sa homepage-a; originalna inline tim sekcija na početnoj zadržana. Sitemap ažuriran sa `/za-pacijente` i `/nas-tim`. `scripts/migrate-homepage-cards-update.ts` (nova skripta) pokrenuta na produkciji; sve 4 kartice potvrđene upitom. `npm run lint` (27, baseline), `npm run build` (exit 0), dev server test (oba ruta 200, sadržaj očekivan).
   - ✅ **"Наше клинике" sekcija proširena sa 6 na svih 13 klinika/službi (2026-08-05)** — po specifikaciji vlasnika sajta (mokap sa punom listom klinika/službi). Sve stavke mapirane na postojeće `clinicPage` rute (`/klinike/kv-dijagnostika`, `/telemedicina`, `/poliklinika`, `/kardiovaskularna-rehabilitacija`, `/apteka`, `/laboratorija`, `/transfuzija` dodate uz postojećih 6), ništa novo nije kreirano u Sanity-ju. `CLINICS_FEATURED` fallback u `app/[locale]/page.tsx` proširen; nova skripta `scripts/migrate-homepage-clinics-update.ts` (`npm run migrate:homepage-clinics-update`) patch-ovala `clinicsFeaturedSection.items` na produkciji, potvrđeno upitom + dev server proverom (13/13 naslova, sve rute HTTP 200).
-  - ❌ ☁️ Sekcije "Тим" (4 izmišljena doktora) i "Шта кажу наши пацијенти" (3 izmišljena pacijenta) na početnoj imaju fabrikovane ljude sa stock fotografijama — namerno ostavljeno dok se ne dobije pravi materijal ili odluka da se sekcije uklone. **Napomena:** ova sekcija JESTE Sanity-backed (flat array u `teamSection`/`testimonialsSection`), problem je isključivo sadržajni (demo podaci), ne arhitekturni.
-  - ❌ ☁️ Stats sekcija (15.000 operacija/god, 200 lekara, 65 god., 50.000 pacijenata) i emergency telefon "011 3601 600" (treći različit broj) — neprovereni brojevi iz demo seed-a. Isto — Sanity-backed, sadržaj neproveren.
+  - ✅ **"Тим" sekcija — demo lekari zamenjeni pravima (2026-08-05)** — 4 prava lekara Instituta sa pravim fotografijama, vidi `PROJECT_STATUS.md` Dnevnik.
+  - ✅ **"Шта кажу наши пацијенти" — Hipokratija widget zamenjuje demo pacijente, ali SAMO na `sr` lokalu (2026-08-05)** — vidžet treće strane (prave ocene/iskustva pacijenata) ugrađen preko `HOMEPAGE_SECTION_TOGGLES.hipokratijaWidget`, vidi `PROJECT_STATUS.md` Dnevnik + Blokeri. Na `/en` i dalje prikazuje stari demo-seed (fabrikovani pacijenti, prevedeni) jer widget nema EN sadržaj — ❌ treba odluka vlasnika sajta za trajno EN rešenje.
+  - ✅ **Stats sekcija ažurirana realnim brojkama (2026-08-05)** — 19.000 procedura/god. (ranije 15.000 operacija), 200 lekara specijalista (nepromenjeno), 50 god. iskustva (ranije 65), 146.000 poseta/god. (ranije 50.000 "zadovoljnih pacijenata", label promenjen). Brojke dobijene od vlasnika sajta. Nova skripta `scripts/migrate-homepage-stats-update.ts` (`npm run migrate:homepage-stats-update`) patch-ovala `statsSection.stats` na produkciji, seed u `migrate-all.ts` usklađen.
+  - ❌ ☁️ Emergency telefon "011 3601 600" (`scripts/migrate-all.ts:502`, treći različit broj od 668/700 para) — neproveren, zahteva potvrdu vlasnika sajta.
   - ❌ Orphaned Sanity sadržaj koji se nigde ne renderuje (`departmentsSection`, `newsSection`, `contactSection`, pojedinačni `hero` object tip — ne meša se sa novim `heroSlidesSection`) — cleanup, nije hitno.
 
 **☁️** = zahteva infra/odluku vlasnika sajta pre nego što se dirne kod.

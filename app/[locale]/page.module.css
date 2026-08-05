@@ -19,6 +19,12 @@
 /* ========================================
    UPCOMING EVENTS WIDGET (welcome section, right column)
 ======================================== */
+.eventsColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
 .eventsWidget {
   background: var(--gray-50, #f8f9fb);
   border: 1px solid var(--gray-200);
@@ -419,6 +425,18 @@ a.eventItem:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0, 
 .testimonialNavButton:hover { background: var(--white); color: var(--primary); }
 
 .testimonialsDots { display: flex; gap: 10px; }
+
+/* Hipokratija widget (vendor embed): njihove review kartice (.glide__slide)
+   imaju providnu pozadinu i sivi tekst dizajniran za belu pozadinu stranice —
+   na našoj gradient pozadini teško čitljivo bez override-a. Widget nije u
+   Shadow DOM-u pa je ovo bezbedno; ne dira layout, samo boje. */
+.testimonialsSection :global(.hipokratija-widget .glide__slide) {
+  background-color: var(--white) !important;
+}
+
+.testimonialsSection :global(.hipokratija-widget .content) {
+  color: var(--gray-900) !important;
+}
 .dot { width: 12px; height: 12px; background: rgba(255, 255, 255, 0.3); border-radius: 50%; cursor: pointer; transition: var(--transition); }
 .dotActive, .dot:hover { background: var(--white); }
 

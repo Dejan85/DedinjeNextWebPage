@@ -31,15 +31,17 @@ export default function TeamCard({
     <div className={styles.teamCard}>
       <div className={styles.teamImage}>
         <Image src={image} alt={name} width={400} height={500} />
-        <div className={styles.teamOverlay}>
-          <div className={styles.teamSocial}>
-            {socialLinks.map((link, index) => (
-              <a key={index} href={link.url}>
-                <i className={socialIcons[link.platform]}></i>
-              </a>
-            ))}
+        {socialLinks.length > 0 && (
+          <div className={styles.teamOverlay}>
+            <div className={styles.teamSocial}>
+              {socialLinks.map((link, index) => (
+                <a key={index} href={link.url}>
+                  <i className={socialIcons[link.platform]}></i>
+                </a>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
       <div className={styles.teamInfo}>
         <h4>{name}</h4>

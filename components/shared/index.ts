@@ -28,6 +28,7 @@ export { default as SiteChrome } from "./SiteChrome/SiteChrome";
 export { default as StatCounter } from "./StatCounter/StatCounter";
 export { default as TeamCard } from "./TeamCard/TeamCard";
 export { default as TestimonialCard } from "./TestimonialCard/TestimonialCard";
+export { default as HipokratijaWidget } from "./HipokratijaWidget/HipokratijaWidget";
 export { default as WelcomeFeature } from "./WelcomeFeature/WelcomeFeature";
 export { default as PartnerLogo } from "./PartnerLogo/PartnerLogo";
 export { default as HighlightItem } from "./HighlightItem/HighlightItem";

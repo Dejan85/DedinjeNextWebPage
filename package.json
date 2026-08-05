@@ -19,6 +19,8 @@
     "migrate:homepage-extra": "tsx scripts/migrate-homepage-extra.ts",
     "migrate:homepage-cards-update": "tsx scripts/migrate-homepage-cards-update.ts",
     "migrate:homepage-clinics-update": "tsx scripts/migrate-homepage-clinics-update.ts",
+    "migrate:homepage-team-update": "tsx scripts/migrate-homepage-team-update.ts",
+    "migrate:homepage-stats-update": "tsx scripts/migrate-homepage-stats-update.ts",
     "migrate:aktuelnosti": "tsx scripts/migrate-aktuelnosti.ts",
     "migrate:vesti-wordpress": "tsx scripts/migrate-vesti-wordpress.ts",
     "migrate:events": "tsx scripts/migrate-events.ts",

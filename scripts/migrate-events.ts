@@ -56,6 +56,13 @@ const EVENTS: EventSeed[] = [
     image: "/images/CMR-POKRIVALICA-800x450.jpg",
     location: "Београд",
   },
+  {
+    slug: "skola-ehokardiografije-novi-ciklus",
+    titleSr: "Школа ехокардиографије — нови циклус базичног курса",
+    date: "2026-09-14",
+    image: "/images/4-600x443.png",
+    location: "Београд",
+  },
 ];
 
 async function migrateEvents() {

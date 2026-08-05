@@ -1,4 +1,5 @@
 import { Link } from "@/i18n/navigation";
+import Script from "next/script";
 import {
   HeroSection,
   Button,
@@ -13,6 +14,7 @@ import {
   Section,
   Container,
   PartnerLogo,
+  HipokratijaWidget,
 } from "@/components/shared";
 import { Heading, Text, Badge } from "@/components/typography";
 import { client } from "@/sanity/lib/client";
@@ -222,6 +224,8 @@ const HOMEPAGE_SECTION_TOGGLES = {
   directorQuote: false, // citat direktora
   ctaBanner: false, // "Ваше здравље је наш приоритет"
   contactCta: false, // "Контактирајте нас" + mapa
+  newsGostovanja: false, // "Најновије вести" + "Гостовања у медијима" (vesti su premeštene u events widget kraj "Предстојећи догађаји")
+  hipokratijaWidget: true, // Hipokratija widget (prave ocene pacijenata) u "Шта кажу наши пацијенти", zamenjuje demo Sanity kartice na sr lokalu
 };
 
 export default async function Home({
@@ -255,7 +259,7 @@ export default async function Home({
     const eventsRes = eventsResRaw ? localize(eventsResRaw, locale as Locale) : eventsResRaw;
     if (eventsRes) {
       const today = new Date().toISOString().slice(0, 10);
-      upcomingEvents = eventsRes.filter((e) => e.date >= today).slice(0, 3);
+      upcomingEvents = eventsRes.filter((e) => e.date >= today).slice(0, 4);
     }
     if (newsRes && newsRes.length > 0) {
       homepageVesti = newsRes.map((n) => ({
@@ -442,53 +446,92 @@ export default async function Home({
                   </div>
                 )}
               </div>
-              {upcomingEvents.length > 0 ? (
-                <div className={styles.eventsWidget}>
-                  <div className={styles.eventsWidgetHeader}>
-                    <span className={styles.eventsWidgetIcon}>
-                      <i className="fas fa-calendar-days" aria-hidden />
-                    </span>
-                    <h3>Предстојећи догађаји</h3>
-                  </div>
-                  <div className={styles.eventsWidgetList}>
-                    {upcomingEvents.map((event) => {
-                      const eventContent = (
-                        <>
-                          <div className={styles.eventThumb}>
-                            <Image
-                              src={urlFor(event.image).width(160).height(160).url()}
-                              alt={event.title}
-                              width={80}
-                              height={80}
-                            />
-                          </div>
-                          <div className={styles.eventInfo}>
-                            <strong>{event.title}</strong>
-                            <span className={styles.eventDate}>
-                              <i className="fas fa-calendar" aria-hidden />
-                              {formatSrDate(event.date)}
-                              {event.location ? ` · ${event.location}` : ""}
-                            </span>
-                          </div>
-                        </>
-                      );
-                      return event.link ? (
-                        <a
-                          key={event._id}
-                          href={event.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className={styles.eventItem}
-                        >
-                          {eventContent}
-                        </a>
-                      ) : (
-                        <div key={event._id} className={styles.eventItem}>
-                          {eventContent}
-                        </div>
-                      );
-                    })}
-                  </div>
+              {upcomingEvents.length > 0 || homepageVesti.length > 0 ? (
+                <div className={styles.eventsColumn}>
+                  {upcomingEvents.length > 0 && (
+                    <div className={styles.eventsWidget}>
+                      <div className={styles.eventsWidgetHeader}>
+                        <span className={styles.eventsWidgetIcon}>
+                          <i className="fas fa-calendar-days" aria-hidden />
+                        </span>
+                        <h3>Предстојећи догађаји</h3>
+                      </div>
+                      <div className={styles.eventsWidgetList}>
+                        {upcomingEvents.map((event) => {
+                          const eventContent = (
+                            <>
+                              <div className={styles.eventThumb}>
+                                <Image
+                                  src={urlFor(event.image).width(160).height(160).url()}
+                                  alt={event.title}
+                                  width={80}
+                                  height={80}
+                                />
+                              </div>
+                              <div className={styles.eventInfo}>
+                                <strong>{event.title}</strong>
+                                <span className={styles.eventDate}>
+                                  <i className="fas fa-calendar" aria-hidden />
+                                  {formatSrDate(event.date)}
+                                  {event.location ? ` · ${event.location}` : ""}
+                                </span>
+                              </div>
+                            </>
+                          );
+                          return event.link ? (
+                            <a
+                              key={event._id}
+                              href={event.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className={styles.eventItem}
+                            >
+                              {eventContent}
+                            </a>
+                          ) : (
+                            <div key={event._id} className={styles.eventItem}>
+                              {eventContent}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+                  {homepageVesti.length > 0 && (
+                    <div className={styles.eventsWidget}>
+                      <div className={styles.eventsWidgetHeader}>
+                        <span className={styles.eventsWidgetIcon}>
+                          <i className="fas fa-newspaper" aria-hidden />
+                        </span>
+                        <h3>Најновије вести</h3>
+                      </div>
+                      <div className={styles.eventsWidgetList}>
+                        {homepageVesti.slice(0, 4).map((vest) => (
+                          <Link
+                            key={vest.id}
+                            href={`/aktuelnosti/${vest.slug}`}
+                            className={styles.eventItem}
+                          >
+                            <div className={styles.eventThumb}>
+                              <Image
+                                src={vest.image}
+                                alt={vest.title}
+                                width={80}
+                                height={80}
+                              />
+                            </div>
+                            <div className={styles.eventInfo}>
+                              <strong>{vest.title}</strong>
+                              <span className={styles.eventDate}>
+                                <i className="fas fa-calendar" aria-hidden />
+                                {vest.date}
+                              </span>
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
               ) : (
                 <div className={styles.welcomeImages}>
@@ -872,43 +915,60 @@ export default async function Home({
                 text={testimonialsSection.heading}
               />
             </div>
-            <div className={styles.testimonialsSlider}>
-              {testimonialsSection.testimonials?.map((testimonial) => (
-                <TestimonialCard
-                  key={testimonial._key}
-                  quote={testimonial.quote}
-                  authorName={testimonial.authorName}
-                  authorRole={testimonial.authorRole}
-                  authorImage={
-                    (testimonial.authorImage?.asset &&
-                    "url" in testimonial.authorImage.asset
-                      ? testimonial.authorImage.asset.url
-                      : "") || "/images/o_nama_image.png"
-                  }
-                />
-              ))}
-            </div>
-            <div className={styles.testimonialsNav}>
-              <button className={styles.testimonialNavButton}>
-                <i className="fas fa-chevron-left"></i>
-              </button>
-              <div className={styles.testimonialsDots}>
-                {testimonialsSection.testimonials?.map((_, index) => (
-                  <span
-                    key={index}
-                    className={`${styles.dot} ${index === 0 ? styles.dotActive : ""}`}
-                  ></span>
-                ))}
-              </div>
-              <button className={styles.testimonialNavButton}>
-                <i className="fas fa-chevron-right"></i>
-              </button>
-            </div>
+            {HOMEPAGE_SECTION_TOGGLES.hipokratijaWidget && locale === "sr" ? (
+              <HipokratijaWidget entitySlug="institut-za-kardiovaskularne-bolesti-dedinje" />
+            ) : (
+              <>
+                <div className={styles.testimonialsSlider}>
+                  {testimonialsSection.testimonials?.map((testimonial) => (
+                    <TestimonialCard
+                      key={testimonial._key}
+                      quote={testimonial.quote}
+                      authorName={testimonial.authorName}
+                      authorRole={testimonial.authorRole}
+                      authorImage={
+                        (testimonial.authorImage?.asset &&
+                        "url" in testimonial.authorImage.asset
+                          ? testimonial.authorImage.asset.url
+                          : "") || "/images/o_nama_image.png"
+                      }
+                    />
+                  ))}
+                </div>
+                <div className={styles.testimonialsNav}>
+                  <button className={styles.testimonialNavButton}>
+                    <i className="fas fa-chevron-left"></i>
+                  </button>
+                  <div className={styles.testimonialsDots}>
+                    {testimonialsSection.testimonials?.map((_, index) => (
+                      <span
+                        key={index}
+                        className={`${styles.dot} ${index === 0 ? styles.dotActive : ""}`}
+                      ></span>
+                    ))}
+                  </div>
+                  <button className={styles.testimonialNavButton}>
+                    <i className="fas fa-chevron-right"></i>
+                  </button>
+                </div>
+              </>
+            )}
           </Container>
         </section>
       )}
+      {HOMEPAGE_SECTION_TOGGLES.hipokratijaWidget &&
+        locale === "sr" &&
+        testimonialsSection && (
+          <Script
+            src="https://hipokratija-widget.vercel.app/assets/index.js"
+            type="module"
+            crossOrigin="anonymous"
+            strategy="afterInteractive"
+          />
+        )}
 
       {/* News + Gostovanja combined */}
+      {HOMEPAGE_SECTION_TOGGLES.newsGostovanja && (
       <Section padding="medium" background="gray">
         <Container>
           <div className={styles.newsGostovanjaGrid}>
@@ -1001,6 +1061,7 @@ export default async function Home({
           </div>
         </Container>
       </Section>
+      )}
 
       {/* Contact CTA */}
       {HOMEPAGE_SECTION_TOGGLES.contactCta && (

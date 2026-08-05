@@ -325,8 +325,8 @@ async function migrateAll() {
         {
           _key: "stat-1",
           icon: "fas fa-heartbeat",
-          number: "15,000",
-          label: "ОПЕРАЦИЈА ГОДИШЊЕ",
+          number: "19,000",
+          label: "ПРОЦЕДУРА ГОДИШЊЕ",
         },
         {
           _key: "stat-2",
@@ -337,14 +337,14 @@ async function migrateAll() {
         {
           _key: "stat-3",
           icon: "fas fa-award",
-          number: "65",
+          number: "50",
           label: "ГОДИНА ИСКУСТВА",
         },
         {
           _key: "stat-4",
-          icon: "fas fa-smile",
-          number: "50,000",
-          label: "ЗАДОВОЉНИХ ПАЦИЈЕНАТА",
+          icon: "fas fa-calendar-check",
+          number: "146,000",
+          label: "ПОСЕТА ГОДИШЊЕ",
         },
       ],
     };

@@ -1,5 +1,5 @@
 .mainHeader {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
@@ -552,7 +552,7 @@
     }
 
     .mainHeader {
-        position: sticky;
+        position: absolute;
         top: 0;
         background: var(--primary);
     }

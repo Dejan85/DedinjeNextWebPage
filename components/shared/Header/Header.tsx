@@ -199,24 +199,18 @@ export default function Header({
                 </div>
                 <div className={styles.logoText}>
                   <span className={styles.logoName}>ДЕДИЊЕ</span>
-                  <span className={styles.logoSubtitle}>Институт за КВБ</span>
+                  <span className={styles.logoSubtitle}>Национални институт</span>
                 </div>
               </Link>
 
               <div className={styles.contactStrip}>
                 <div className={styles.contactInfo}>
                   <div className={styles.infoItem}>
-                    <div className={styles.infoIcon}>
-                      <i className="fas fa-phone-alt"></i>
-                    </div>
                     <div className={styles.infoText}>
                       <span>011 3601 700</span>
                     </div>
                   </div>
                   <div className={styles.infoItem}>
-                    <div className={styles.infoIcon}>
-                      <i className="fas fa-at"></i>
-                    </div>
                     <div className={`${styles.infoText} ${styles.infoTextEmail}`}>
                       <a href="mailto:dedinje@ikvbd.com">dedinje@ikvbd.com</a>
                       <a href="mailto:pohvaleizsalbe@institutdedinje.org">
@@ -225,9 +219,6 @@ export default function Header({
                     </div>
                   </div>
                   <div className={styles.infoItem}>
-                    <div className={styles.infoIcon}>
-                      <i className="fas fa-map-marker-alt"></i>
-                    </div>
                     <div className={styles.infoText}>
                       <span>Хероја Милана Тепића 1</span>
                       <span>11040 Београд, Србија</span>
