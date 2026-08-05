@@ -45,6 +45,7 @@ import { urlFor } from "@/sanity/lib/image";
 import { formatSrDate } from "./aktuelnosti/formatDate";
 import { GOSTOVANJA } from "./aktuelnosti/gostovanja/constants";
 import { VESTI } from "./aktuelnosti/constants";
+import { categoryLabel } from "./aktuelnosti/categoryLabels";
 
 interface PageBuilder {
   _type: string;
@@ -86,7 +87,7 @@ const CLINICS_FEATURED = [
   {
     icon: "fas fa-syringe",
     title: "Анестезиологија",
-    desc: "Анестезија и интензивна нега",
+    desc: "Анестезија и интензивно лечење",
     href: "/klinike/anesteziologija",
   },
   {
@@ -100,6 +101,115 @@ const CLINICS_FEATURED = [
     title: "Центар за срчану слабост",
     desc: "Комплексно лечење",
     href: "/klinike/centar-srcana-slabost",
+  },
+  {
+    icon: "fas fa-x-ray",
+    title: "КВ КТ и КВ МР дијагностика",
+    desc: "Кардиоваскуларна компјутеризована дијагностика",
+    href: "/klinike/kv-dijagnostika",
+  },
+  {
+    icon: "fas fa-laptop-medical",
+    title: "Телемедицина",
+    desc: "Здравствене услуге на даљину",
+    href: "/klinike/telemedicina",
+  },
+  {
+    icon: "fas fa-hospital",
+    title: "Поликлиника",
+    desc: "Амбулантне здравствене услуге",
+    href: "/klinike/poliklinika",
+  },
+  {
+    icon: "fas fa-person-walking",
+    title: "Кардиоваскуларна рехабилитација",
+    desc: "Опоравак и рехабилитација пацијената",
+    href: "/klinike/kardiovaskularna-rehabilitacija",
+  },
+  {
+    icon: "fas fa-pills",
+    title: "Апотека",
+    desc: "Лекови и медицинско снабдевање",
+    href: "/klinike/apteka",
+  },
+  {
+    icon: "fas fa-flask",
+    title: "Лабораторијска дијагностика",
+    desc: "Лабораторијске анализе",
+    href: "/klinike/laboratorija",
+  },
+  {
+    icon: "fas fa-droplet",
+    title: "Банка крви",
+    desc: "Одељење за трансфузију",
+    href: "/klinike/transfuzija",
+  },
+];
+
+interface PartnerInstitution {
+  name: string;
+  country: string;
+  href: string;
+  logo?: string;
+}
+
+// Demo lista partnerskih klinika/institucija (2026-08-05, na zahtev vlasnika sajta).
+// Logo fajlovi preuzeti sa zvaničnih sajtova institucija, vidi public/images/partners/.
+// Fuwai Hospital nema dostupan logo fajl (sajt nedostupan sa naše mreže) — prikazuje se
+// tekstualni fallback dok se ne obezbedi zvanični logo.
+const PARTNER_INSTITUTIONS: PartnerInstitution[] = [
+  {
+    name: "Cleveland Clinic",
+    country: "САД",
+    href: "https://my.clevelandclinic.org/",
+    logo: "/images/partners/cleveland-clinic.svg",
+  },
+  {
+    name: "Бакуљов центар",
+    country: "Русија",
+    href: "https://bakulev.com/",
+    logo: "/images/partners/bakulev.png",
+  },
+  {
+    name: "Fuwai Hospital",
+    country: "Кина",
+    href: "https://en.wikipedia.org/wiki/Fuwai_Hospital",
+  },
+  {
+    name: "Светска банка",
+    country: "",
+    href: "https://www.worldbank.org/",
+    logo: "/images/partners/world-bank.svg",
+  },
+  {
+    name: "Медицински факултет у Београду",
+    country: "",
+    href: "https://www.mfub.bg.ac.rs/",
+    logo: "/images/partners/mf-beograd.png",
+  },
+  {
+    name: "Медицински факултет у Крагујевцу",
+    country: "",
+    href: "https://www.medf.kg.ac.rs/",
+    logo: "/images/partners/mf-kragujevac.png",
+  },
+  {
+    name: "Алмазов национални медицински истраживачки центар",
+    country: "Русија",
+    href: "https://almazovcentre.ru/",
+    logo: "/images/partners/almazov.png",
+  },
+  {
+    name: "УКЦ Ниш",
+    country: "",
+    href: "https://kcnis.rs/",
+    logo: "/images/partners/ukc-nis.png",
+  },
+  {
+    name: "Ватерполо репрезентација Србије",
+    country: "",
+    href: "https://waterpoloserbia.org/",
+    logo: "/images/partners/vaterpolo-savez-srbije.png",
   },
 ];
 
@@ -647,6 +757,57 @@ export default async function Home({
         </Container>
       </Section>
 
+      {/* Partner institutions (logos) */}
+      <Section padding="medium" background="white">
+        <Container>
+          <div className={styles.sectionHeader}>
+            <span className={styles.sectionIconWrap}>
+              <i className="fas fa-globe" aria-hidden />
+            </span>
+            <div>
+              <h2>Наши партнери</h2>
+              <p>Сарађујемо са водећим клиникама и институцијама у Европи и свету</p>
+            </div>
+          </div>
+          <div className={styles.partnersLogosGrid}>
+            {PARTNER_INSTITUTIONS.map((partner) => (
+              <a
+                key={partner.name}
+                href={partner.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.partnerLogoCard}
+                title={partner.name}
+              >
+                {partner.logo ? (
+                  <div className={styles.partnerLogoImgWrap}>
+                    <Image
+                      src={partner.logo}
+                      alt={partner.name}
+                      fill
+                      objectFit="contain"
+                    />
+                  </div>
+                ) : (
+                  <span className={styles.partnerLogoFallback}>{partner.name}</span>
+                )}
+                {(partner.logo || partner.country) && (
+                  <span className={styles.partnerLogoName}>
+                    {partner.logo && partner.name}
+                    {partner.country && (
+                      <span className={styles.partnerLogoCountry}>
+                        {partner.logo ? " · " : ""}
+                        {partner.country}
+                      </span>
+                    )}
+                  </span>
+                )}
+              </a>
+            ))}
+          </div>
+        </Container>
+      </Section>
+
       {/* Team */}
       {teamSection && (
         <Section padding="large" background="white">
@@ -766,17 +927,24 @@ export default async function Home({
                     href={`/aktuelnosti/${vest.slug}`}
                     className={styles.newsItem}
                   >
-                    <div className={styles.newsItemMeta}>
-                      <span className={styles.newsDate}>
-                        <i className="fas fa-calendar" aria-hidden />
-                        {vest.date}
-                      </span>
-                      <span className={styles.newsCategory}>
-                        {vest.category}
-                      </span>
+                    <div className={styles.newsItemThumb}>
+                      <Image src={vest.image} alt={vest.title} fill sizes="90px" />
                     </div>
-                    <h4>{vest.title}</h4>
-                    <p>{vest.excerpt}</p>
+                    <div className={styles.newsItemBody}>
+                      <div className={styles.newsItemMeta}>
+                        <span className={styles.newsDate}>
+                          <i className="fas fa-calendar" aria-hidden />
+                          {vest.date}
+                        </span>
+                        {vest.category && (
+                          <span className={styles.newsCategory}>
+                            {categoryLabel(vest.category)}
+                          </span>
+                        )}
+                      </div>
+                      <h4>{vest.title}</h4>
+                      <p>{vest.excerpt}</p>
+                    </div>
                   </Link>
                 ))}
               </div>
@@ -801,7 +969,14 @@ export default async function Home({
                     className={styles.gostovanjeItem}
                   >
                     <div className={styles.gostovanjeThumb}>
-                      <i className="fas fa-play-circle" aria-hidden />
+                      <img
+                        src={`https://img.youtube.com/vi/${g.youtubeId}/hqdefault.jpg`}
+                        alt=""
+                        loading="lazy"
+                      />
+                      <span className={styles.gostovanjePlay}>
+                        <i className="fas fa-play" aria-hidden />
+                      </span>
                     </div>
                     <div className={styles.gostovanjeInfo}>
                       <div className={styles.newsItemMeta}>

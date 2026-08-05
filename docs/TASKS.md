@@ -11,7 +11,7 @@ backloga. Kad task završiš → vidi "Definicija završenog taska" u
 ## Sanity migracija (obrazac u [`MIGRACIJA.md`](MIGRACIJA.md))
 
 - ✅ Početna (`homepage`, page-builder sekcije)
-- ✅ `footer` (singleton)
+- ✅ `footer` (singleton) — redizajniran 2026-08-05: zamenjene kolone "Brzi linkovi" / "Usluge" / "Kontakt" sa tri lokacije (ДЕДИЊЕ 1 / ДЕДИЊЕ 2 / ДЕДИНИЈЕ 3), svaka sa ugrađenom Google Maps mapom (iframe) i adresom ispod. Sanity schema `footer.ts` → `quickLinks`/`services`/`contact` polja uklonjeni, dodata `locations[]` array (max 3, tip `footerLocation`: title/localeString, mapEmbedUrl/url, address/string, city/string). Adrese su privremeno iste (Хероја Милана Тепића бр. 1) dok vlasnik sajta ne dostavi tačne adrese za sve tri zgrade — lako izmenjivo kroz Studio kasnije bez code-change. Migraciona skripta `scripts/migrate-footer.ts` ažurirana; dataset nije još seed-ovan (treba pokrenuti `npm run migrate:footer`).
 - ✅ `/rec-direktora` (`directorPage`)
 - ✅ `/o-institutu` (`aboutPage`)
 - ✅ `/biografija` (`biographyPage`)
@@ -86,14 +86,14 @@ sadržaj (i greška) preneti as-is u Sanity, admin ispravlja kroz Studio umesto
 u kodu. Jedan generički `news` tip nije pokrivao sve podsekcije (bitno
 različita polja), pa je urađeno više multi-instance document tipova:
 
-- ✅ `news.ts` (postojeći, dopunjen poljem `fullText`) — **vesti** (6 dokumenata, `mainImage` stvarno upload-ovan iz `public/images/*.jpg` u Sanity asset preko migracione skripte, ne samo putanja)
+- ✅ `news.ts` (postojeći, dopunjen poljem `fullText`) — **vesti** (302 dokumenta iz WordPress migracije 2026-08-05 + 6 originalni placeholder dokumenata obrisani, `mainImage` stvarno upload-ovan iz WordPress featured images u Sanity asset preko migracione skripte, ne samo putanja)
 - ✅ **nov** `video.ts` — **gostovanja** (6 dokumenata: youtubeId/source/date/description/fullText/isNew/order)
 - ✅ **nov** `announcement.ts` — **obaveštenja** (7 dokumenata: date/icon/type/text/important/order)
 - ✅ **nov** `jobPosting.ts` — **oglasi i konkursi** (6 dokumenata: date/type/icon/text/active/deadline/order)
 - ✅ **nov** `magazineIssue.ts` — **Časopis Dedinje izdanja** (6 dokumenata: volume/number/year/title/topics/pdfUrl/coverColor/order — `pdfUrl` prenet sa postojećom greškom, i dalje vodi na CV direktora umesto na pravi časopis)
 - ✅ **nov** singleton `informatorPage.ts` — hero tekst/datumi/PDF link/6 sekcija sadržaja/kontakt (isti PDF-link bug prenet as-is)
 - ✅ Queries u `sanity/lib/queries.ts`: `NEWS_QUERY`/`NEWS_BY_SLUG_QUERY` (dopunjeni), `VIDEOS_QUERY`/`VIDEO_BY_SLUG_QUERY`, `ANNOUNCEMENTS_QUERY`, `JOB_POSTINGS_QUERY`, `MAGAZINE_ISSUES_QUERY`, `INFORMATOR_QUERY`. TS tipovi: `News` (dopunjen), `VideoItem`, `Announcement`, `JobPosting`, `MagazineIssue`, `InformatorPage`/`InformatorSection`.
-- ✅ `scripts/migrate-aktuelnosti.ts` (`npm run migrate:aktuelnosti`) — svih 6+6+7+6+6+1 dokumenata kreirano, potvrđeno `count()` upitom na javni Sanity API po tipu.
+- ✅ `scripts/migrate-aktuelnosti.ts` (`npm run migrate:aktuelnosti`) — originalno seed-ovan 6+6+7+6+6+1=32 dokumenta (placeholder sadržaj); **vesti su nakon WordPress migracije 2026-08-05 zamenjeni sa 302 članka + 6 starih izbrisano** (trenutno ukupno gostovanja 6, obaveštenja 7, oglasi-konkursi 6, časopis 6, informator 1 singleton).
 - ✅ Konvertovane sve rute: `vesti/page.tsx` i `[slug]/page.tsx` + `metadata.ts` (server component, `urlFor()` za sliku, `formatSrDate()` helper za ISO→srpski format), `gostovanja/page.tsx` (server wrapper + nov client `GostovanjaClient.tsx` sa filter/search/sort logikom nepromenjenom), `gostovanja/[slug]/page.tsx` (server + mali client `GostovanjeVideo.tsx` samo za play-state), `obavestenja/page.tsx` (server wrapper + `ObavestenjaClient.tsx`), `oglasi-konkursi/page.tsx` (server wrapper + `OglasiKonkursiClient.tsx`), `casopis-dedinje/page.tsx` (server wrapper + `CasopisDedinjeClient.tsx`, PDF-viewer toggle state ostaje client), `informator/page.tsx` (server wrapper + `InformatorClient.tsx`), `page.tsx` (hub — fetch top-N iz svih tipova umesto zasebnih hardkodovanih preview nizova).
 - ✅ Homepage (`app/page.tsx`) prešao sa `import { VESTI }`/`import { GOSTOVANJA }` na Sanity fetch (`NEWS_QUERY`/`VIDEOS_QUERY`), fallback ostaje na `constants.ts` nizove.
 
@@ -305,8 +305,7 @@ Singleton-i (`sanity/schemas/singletons/`) — ✅ **gotovo, 2026-08-04**:
   siteDescription/workingHours.days — `contact.*` namerno NEIZMENJEN, isti
   telefon/email/adresa na oba jezika, `workingHours.hours` ostaje plain jer
   je čist vremenski format), `footer.ts` (instituteName/instituteSubtitle/
-  description/quickLinks/services/contact.heading/workingHours/copyright/
-  legalLinks — `contact.address/city/phone/email` NEIZMENJENI), `aboutPage.ts`
+  description/copyright/legalLinks/locations.title — `locations.address/city` NEIZMENJENI jer su to kontakt podaci, isti na oba jezika; redizajnirano 2026-08-05 — `quickLinks`/`services`/`contact` polja uklonjena, dodata `locations[]` array za tri lokacije sa mapama), `aboutPage.ts`
   (hero/about/statistics/management/values/cta/seo — `name` polja u
   `management.profiles` ostaju plain, lična imena), `bibliographyPage.ts`
   (pageHeader/introduction/categories.title+description/download/seo —
@@ -598,6 +597,47 @@ vidžetom predstojećih događaja). Detaljno:
   lokacijama, stari fallback layout ispravno odsutan, puni tekst se renderuje
   sa ispravnim prelomima pasusa.
 
+## Наши партнери — homepage sekcija sa logo-ima partnerskih institucija — ✅ gotovo (2026-08-05)
+
+Nova sekcija na homepage-u, odmah ispod "Наше клинике" grida, na zahtev
+vlasnika sajta — demo prikaz partnerskih klinika/bolnica/institucija sa
+kojima Institut sarađuje. Eksplicitno "za demo" (vlasnik sajta zna da su
+logotipi automatski preuzeti sa zvaničnih sajtova, ne kroz zvaničan ugovor o
+korišćenju žiga — pregledaće i reći ako nešto treba zameniti/ukloniti).
+
+- ✅ Nov `PARTNER_INSTITUTIONS` niz (hardkodovan, NE Sanity-backed — postojeći
+  `partnersSection` pageBuilder blok/schema, koji podržava samo FontAwesome
+  ikonicu + ime, nije diran niti korišćen za ovo) u `app/[locale]/page.tsx`,
+  9 institucija: Cleveland Clinic (SAD), Бакуљов центар (Русија), Fuwai
+  Hospital (Кина), Светска банка, Медицински факултет у Београду/Крагујевцу,
+  Алмазов национални медицински истраживачки центар (Русија), УКЦ Ниш,
+  Ватерполо репрезентација Србије (link na Српски ватерполо савез,
+  bivši "Ватерполо савез Србије"). Svaka kartica linkuje (`target="_blank"`)
+  na zvaničan sajt institucije.
+- ✅ Logo fajlovi preuzeti sa zvaničnih sajtova (`curl`) i sačuvani u novom
+  `public/images/partners/` — `cleveland-clinic.svg`, `bakulev.png`,
+  `world-bank.svg` (World Bank sajt je JS-rendered SPA, logo preuzet sa
+  Wikimedia Commons kao pouzdan izvor istog zvaničnog fajla), `mf-beograd.png`,
+  `mf-kragujevac.png`, `almazov.png`, `ukc-nis.png`,
+  `vaterpolo-savez-srbije.png`. **Fuwai Hospital nema logo fajl** — zvaničan
+  sajt (fuwai.com/fuwaihospital.org) nedostupan sa naše mreže (timeout na sve
+  isprobane varijante protokola/domena), nema logo ni na Wikipediji/Wikimedia
+  Commons-u za ovu instituciju — kartica prikazuje tekstualni fallback
+  ("Fuwai Hospital"). **Watch-item:** ako vlasnik sajta obezbedi pravi logo
+  fajl, samo dodati `logo: "/images/partners/fuwai-hospital.<ext>"` u niz.
+  Nijedan logo fajl formalno nije licenciran za komercijalnu upotrebu — svi
+  su preuzeti direktno sa javno dostupnih zvaničnih sajtova institucija po
+  eksplicitnom zahtevu vlasnika sajta ("probaj sa njihovog sajta, ako bude
+  loše videćemo").
+- ✅ Nove CSS klase u `app/[locale]/page.module.css`
+  (`.partnersLogosGrid` — 5 kolona desktop / 3 na `≤1024px` / 2 na `≤768px`,
+  `.partnerLogoCard`, `.partnerLogoImgWrap` — grayscale filter koji nestaje
+  na hover, `.partnerLogoFallback`, `.partnerLogoName`, `.partnerLogoCountry`).
+- ✅ Verifikacija: `npm run lint` (27 problema, baseline nepromenjen, nijedna
+  nova greška u `page.tsx`/`page.module.css`), dev server (postojeća instanca
+  na portu 3000) + Playwright screenshot potvrdio sekciju odmah ispod "Наше
+  клинике" — svih 9 kartica, hover/grayscale efekat, Fuwai fallback bez
+  duplog teksta, 0 grešaka u konzoli.
 
 Materijal koji su odeljenja/klinike poslale IT sektoru u okviru revizije sajta
 (rok 31.05.2026), sirov sadržaj za unos po stranici. Folder je namerno
@@ -688,8 +728,10 @@ Radi se u batch-evima, jedan po jedan, uz javljanje posle svakog.
   poklapa live sajt, bez izmena. casopis-dedinje i informator — **otkriven
   bug** (izmišljena izdanja + pogrešni PDF linkovi na CV direktora), dodato
   u Backlog, nije popravljeno bez pravih PDF-ova od vlasnika. obavestenja,
-  oglasi-konkursi, vesti, gostovanja — placeholder/demo i vremenski
-  osetljiv sadržaj, namerno preskočeno (ne portuje se sa starog sajta).
+  oglasi-konkursi — vremenski osetljiv sadržaj, namerno preskočeno za ručni unos
+  (nisu pokriveni WordPress izvorom). **vesti** — sada migirano sa pravim sadržajem
+  iz WordPress export-a 2026-08-05 (302 članka); gostovanja — i dalje demo sadržaj
+  (6 primera), nije pokriveno WordPress migraciju.
 
 ## Backlog (van Sanity migracije)
 
@@ -744,6 +786,7 @@ Radi se u batch-evima, jedan po jedan, uz javljanje posle svakog.
   - ✅ Hero slajdovi, "Наше клинике" i "За пацијенте" brzi linkovi (2026-08-03) — prešli sa hardkodovanih nizova (`videoHeroSlides`/`CLINICS_FEATURED`/`PATIENT_LINKS`) na Sanity `heroSlidesSection`/`clinicsFeaturedSection`/`patientLinksSection`, sadržaj je i dalje tačan (prenet 1:1), samo je sad editable kroz Studio.
   - ✅ **Hero pretvoren iz 4-slajd slajdera u jedan statičan video (2026-08-04)** — vlasnik sajta odlučio da se ukine slajder ideja, samo jedan video (`public/videos/video-za-slajder.mp4`) sa H1/H2 tekstom preko njega. `HeroSection.tsx` slajder logika (strelice/tačkice) **namerno nije uklonjena iz koda** — `isSlider = slides.length > 1`, pa jedan slajd automatski renderuje statičan hero bez slajder UI-ja (kod ostaje spreman ako se ubuduće doda još slajdova). Promenjeno: `heroSlidesSection.slides` na Sanity `homepage` dokumentu patch-ovano na tačno 1 slajd (naslov "Национални институт за срце и крвне судове" / "National Institute for Heart and Blood Vessels", podnaslov "Традиција и поверење које траје 50 година." / "A tradition of trust spanning 50 years.", bez badge-a), i `videoHeroSlides` fallback niz u `app/[locale]/page.tsx` usklađen (isti sadržaj, za slučaj da Sanity fetch ne uspe). Verifikovano `npm run lint` (27, baseline), `npm run build` (exit 0), Playwright screenshot `/sr` i `/en` (video se vidi i menja frejmove = autoplay radi, nema strelica/tačkica).
   - ✅ **Info kartice ispod heroa redizajnirane + nove `/za-pacijente` i `/nas-tim` landing stranice (2026-08-05)** — 4 info kartice (istaknute plave) sa linkovima ispod hero sekcije su redizajnirane sa novim sadržajem: Информације за пацијенте → `/za-pacijente`, Наше клинике → `/klinike`, Наш тим → `/nas-tim` (ranije `#team` anchor), Контакт → novi `contact` variant sa `contactPhone`/`contactFax` poljima (pokazuje 011 3601 700 i 011 2666 445 umesto starog emergency broja). Nova `contact` varijanta dodana na `sanity/schemas/objects/infoBox.ts` sa odgovarajućim render logikom u `components/shared/InfoBox/InfoBox.tsx`. Sekcija "За пацијенте" (6 brzih linkova) PREMEŠTENA sa homepage JSX-a na novu stranicu `app/[locale]/za-pacijente/page.tsx` koja linkuje na sve 12 `/za-pacijente/<slug>` podstranice; koristi `patientLinksSection` pageBuilder blok preko novog `PATIENT_LINKS_SECTION_QUERY`. Nova ruta `/nas-tim` (`app/[locale]/nas-tim/page.tsx`) prikazuje `teamSection` sa homepage-a; originalna inline tim sekcija na početnoj zadržana. Sitemap ažuriran sa `/za-pacijente` i `/nas-tim`. `scripts/migrate-homepage-cards-update.ts` (nova skripta) pokrenuta na produkciji; sve 4 kartice potvrđene upitom. `npm run lint` (27, baseline), `npm run build` (exit 0), dev server test (oba ruta 200, sadržaj očekivan).
+  - ✅ **"Наше клинике" sekcija proširena sa 6 na svih 13 klinika/službi (2026-08-05)** — po specifikaciji vlasnika sajta (mokap sa punom listom klinika/službi). Sve stavke mapirane na postojeće `clinicPage` rute (`/klinike/kv-dijagnostika`, `/telemedicina`, `/poliklinika`, `/kardiovaskularna-rehabilitacija`, `/apteka`, `/laboratorija`, `/transfuzija` dodate uz postojećih 6), ništa novo nije kreirano u Sanity-ju. `CLINICS_FEATURED` fallback u `app/[locale]/page.tsx` proširen; nova skripta `scripts/migrate-homepage-clinics-update.ts` (`npm run migrate:homepage-clinics-update`) patch-ovala `clinicsFeaturedSection.items` na produkciji, potvrđeno upitom + dev server proverom (13/13 naslova, sve rute HTTP 200).
   - ❌ ☁️ Sekcije "Тим" (4 izmišljena doktora) i "Шта кажу наши пацијенти" (3 izmišljena pacijenta) na početnoj imaju fabrikovane ljude sa stock fotografijama — namerno ostavljeno dok se ne dobije pravi materijal ili odluka da se sekcije uklone. **Napomena:** ova sekcija JESTE Sanity-backed (flat array u `teamSection`/`testimonialsSection`), problem je isključivo sadržajni (demo podaci), ne arhitekturni.
   - ❌ ☁️ Stats sekcija (15.000 operacija/god, 200 lekara, 65 god., 50.000 pacijenata) i emergency telefon "011 3601 600" (treći različit broj) — neprovereni brojevi iz demo seed-a. Isto — Sanity-backed, sadržaj neproveren.
   - ❌ Orphaned Sanity sadržaj koji se nigde ne renderuje (`departmentsSection`, `newsSection`, `contactSection`, pojedinačni `hero` object tip — ne meša se sa novim `heroSlidesSection`) — cleanup, nije hitno.

@@ -9,6 +9,7 @@ import { localize, type Locale } from "@/sanity/lib/locale";
 import type { News } from "@/sanity/types";
 import { formatSrDate } from "../formatDate";
 import { VESTI, type Vest } from "../constants";
+import { categoryLabel } from "../categoryLabels";
 import styles from "./page.module.css";
 
 interface VestDetail {
@@ -129,7 +130,9 @@ export default async function VestPage({
             </div>
 
             <div className={styles.articleMeta}>
-              <span className={styles.categoryBadge}>{vest.category}</span>
+              {vest.category && (
+                <span className={styles.categoryBadge}>{categoryLabel(vest.category)}</span>
+              )}
               <span className={styles.metaItem}>
                 <i className="fas fa-user" aria-hidden /> {vest.author}
               </span>
