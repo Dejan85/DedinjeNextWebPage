@@ -55,7 +55,8 @@
     "react-dom": "19.2.3",
     "react-pdf": "^10.4.0",
     "sanity": "^5.31.1",
-    "styled-components": "^6.4.4"
+    "styled-components": "^6.4.4",
+    "swiper": "^14.0.7"
   },
   "devDependencies": {
     "@types/node": "^20",

@@ -1,0 +1,106 @@
+.carousel {
+  margin-top: 32px;
+}
+
+/* Fiksna visina po kartici (2 reda x ova visina + razmak) drži sekciju
+   iste visine bez obzira da li poslednja stranica ima 8 kartica ili manje. */
+.swiper {
+  padding: 4px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 190px;
+  padding: 20px;
+  background: var(--white);
+  color: var(--gray-900);
+}
+
+.cardScore {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 10px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.cardStars {
+  display: inline-flex;
+  gap: 2px;
+}
+
+.cardStars :global(.fas) {
+  color: #22c55e;
+  font-size: 12px;
+}
+
+.cardStars :global(.far) {
+  color: var(--gray-200);
+  font-size: 12px;
+}
+
+.cardContent {
+  flex: 1;
+  margin: 0 0 12px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--gray-600);
+}
+
+.cardSource {
+  margin: 0;
+  font-size: 13px;
+  color: var(--gray-600);
+}
+
+.cardSource span {
+  font-weight: 500;
+  color: var(--gray-900);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 24px;
+}
+
+.navButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 50%;
+  color: var(--white);
+  font-size: 18px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.navButton:hover:not(:disabled) {
+  background: var(--white);
+  color: var(--primary);
+}
+
+.navButton:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.pageIndicator {
+  min-width: 50px;
+  color: var(--white);
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+}

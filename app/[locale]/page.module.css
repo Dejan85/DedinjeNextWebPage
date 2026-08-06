@@ -426,16 +426,19 @@ a.eventItem:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0, 
 
 .testimonialsDots { display: flex; gap: 10px; }
 
-/* Hipokratija widget (vendor embed): njihove review kartice (.glide__slide)
-   imaju providnu pozadinu i sivi tekst dizajniran za belu pozadinu stranice —
-   na našoj gradient pozadini teško čitljivo bez override-a. Widget nije u
-   Shadow DOM-u pa je ovo bezbedno; ne dira layout, samo boje. */
-.testimonialsSection :global(.hipokratija-widget .glide__slide) {
-  background-color: var(--white) !important;
+/* Hipokratija widget (vendor embed): koristimo samo njegovu brending
+   karticu (".widget__header" — logo, prosečna ocena, link ka profilu),
+   centriranu preko flex-a. Sam karusel iskustava (".glide") sakrivamo —
+   HipokratijaWidget.tsx čita iskustva iz njegovog DOM-a i renderuje ih
+   sam u pravom slajderu (Swiper), jer vendor-ov Glide.js karusel nema
+   opciju za grid prikaz ni prava/fiksna visina. */
+.testimonialsSection :global(.hipokratija-widget .widget) {
+  display: flex !important;
+  justify-content: center !important;
 }
 
-.testimonialsSection :global(.hipokratija-widget .content) {
-  color: var(--gray-900) !important;
+.testimonialsSection :global(.hipokratija-widget .glide) {
+  display: none !important;
 }
 .dot { width: 12px; height: 12px; background: rgba(255, 255, 255, 0.3); border-radius: 50%; cursor: pointer; transition: var(--transition); }
 .dotActive, .dot:hover { background: var(--white); }
