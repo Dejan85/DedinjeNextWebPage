@@ -1,17 +1,49 @@
-.mainHeader {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 2000;
-    transition: all 0.3s ease;
-    background: transparent;
+/* ===== Mini gornja traka (kontakt info + jezik), odvojena od hero videa ===== */
+.topBar {
+    position: relative;
+    z-index: 2001;
+    background: var(--primary-darker);
 }
 
-.mainHeader.scrolled {
-    background: rgba(var(--primary-rgb), 0.98);
-    backdrop-filter: blur(10px);
-    box-shadow: var(--shadow-lg);
+.topBarInner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 8px 0;
+}
+
+.topBarContact {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    font-size: 12.5px;
+    color: rgba(255, 255, 255, 0.82);
+}
+
+.topBarContact span:not(:last-child)::after {
+    content: "|";
+    margin-left: 14px;
+    color: rgba(255, 255, 255, 0.28);
+}
+
+.topBarContact a {
+    color: rgba(255, 255, 255, 0.82);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.topBarContact a:hover {
+    color: var(--white);
+    text-decoration: underline;
+}
+
+.mainHeader {
+    position: relative;
+    width: 100%;
+    z-index: 2000;
+    background: var(--primary);
 }
 
 .backdrop {
@@ -29,31 +61,18 @@
     visibility: visible;
 }
 
-/* ===== Header Card (logo + contact strip + nav, spojeni u jedan segment) ===== */
+/* ===== Header Card (logo + nav) ===== */
 .headerCard {
-    background: var(--primary);
-    border-radius: 12px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-    padding: 10px 16px;
     position: relative;
-    margin: 14px 0;
+    padding: 8px 0;
 }
 
-/* Gornji red: logo + kontakt traka, pune širine kartice */
+/* Logo i navigacija u istom redu */
 .topRow {
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    align-items: center;
-    gap: 24px;
-    padding-bottom: 8px;
-    margin-bottom: 4px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-.contactStrip {
-    display: flex;
-    align-items: center;
-    gap: 24px;
+    gap: 20px;
 }
 
 .headerToggles {
@@ -73,30 +92,27 @@
     display: none;
 }
 
-/* Nav red dobija punu širinu kartice (ne deli je sa logom) da meni stane u jedan red */
+/* Nav deli red sa logom, pa mora da stane u preostali prostor */
 .navRow {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 0 10px;
+    flex-shrink: 1;
+    min-width: 0;
 }
 
 .logo {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 10px;
     flex-shrink: 0;
 }
 
 .logoIcon {
-    width: 72px;
-    height: 72px;
-    background: transparent;
-    border-radius: 8px;
+    width: 46px;
+    height: 46px;
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
 }
 
 .logoIcon img {
@@ -108,84 +124,25 @@
 .logoText {
     display: flex;
     flex-direction: column;
+    max-width: 220px;
 }
 
 .logoName {
     font-family: 'Roboto', sans-serif;
-    font-size: 34px;
-    font-weight: 700;
+    font-size: 14px;
+    font-weight: 800;
     color: var(--white);
-    letter-spacing: 2px;
-    line-height: 1.2;
+    letter-spacing: 0.4px;
+    line-height: 1.25;
     text-transform: uppercase;
 }
 
 .logoSubtitle {
-    font-size: 13px;
-    color: rgba(255, 255, 255, 0.8);
-    letter-spacing: 0.5px;
-}
-
-.contactInfo {
-    display: flex;
-    gap: 40px;
-}
-
-.infoItem {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.infoIcon {
-    width: 42px;
-    height: 42px;
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: var(--transition);
-}
-
-.infoIcon:hover {
-    background: rgba(255, 255, 255, 0.25);
-}
-
-.infoIcon i {
-    font-size: 14px;
-    color: var(--white);
-}
-
-.infoText {
-    display: flex;
-    flex-direction: column;
-}
-
-.infoText span {
-    font-size: 13px;
-    color: rgba(255, 255, 255, 0.85);
-    line-height: 1.4;
-}
-
-.infoText span:first-child {
+    font-size: 11px;
     font-weight: 600;
-    color: var(--white);
-}
-
-.infoTextEmail {
-    flex-direction: column;
-}
-
-.infoTextEmail a {
-    color: rgba(255, 255, 255, 0.9);
-    text-decoration: none;
-    transition: var(--transition);
-}
-
-.infoTextEmail a:hover {
-    color: var(--white);
-    text-decoration: underline;
+    color: rgba(255, 255, 255, 0.92);
+    letter-spacing: 0.2px;
+    line-height: 1.25;
 }
 
 /* ===== Navigation ===== */
@@ -203,15 +160,15 @@
 .navMenu>li>button {
     display: flex;
     align-items: center;
-    gap: 5px;
-    padding: 18px 18px;
-    margin: 10px 2px;
-    border-radius: 8px;
-    font-size: 12px;
+    gap: 4px;
+    padding: 10px 10px;
+    margin: 2px 1px;
+    border-radius: 6px;
+    font-size: 11px;
     font-weight: 700;
     color: var(--white);
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.3px;
     white-space: nowrap;
     transition: var(--transition);
     background: transparent;
@@ -385,9 +342,9 @@
 .navSearch {
     background: transparent;
     border: none;
-    padding: 0 18px;
+    padding: 0 4px 0 10px;
     color: var(--white);
-    font-size: 14px;
+    font-size: 13px;
     cursor: pointer;
     transition: var(--transition);
 }
@@ -407,42 +364,32 @@
 }
 /* Responsive Styles */
 @media (max-width: 1100px) {
-    .contactInfo {
-        gap: 20px;
+    .logoText {
+        max-width: 160px;
     }
 
     .logoName {
-        font-size: 24px;
+        font-size: 12px;
+    }
+
+    .logoSubtitle {
+        font-size: 9.5px;
     }
 
     .logoIcon {
-        width: 56px;
-        height: 56px;
+        width: 40px;
+        height: 40px;
     }
 
     .navMenu>li>a,
     .navMenu>li>button {
-        padding: 18px 12px;
-        font-size: 11px;
-    }
-
-    .infoItem {
-        gap: 8px;
-    }
-
-    .infoText span {
-        font-size: 12px;
+        padding: 8px 8px;
+        font-size: 10px;
     }
 }
 
 @media (max-width: 768px) {
-    .topRow {
-        border-bottom: none;
-        padding-bottom: 0;
-        margin-bottom: 0;
-    }
-
-    .contactStrip {
+    .topBar {
         display: none;
     }
 
@@ -549,11 +496,5 @@
         border-left: 2px solid var(--gray-200);
         opacity: 1;
         visibility: visible;
-    }
-
-    .mainHeader {
-        position: absolute;
-        top: 0;
-        background: var(--primary);
     }
 }

@@ -1,6 +1,6 @@
 .pageHeader {
   position: relative;
-  padding: 200px 0 80px;
+  padding: 70px 0 80px;
   text-align: center;
   color: var(--white);
   background-color: var(--primary);
@@ -78,7 +78,7 @@
 
 @media (max-width: 768px) {
   .pageHeader {
-    padding: 100px 0 50px;
+    padding: 50px 0 50px;
   }
 
   .pageHeader h1 {
@@ -96,7 +96,7 @@
 
 @media (max-width: 480px) {
   .pageHeader {
-    padding: 80px 0 40px;
+    padding: 40px 0 40px;
   }
 
   .pageHeader h1 {

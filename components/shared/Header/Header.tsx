@@ -128,18 +128,9 @@ export default function Header({
   locale?: "sr" | "en";
 }) {
   const items = menu && menu.length > 0 ? menu : DEFAULT_MENU;
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const pathname = usePathname();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 100);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   // Close menu on route change
   useEffect(() => {
@@ -184,54 +175,49 @@ export default function Header({
 
   return (
     <>
-      <header
-        className={`${styles.mainHeader} ${isScrolled ? styles.scrolled : ""}`}
-      >
+      <div className={styles.topBar}>
+        <Container>
+          <div className={styles.topBarInner}>
+            <div className={styles.topBarContact}>
+              <span>011 3601 700</span>
+              <span>
+                <a href="mailto:dedinje@ikvbd.com">dedinje@ikvbd.com</a>
+              </span>
+              <span>
+                <a href="mailto:pohvaleizsalbe@institutdedinje.org">
+                  pohvaleizsalbe@institutdedinje.org
+                </a>
+              </span>
+              <span>Хероја Милана Тепића 1, 11040 Београд, Србија</span>
+            </div>
+            <div className={styles.headerToggles}>
+              <LanguageSwitch locale={locale} variant="dropdown" />
+            </div>
+          </div>
+        </Container>
+      </div>
+
+      <header className={styles.mainHeader}>
         <Container>
           <div className={styles.headerCard}>
             <div className={styles.topRow}>
               <Link href="/" className={styles.logo}>
                 <div className={styles.logoIcon}>
-                  <img
-                    src="/images/logo dedinje.png"
-                    alt="Institut Dedinje Logo"
-                  />
+                  <img src="/images/logo-icon.svg" alt="" />
                 </div>
                 <div className={styles.logoText}>
-                  <span className={styles.logoName}>ДЕДИЊЕ</span>
-                  <span className={styles.logoSubtitle}>Национални институт</span>
+                  <span className={styles.logoName}>
+                    {locale === "en" ? "NATIONAL INSTITUTE" : "НАЦИОНАЛНИ ИНСТИТУТ"}
+                  </span>
+                  <span className={styles.logoSubtitle}>
+                    {locale === "en"
+                      ? "For Heart and Blood Vessels „Dedinje“"
+                      : "За срце и крвне судове „Дедиње“"}
+                  </span>
                 </div>
               </Link>
 
-              <div className={styles.contactStrip}>
-                <div className={styles.contactInfo}>
-                  <div className={styles.infoItem}>
-                    <div className={styles.infoText}>
-                      <span>011 3601 700</span>
-                    </div>
-                  </div>
-                  <div className={styles.infoItem}>
-                    <div className={`${styles.infoText} ${styles.infoTextEmail}`}>
-                      <a href="mailto:dedinje@ikvbd.com">dedinje@ikvbd.com</a>
-                      <a href="mailto:pohvaleizsalbe@institutdedinje.org">
-                        pohvaleizsalbe@institutdedinje.org
-                      </a>
-                    </div>
-                  </div>
-                  <div className={styles.infoItem}>
-                    <div className={styles.infoText}>
-                      <span>Хероја Милана Тепића 1</span>
-                      <span>11040 Београд, Србија</span>
-                    </div>
-                  </div>
-                </div>
-                <div className={styles.headerToggles}>
-                  <LanguageSwitch locale={locale} variant="dropdown" />
-                </div>
-              </div>
-            </div>
-
-            <nav className={`${styles.navRow} ${isMobileMenuOpen ? styles.open : ""}`}>
+              <nav className={`${styles.navRow} ${isMobileMenuOpen ? styles.open : ""}`}>
               <div className={styles.mobileToggles}>
                 <LanguageSwitch locale={locale} />
               </div>
@@ -334,6 +320,7 @@ export default function Header({
                 <i className="fas fa-search"></i>
               </button>
             </nav>
+            </div>
 
             <button
               className={styles.mobileToggle}

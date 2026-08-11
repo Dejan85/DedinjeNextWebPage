@@ -44,6 +44,7 @@ Struktura repo-a, rute i content model: [docs/ARHITEKTURA.md](docs/ARHITEKTURA.m
 - `npm run migrate:*` — pokreće odgovarajuću seed-skriptu (zahteva `SANITY_API_TOKEN` sa write pristupom).
 - `npm run lint` — ESLint (flat config, `eslint-config-next`).
 - `npm run build` — standardni Next.js build. `npm run build:static` — static export (`output: "export"`) u `out/`, za klasičan (non-Vercel) hosting; u ovom modu se image optimizacija gasi (`unoptimized: true`).
+- **Ne pokreći headless-browser screenshot cikluse (chrome --headless, cropovanje slika i sl.) da bi proveravao proste CSS/layout izmene** (poravnanje, širine, boje) — to nepotrebno troši resurse. Za takve izmene je dovoljno pregledati kod (širine kontejnera, padding, margine) i logički potvrditi da se poklapaju; korisnik već ima dev server upaljen i sam refreshuje browser da proveri izgled. Pokreni vizuelnu proveru samo ako korisnik to eksplicitno traži.
 
 ## Deployment
 
