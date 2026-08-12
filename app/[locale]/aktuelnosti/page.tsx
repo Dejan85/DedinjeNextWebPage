@@ -142,7 +142,7 @@ async function getHubData(locale: Locale) {
         id: n._id,
         slug: n.slug.current,
         title: n.title,
-        date: formatSrDate(n.publishedAt),
+        date: formatSrDate(n.publishedAt, locale),
         author: n.author || "",
         category: n.category || "",
         image: urlFor(n.mainImage).width(800).height(450).url(),

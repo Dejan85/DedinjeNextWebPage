@@ -7,9 +7,10 @@ interface StatCounterProps {
   target: number;
   label: string;
   icon: string;
+  suffix?: string;
 }
 
-export default function StatCounter({ target, label, icon }: StatCounterProps) {
+export default function StatCounter({ target, label, icon, suffix = "" }: StatCounterProps) {
   const [count, setCount] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const counterRef = useRef<HTMLDivElement>(null);
@@ -68,6 +69,7 @@ export default function StatCounter({ target, label, icon }: StatCounterProps) {
           pa bi bez ovoga brojač uvek ostajao zaglavljen na "0". */}
       <div className={styles.statNumber} data-no-translit>
         {count.toLocaleString()}
+        {suffix}
       </div>
       <div className={styles.statLabel}>{label}</div>
     </div>

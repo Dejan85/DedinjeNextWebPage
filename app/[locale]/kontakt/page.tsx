@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import {
   Container,
   PageHeader,
@@ -14,7 +15,7 @@ import styles from "./page.module.css";
 export const metadata: Metadata = {
   title: "Контакт | Институт Дедиње",
   description:
-    "Контактирајте Институт за кардиоваскуларне болести Дедиње — телефон, е-пошта, адреса и радно време.",
+    "Контактирајте Национални институт за срце и крвне судове „Дедиње” — телефон, е-пошта, адреса и радно време.",
 };
 
 function toTelHref(phone: string): string {
@@ -41,35 +42,36 @@ export default async function KontaktPage({
   const settings = await getSiteSettings(locale as Locale);
   const contact = settings?.contact;
   const workingHours = settings?.workingHours?.[0];
+  const t = await getTranslations("KontaktPage");
 
   const CONTACT_CARDS = [
     {
       icon: "fas fa-phone",
-      title: "Call центар",
+      title: t("callCenterTitle"),
       value: contact?.phone1 || "011 3601 700",
       href: toTelHref(contact?.phone1 || "011 3601 700"),
-      desc: "Понедељак - Петак: 07-20h",
+      desc: t("callCenterDesc"),
     },
     {
       icon: "fas fa-envelope",
-      title: "Е-пошта",
+      title: t("emailTitle"),
       value: contact?.email || "info@ikvbd.com",
       href: `mailto:${contact?.email || "info@ikvbd.com"}`,
-      desc: "Одговарамо у року од 24h",
+      desc: t("emailDesc"),
     },
     {
       icon: "fas fa-location-dot",
-      title: "Адреса",
+      title: t("addressTitle"),
       value: contact?.address || "Хероја Милана Тепића 1",
       href: "https://maps.google.com/?q=Institut+za+kardiovaskularne+bolesti+Dedinje",
-      desc: `${contact?.zipCode || "11040"} ${contact?.city || "Београд"}, Србија`,
+      desc: `${contact?.zipCode || "11040"} ${contact?.city || "Београд"}, ${t("country")}`,
     },
     {
       icon: "fas fa-clock",
-      title: "Радно време",
+      title: t("workingHoursTitle"),
       value: workingHours?.hours || "07:00 - 20:00",
       href: "#",
-      desc: workingHours?.days || "Понедељак - Петак",
+      desc: workingHours?.days || t("workingHoursDefaultDays"),
     },
   ];
 
@@ -79,11 +81,11 @@ export default async function KontaktPage({
     <>
       <PageHeader
         breadcrumbs={[
-          { label: "Почетна", href: "/" },
-          { label: "Контакт" },
+          { label: t("breadcrumbHome"), href: "/" },
+          { label: t("breadcrumbContact") },
         ]}
-        title="Контактирајте нас"
-        subtitle="Наш тим је спреман да одговори на сва ваша питања и помогне вам"
+        title={t("title")}
+        subtitle={t("subtitle")}
       />
 
       {/* Contact cards */}
@@ -115,8 +117,8 @@ export default async function KontaktPage({
                   <i className="fas fa-paper-plane" aria-hidden />
                 </div>
                 <div>
-                  <h2>Пошаљите нам поруку</h2>
-                  <p>Попуните формулар и одговорићемо вам у најкраћем року</p>
+                  <h2>{t("formHeaderTitle")}</h2>
+                  <p>{t("formHeaderDesc")}</p>
                 </div>
               </div>
 
@@ -134,7 +136,7 @@ export default async function KontaktPage({
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="Локација Института Дедиње"
+                  title={t("mapEmbedTitle")}
                 />
               </div>
 
@@ -143,12 +145,8 @@ export default async function KontaktPage({
                   <i className="fas fa-hospital" aria-hidden />
                 </div>
                 <div>
-                  <h3>Институт за кардиоваскуларне болести Дедиње</h3>
-                  <p>
-                    Једна од водећих здравствених установа у Србији и на Балкану
-                    која пружа здравствене услуге из домена кардиологије,
-                    кардиохирургије, васкуларне хирургије, трансплантације и др.
-                  </p>
+                  <h3>{t("mapInfoTitle")}</h3>
+                  <p>{t("mapInfoDesc")}</p>
                 </div>
               </div>
             </div>
@@ -164,10 +162,10 @@ export default async function KontaktPage({
               <i className="fas fa-triangle-exclamation" aria-hidden />
             </div>
             <div>
-              <h3>Хитни случајеви</h3>
+              <h3>{t("emergencyTitle")}</h3>
               <p>
-                У случају хитне медицинске помоћи, позовите <strong>{emergencyPhone}</strong> или
-                се јавите на пријемну амбуланту Института. Наш тим је доступан 24/7.
+                {t("emergencyTextBefore")} <strong>{emergencyPhone}</strong>{" "}
+                {t("emergencyTextAfter")}
               </p>
             </div>
             <a href={`tel:${emergencyPhone}`} className={styles.emergencyBtn}>

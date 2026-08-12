@@ -1,3 +1,4 @@
+import Image from "next/image";
 import {
   PageHeader,
   VideoPlayer,
@@ -33,7 +34,7 @@ export default async function RecDirektoraPage({
   const hero = directorData?.hero || {
     badge: "Директор Института",
     title: "Академик проф. др Милован М. Бојић",
-    subtitle: 'Директор Института за кардиоваскуларне болести "Дедиње"',
+    subtitle: 'Директор Националног института за срце и крвне судове „Дедиње”',
     showScrollIndicator: true,
   };
 
@@ -99,13 +100,22 @@ export default async function RecDirektoraPage({
   };
 
   const partners = directorData?.partners || {
-    heading: "Сертификати и партнерства",
+    heading: "Акредитације Института",
     items: [
-      { _key: "1", icon: "fas fa-hospital", text: "ISO 9001" },
-      { _key: "2", icon: "fas fa-certificate", text: "JCI Акредитација" },
-      { _key: "3", icon: "fas fa-award", text: "Европски стандарди" },
-      { _key: "4", icon: "fas fa-shield-alt", text: "Здравствена заштита" },
-      { _key: "5", icon: "fas fa-heart", text: "Кардио центар" },
+      {
+        _key: "1",
+        image: "/images/partners/ministarstvo-nauke.svg",
+        text: "Научна акредитација",
+        description:
+          "Министарство науке, технолошког развоја и иновација доделило је Институту научну акредитацију Одлуком бр. 660-01-0007/2024-32 од 08.07.2025. године.",
+      },
+      {
+        _key: "2",
+        image: "/images/partners/azus-akreditacija.jpg",
+        text: "Здравствена акредитација",
+        description:
+          "Агенција за акредитацију здравствених установа Србије доделила је Институту акредитацију бр. Р-1-207-08/2026 — акредитовани до јула 2033. године.",
+      },
     ],
   };
 
@@ -206,10 +216,26 @@ export default async function RecDirektoraPage({
           <div className={styles.partnersGrid}>
             {partners.items.map((partner) => (
               <div key={partner._key} className={styles.partnerCard}>
-                <div className={styles.partnerIcon}>
-                  <i className={partner.icon} aria-hidden />
+                {partner.image ? (
+                  <div className={styles.partnerLogoWrap}>
+                    <Image
+                      src={partner.image}
+                      alt={partner.text}
+                      fill
+                      style={{ objectFit: "contain" }}
+                    />
+                  </div>
+                ) : (
+                  <div className={styles.partnerIcon}>
+                    <i className={partner.icon} aria-hidden />
+                  </div>
+                )}
+                <div className={styles.partnerText}>
+                  <span className={styles.partnerHeading}>{partner.text}</span>
+                  {partner.description && (
+                    <p className={styles.partnerDescription}>{partner.description}</p>
+                  )}
                 </div>
-                <span>{partner.text}</span>
               </div>
             ))}
           </div>

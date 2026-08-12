@@ -7,7 +7,7 @@ import ThemeColorSwitcher from "@/components/shared/ThemeColorSwitcher";
 export const metadata: Metadata = {
   title: "Институт Дедиње - Кардиоваскуларне болести",
   description:
-    "Институт за кардиоваскуларне болести Дедиње је водећа здравствена установа у региону",
+    "Национални институт за срце и крвне судове „Дедиње” је водећа здравствена установа у региону",
   icons: {
     icon: "/images/logo dedinje.png",
     apple: "/images/logo dedinje.png",

@@ -18,9 +18,28 @@
     color: var(--gray-400);
 }
 
+.partnerLogoImgWrap {
+    position: relative;
+    width: 120px;
+    height: 40px;
+    filter: grayscale(100%);
+    transition: filter 0.3s ease;
+}
+
+.partnerLogo:hover .partnerLogoImgWrap {
+    filter: grayscale(0%);
+}
+
 .partnerLogo span {
     font-size: 11px;
     color: var(--gray-500);
     text-transform: uppercase;
     letter-spacing: 1px;
+}
+
+.partnerLogo .partnerLogoSubtitle {
+    font-size: 11px;
+    color: var(--gray-400);
+    text-transform: none;
+    letter-spacing: normal;
 }

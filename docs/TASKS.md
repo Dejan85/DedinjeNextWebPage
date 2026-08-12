@@ -11,7 +11,7 @@ backloga. Kad task završiš → vidi "Definicija završenog taska" u
 ## Sanity migracija (obrazac u [`MIGRACIJA.md`](MIGRACIJA.md))
 
 - ✅ Početna (`homepage`, page-builder sekcije)
-- ✅ `footer` (singleton) — redizajniran 2026-08-05: zamenjene kolone "Brzi linkovi" / "Usluge" / "Kontakt" sa tri lokacije (ДЕДИЊЕ 1 / ДЕДИЊЕ 2 / ДЕДИНИЈЕ 3), svaka sa ugrađenom Google Maps mapom (iframe) i adresom ispod. Sanity schema `footer.ts` → `quickLinks`/`services`/`contact` polja uklonjeni, dodata `locations[]` array (max 3, tip `footerLocation`: title/localeString, mapEmbedUrl/url, address/string, city/string). Adrese su privremeno iste (Хероја Милана Тепића бр. 1) dok vlasnik sajta ne dostavi tačne adrese za sve tri zgrade — lako izmenjivo kroz Studio kasnije bez code-change. Migraciona skripta `scripts/migrate-footer.ts` ažurirana; dataset nije još seed-ovan (treba pokrenuti `npm run migrate:footer`).
+- ✅ `footer` (singleton) — redizajniran 2026-08-05: zamenjene kolone "Brzi linkovi" / "Usluge" / "Kontakt" sa tri lokacije (ДЕДИЊЕ 1 / ДЕДИЊЕ 2 / ДЕДИЊЕ 3), svaka sa ugrađenom Google Maps mapom (iframe) i adresom ispod. Sanity schema `footer.ts` → `quickLinks`/`services`/`contact` polja uklonjeni, dodata `locations[]` array (max 3, tip `footerLocation`: title/localeString, mapEmbedUrl/url, address/string, city/string). **Dataset konačno migriran 2026-08-11** (`npm run migrate:footer-update`, dedikovana `-update` patch skripta — do tad je Footer.tsx tiho renderovao hardkodovan fallback jer `npm run migrate:footer` nikad nije bio pokrenut) — Дедиње 1/2 zadržavaju Хероја Милана Тепића бр. 1, Дедиње 3 ispravljena na Сокобањска 17; logo/naziv u istom tasku usklađen sa Header-om (novi `logo-icon.svg`, "НАЦИОНАЛНИ ИНСТИТУТ" umesto starog "ДЕДИЊЕ"/"Институт за КВБ"). Google Maps embed i dalje generički placeholder za sve tri (vidi `PROJECT_STATUS.md` Blokeri).
 - ✅ `/rec-direktora` (`directorPage`)
 - ✅ `/o-institutu` (`aboutPage`)
 - ✅ `/biografija` (`biographyPage`)
@@ -543,6 +543,58 @@ neki render-poziv duboko u nekoj leaf komponenti).
 - Ažurirati ovaj fajl + `PROJECT_STATUS.md` + `ARHITEKTURA.md` po standardnoj
   "Definicija završenog taska" konvenciji.
 
+### Faza 3g — UI "chrome" i18n (dugmad, forme, aria-labels) — ✅ gotovo (2026-08-12)
+
+Faza 3d/3e su pokrile SAMO Sanity editorijalni sadržaj (`localize()`); UI
+tekst koji nikad nije bio u Sanity-ju (dugmad, placeholderi, aria-labels,
+prazna stanja, kontakt forma) je i dalje bio hardkodovan ćirilicom bez ikakve
+provere locale-a — otud vlasnik sajta prijavio "pola strane na srpskom, pola
+na engleskom" na `/en` (uklj. navigaciju). Odvojen nalaz istim povodom:
+homepage "Шта кажу наши пацијенти" prikazivao je pravi Hipokratija widget
+samo na `sr` (`locale === "sr"` gate), na `en` je padao na Sanity demo-seed
+testimonials sa izmišljenim imenima.
+
+- ✅ `messages/sr.json`/`en.json` (next-intl, do sad prazni `{}`) popunjeni
+  namespace-ovanim ključevima (`Header`, `LanguageSwitch`, `Footer`, `Faq`,
+  `DocumentList`, `Ambulante`, `KontaktForm`, `KontaktPage`, `Hipokratija`) —
+  ovo je nova, konzistentna konvencija za UI chrome tekst (`useTranslations()`
+  u client komponentama, `getTranslations()` u server komponentama), odvojena
+  od Sanity `localize()` puta za editorijalni sadržaj.
+- ✅ Popravljeni fajlovi: `Header.tsx` (top-bar adresa, logo naziv/podnaslov,
+  meni aria-label), `LanguageSwitch.tsx` (aria-label — sam prekidač jezika je
+  ironično uvek bio na srpskom), `Footer.tsx` (mapa title fallback),
+  `KontaktForm.tsx` + `kontakt/page.tsx` (cela stranica — forma, kartice,
+  banner za hitne slučajeve, i dalje jedina komponenta bez pravog slanja
+  emaila, vidi Blokeri), `FaqAccordion.tsx`, `DocumentListBlock.tsx`,
+  `AmbulanteAccordion.tsx` (chrome tekst; `title`/`subtitle` default props
+  namerno netaknuti — uvek dolaze iz Sanity-ja preko `PageBuilder.tsx`).
+- ✅ `HipokratijaWidget.tsx` — dodat `useTranslations("Hipokratija")`,
+  `ratingLabel()` premešten u telo komponente (Odlično/Dobro/Osrednje/Loše →
+  Excellent/Good/Average/Poor), "Na osnovu N iskustava"/"Izvor:" prevedeni.
+  Tekst samih recenzija ostaje kakav jeste (pisali su ga pacijenti na
+  srpskom) — prevodi se samo UI chrome oko njih.
+- ✅ `app/[locale]/page.tsx` — uklonjen `locale === "sr"` gate (oba mesta:
+  glavni render + prateći `<Script>` tag), Hipokratija widget se sad
+  renderuje na oba locale-a. Sanity `testimonialsSection` demo-seed grana
+  ostaje u kodu netaknuta kao fallback kad je
+  `HOMEPAGE_SECTION_TOGGLES.hipokratijaWidget` isključen (kill-switch za
+  vendor zavisnost, vidi `PROJECT_STATUS.md` Blokeri).
+- Namerno NEDIRANO (isti fallback-only obrazac kao pre): `Header.tsx`
+  `DEFAULT_MENU`, `Footer.tsx` `DEFAULT_LOCATIONS`/naziv/opis/copyright
+  fallback vrednosti (koriste se samo ako Sanity fetch padne, ne izvor ovog
+  buga); `export const metadata` u `kontakt/page.tsx` i svi ostali statični
+  `<title>` (već zaveden poseban zadatak, ~70 `metadata.ts` fajlova, vidi
+  Backlog).
+- Verifikacija: `npx tsc --noEmit` čisto, `npm run lint` 28 problema
+  (identično baseline-u iz prethodnih i18n faza, nula novih).
+
+**Follow-up i18n bug-fixa (2026-08-12, isti dan)**:
+- ✅ Tri dodatne ciljane patch-a pronađene i ispravljene tog istog dana — sve tri zbog iste greške kao infoBox (polja nisu migrirano u localeString šemu ili su imala `en: ""`):
+  - `scripts/migrate-homepage-clinics-en-update.ts` (`npm run migrate:homepage-clinics-en-update`) — 9 clinic-kartica `title`/`description` (Кардиохирургија/Васкуларна hirurgija/...) sa engleskim vrednostima
+  - `app/[locale]/page.tsx` — CTA dugme ispod clinics grid-a (`{locale === "en" ? "View All Clinics" : "Погледајте све клинике"}`)
+  - `scripts/migrate-events-en-update.ts` (`npm run migrate:events-en-update`) — 4 event naslova (`title.en` na specifičnim event ID-evima) sa engleskim vrednostima
+  - Detaljno: vidi `PROJECT_STATUS.md` Dnevnik, red "2026-08-12 — Homepage Наше клинике grid..." — sve tri pokrenute uživo na produkciji, verifikovane curl-om, bez nove lint grešaka.
+
 ## Header — uklonjene ikonice iz kontakt trake, header sad `position: absolute` (skroluje se sa stranicom) — ✅ gotovo (2026-08-05)
 
 Vlasnik sajta poslao anotirani screenshot kontakt trake u header-u (telefon/@/pin
@@ -628,8 +680,7 @@ nazivima fajlova).
   (Анестезиолог са реаниматологијом), Др Милан Добрић (Интервентни
   кардиолог), Проф. др сци. мед. Иван Стојановић (Специјалиста минимално
   инвазивне хирургије). Опис сваког лекара је намерно кратак и чисто
-  чињеничан (специјалност + "Институт за кардиоваскуларне болести
-  „Дедиње"") — БЕЗ измишљених тврдњи (година искуства, "водећи
+  чињеничан (специјалност + "Национални институт за срце и крвне судове „Дедиње”") — БЕЗ измишљених тврдњи (година искуства, "водећи
   специјалиста" и сл. — то је било у демо подацима, свесно НЕ пренето на
   праве лекаре без потврде од власника сајта). Стари демо лекари (Марко
   Јовановић/Ана Петровић/Милан Николић/Јелена Стојковић, stock fotografije)
@@ -727,8 +778,16 @@ vidžetom predstojećih događaja). Detaljno:
   institucionalnog teksta koji je vlasnik sajta dostavio ("Више од 45
   година...", zaključno sa "Придружите нам се..."/"Ваш Институт..." pasusima).
   `bodyText.en` očišćen na `""` (pada nazad na SR prikaz na `/en` preko
-  postojećeg `localize()` EN→SR fallback-a) — čeka standardnu i18n
+  postojećeg `localize()` EN→SR fallback-a) — čekalo standardnu i18n
   export/translate/apply pipeline (Faza 3d obrazac) za pravi prevod.
+  **✅ REŠENO 2026-08-11:** vlasnik sajta prijavio da je pola `/en` homepage-a
+  i dalje na srpskom (screenshot); `bodyText.en` konačno preveden i
+  patch-ovan (`scripts/migrate-homepage-welcome-en-update.ts`), plus otkriveno
+  i ispravljeno više NEPOVEZANIH hardkodovanih ćiriličnih stringova u
+  `app/[locale]/page.tsx` (event/news vidžet naslovi, "Наши партнери" +
+  `PARTNER_INSTITUTIONS` lista, `formatSrDate()` — meseci na srpskom bez
+  obzira na lokal) koji nikad nisu bili locale-svesni. Detalji u
+  `PROJECT_STATUS.md` Dnevnik.
   `leadText` NIJE menjan (već se 1:1 poklapao sa mokapom).
 - ✅ Migraciona skripta `scripts/migrate-events.ts` (`npm run migrate:events`)
   — seed-uje 3 primer događaja, imena preuzeta iz već poznatih ponavljajućih
@@ -879,6 +938,8 @@ Radi se u batch-evima, jedan po jedan, uz javljanje posle svakog.
   iz WordPress export-a 2026-08-05 (302 članka); gostovanja — i dalje demo sadržaj
   (6 primera), nije pokriveno WordPress migraciju.
 
+- ✅ **Preimenovanje ustanove (2026-08-11)** — "Институт за кардиоваскуларне болести Дедиње" → "Национални институт за срце и крвне судове „Дедиње”" sprovedeno svuda: repo (fallback `data.ts`, `migrate-*.ts` seed skripte, docs) + produkcioni Sanity dataset (411 dokumenata skenirano, 177 izmenjeno, uključujući WordPress vesti-arhivu). Detalji, uključujući namerno nedirnut istorijski navod o staroj "Klinici", u [`PROJECT_STATUS.md`](PROJECT_STATUS.md) Dnevniku.
+
 ## Backlog (van Sanity migracije)
 
 - ❌ **~70 `metadata.ts` fajlova i dalje statični/SR-only** (otkriveno 2026-08-04
@@ -932,10 +993,12 @@ Radi se u batch-evima, jedan po jedan, uz javljanje posle svakog.
   - ✅ Hero slajdovi, "Наше клинике" i "За пацијенте" brzi linkovi (2026-08-03) — prešli sa hardkodovanih nizova (`videoHeroSlides`/`CLINICS_FEATURED`/`PATIENT_LINKS`) na Sanity `heroSlidesSection`/`clinicsFeaturedSection`/`patientLinksSection`, sadržaj je i dalje tačan (prenet 1:1), samo je sad editable kroz Studio.
   - ✅ **Hero pretvoren iz 4-slajd slajdera u jedan statičan video (2026-08-04)** — vlasnik sajta odlučio da se ukine slajder ideja, samo jedan video (`public/videos/video-za-slajder.mp4`) sa H1/H2 tekstom preko njega. `HeroSection.tsx` slajder logika (strelice/tačkice) **namerno nije uklonjena iz koda** — `isSlider = slides.length > 1`, pa jedan slajd automatski renderuje statičan hero bez slajder UI-ja (kod ostaje spreman ako se ubuduće doda još slajdova). Promenjeno: `heroSlidesSection.slides` na Sanity `homepage` dokumentu patch-ovano na tačno 1 slajd (naslov "Национални институт за срце и крвне судове" / "National Institute for Heart and Blood Vessels", podnaslov "Традиција и поверење које траје 50 година." / "A tradition of trust spanning 50 years.", bez badge-a), i `videoHeroSlides` fallback niz u `app/[locale]/page.tsx` usklađen (isti sadržaj, za slučaj da Sanity fetch ne uspe). Verifikovano `npm run lint` (27, baseline), `npm run build` (exit 0), Playwright screenshot `/sr` i `/en` (video se vidi i menja frejmove = autoplay radi, nema strelica/tačkica).
   - ✅ **Info kartice ispod heroa redizajnirane + nove `/za-pacijente` i `/nas-tim` landing stranice (2026-08-05)** — 4 info kartice (istaknute plave) sa linkovima ispod hero sekcije su redizajnirane sa novim sadržajem: Информације за пацијенте → `/za-pacijente`, Наше клинике → `/klinike`, Наш тим → `/nas-tim` (ranije `#team` anchor), Контакт → novi `contact` variant sa `contactPhone`/`contactFax` poljima (pokazuje 011 3601 700 i 011 2666 445 umesto starog emergency broja). Nova `contact` varijanta dodana na `sanity/schemas/objects/infoBox.ts` sa odgovarajućim render logikom u `components/shared/InfoBox/InfoBox.tsx`. Sekcija "За пацијенте" (6 brzih linkova) PREMEŠTENA sa homepage JSX-a na novu stranicu `app/[locale]/za-pacijente/page.tsx` koja linkuje na sve 12 `/za-pacijente/<slug>` podstranice; koristi `patientLinksSection` pageBuilder blok preko novog `PATIENT_LINKS_SECTION_QUERY`. Nova ruta `/nas-tim` (`app/[locale]/nas-tim/page.tsx`) prikazuje `teamSection` sa homepage-a; originalna inline tim sekcija na početnoj zadržana. Sitemap ažuriran sa `/za-pacijente` i `/nas-tim`. `scripts/migrate-homepage-cards-update.ts` (nova skripta) pokrenuta na produkciji; sve 4 kartice potvrđene upitom. `npm run lint` (27, baseline), `npm run build` (exit 0), dev server test (oba ruta 200, sadržaj očekivan).
-  - ✅ **"Наше клинике" sekcija proširena sa 6 na svih 13 klinika/službi (2026-08-05)** — po specifikaciji vlasnika sajta (mokap sa punom listom klinika/službi). Sve stavke mapirane na postojeće `clinicPage` rute (`/klinike/kv-dijagnostika`, `/telemedicina`, `/poliklinika`, `/kardiovaskularna-rehabilitacija`, `/apteka`, `/laboratorija`, `/transfuzija` dodate uz postojećih 6), ništa novo nije kreirano u Sanity-ju. `CLINICS_FEATURED` fallback u `app/[locale]/page.tsx` proširen; nova skripta `scripts/migrate-homepage-clinics-update.ts` (`npm run migrate:homepage-clinics-update`) patch-ovala `clinicsFeaturedSection.items` na produkciji, potvrđeno upitom + dev server proverom (13/13 naslova, sve rute HTTP 200).
+    - **✅ i18n ispravka: infoBox polja lokalizovana (2026-08-12)** — tokom Faze 3b/3c/3d i18n migracije `infoBox.ts` schema je dobio `localeString` tip za `title`/`description`/`linkText` polja, ali `scripts/migrate-all.ts` (puni re-seed skript) je nikad nije ažurirao — ostao je sa plain-string pisanjem. Usled toga, 4 info kartice na `/en` su prikazivale ćirilicu umesto engleskog teksta ("Информације за пацијенте"/"Наше клинике"/"Наш тим"/"Контакт" umesto "Patient Information"/"Our Clinics"/"Meet the Team"/"Contact"). Nova ciljana patch skripta `scripts/migrate-homepage-infoboxes-en-update.ts` (`npm run migrate:homepage-infoboxes-en-update`) — `.set()` na `pageBuilder[_key=="infobox-X"].title.en`, `.description.en`, `.linkText.en` putanjama za sve 4 kartice (infobox-1 do infobox-4), bez diranja ostalih `pageBuilder` stavki. Pokrenuta uživo, "Ažurirano 10 polja na 4 info kutije" (title/description/linkText ×4 = 12 polja; +2 dodatna interna polja iz logike `set()`). Verifikovano curl-om na `/en` — svi naslovi i opisi sad na engleskom, nula Cyrillic matcheva. `npx tsc --noEmit` čisto, `npm run lint` (28, nepromenjen baseline). **Watch-item:** `migrate-all.ts` sam ostaje ispravljan (piše plain stringove) — ako se ikad ponovo pokrene kao puni reseed, tiho će obrisati ovu i18n konverziju, isti kao kod `migrate-navigation.ts`/ostalih legacy "pun reseed" skripti, vidi `PROJECT_STATUS.md` Blokeri.
+  - ✅ **"Наше клинике" sekcija proširena sa 6 na svih 13 klinika/službi (2026-08-05), zatim smanjena na 9 stavki po novom mokapu vlasnika sajta (2026-08-11)** — Inicijalna ekspanzija 2026-08-05 po specifikaciji vlasnika sajta za 13 stavki (mokap sa punom listom). Sve 13 stavki mapirane na postojeće `clinicPage` rute (7 dodanih: `/klinike/kv-dijagnostika`, `/telemedicina`, `/poliklinika`, `/kardiovaskularna-rehabilitacija`, `/apteka`, `/laboratorija`, `/transfuzija`, uz postojećih 6), ništa novo nije kreirano. `CLINICS_FEATURED` fallback u `app/[locale]/page.tsx` proširen na 13; skripta `scripts/migrate-homepage-clinics-update.ts` (`npm run migrate:homepage-clinics-update`) patch-ovala `clinicsFeaturedSection.items` na produkciji (potvrđeno 13/13 naslova). Međutim, 2026-08-11 vlasnik sajta poslao novi mokap sa ispravljenom specifikacijom (9 stavki umesto 13). Promene: uklonjene 4 kartice (Инвазивна дијагностика, Центар за срчану слабост, Телемедицина, Кардиоваскуларна рехабилитација), promenjena 1 kartica ("КВ КТ и КВ МР дијагностика" → "Радиологија", href `/klinike/kv-dijagnostika` ostaje nepromenjen). Finalnih 9 stavki: Кардиохирургија, Васкуларна хирургија, Кардиологија, Анестезиологија, Радиологија, Поликлиника, Апотека, Лабораторијска дијагностика, Банка крви. `CLINICS_FEATURED` fallback ažuriran na 9; skripta ponovo pokrenuta sa novom listom (console log poruka ažurirana sa "(6 → 13 stavki)" na "(13 → 9 stavki)"), potvrđeno upitom (9/9 naslova, sve rute HTTP 200). Napomena: sve 4 uklonjene klinike i dalje postoje kao `/klinike/<slug>` stranice — nisu obrisane, samo više nisu prikazane u homepage featured grid-u.
   - ✅ **"Тим" sekcija — demo lekari zamenjeni pravima (2026-08-05)** — 4 prava lekara Instituta sa pravim fotografijama, vidi `PROJECT_STATUS.md` Dnevnik.
-  - ✅ **"Шта кажу наши пацијенти" — Hipokratija widget zamenjuje demo pacijente, ali SAMO na `sr` lokalu (2026-08-05)** — vidžet treće strane (prave ocene/iskustva pacijenata) ugrađen preko `HOMEPAGE_SECTION_TOGGLES.hipokratijaWidget`, vidi `PROJECT_STATUS.md` Dnevnik + Blokeri. Na `/en` i dalje prikazuje stari demo-seed (fabrikovani pacijenti, prevedeni) jer widget nema EN sadržaj — ❌ treba odluka vlasnika sajta za trajno EN rešenje.
+  - ✅ **"Шта кажу наши пацијенти" — Hipokratija widget zamenjuje demo pacijente, ali SAMO na `sr` lokalu (2026-08-05), redizajniran raspored (2026-08-11)** — vidžet treće strane (prave ocene/iskustva pacijenata) ugrađen preko `HOMEPAGE_SECTION_TOGGLES.hipokratijaWidget`, vidi `PROJECT_STATUS.md` Dnevnik + Blokeri. 2026-08-11: naslov levo poravnat (ranije centriran) + nova leva bedž-kartica sa prosečnom ocenom/brojem iskustava pored kartica recenzija, po referentnom Trustindex-style screenshotu vlasnika sajta — pozadina sekcije namerno NIJE promenjena (ostaje `primary` gradient, ne bela kao u referenci). Na `/en` i dalje prikazuje stari demo-seed (fabrikovani pacijenti, prevedeni) jer widget nema EN sadržaj — ❌ treba odluka vlasnika sajta za trajno EN rešenje.
   - ✅ **Stats sekcija ažurirana realnim brojkama (2026-08-05)** — 19.000 procedura/god. (ranije 15.000 operacija), 200 lekara specijalista (nepromenjeno), 50 god. iskustva (ranije 65), 146.000 poseta/god. (ranije 50.000 "zadovoljnih pacijenata", label promenjen). Brojke dobijene od vlasnika sajta. Nova skripta `scripts/migrate-homepage-stats-update.ts` (`npm run migrate:homepage-stats-update`) patch-ovala `statsSection.stats` na produkciji, seed u `migrate-all.ts` usklađen.
+  - ✅ **"Сертификати и партнерства" sekcija (dno homepage-a) — generički fake bedževi (ISO 9001/JCI/Европски стандарди/...) zamenjeni pravim akreditacijama (2026-08-11).** Vlasnik sajta poslao sliku sa 2 stvarna dokumenta i zahtevom da se ubace umesto generičkih ikonica. Ista generička sadržina postojala je na DVA mesta (identičan tekst) — ova homepage `partnersSection` (globalna `.partners-section`/`.partners-slider` CSS, muted trust-badge stil sa opacity/grayscale hover, `PartnerLogo` komponenta) i nezavisno na `/rec-direktora` (`directorPage.partners`, kartice sa gradient ikonicama) — oba ažurirana. Detalji u `PROJECT_STATUS.md` Dnevnik.
   - ❌ ☁️ Emergency telefon "011 3601 600" (`scripts/migrate-all.ts:502`, treći različit broj od 668/700 para) — neproveren, zahteva potvrdu vlasnika sajta.
   - ❌ Orphaned Sanity sadržaj koji se nigde ne renderuje (`departmentsSection`, `newsSection`, `contactSection`, pojedinačni `hero` object tip — ne meša se sa novim `heroSlidesSection`) — cleanup, nije hitno.
 

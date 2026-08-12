@@ -41,32 +41,11 @@ const CLINICS_ITEMS = [
     href: "/klinike/anesteziologija",
   },
   {
-    _key: "clinic-5",
-    icon: "fas fa-heartbeat",
-    title: "Инвазивна дијагностика",
-    desc: "Катетеризација и интервенције",
-    href: "/klinike/invazivna-dijagnostika",
-  },
-  {
-    _key: "clinic-6",
-    icon: "fas fa-heart-circle-check",
-    title: "Центар за срчану слабост",
-    desc: "Комплексно лечење",
-    href: "/klinike/centar-srcana-slabost",
-  },
-  {
     _key: "clinic-7",
     icon: "fas fa-x-ray",
-    title: "КВ КТ и КВ МР дијагностика",
+    title: "Радиологија",
     desc: "Кардиоваскуларна компјутеризована дијагностика",
     href: "/klinike/kv-dijagnostika",
-  },
-  {
-    _key: "clinic-8",
-    icon: "fas fa-laptop-medical",
-    title: "Телемедицина",
-    desc: "Здравствене услуге на даљину",
-    href: "/klinike/telemedicina",
   },
   {
     _key: "clinic-9",
@@ -74,13 +53,6 @@ const CLINICS_ITEMS = [
     title: "Поликлиника",
     desc: "Амбулантне здравствене услуге",
     href: "/klinike/poliklinika",
-  },
-  {
-    _key: "clinic-10",
-    icon: "fas fa-person-walking",
-    title: "Кардиоваскуларна рехабилитација",
-    desc: "Опоравак и рехабилитација пацијената",
-    href: "/klinike/kardiovaskularna-rehabilitacija",
   },
   {
     _key: "clinic-11",
@@ -106,7 +78,7 @@ const CLINICS_ITEMS = [
 ];
 
 async function migrateHomepageClinicsUpdate() {
-  console.log("\n📦 AŽURIRANJE SEKCIJE „NAŠE KLINIKE” NA POČETNOJ (6 → 13 stavki)");
+  console.log("\n📦 AŽURIRANJE SEKCIJE „NAŠE KLINIKE” NA POČETNOJ (13 → 9 stavki)");
   console.log("═══════════════════════════════════════════════\n");
 
   const homepage = await client.getDocument("homepage");

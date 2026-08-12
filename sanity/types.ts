@@ -827,7 +827,9 @@ export interface ContactSection {
 export interface PartnerItem {
   _key: string;
   icon?: string;
+  image?: string;
   name: string;
+  subtitle?: string;
 }
 
 export interface PartnersSection {
@@ -920,8 +922,10 @@ export interface DirectorQuote {
 
 export interface DirectorPartnerItem {
   _key: string;
-  icon: string;
+  icon?: string;
+  image?: string;
   text: string;
+  description?: string;
 }
 
 export interface DirectorPartners {

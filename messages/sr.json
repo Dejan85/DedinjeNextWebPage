@@ -1,1 +1,73 @@
-{}
+{
+  "Header": {
+    "logoName": "НАЦИОНАЛНИ ИНСТИТУТ",
+    "logoSubtitle": "За срце и крвне судове „Дедиње“",
+    "address": "Хероја Милана Тепића 1, 11040 Београд, Србија",
+    "menuAriaLabel": "Мени"
+  },
+  "LanguageSwitch": {
+    "ariaLabel": "Језик и писмо"
+  },
+  "Footer": {
+    "mapTitleFallback": "Локација Института Дедиње"
+  },
+  "Faq": {
+    "searchPlaceholder": "Претражите питања...",
+    "noResults": "Нема резултата за вашу претрагу.",
+    "ctaText": "Немате одговор на ваше питање?",
+    "ctaButton": "Контактирајте нас"
+  },
+  "DocumentList": {
+    "read": "Читај",
+    "close": "Затвори",
+    "previewSubtitle": "Преглед документа"
+  },
+  "Ambulante": {
+    "ctaText": "За заказивање прегледа контактирајте Call центар"
+  },
+  "KontaktForm": {
+    "successTitle": "Порука је послата!",
+    "successBody": "Хвала вам на поруци. Одговорићемо вам у најкраћем могућем року.",
+    "firstNameLabel": "Име",
+    "firstNamePlaceholder": "Ваше име",
+    "lastNameLabel": "Презиме",
+    "lastNamePlaceholder": "Ваше презиме",
+    "emailLabel": "Е-маил",
+    "emailPlaceholder": "vasa@adresa.com",
+    "messageLabel": "Порука",
+    "messagePlaceholder": "Напишите вашу поруку...",
+    "submit": "Пошаљите поруку"
+  },
+  "KontaktPage": {
+    "breadcrumbHome": "Почетна",
+    "breadcrumbContact": "Контакт",
+    "title": "Контактирајте нас",
+    "subtitle": "Наш тим је спреман да одговори на сва ваша питања и помогне вам",
+    "callCenterTitle": "Call центар",
+    "callCenterDesc": "Понедељак - Петак: 07-20h",
+    "emailTitle": "Е-пошта",
+    "emailDesc": "Одговарамо у року од 24h",
+    "addressTitle": "Адреса",
+    "country": "Србија",
+    "mapEmbedTitle": "Локација Института Дедиње",
+    "workingHoursTitle": "Радно време",
+    "workingHoursDefaultDays": "Понедељак - Петак",
+    "formHeaderTitle": "Пошаљите нам поруку",
+    "formHeaderDesc": "Попуните формулар и одговорићемо вам у најкраћем року",
+    "mapInfoTitle": "Национални институт за срце и крвне судове „Дедиње”",
+    "mapInfoDesc": "Једна од водећих здравствених установа у Србији и на Балкану која пружа здравствене услуге из домена кардиологије, кардиохирургије, васкуларне хирургије, трансплантације и др.",
+    "emergencyTitle": "Хитни случајеви",
+    "emergencyTextBefore": "У случају хитне медицинске помоћи, позовите",
+    "emergencyTextAfter": "или се јавите на пријемну амбуланту Института. Наш тим је доступан 24/7."
+  },
+  "Hipokratija": {
+    "ratingExcellent": "Одлично",
+    "ratingGood": "Добро",
+    "ratingAverage": "Осредње",
+    "ratingPoor": "Лоше",
+    "basedOn": "На основу {count} искустава",
+    "source": "Извор:",
+    "prevAriaLabel": "Претходна искуства",
+    "nextAriaLabel": "Следећа искуства"
+  }
+}

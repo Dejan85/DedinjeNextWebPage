@@ -1,5 +1,5 @@
 import { Link } from "@/i18n/navigation";
-import { getLocale } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { client } from "@/sanity/lib/client";
 import { FOOTER_QUERY } from "@/sanity/lib/queries";
 import { localize, type Locale } from "@/sanity/lib/locale";
@@ -29,7 +29,7 @@ const DEFAULT_LOCATIONS = [
     _key: "dedinje-3",
     title: "ДЕДИЊЕ 3",
     mapEmbedUrl: DEFAULT_MAP_EMBED_URL,
-    address: "Хероја Милана Тепића бр. 1",
+    address: "Сокобањска 17",
     city: "11040 Београд, Србија",
   },
 ];
@@ -54,16 +54,18 @@ async function getFooterData(locale: Locale) {
 export default async function Footer() {
   const locale = (await getLocale()) as Locale;
   const footer = await getFooterData(locale);
+  const t = await getTranslations("Footer");
 
   // Fallback values if Sanity data is not available
-  const instituteName = footer?.instituteName || "ДЕДИЊЕ";
-  const instituteSubtitle = footer?.instituteSubtitle || "Институт за КВБ";
+  const instituteName = footer?.instituteName || "НАЦИОНАЛНИ ИНСТИТУТ";
+  const instituteSubtitle =
+    footer?.instituteSubtitle || "За срце и крвне судове „Дедиње“";
   const description =
     footer?.description ||
-    "Институт за кардиоваскуларне болести Дедиње је водећа здравствена установа у региону специјализована за дијагностику и лечење болести срца и крвних судова.";
+    "Национални институт за срце и крвне судове „Дедиње” је водећа здравствена установа у региону специјализована за дијагностику и лечење болести срца и крвних судова.";
   const copyright =
     footer?.copyright ||
-    "© 2026 Институт за кардиоваскуларне болести Дедиње. Сва права задржана.";
+    "© 2026 Национални институт за срце и крвне судове „Дедиње”. Сва права задржана.";
 
   const locations =
     footer?.locations && footer.locations.length > 0
@@ -78,10 +80,7 @@ export default async function Footer() {
             <div className={`${styles.footerCol} ${styles.about}`}>
               <div className={styles.footerLogo}>
                 <div className={styles.logoIcon}>
-                  <img
-                    src="/images/logo dedinje.png"
-                    alt="Institut Dedinje Logo"
-                  />
+                  <img src="/images/logo-icon.svg" alt="" />
                 </div>
                 <div className={styles.logoText}>
                   <span className={styles.logoName}>{instituteName}</span>
@@ -161,7 +160,7 @@ export default async function Footer() {
                       allowFullScreen
                       loading="lazy"
                       referrerPolicy="no-referrer-when-downgrade"
-                      title={location.title || "Локација Института Дедиње"}
+                      title={location.title || t("mapTitleFallback")}
                     />
                   </div>
                 )}

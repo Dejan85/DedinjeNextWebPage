@@ -37,7 +37,7 @@ interface EventSeed {
 const EVENTS: EventSeed[] = [
   {
     slug: "godisnji-kongres-instituta",
-    titleSr: 'Годишњи конгрес Института за кардиоваскуларне болести „Дедиње"',
+    titleSr: 'Годишњи конгрес Националног института за срце и крвне судове „Дедиње”',
     date: "2027-04-15",
     image: "/images/IKVBD-3D-800x450.jpg",
     location: "Београд",

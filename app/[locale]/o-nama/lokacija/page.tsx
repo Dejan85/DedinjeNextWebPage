@@ -61,7 +61,7 @@ export default async function LokacijaPage({
               <div className={styles.addressIcon}>
                 <i className="fas fa-location-dot" aria-hidden />
               </div>
-              <h2>Институт за кардиоваскуларне болести Дедиње</h2>
+              <h2>Национални институт за срце и крвне судове „Дедиње”</h2>
               <div className={styles.addressLines}>
                 <div className={styles.addressLine}>
                   <i className="fas fa-map-pin" aria-hidden />

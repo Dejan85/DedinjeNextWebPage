@@ -1,6 +1,6 @@
 # CLAUDE.md — Institut Dedinje
 
-Ovaj fajl orijentiše Claude Code (i svakog budućeg saradnika) u projektu **Institut Dedinje** — javni veb sajt Instituta za kardiovaskularne bolesti "Дедиње" (osnovan 1959, Beograd). Sajt je isključivo na srpskom jeziku (pretežno ćirilica), bez i18n (`app/layout.tsx` → `lang="sr"`).
+Ovaj fajl orijentiše Claude Code (i svakog budućeg saradnika) u projektu **Institut Dedinje** — javni veb sajt Nacionalnog instituta za srce i krvne sudove „Dedinje” (osnovan 1959, Beograd). Sajt je isključivo na srpskom jeziku (pretežno ćirilica), bez i18n (`app/layout.tsx` → `lang="sr"`).
 
 ## ⚠️ PRVO PROČITAJ (na početku svake sesije / novog taska)
 

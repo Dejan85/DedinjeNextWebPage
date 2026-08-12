@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import dynamic from "next/dynamic";
+import { useTranslations } from "next-intl";
 import Container from "../Container/Container";
 import { Section } from "../Section/Section";
 import styles from "./DocumentListBlock.module.css";
@@ -30,6 +31,7 @@ export default function DocumentListBlock({
   items,
   background = "white",
 }: DocumentListBlockProps) {
+  const t = useTranslations("DocumentList");
   const [selected, setSelected] = useState<{ href: string; label: string } | null>(null);
 
   return (
@@ -69,7 +71,7 @@ export default function DocumentListBlock({
                   }}
                 >
                   <i className={selected?.href === item.href ? "fas fa-times" : "fas fa-book-reader"} aria-hidden />
-                  {selected?.href === item.href ? "Затвори" : "Читај"}
+                  {selected?.href === item.href ? t("close") : t("read")}
                 </button>
                 <a href={item.href} download className={styles.docDownloadBtn}>
                   <i className="fas fa-download" aria-hidden />
@@ -84,10 +86,10 @@ export default function DocumentListBlock({
             <div className={styles.viewerHeader}>
               <div>
                 <h2 className={styles.viewerTitle}>{selected.label}</h2>
-                <p className={styles.viewerSubtitle}>Преглед документа</p>
+                <p className={styles.viewerSubtitle}>{t("previewSubtitle")}</p>
               </div>
               <button className={styles.closeViewerBtn} onClick={() => setSelected(null)}>
-                <i className="fas fa-times" aria-hidden /> Затвори
+                <i className="fas fa-times" aria-hidden /> {t("close")}
               </button>
             </div>
             <PdfViewer url={selected.href} title={selected.label} />

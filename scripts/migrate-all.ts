@@ -257,7 +257,7 @@ async function migrateAll() {
       _type: "welcomeSection",
       _key: "welcome-1",
       badge: "Добродошли",
-      heading: "Институт за кардиоваскуларне болести Дедиње",
+      heading: "Национални институт за срце и крвне судове „Дедиње”",
       leadText:
         "Водећа здравствена установа у региону специјализована за дијагностику, лечење и рехабилитацију кардиоваскуларних обољења.",
       bodyText:
@@ -872,32 +872,19 @@ async function migrateAll() {
     const partnersSection = {
       _type: "partnersSection",
       _key: "partners-section",
-      heading: "Сертификати и партнерства",
+      heading: "Акредитације Института",
       partners: [
         {
           _key: "partner-1",
-          icon: "fas fa-hospital",
-          name: "ISO 9001",
+          image: "/images/partners/ministarstvo-nauke.svg",
+          name: "Научна акредитација",
+          subtitle: "Одлука бр. 660-01-0007/2024-32",
         },
         {
           _key: "partner-2",
-          icon: "fas fa-certificate",
-          name: "JCI Акредитација",
-        },
-        {
-          _key: "partner-3",
-          icon: "fas fa-award",
-          name: "Европски стандарди",
-        },
-        {
-          _key: "partner-4",
-          icon: "fas fa-shield-alt",
-          name: "Здравствена заштита",
-        },
-        {
-          _key: "partner-5",
-          icon: "fas fa-heart",
-          name: "Кардио центар",
+          image: "/images/partners/azus-akreditacija.jpg",
+          name: "Здравствена акредитација",
+          subtitle: "Бр. Р-1-207-08/2026 · до јула 2033.",
         },
       ],
     };

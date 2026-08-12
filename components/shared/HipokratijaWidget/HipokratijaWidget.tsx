@@ -1,14 +1,18 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 import { Swiper, SwiperSlide, type SwiperRef } from "swiper/react";
 import { Grid } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/grid";
+import { Badge, Heading } from "@/components/typography";
 import styles from "./HipokratijaWidget.module.css";
 
 interface HipokratijaWidgetProps {
   entitySlug: string;
+  badgeText: string;
+  headingText: string;
 }
 
 interface Review {
@@ -34,10 +38,10 @@ function getText(slide: Element): string {
   return content === NO_TEXT_PLACEHOLDER ? "" : content;
 }
 
-function Stars({ score }: { score: number }) {
+function Stars({ score, className }: { score: number; className?: string }) {
   const filled = Math.round(score);
   return (
-    <span className={styles.cardStars}>
+    <span className={`${styles.cardStars} ${className ?? ""}`}>
       {Array.from({ length: 5 }, (_, i) => (
         <i key={i} className={i < filled ? "fas fa-star" : "far fa-star"} />
       ))}
@@ -45,7 +49,21 @@ function Stars({ score }: { score: number }) {
   );
 }
 
-export default function HipokratijaWidget({ entitySlug }: HipokratijaWidgetProps) {
+export default function HipokratijaWidget({
+  entitySlug,
+  badgeText,
+  headingText,
+}: HipokratijaWidgetProps) {
+  const t = useTranslations("Hipokratija");
+
+  // Prevodi prosečnu ocenu u kratku ocenu utiska, kao kod sličnih recenzija-widgeta.
+  function ratingLabel(average: number): string {
+    if (average >= 4.5) return t("ratingExcellent");
+    if (average >= 3.5) return t("ratingGood");
+    if (average >= 2.5) return t("ratingAverage");
+    return t("ratingPoor");
+  }
+
   const containerRef = useRef<HTMLDivElement>(null);
   const swiperRef = useRef<SwiperRef>(null);
   const [reviews, setReviews] = useState<Review[]>([]);
@@ -109,74 +127,90 @@ export default function HipokratijaWidget({ entitySlug }: HipokratijaWidgetProps
     setPageCount(swiper.snapGrid.length);
   };
 
+  const average = reviews.length
+    ? reviews.reduce((sum, r) => sum + r.score, 0) / reviews.length
+    : 0;
+
   return (
     <div>
+      <div className="section-header light">
+        <Badge variant="light" text={badgeText} />
+        <Heading variant="h2" color="light" align="left" text={headingText} />
+      </div>
       <div ref={containerRef} className="hipokratija-widget" data-entity_slug={entitySlug} />
       {reviews.length > 0 && (
-        <div className={styles.carousel}>
-          <Swiper
-            ref={swiperRef}
-            modules={[Grid]}
-            grid={{ rows: ROWS, fill: "row" }}
-            slidesPerView={1}
-            slidesPerGroup={ROWS}
-            spaceBetween={20}
-            speed={400}
-            breakpoints={{
-              // slidesPerGroup mora biti slidesPerView * ROWS da bi "sledeća
-              // stranica" pomerila za CEO vidljivi grid (kolone x redovi),
-              // ne za pola njega — Grid modul broji slajdove kroz redove
-              // (fill: "row"), pa jedna kolona zauzima ROWS indeksa.
-              769: { slidesPerView: 2, slidesPerGroup: 2 * ROWS },
-              1201: { slidesPerView: DESKTOP_COLUMNS, slidesPerGroup: DESKTOP_COLUMNS * ROWS },
-            }}
-            onSwiper={syncState}
-            onSlideChange={syncState}
-            onBreakpoint={syncState}
-            onResize={syncState}
-            className={styles.swiper}
-          >
-            {reviews.map((review, i) => (
-              <SwiperSlide key={i}>
-                <article className={styles.card}>
-                  <p className={styles.cardScore}>
-                    {review.score.toFixed(1)} <Stars score={review.score} />
-                  </p>
-                  <p className={styles.cardContent}>
-                    {review.text || NO_TEXT_PLACEHOLDER}
-                  </p>
-                  <p className={styles.cardSource}>
-                    Izvor: <span>Hipokratija</span>
-                  </p>
-                </article>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-          {pageCount > 1 && (
-            <div className={styles.nav}>
-              <button
-                type="button"
-                className={styles.navButton}
-                onClick={() => swiperRef.current?.swiper.slidePrev()}
-                disabled={isBeginning}
-                aria-label="Претходна искуства"
-              >
-                <i className="fas fa-chevron-left"></i>
-              </button>
-              <span className={styles.pageIndicator}>
-                {pageIndex + 1} / {pageCount}
-              </span>
-              <button
-                type="button"
-                className={styles.navButton}
-                onClick={() => swiperRef.current?.swiper.slideNext()}
-                disabled={isEnd}
-                aria-label="Следећа искуства"
-              >
-                <i className="fas fa-chevron-right"></i>
-              </button>
-            </div>
-          )}
+        <div className={styles.layout}>
+          <div className={styles.summary}>
+            <p className={styles.summaryLabel}>{ratingLabel(average)}</p>
+            <Stars score={average} className={styles.summaryStars} />
+            <p className={styles.summaryCount}>{t("basedOn", { count: reviews.length })}</p>
+            <p className={styles.summarySource}>Hipokratija</p>
+          </div>
+          <div className={styles.carousel}>
+            <Swiper
+              ref={swiperRef}
+              modules={[Grid]}
+              grid={{ rows: ROWS, fill: "row" }}
+              slidesPerView={1}
+              slidesPerGroup={ROWS}
+              spaceBetween={20}
+              speed={400}
+              breakpoints={{
+                // slidesPerGroup mora biti slidesPerView * ROWS da bi "sledeća
+                // stranica" pomerila za CEO vidljivi grid (kolone x redovi),
+                // ne za pola njega — Grid modul broji slajdove kroz redove
+                // (fill: "row"), pa jedna kolona zauzima ROWS indeksa.
+                769: { slidesPerView: 2, slidesPerGroup: 2 * ROWS },
+                1201: { slidesPerView: DESKTOP_COLUMNS, slidesPerGroup: DESKTOP_COLUMNS * ROWS },
+              }}
+              onSwiper={syncState}
+              onSlideChange={syncState}
+              onBreakpoint={syncState}
+              onResize={syncState}
+              className={styles.swiper}
+            >
+              {reviews.map((review, i) => (
+                <SwiperSlide key={i}>
+                  <article className={styles.card}>
+                    <p className={styles.cardScore}>
+                      {review.score.toFixed(1)} <Stars score={review.score} />
+                    </p>
+                    <p className={styles.cardContent}>
+                      {review.text || NO_TEXT_PLACEHOLDER}
+                    </p>
+                    <p className={styles.cardSource}>
+                      {t("source")} <span>Hipokratija</span>
+                    </p>
+                  </article>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+            {pageCount > 1 && (
+              <div className={styles.nav}>
+                <button
+                  type="button"
+                  className={styles.navButton}
+                  onClick={() => swiperRef.current?.swiper.slidePrev()}
+                  disabled={isBeginning}
+                  aria-label={t("prevAriaLabel")}
+                >
+                  <i className="fas fa-chevron-left"></i>
+                </button>
+                <span className={styles.pageIndicator}>
+                  {pageIndex + 1} / {pageCount}
+                </span>
+                <button
+                  type="button"
+                  className={styles.navButton}
+                  onClick={() => swiperRef.current?.swiper.slideNext()}
+                  disabled={isEnd}
+                  aria-label={t("nextAriaLabel")}
+                >
+                  <i className="fas fa-chevron-right"></i>
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       )}
     </div>

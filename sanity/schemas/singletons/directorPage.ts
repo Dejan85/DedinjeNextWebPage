@@ -267,8 +267,20 @@ export default defineType({
             {
               type: "object",
               fields: [
-                { name: "icon", title: "Ikonica", type: "string" },
-                { name: "text", title: "Tekst", type: "localeString" },
+                {
+                  name: "icon",
+                  title: "Ikonica",
+                  type: "string",
+                  description: "FontAwesome klasa, koristi se samo ako logotip nije unet.",
+                },
+                {
+                  name: "image",
+                  title: "Logotip",
+                  type: "string",
+                  description: "Putanja do fajla u /public/images/partners (npr. /images/partners/ministarstvo-nauke.svg).",
+                },
+                { name: "text", title: "Naslov", type: "localeString" },
+                { name: "description", title: "Opis", type: "localeText" },
               ],
             },
           ],

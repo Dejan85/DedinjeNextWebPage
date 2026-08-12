@@ -24,7 +24,7 @@ async function migrateDirectorPage() {
       hero: {
         badge: "Директор Института",
         title: "Академик проф. др Милован М. Бојић",
-        subtitle: 'Директор Института за кардиоваскуларне болести "Дедиње"',
+        subtitle: 'Директор Националног института за срце и крвне судове „Дедиње”',
         showScrollIndicator: true,
         // image će biti dodato ručno kroz Sanity Studio
       },
@@ -96,32 +96,21 @@ async function migrateDirectorPage() {
 
       // Partners
       partners: {
-        heading: "Сертификати и партнерства",
+        heading: "Акредитације Института",
         items: [
           {
             _key: "partner-1",
-            icon: "fas fa-hospital",
-            text: "ISO 9001",
+            image: "/images/partners/ministarstvo-nauke.svg",
+            text: "Научна акредитација",
+            description:
+              "Министарство науке, технолошког развоја и иновација доделило је Институту научну акредитацију Одлуком бр. 660-01-0007/2024-32 од 08.07.2025. године.",
           },
           {
             _key: "partner-2",
-            icon: "fas fa-certificate",
-            text: "JCI Акредитација",
-          },
-          {
-            _key: "partner-3",
-            icon: "fas fa-award",
-            text: "Европски стандарди",
-          },
-          {
-            _key: "partner-4",
-            icon: "fas fa-shield-alt",
-            text: "Здравствена заштита",
-          },
-          {
-            _key: "partner-5",
-            icon: "fas fa-heart",
-            text: "Кардио центар",
+            image: "/images/partners/azus-akreditacija.jpg",
+            text: "Здравствена акредитација",
+            description:
+              "Агенција за акредитацију здравствених установа Србије доделила је Институту акредитацију бр. Р-1-207-08/2026 — акредитовани до јула 2033. године.",
           },
         ],
       },
@@ -131,7 +120,7 @@ async function migrateDirectorPage() {
         title:
           "Реч директора - Академик проф. др Милован М. Бојић | Институт Дедиње",
         description:
-          "Упознајте се са визијом и мисијом директора Института за кардиоваскуларне болести Дедиње - академика проф. др Милована М. Бојића.",
+          "Упознајте се са визијом и мисијом директора Националног института за срце и крвне судове „Дедиње” - академика проф. др Милована М. Бојића.",
       },
     };
 

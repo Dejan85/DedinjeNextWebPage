@@ -1,1 +1,73 @@
-{}
+{
+  "Header": {
+    "logoName": "NATIONAL INSTITUTE",
+    "logoSubtitle": "For Heart and Blood Vessels „Dedinje“",
+    "address": "Heroja Milana Tepića 1, 11040 Belgrade, Serbia",
+    "menuAriaLabel": "Menu"
+  },
+  "LanguageSwitch": {
+    "ariaLabel": "Language and script"
+  },
+  "Footer": {
+    "mapTitleFallback": "Institute Dedinje Location"
+  },
+  "Faq": {
+    "searchPlaceholder": "Search questions...",
+    "noResults": "No results found for your search.",
+    "ctaText": "Didn't find an answer to your question?",
+    "ctaButton": "Contact Us"
+  },
+  "DocumentList": {
+    "read": "Read",
+    "close": "Close",
+    "previewSubtitle": "Document preview"
+  },
+  "Ambulante": {
+    "ctaText": "To schedule an appointment, contact our Call Center"
+  },
+  "KontaktForm": {
+    "successTitle": "Message sent!",
+    "successBody": "Thank you for your message. We will respond as soon as possible.",
+    "firstNameLabel": "First Name",
+    "firstNamePlaceholder": "Your first name",
+    "lastNameLabel": "Last Name",
+    "lastNamePlaceholder": "Your last name",
+    "emailLabel": "Email",
+    "emailPlaceholder": "your@email.com",
+    "messageLabel": "Message",
+    "messagePlaceholder": "Write your message...",
+    "submit": "Send Message"
+  },
+  "KontaktPage": {
+    "breadcrumbHome": "Home",
+    "breadcrumbContact": "Contact",
+    "title": "Contact Us",
+    "subtitle": "Our team is ready to answer all your questions and help you",
+    "callCenterTitle": "Call Center",
+    "callCenterDesc": "Monday - Friday: 7 AM - 8 PM",
+    "emailTitle": "Email",
+    "emailDesc": "We respond within 24 hours",
+    "addressTitle": "Address",
+    "country": "Serbia",
+    "mapEmbedTitle": "Institute Dedinje Location",
+    "workingHoursTitle": "Working Hours",
+    "workingHoursDefaultDays": "Monday - Friday",
+    "formHeaderTitle": "Send Us a Message",
+    "formHeaderDesc": "Fill out the form and we will respond as soon as possible",
+    "mapInfoTitle": "National Institute for Cardiovascular Diseases „Dedinje”",
+    "mapInfoDesc": "One of the leading healthcare institutions in Serbia and the Balkans, providing healthcare services in cardiology, cardiac surgery, vascular surgery, transplantation and more.",
+    "emergencyTitle": "Emergency Cases",
+    "emergencyTextBefore": "In case of a medical emergency, call",
+    "emergencyTextAfter": "or visit the Institute's admission ward. Our team is available 24/7."
+  },
+  "Hipokratija": {
+    "ratingExcellent": "Excellent",
+    "ratingGood": "Good",
+    "ratingAverage": "Average",
+    "ratingPoor": "Poor",
+    "basedOn": "Based on {count} reviews",
+    "source": "Source:",
+    "prevAriaLabel": "Previous experiences",
+    "nextAriaLabel": "Next experiences"
+  }
+}

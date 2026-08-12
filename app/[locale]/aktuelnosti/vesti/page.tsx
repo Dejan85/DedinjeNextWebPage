@@ -19,7 +19,7 @@ async function getVesti(locale: Locale): Promise<VestListItem[]> {
         id: n._id,
         slug: n.slug.current,
         title: n.title,
-        date: formatSrDate(n.publishedAt),
+        date: formatSrDate(n.publishedAt, locale),
         publishedAt: n.publishedAt,
         author: n.author || "",
         category: n.category || "",

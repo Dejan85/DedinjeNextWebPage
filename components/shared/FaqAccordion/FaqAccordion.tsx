@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { useTranslations } from "next-intl";
 import { Heading, Text } from "@/components/typography";
 import Container from "../Container/Container";
 import Button from "../Button/Button";
@@ -24,6 +25,7 @@ export default function FaqAccordion({
   title = "Честа питања",
   subtitle = "Најчешће постављана питања од стране пацијената",
 }: FaqAccordionProps) {
+  const t = useTranslations("Faq");
   const [openId, setOpenId] = useState<string | null>(null);
   const [search, setSearch] = useState("");
 
@@ -70,7 +72,7 @@ export default function FaqAccordion({
           <i className="fas fa-search"></i>
           <input
             type="text"
-            placeholder="Претражите питања..."
+            placeholder={t("searchPlaceholder")}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className={styles.searchInput}
@@ -81,7 +83,7 @@ export default function FaqAccordion({
           {groupedByCategory.length === 0 ? (
             <div className={styles.noResults}>
               <i className="fas fa-info-circle"></i>
-              <Text text="Нема резултата за вашу претрагу." variant="body" />
+              <Text text={t("noResults")} variant="body" />
             </div>
           ) : (
             groupedByCategory.map(([category, categoryItems]) => (
@@ -120,13 +122,13 @@ export default function FaqAccordion({
 
         <div className={styles.ctaWrapper}>
           <Text
-            text="Немате одговор на ваше питање?"
+            text={t("ctaText")}
             variant="lead"
             className={styles.ctaText}
           />
           <Button variant="primary" href="/kontakt">
             <i className="fas fa-envelope"></i>
-            Контактирајте нас
+            {t("ctaButton")}
           </Button>
         </div>
       </Container>

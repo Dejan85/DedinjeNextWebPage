@@ -1,6 +1,6 @@
 # Institut Dedinje - Next.js Website
 
-Moderna web aplikacija za Institut za kardiovaskularne bolesti Dedinje, razvijena sa Next.js 16 i Sanity CMS.
+Moderna web aplikacija za Nacionalni institut za srce i krvne sudove „Dedinje”, razvijena sa Next.js 16 i Sanity CMS.
 
 Pravila rada, konvencije koda i konačna definicija završenog taska: **[CLAUDE.md](CLAUDE.md)**.
 

@@ -48,6 +48,7 @@ import { formatSrDate } from "./aktuelnosti/formatDate";
 import { GOSTOVANJA } from "./aktuelnosti/gostovanja/constants";
 import { VESTI } from "./aktuelnosti/constants";
 import { categoryLabel } from "./aktuelnosti/categoryLabels";
+import { transliterate } from "@/lib/transliteration/cyrillicToLatin";
 
 interface PageBuilder {
   _type: string;
@@ -93,40 +94,16 @@ const CLINICS_FEATURED = [
     href: "/klinike/anesteziologija",
   },
   {
-    icon: "fas fa-heartbeat",
-    title: "Инвазивна дијагностика",
-    desc: "Катетеризација и интервенције",
-    href: "/klinike/invazivna-dijagnostika",
-  },
-  {
-    icon: "fas fa-heart-circle-check",
-    title: "Центар за срчану слабост",
-    desc: "Комплексно лечење",
-    href: "/klinike/centar-srcana-slabost",
-  },
-  {
     icon: "fas fa-x-ray",
-    title: "КВ КТ и КВ МР дијагностика",
+    title: "Радиологија",
     desc: "Кардиоваскуларна компјутеризована дијагностика",
     href: "/klinike/kv-dijagnostika",
-  },
-  {
-    icon: "fas fa-laptop-medical",
-    title: "Телемедицина",
-    desc: "Здравствене услуге на даљину",
-    href: "/klinike/telemedicina",
   },
   {
     icon: "fas fa-hospital",
     title: "Поликлиника",
     desc: "Амбулантне здравствене услуге",
     href: "/klinike/poliklinika",
-  },
-  {
-    icon: "fas fa-person-walking",
-    title: "Кардиоваскуларна рехабилитација",
-    desc: "Опоравак и рехабилитација пацијената",
-    href: "/klinike/kardiovaskularna-rehabilitacija",
   },
   {
     icon: "fas fa-pills",
@@ -150,7 +127,9 @@ const CLINICS_FEATURED = [
 
 interface PartnerInstitution {
   name: string;
+  nameEn?: string;
   country: string;
+  countryEn?: string;
   href: string;
   logo?: string;
 }
@@ -163,55 +142,73 @@ const PARTNER_INSTITUTIONS: PartnerInstitution[] = [
   {
     name: "Cleveland Clinic",
     country: "САД",
+    countryEn: "USA",
     href: "https://my.clevelandclinic.org/",
     logo: "/images/partners/cleveland-clinic.svg",
   },
   {
     name: "Бакуљов центар",
+    nameEn: "Bakulev Center",
     country: "Русија",
+    countryEn: "Russia",
     href: "https://bakulev.com/",
     logo: "/images/partners/bakulev.png",
   },
   {
     name: "Fuwai Hospital",
     country: "Кина",
+    countryEn: "China",
     href: "https://en.wikipedia.org/wiki/Fuwai_Hospital",
   },
   {
     name: "Светска банка",
+    nameEn: "World Bank",
     country: "",
     href: "https://www.worldbank.org/",
     logo: "/images/partners/world-bank.svg",
   },
   {
     name: "Медицински факултет у Београду",
+    nameEn: "Faculty of Medicine, University of Belgrade",
     country: "",
     href: "https://www.mfub.bg.ac.rs/",
     logo: "/images/partners/mf-beograd.png",
   },
   {
     name: "Медицински факултет у Крагујевцу",
+    nameEn: "Faculty of Medical Sciences, University of Kragujevac",
     country: "",
     href: "https://www.medf.kg.ac.rs/",
     logo: "/images/partners/mf-kragujevac.png",
   },
   {
     name: "Алмазов национални медицински истраживачки центар",
+    nameEn: "Almazov National Medical Research Centre",
     country: "Русија",
+    countryEn: "Russia",
     href: "https://almazovcentre.ru/",
     logo: "/images/partners/almazov.png",
   },
   {
     name: "УКЦ Ниш",
+    nameEn: "Clinical Center Niš",
     country: "",
     href: "https://kcnis.rs/",
     logo: "/images/partners/ukc-nis.png",
   },
   {
     name: "Ватерполо репрезентација Србије",
+    nameEn: "Serbian Water Polo Federation",
     country: "",
     href: "https://waterpoloserbia.org/",
     logo: "/images/partners/vaterpolo-savez-srbije.png",
+  },
+  {
+    name: "Медицински факултет у Бањој Луци",
+    nameEn: "Faculty of Medicine, University of Banja Luka",
+    country: "",
+    href: "https://med.unibl.org/",
+    logo: "/images/partners/mf-banja-luka.png",
   },
 ];
 
@@ -225,7 +222,7 @@ const HOMEPAGE_SECTION_TOGGLES = {
   ctaBanner: false, // "Ваше здравље је наш приоритет"
   contactCta: false, // "Контактирајте нас" + mapa
   newsGostovanja: false, // "Најновије вести" + "Гостовања у медијима" (vesti su premeštene u events widget kraj "Предстојећи догађаји")
-  hipokratijaWidget: true, // Hipokratija widget (prave ocene pacijenata) u "Шта кажу наши пацијенти", zamenjuje demo Sanity kartice na sr lokalu
+  hipokratijaWidget: true, // Hipokratija widget (prave ocene pacijenata) u "Шта кажу наши пацијенти", zamenjuje demo Sanity kartice
 };
 
 export default async function Home({
@@ -266,7 +263,7 @@ export default async function Home({
         id: n._id,
         slug: n.slug.current,
         title: n.title,
-        date: formatSrDate(n.publishedAt),
+        date: formatSrDate(n.publishedAt, locale as Locale),
         author: n.author || "",
         category: n.category || "",
         image: urlFor(n.mainImage).width(800).height(450).url(),
@@ -454,7 +451,7 @@ export default async function Home({
                         <span className={styles.eventsWidgetIcon}>
                           <i className="fas fa-calendar-days" aria-hidden />
                         </span>
-                        <h3>Предстојећи догађаји</h3>
+                        <h3>{locale === "en" ? "Upcoming Events" : "Предстојећи догађаји"}</h3>
                       </div>
                       <div className={styles.eventsWidgetList}>
                         {upcomingEvents.map((event) => {
@@ -472,7 +469,7 @@ export default async function Home({
                                 <strong>{event.title}</strong>
                                 <span className={styles.eventDate}>
                                   <i className="fas fa-calendar" aria-hidden />
-                                  {formatSrDate(event.date)}
+                                  {formatSrDate(event.date, locale as Locale)}
                                   {event.location ? ` · ${event.location}` : ""}
                                 </span>
                               </div>
@@ -503,7 +500,7 @@ export default async function Home({
                         <span className={styles.eventsWidgetIcon}>
                           <i className="fas fa-newspaper" aria-hidden />
                         </span>
-                        <h3>Најновије вести</h3>
+                        <h3>{locale === "en" ? "Latest News" : "Најновије вести"}</h3>
                       </div>
                       <div className={styles.eventsWidgetList}>
                         {homepageVesti.slice(0, 4).map((vest) => (
@@ -606,6 +603,7 @@ export default async function Home({
                     target={parseInt(stat.number.replace(/[^0-9]/g, ""), 10)}
                     label={stat.label}
                     icon={stat.icon || ""}
+                    suffix={stat.number.trim().endsWith("+") ? "+" : ""}
                   />
                 ))}
               </div>
@@ -698,7 +696,9 @@ export default async function Home({
                 </div>
                 <div className={styles.directorMeta}>
                   <strong>Академик проф. др Милован М. Бојић</strong>
-                  <span>Директор Института</span>
+                  <span>
+                    {locale === "en" ? "Director of the Institute" : "Директор Института"}
+                  </span>
                 </div>
                 <Link href="/rec-direktora" className={styles.directorLink}>
                   Прочитајте реч директора
@@ -794,7 +794,7 @@ export default async function Home({
           <div className={styles.sectionCta}>
             <Button variant="outline" href="/klinike">
               <i className="fas fa-hospital" aria-hidden />
-              Погледајте све клинике
+              {locale === "en" ? "View All Clinics" : "Погледајте све клинике"}
             </Button>
           </div>
         </Container>
@@ -808,45 +808,55 @@ export default async function Home({
               <i className="fas fa-globe" aria-hidden />
             </span>
             <div>
-              <h2>Наши партнери</h2>
-              <p>Сарађујемо са водећим клиникама и институцијама у Европи и свету</p>
+              <h2>{locale === "en" ? "Our Partners" : "Наши партнери"}</h2>
+              <p>
+                {locale === "en"
+                  ? "We collaborate with leading clinics and institutions across Europe and the world"
+                  : "Сарађујемо са водећим клиникама и институцијама у Европи и свету"}
+              </p>
             </div>
           </div>
           <div className={styles.partnersLogosGrid}>
-            {PARTNER_INSTITUTIONS.map((partner) => (
-              <a
-                key={partner.name}
-                href={partner.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.partnerLogoCard}
-                title={partner.name}
-              >
-                {partner.logo ? (
-                  <div className={styles.partnerLogoImgWrap}>
-                    <Image
-                      src={partner.logo}
-                      alt={partner.name}
-                      fill
-                      objectFit="contain"
-                    />
-                  </div>
-                ) : (
-                  <span className={styles.partnerLogoFallback}>{partner.name}</span>
-                )}
-                {(partner.logo || partner.country) && (
-                  <span className={styles.partnerLogoName}>
-                    {partner.logo && partner.name}
-                    {partner.country && (
-                      <span className={styles.partnerLogoCountry}>
-                        {partner.logo ? " · " : ""}
-                        {partner.country}
-                      </span>
-                    )}
-                  </span>
-                )}
-              </a>
-            ))}
+            {PARTNER_INSTITUTIONS.map((partner) => {
+              const partnerName =
+                (locale === "en" && partner.nameEn) || partner.name;
+              const partnerCountry =
+                (locale === "en" && partner.countryEn) || partner.country;
+              return (
+                <a
+                  key={partner.name}
+                  href={partner.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.partnerLogoCard}
+                  title={partnerName}
+                >
+                  {partner.logo ? (
+                    <div className={styles.partnerLogoImgWrap}>
+                      <Image
+                        src={partner.logo}
+                        alt={partnerName}
+                        fill
+                        objectFit="contain"
+                      />
+                    </div>
+                  ) : (
+                    <span className={styles.partnerLogoFallback}>{partnerName}</span>
+                  )}
+                  {(partner.logo || partnerCountry) && (
+                    <span className={styles.partnerLogoName}>
+                      {partner.logo && partnerName}
+                      {partnerCountry && (
+                        <span className={styles.partnerLogoCountry}>
+                          {partner.logo ? " · " : ""}
+                          {partnerCountry}
+                        </span>
+                      )}
+                    </span>
+                  )}
+                </a>
+              );
+            })}
           </div>
         </Container>
       </Section>
@@ -906,25 +916,33 @@ export default async function Home({
       {testimonialsSection && (
         <section className={styles.testimonialsSection}>
           <Container>
-            <div className="section-header centered light">
-              <Badge variant="light" text={testimonialsSection.badge} />
-              <Heading
-                variant="h2"
-                color="light"
-                align="center"
-                text={testimonialsSection.heading}
+            {HOMEPAGE_SECTION_TOGGLES.hipokratijaWidget ? (
+              <HipokratijaWidget
+                entitySlug="institut-za-kardiovaskularne-bolesti-dedinje"
+                badgeText={testimonialsSection.badge}
+                headingText={testimonialsSection.heading}
               />
-            </div>
-            {HOMEPAGE_SECTION_TOGGLES.hipokratijaWidget && locale === "sr" ? (
-              <HipokratijaWidget entitySlug="institut-za-kardiovaskularne-bolesti-dedinje" />
             ) : (
               <>
+                <div className="section-header centered light">
+                  <Badge variant="light" text={testimonialsSection.badge} />
+                  <Heading
+                    variant="h2"
+                    color="light"
+                    align="center"
+                    text={testimonialsSection.heading}
+                  />
+                </div>
                 <div className={styles.testimonialsSlider}>
                   {testimonialsSection.testimonials?.map((testimonial) => (
                     <TestimonialCard
                       key={testimonial._key}
                       quote={testimonial.quote}
-                      authorName={testimonial.authorName}
+                      authorName={
+                        locale === "en"
+                          ? transliterate(testimonial.authorName)
+                          : testimonial.authorName
+                      }
                       authorRole={testimonial.authorRole}
                       authorImage={
                         (testimonial.authorImage?.asset &&
@@ -957,7 +975,6 @@ export default async function Home({
         </section>
       )}
       {HOMEPAGE_SECTION_TOGGLES.hipokratijaWidget &&
-        locale === "sr" &&
         testimonialsSection && (
           <Script
             src="https://hipokratija-widget.vercel.app/assets/index.js"
@@ -978,7 +995,7 @@ export default async function Home({
                 <span className={styles.sectionIconSmall}>
                   <i className="fas fa-newspaper" aria-hidden />
                 </span>
-                <h3>Најновије вести</h3>
+                <h3>{locale === "en" ? "Latest News" : "Најновије вести"}</h3>
               </div>
               <div className={styles.newsGostovanjaItems}>
                 {homepageVesti.slice(0, 3).map((vest) => (
@@ -1019,7 +1036,7 @@ export default async function Home({
                 <span className={styles.sectionIconSmall}>
                   <i className="fas fa-tv" aria-hidden />
                 </span>
-                <h3>Гостовања у медијима</h3>
+                <h3>{locale === "en" ? "Media Appearances" : "Гостовања у медијима"}</h3>
               </div>
               <div className={styles.newsGostovanjaItems}>
                 {latestGostovanja.map((g) => (
@@ -1072,10 +1089,11 @@ export default async function Home({
                 <div className={styles.contactCtaIcon}>
                   <i className="fas fa-headset" aria-hidden />
                 </div>
-                <h2>Контактирајте нас</h2>
+                <h2>{locale === "en" ? "Contact Us" : "Контактирајте нас"}</h2>
                 <p>
-                  Потребна вам је помоћ? Наш тим стручњака је спреман да
-                  одговори на сва ваша питања.
+                  {locale === "en"
+                    ? "Need help? Our team of experts is ready to answer all your questions."
+                    : "Потребна вам је помоћ? Наш тим стручњака је спреман да одговори на сва ваша питања."}
                 </p>
                 <div className={styles.contactCtaDetails}>
                   <a href="tel:+381113601700" className={styles.contactCtaItem}>
@@ -1083,7 +1101,7 @@ export default async function Home({
                       <i className="fas fa-phone" aria-hidden />
                     </span>
                     <div>
-                      <span>Call центар</span>
+                      <span>{locale === "en" ? "Call Center" : "Call центар"}</span>
                       <strong>011 3601 700</strong>
                     </div>
                   </a>
@@ -1095,7 +1113,7 @@ export default async function Home({
                       <i className="fas fa-envelope" aria-hidden />
                     </span>
                     <div>
-                      <span>Е-пошта</span>
+                      <span>{locale === "en" ? "Email" : "Е-пошта"}</span>
                       <strong>info@ikvbd.com</strong>
                     </div>
                   </a>
@@ -1104,7 +1122,7 @@ export default async function Home({
                       <i className="fas fa-location-dot" aria-hidden />
                     </span>
                     <div>
-                      <span>Адреса</span>
+                      <span>{locale === "en" ? "Address" : "Адреса"}</span>
                       <strong>Хероја Милана Тепића 1, Београд</strong>
                     </div>
                   </div>
@@ -1112,11 +1130,11 @@ export default async function Home({
                 <div className={styles.contactCtaButtons}>
                   <Button variant="primary" href="/kontakt">
                     <i className="fas fa-paper-plane" aria-hidden />
-                    Пошаљите поруку
+                    {locale === "en" ? "Send a Message" : "Пошаљите поруку"}
                   </Button>
                   <Button variant="outline" href="/o-nama/lokacija">
                     <i className="fas fa-map-location-dot" aria-hidden />
-                    Како до нас
+                    {locale === "en" ? "How to Reach Us" : "Како до нас"}
                   </Button>
                 </div>
               </div>
@@ -1152,8 +1170,10 @@ export default async function Home({
               {partnersSection.partners.map((partner) => (
                 <PartnerLogo
                   key={partner._key}
-                  icon={partner.icon || ""}
+                  icon={partner.icon}
+                  image={partner.image}
                   text={partner.name}
+                  subtitle={partner.subtitle}
                 />
               ))}
             </div>

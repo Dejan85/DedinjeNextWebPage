@@ -19,10 +19,10 @@ async function migrateFooter() {
     const footer = {
       _type: "footer",
       _id: "footer",
-      instituteName: "ДЕДИЊЕ",
-      instituteSubtitle: "Институт за КВБ",
+      instituteName: "НАЦИОНАЛНИ ИНСТИТУТ",
+      instituteSubtitle: "За срце и крвне судове „Дедиње“",
       description:
-        "Институт за кардиоваскуларне болести Дедиње је водећа здравствена установа у региону специјализована за дијагностику и лечење болести срца и крвних судова.",
+        "Национални институт за срце и крвне судове „Дедиње” је водећа здравствена установа у региону специјализована за дијагностику и лечење болести срца и крвних судова.",
       socialLinks: {
         facebook: "#",
         twitter: "#",
@@ -52,12 +52,12 @@ async function migrateFooter() {
           title: { _type: "localeString", sr: "ДЕДИЊЕ 3", en: "DEDINJE 3" },
           mapEmbedUrl:
             "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2832.5!2d20.4565!3d44.7733!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x475a7009d2b5e8d3%3A0x5f8e8b6f7c6d3e0!2z0JjQvdGB0YLQuNGC0YPRgiDQt9CwINC60LDRgNC00LjQvtCy0LDRgdC60YPQu9Cw0YDQvdC1INCx0L7Qu9C10YHRgtC4INCU0LXQtNC40ZrQtQ!5e0!3m2!1ssr!2srs!4v1700000000000!5m2!1ssr!2srs",
-          address: "Хероја Милана Тепића бр. 1",
+          address: "Сокобањска 17",
           city: "11040 Београд, Србија",
         },
       ],
       copyright:
-        "© 2026 Институт за кардиоваскуларне болести Дедиње. Сва права задржана.",
+        "© 2026 Национални институт за срце и крвне судове „Дедиње”. Сва права задржана.",
       legalLinks: [
         {
           _key: "legal-1",

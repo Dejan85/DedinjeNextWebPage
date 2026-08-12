@@ -261,7 +261,9 @@ export const HOMEPAGE_QUERY = groq`
         partners[] {
           _key,
           icon,
-          name
+          image,
+          name,
+          subtitle
         }
       },
       // HeroSlidesSection fields
@@ -701,7 +703,9 @@ export const DIRECTOR_PAGE_QUERY = groq`
       items[] {
         _key,
         icon,
-        text
+        image,
+        text,
+        description
       }
     },
     seo {

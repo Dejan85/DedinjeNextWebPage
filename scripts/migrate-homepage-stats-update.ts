@@ -15,13 +15,13 @@ const STATS = [
   {
     key: "stat-1",
     icon: "fas fa-heartbeat",
-    number: "19,000",
+    number: "19,000+",
     label: "ПРОЦЕДУРА ГОДИШЊЕ",
   },
   {
     key: "stat-2",
     icon: "fas fa-user-md",
-    number: "200",
+    number: "200+",
     label: "ЛЕКАРА СПЕЦИЈАЛИСТА",
   },
   {
@@ -33,7 +33,7 @@ const STATS = [
   {
     key: "stat-4",
     icon: "fas fa-calendar-check",
-    number: "146,000",
+    number: "146,000+",
     label: "ПОСЕТА ГОДИШЊЕ",
   },
 ];

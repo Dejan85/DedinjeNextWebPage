@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { Text } from "@/components/typography";
 import Container from "../Container/Container";
 import Button from "../Button/Button";
@@ -32,6 +33,7 @@ export default function AmbulanteAccordion({
   subtitle,
   defaultOpenId,
 }: AmbulanteAccordionProps) {
+  const t = useTranslations("Ambulante");
   const [openId, setOpenId] = useState<string | null>(
     defaultOpenId && items.some((i) => i.id === defaultOpenId) ? defaultOpenId : null
   );
@@ -110,7 +112,7 @@ export default function AmbulanteAccordion({
 
         <div className={styles.ctaWrapper}>
           <Text
-            text="За заказивање прегледа контактирајте Call центар"
+            text={t("ctaText")}
             variant="lead"
             className={styles.ctaText}
           />

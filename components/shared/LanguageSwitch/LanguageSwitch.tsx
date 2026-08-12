@@ -3,13 +3,12 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useScript } from "../ScriptProvider/ScriptProvider";
 import styles from "./LanguageSwitch.module.css";
 
-// Header se renderuje van [locale] segmenta (u root layout-u, pre
-// NextIntlClientProvider-a), pa ne može da koristi next-intl-ove
-// useLocale/usePathname/Link hookove — koristimo "sirov" next/navigation
-// pathname (uključuje /en prefiks kad postoji) i ručno gradimo href.
+// Koristimo "sirov" next/navigation pathname (uključuje /en prefiks kad
+// postoji) i ručno gradimo href za oba locale-a odjednom.
 //
 // Tri opcije, jedan kontrol: engleski (next-intl locale), srpski ćirilica
 // i srpski latinica (isti sr locale, samo lokalni "script" preference iz
@@ -22,6 +21,7 @@ export default function LanguageSwitch({
   locale: "sr" | "en";
   variant?: "pill" | "dropdown";
 }) {
+  const t = useTranslations("LanguageSwitch");
   const { script, setScript } = useScript();
   const pathname = usePathname() || "/";
   const pathWithoutLocale = pathname.startsWith("/en")
@@ -77,7 +77,7 @@ export default function LanguageSwitch({
         <div
           className={`${styles.ddMenu} ${open ? styles.ddOpen : ""}`}
           role="group"
-          aria-label="Језик и писмо"
+          aria-label={t("ariaLabel")}
         >
           <Link
             href={enHref}
@@ -115,7 +115,7 @@ export default function LanguageSwitch({
   }
 
   return (
-    <div className={styles.toggle} role="group" aria-label="Језик и писмо" data-no-translit>
+    <div className={styles.toggle} role="group" aria-label={t("ariaLabel")} data-no-translit>
       <Link
         href={enHref}
         className={isEn ? styles.active : undefined}

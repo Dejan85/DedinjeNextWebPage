@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import Container from "../Container/Container";
 import LanguageSwitch from "../LanguageSwitch/LanguageSwitch";
@@ -127,6 +128,7 @@ export default function Header({
   menu?: MenuItem[] | null;
   locale?: "sr" | "en";
 }) {
+  const t = useTranslations("Header");
   const items = menu && menu.length > 0 ? menu : DEFAULT_MENU;
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -188,7 +190,7 @@ export default function Header({
                   pohvaleizsalbe@institutdedinje.org
                 </a>
               </span>
-              <span>Хероја Милана Тепића 1, 11040 Београд, Србија</span>
+              <span>{t("address")}</span>
             </div>
             <div className={styles.headerToggles}>
               <LanguageSwitch locale={locale} variant="dropdown" />
@@ -206,14 +208,8 @@ export default function Header({
                   <img src="/images/logo-icon.svg" alt="" />
                 </div>
                 <div className={styles.logoText}>
-                  <span className={styles.logoName}>
-                    {locale === "en" ? "NATIONAL INSTITUTE" : "НАЦИОНАЛНИ ИНСТИТУТ"}
-                  </span>
-                  <span className={styles.logoSubtitle}>
-                    {locale === "en"
-                      ? "For Heart and Blood Vessels „Dedinje“"
-                      : "За срце и крвне судове „Дедиње“"}
-                  </span>
+                  <span className={styles.logoName}>{t("logoName")}</span>
+                  <span className={styles.logoSubtitle}>{t("logoSubtitle")}</span>
                 </div>
               </Link>
 
@@ -325,7 +321,7 @@ export default function Header({
             <button
               className={styles.mobileToggle}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              aria-label="Мени"
+              aria-label={t("menuAriaLabel")}
               aria-expanded={isMobileMenuOpen}
             >
               <i className={`fas ${isMobileMenuOpen ? "fa-xmark" : "fa-bars"}`}></i>

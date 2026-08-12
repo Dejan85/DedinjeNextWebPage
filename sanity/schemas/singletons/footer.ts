@@ -16,13 +16,16 @@ export default defineType({
       name: "instituteName",
       title: "Naziv instituta",
       type: "localeString",
-      initialValue: { sr: "ДЕДИЊЕ", en: "DEDINJE" },
+      initialValue: { sr: "НАЦИОНАЛНИ ИНСТИТУТ", en: "NATIONAL INSTITUTE" },
     }),
     defineField({
       name: "instituteSubtitle",
       title: "Podnaslov instituta",
       type: "localeString",
-      initialValue: { sr: "Институт за КВБ", en: "" },
+      initialValue: {
+        sr: "За срце и крвне судове „Дедиње“",
+        en: "For Heart and Blood Vessels „Dedinje“",
+      },
     }),
     defineField({
       name: "description",
@@ -108,8 +111,8 @@ export default defineType({
       title: "Copyright tekst",
       type: "localeString",
       initialValue: {
-        sr: "© 2026 Институт за кардиоваскуларне болести Дедиње. Сва права задржана.",
-        en: "© 2026 Institute for Cardiovascular Diseases Dedinje. All rights reserved.",
+        sr: "© 2026 Национални институт за срце и крвне судове „Дедиње”. Сва права задржана.",
+        en: "© 2026 National Institute for Heart and Blood Vessels “Dedinje”. All rights reserved.",
       },
     }),
     defineField({

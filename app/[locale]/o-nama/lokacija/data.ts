@@ -2,7 +2,7 @@ import type { PatientPage } from "@/sanity/types";
 
 export const DATA: PatientPage = {
   title: "Локација Института",
-  subtitle: "Како доћи до Института за кардиоваскуларне болести Дедиње",
+  subtitle: "Како доћи до Националног института за срце и крвне судове „Дедиње”",
   pageBuilder: [
     {
       _type: "cardGridBlock",

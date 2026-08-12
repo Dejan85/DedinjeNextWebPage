@@ -24,12 +24,12 @@ interface VestDetail {
   fullText: string;
 }
 
-function fromSanity(n: News): VestDetail {
+function fromSanity(n: News, locale: Locale): VestDetail {
   return {
     id: n._id,
     slug: n.slug.current,
     title: n.title,
-    date: formatSrDate(n.publishedAt),
+    date: formatSrDate(n.publishedAt, locale),
     author: n.author || "",
     category: n.category || "",
     image: urlFor(n.mainImage).width(1200).height(675).url(),
@@ -76,7 +76,10 @@ async function getVestData(
     const vest = vestRaw ? localize(vestRaw, locale) : vestRaw;
     const all = allRaw ? localize(allRaw, locale) : allRaw;
     if (vest && all && all.length > 0) {
-      return { vest: fromSanity(vest), all: all.map(fromSanity) };
+      return {
+        vest: fromSanity(vest, locale),
+        all: all.map((n) => fromSanity(n, locale)),
+      };
     }
   } catch (error) {
     console.error("Error fetching vest:", error);
