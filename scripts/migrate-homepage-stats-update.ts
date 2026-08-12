@@ -17,24 +17,28 @@ const STATS = [
     icon: "fas fa-heartbeat",
     number: "19,000+",
     label: "ПРОЦЕДУРА ГОДИШЊЕ",
+    labelEn: "PROCEDURES PER YEAR",
   },
   {
     key: "stat-2",
     icon: "fas fa-user-md",
     number: "200+",
     label: "ЛЕКАРА СПЕЦИЈАЛИСТА",
+    labelEn: "SPECIALIST PHYSICIANS",
   },
   {
     key: "stat-3",
     icon: "fas fa-award",
     number: "50",
     label: "ГОДИНА ИСКУСТВА",
+    labelEn: "YEARS OF EXPERIENCE",
   },
   {
     key: "stat-4",
     icon: "fas fa-calendar-check",
     number: "146,000+",
     label: "ПОСЕТА ГОДИШЊЕ",
+    labelEn: "VISITS PER YEAR",
   },
 ];
 
@@ -59,7 +63,7 @@ async function migrateHomepageStatsUpdate() {
     _key: stat.key,
     icon: stat.icon,
     number: stat.number,
-    label: { _type: "localeString", sr: stat.label, en: "" },
+    label: { _type: "localeString", sr: stat.label, en: stat.labelEn },
   }));
 
   await client

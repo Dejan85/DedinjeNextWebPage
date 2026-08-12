@@ -23,6 +23,7 @@
     "migrate:homepage-team-update": "tsx scripts/migrate-homepage-team-update.ts",
     "migrate:homepage-team-en-update": "tsx scripts/migrate-homepage-team-en-update.ts",
     "migrate:homepage-stats-update": "tsx scripts/migrate-homepage-stats-update.ts",
+    "migrate:homepage-stats-en-update": "tsx scripts/migrate-homepage-stats-en-update.ts",
     "migrate:homepage-partners-section-update": "tsx scripts/migrate-homepage-partners-section-update.ts",
     "migrate:homepage-welcome-en-update": "tsx scripts/migrate-homepage-welcome-en-update.ts",
     "migrate:homepage-infoboxes-en-update": "tsx scripts/migrate-homepage-infoboxes-en-update.ts",
