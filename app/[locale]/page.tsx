@@ -255,7 +255,12 @@ export default async function Home({
     const eventsRes = eventsResRaw ? localize(eventsResRaw, locale as Locale) : eventsResRaw;
     if (eventsRes) {
       const today = new Date().toISOString().slice(0, 10);
-      upcomingEvents = eventsRes.filter((e) => e.date >= today).slice(0, 4);
+      // Privremeno sakriven "Kongres kardiovaskularne prevencije (HISPA)" na
+      // zahtev vlasnika sajta — dokument u Sanity-ju ostaje netaknut, samo
+      // izbačen iz homepage vidžeta dok se ne odluči zamena/vraćanje.
+      upcomingEvents = eventsRes
+        .filter((e) => e.date >= today && e._id !== "event-kongres-kardiovaskularne-prevencije")
+        .slice(0, 4);
     }
     if (newsRes && newsRes.length > 0) {
       homepageVesti = newsRes.map((n) => ({
