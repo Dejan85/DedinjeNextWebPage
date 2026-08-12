@@ -86,6 +86,23 @@ komponente) ostaju netaknute jer im podatak stiže kao plain string. `locale`
 se čita iz `params.locale` (route-level) ili `getLocale()` iz
 `next-intl/server` (za `HeaderData.tsx`/`Footer.tsx`, van route-param
 konteksta).
+
+**WordPress vesti i18n patch (2026-08-12):** 302 `news` dokumenata iz
+WordPress migracije 2026-08-05 nikad nisu prošla kroz Faze 3c/3d — WP migracija
+se desila DAN POSLE tih faza, pa su ostala sa `title`/`excerpt` kao obični
+stringovi umesto `localeString` objekata. Otkriveno i ispravljeno 2026-08-12:
+ponovna primena `migrate-i18n-schema.ts` sa `--type=news`, konverzija 1208
+polja (4 × 302 dokumenata), batch prevod title+excerpt (604 polja) kroz 6
+Agent poziva. `fullText`/`author` namerno BEZ prevoda za sada — poznato
+ograničenje, zadržavaju `{sr,en:""}` oblik pa se `localize()` ispravno pada
+na SR dok se ne prevede. Rezultat: 302/302 dokumenata, 604 polja upisano,
+`enReviewed: false` po dokumentu, identičan review gate kao ostatak sadržaja.
+Razlika: **Faze 3c/3d su pokrile 99 dokumenata/2742 polja (postojeći sadržaj),
+WordPress patch je pokrila 302 vesti/1208 polja (WP import), suženo na
+title+excerpt za prevod.** `localize()` helper automatski ispravno pada na
+SR tekst za `fullText`/`author` gde je `en` prazan — nema regression-a,
+identično ponašanje kao sa svim drugim neprevršenim delovima.
+
 — ovaj fajl opisuje samo trenutnu strukturu, ne plan.
 
 `npm run build:static` (`output:"export"`) ne podržava next-intl middleware

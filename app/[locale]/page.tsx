@@ -1,5 +1,4 @@
 import { Link } from "@/i18n/navigation";
-import Script from "next/script";
 import {
   HeroSection,
   Button,
@@ -883,7 +882,7 @@ export default async function Home({
                       ? member.image.asset.url
                       : "") || "/images/o_nama_image.png"
                   }
-                  name={member.name}
+                  name={locale === "en" ? transliterate(member.name) : member.name}
                   role={member.role}
                   description={member.description}
                   socialLinks={member.socialLinks?.filter(
@@ -974,15 +973,6 @@ export default async function Home({
           </Container>
         </section>
       )}
-      {HOMEPAGE_SECTION_TOGGLES.hipokratijaWidget &&
-        testimonialsSection && (
-          <Script
-            src="https://hipokratija-widget.vercel.app/assets/index.js"
-            type="module"
-            crossOrigin="anonymous"
-            strategy="afterInteractive"
-          />
-        )}
 
       {/* News + Gostovanja combined */}
       {HOMEPAGE_SECTION_TOGGLES.newsGostovanja && (

@@ -23,6 +23,8 @@ interface Review {
 // Tačan tekst koji vendor-ov widget ubacuje umesto citata kad iskustvo nema tekst
 const NO_TEXT_PLACEHOLDER = "Ovo iskustvo nema tekst, samo ocenu";
 
+const VENDOR_SCRIPT_SRC = "https://hipokratija-widget.vercel.app/assets/index.js";
+
 // 4 kolone x 2 reda po "stranici" slajdera na desktopu; manje kolona na
 // užim ekranima (breakpoints ispod), broj redova ostaje 2.
 const ROWS = 2;
@@ -114,7 +116,27 @@ export default function HipokratijaWidget({
     observer.observe(container, { childList: true, subtree: true });
     tryExtract();
 
-    return () => observer.disconnect();
+    // Vendor-ov modul se u browseru izvršava samo JEDNOM po tačnom URL-u
+    // (radi se o pravom <script type="module">, ne next/script) i pri tom
+    // izvršavanju jednokratno pretraži DOM za ".hipokratija-widget" i sam
+    // sebe popuni — nema MutationObserver koji bi kasnije uhvatio novododate
+    // kontejnere. Kad korisnik promeni locale (sr <-> en), Next App Router
+    // remountuje ovu komponentu (nov, prazan container div), pa bez
+    // ponovnog učitavanja skripte vendor nikad više ne popuni taj div —
+    // iskustva ostaju prazna dok se stranica ručno ne refreshuje. Rešenje:
+    // sami injektujemo <script> svaki put kad se komponenta mount-uje, sa
+    // cache-bust query parametrom da nateramo browser da modul stvarno
+    // ponovo izvrši (isti URL bi mu bio keširan i preskočen).
+    const script = document.createElement("script");
+    script.type = "module";
+    script.crossOrigin = "anonymous";
+    script.src = `${VENDOR_SCRIPT_SRC}?_=${Date.now()}`;
+    document.body.appendChild(script);
+
+    return () => {
+      observer.disconnect();
+      script.remove();
+    };
   }, []);
 
   // snapGrid/snapIndex prate broj "stranica" i trenutnu poziciju tačno
