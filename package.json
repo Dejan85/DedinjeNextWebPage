@@ -47,6 +47,7 @@
     "migrate:nauka-istrazivanje": "tsx scripts/migrate-nauka-istrazivanje.ts",
     "migrate:backfill-page-section": "tsx scripts/backfill-page-section.ts",
     "migrate:i18n-schema": "tsx scripts/migrate-i18n-schema.ts",
+    "migrate:homepage-content-fixes": "tsx scripts/migrate-homepage-content-fixes.ts",
     "i18n:export-untranslated": "tsx scripts/i18n-export-untranslated.ts",
     "i18n:apply-translations": "tsx scripts/i18n-apply-translations.ts",
     "check:homepage": "tsx scripts/check-homepage.ts"

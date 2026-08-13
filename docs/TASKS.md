@@ -661,6 +661,33 @@ tasku pre nego što je konačno razjašnjeno:
   push-ovano niti deploy-ovano na Vercel. Vlasnik sajta ih je testirao preko
   sopstvenog lokalnog `npm run dev`.
 
+## Homepage sitne ispravke — welcome tekst "65→50 godina", opis klinike, akademska zvanja u timu — ✅ gotovo (2026-08-13)
+
+Vlasnik sajta poslao anotiranu tabelu sa dva screenshot-a i tri ispravke:
+
+- ✅ "Добродошли" welcome sekcija — pasus je i dalje govorio "Са више од 65
+  година искуства" iako `statsSection` broj ("ГODINA ИСКУСТВА") već ispravno
+  prikazuje 50 — neusklađen zaostatak iz originalnog seed teksta
+  (`scripts/migrate-all.ts`). Ispravljeno na "50 година" (i odgovarajući `en`
+  prevod "50 years").
+- ✅ "Наше клинике" grid — kartica "Васкуларна хирургија" (`clinic-2`) dobila
+  precizniji podnaslov: "Лечење крвних судова" → "Васкуларна и
+  ендоваскуларна хирургија" (sr + en "Vascular and Endovascular Surgery").
+- ✅ "Наш тим" — akademsko zvanje ispred imena dva lekara ažurirano: "Клин.
+  асс. др сци. мед. Драгана Унић Стојановић" → "Доц. др сци. мед. Драгана
+  Унић Стојановић"; "Др Милан Добрић" → "Доц. др Милан Добрић".
+- Sve tri izmene urađene direktno na `production` Sanity dataset-u (sadržaj,
+  ne kod) preko nove ciljane patch skripte
+  `scripts/migrate-homepage-content-fixes.ts`
+  (`npm run migrate:homepage-content-fixes`), isti bezbedan `.patch("homepage").set(...)` obrazac kao ostale `-update` skripte. Pokrenuta uživo,
+  5 polja ažurirano, verifikovano direktnim upitom na dataset posle patch-a.
+  Hardkodovani fallback nizovi u `app/[locale]/page.tsx`
+  (`CLINICS_FEATURED`)/`scripts/migrate-all.ts`/`HeroSlider.tsx` namerno
+  NISU dirani — isti obrazac kao svi prethodni homepage content-fix taskovi
+  (fallback se koristi samo ako Sanity nema podatke, što ovde nije slučaj).
+  `npm run lint` — baseline nepromenjen (28 problema), nula novih iz nove
+  skripte.
+
 ## Homepage "Наш тим" — demo lekari zamenjeni pravima, uklonjene ikonice društvenih mreža — ✅ gotovo (2026-08-05)
 
 Vlasnik sajta poslao anotirani screenshot homepage tim-sekcije: crveni okvir
