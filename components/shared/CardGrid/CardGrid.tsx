@@ -95,7 +95,18 @@ export default function CardGrid({
                 )}
               </>
             );
-            return card.href ? (
+            const external = card.href?.startsWith("http");
+            return card.href && external ? (
+              <a
+                key={idx}
+                href={card.href}
+                className={styles.card}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {content}
+              </a>
+            ) : card.href ? (
               <Link key={idx} href={card.href} className={styles.card}>
                 {content}
               </Link>

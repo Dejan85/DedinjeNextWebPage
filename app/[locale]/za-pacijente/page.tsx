@@ -44,6 +44,12 @@ const FALLBACK_LINKS: CardGridItem[] = [
     description: "Препоруке за исхрану",
     href: "/za-pacijente/plan-ishrane",
   },
+  {
+    icon: "fas fa-file-medical",
+    title: "Упутства за пацијенте",
+    description: "Припрема за процедуре и пријем, по клиникама",
+    href: "/za-pacijente/uputstva",
+  },
 ];
 
 export default async function ZaPacijentePage({

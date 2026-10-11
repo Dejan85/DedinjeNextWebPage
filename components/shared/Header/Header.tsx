@@ -34,6 +34,7 @@ const DEFAULT_MENU: MenuItem[] = [
         link: "/o-nama/zdravstvena-akreditacija",
         icon: "fas fa-certificate",
       },
+      { title: "Информатор о раду", link: "/aktuelnosti/informator", icon: "fas fa-book-open" },
       { title: "Монографија Института", link: "#", icon: "fas fa-book" },
       { title: "Акт института", link: "#", icon: "fas fa-file-alt" },
       { title: "Локација", link: "/o-nama/lokacija", icon: "fas fa-map-marker-alt" },
@@ -73,21 +74,17 @@ const DEFAULT_MENU: MenuItem[] = [
     title: "НАУКА И ИСТРАЖИВАЊЕ",
     submenu: [
       { title: "NIO", link: "/nauka-istrazivanje/nio" },
-      { title: "Центар изузетних вредности", link: "/nauka-istrazivanje/centar-izuzetnih-vrednosti" },
       { title: "SAIGE пројекат", link: "/nauka-istrazivanje/saige-projekat" },
       { title: "Актуелности из науке", link: "/nauka-istrazivanje/aktuelnosti" },
-      { title: "Листа истраживача", link: "/nauka-istrazivanje/lista-istrazivaca" },
-      { title: "CardioView3D LAB", link: "/nauka-istrazivanje/cardioview3d-lab" },
       {
-        title: "Корисни линкови",
+        title: "3D лабораторија",
         items: [
-          { title: "НИТРА", link: "/nauka-istrazivanje/korisni-linkovi/nitra" },
-          { title: "AMPREC", link: "/nauka-istrazivanje/korisni-linkovi/amprec" },
-          { title: "КОБСОН", link: "/nauka-istrazivanje/korisni-linkovi/kobson" },
-          { title: "Заједница института", link: "/nauka-istrazivanje/korisni-linkovi/zajednica-instituta" },
+          { title: "О 3D лабораторији", link: "/nauka-istrazivanje/3d-laboratorija" },
+          { title: "Адитивне технологије", link: "/nauka-istrazivanje/3d-laboratorija/aditivne-tehnologije" },
+          { title: "Инжењеринг и развој", link: "/nauka-istrazivanje/3d-laboratorija/inzenjering-i-razvoj" },
+          { title: "Прототипирање и производња", link: "/nauka-istrazivanje/3d-laboratorija/prototipiranje-i-proizvodnja" },
         ],
       },
-      { title: "Монографија Института", link: "/nauka-istrazivanje/monografija" },
     ],
   },
   {
@@ -109,13 +106,11 @@ const DEFAULT_MENU: MenuItem[] = [
   {
     title: "АКТУЕЛНОСТИ",
     submenu: [
-      { title: "Актуелности", link: "/aktuelnosti" },
       { title: "Вести", link: "/aktuelnosti/vesti" },
       { title: "Гостовања", link: "/aktuelnosti/gostovanja" },
       { title: "Обавештења", link: "/aktuelnosti/obavestenja" },
       { title: "Огласи и конкурси", link: "/aktuelnosti/oglasi-konkursi" },
       { title: "Часопис Дедиње", link: "/aktuelnosti/casopis-dedinje" },
-      { title: "Информатор о раду", link: "/aktuelnosti/informator" },
     ],
   },
   { title: "КОНТАКТ", link: "/kontakt" },

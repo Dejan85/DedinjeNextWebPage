@@ -83,6 +83,7 @@ const mainMenu: MainMenuItem[] = [
         link: "/o-nama/zdravstvena-akreditacija",
         icon: "fas fa-certificate",
       },
+      { _key: "o-nama-info", title: t("Информатор о раду", "Information Booklet"), link: "/aktuelnosti/informator", icon: "fas fa-book-open" },
       { _key: "o-nama-6", title: t("Монографија Института", "Institute Monograph"), link: "#", icon: "fas fa-book" },
       { _key: "o-nama-7", title: t("Акт института", "Institute Charter"), link: "#", icon: "fas fa-file-alt" },
       { _key: "o-nama-8", title: t("Локација", "Location"), link: "/o-nama/lokacija", icon: "fas fa-map-marker-alt" },
@@ -126,27 +127,19 @@ const mainMenu: MainMenuItem[] = [
     _key: "nauka",
     title: t("НАУКА И ИСТРАЖИВАЊЕ", "SCIENCE AND RESEARCH"),
     submenu: [
-      { _key: "nauka-1", title: t("NIO", "NIO"), link: "/nauka-istrazivanje/nio" },
+      { _key: "nauka-1", title: t("НИО", "NIO"), link: "/nauka-istrazivanje/nio" },
+      { _key: "nauka-2", title: t("САИГЕ пројекат", "SAIGE Project"), link: "/nauka-istrazivanje/saige-projekat" },
+      { _key: "nauka-3", title: t("Актуелности из науке", "Science News"), link: "/nauka-istrazivanje/aktuelnosti" },
       {
-        _key: "nauka-2",
-        title: t("Центар изузетних вредности", "Center of Excellence"),
-        link: "/nauka-istrazivanje/centar-izuzetnih-vrednosti",
-      },
-      { _key: "nauka-3", title: t("SAIGE пројекат", "SAIGE Project"), link: "/nauka-istrazivanje/saige-projekat" },
-      { _key: "nauka-4", title: t("Актуелности из науке", "Science News"), link: "/nauka-istrazivanje/aktuelnosti" },
-      { _key: "nauka-5", title: t("Листа истраживача", "List of Researchers"), link: "/nauka-istrazivanje/lista-istrazivaca" },
-      { _key: "nauka-6", title: t("CardioView3D LAB", "CardioView3D LAB"), link: "/nauka-istrazivanje/cardioview3d-lab" },
-      {
-        _key: "nauka-7",
-        title: t("Корисни линкови", "Useful Links"),
-        items: subItems("nauka-7-i", [
-          ["НИТРА", "NITRA", "/nauka-istrazivanje/korisni-linkovi/nitra"],
-          ["AMPREC", "AMPREC", "/nauka-istrazivanje/korisni-linkovi/amprec"],
-          ["КОБСОН", "KoBSON", "/nauka-istrazivanje/korisni-linkovi/kobson"],
-          ["Заједница института", "Institute Community", "/nauka-istrazivanje/korisni-linkovi/zajednica-instituta"],
+        _key: "nauka-4",
+        title: t("3Д лабораторија", "3D Laboratory"),
+        items: subItems("nauka-4-i", [
+          ["О 3Д лабораторији", "About the 3D Laboratory", "/nauka-istrazivanje/3d-laboratorija"],
+          ["Адитивне технологије", "Additive Technologies", "/nauka-istrazivanje/3d-laboratorija/aditivne-tehnologije"],
+          ["Инжењеринг и развој", "Engineering and Development", "/nauka-istrazivanje/3d-laboratorija/inzenjering-i-razvoj"],
+          ["Прототипирање и производња", "Prototyping and Manufacturing", "/nauka-istrazivanje/3d-laboratorija/prototipiranje-i-proizvodnja"],
         ]),
       },
-      { _key: "nauka-8", title: t("Монографија Института", "Institute Monograph"), link: "/nauka-istrazivanje/monografija" },
     ],
   },
   {
@@ -154,7 +147,7 @@ const mainMenu: MainMenuItem[] = [
     title: t("ЕДУКАЦИЈА", "EDUCATION"),
     submenu: [
       { _key: "eduk-1", title: t("Едукација Институт Дедиње", "Dedinje Institute Education"), link: "/edukacija" },
-      { _key: "eduk-2", title: t("KME 2024", "CME 2024"), link: "/edukacija/kme-2024" },
+      { _key: "eduk-2", title: t("КМЕ 2024", "CME 2024"), link: "/edukacija/kme-2024" },
       { _key: "eduk-3", title: t("Едукативни програми", "Educational Programs"), link: "/edukacija/programi" },
       { _key: "eduk-4", title: t("Интерна едукација", "Internal Education"), link: "/edukacija/interna-edukacija" },
       {
@@ -171,13 +164,11 @@ const mainMenu: MainMenuItem[] = [
     _key: "aktuelnosti",
     title: t("АКТУЕЛНОСТИ", "NEWS"),
     submenu: [
-      { _key: "akt-1", title: t("Актуелности", "News"), link: "/aktuelnosti" },
       { _key: "akt-2", title: t("Вести", "Articles"), link: "/aktuelnosti/vesti" },
       { _key: "akt-3", title: t("Гостовања", "Media Appearances"), link: "/aktuelnosti/gostovanja" },
       { _key: "akt-4", title: t("Обавештења", "Announcements"), link: "/aktuelnosti/obavestenja" },
       { _key: "akt-5", title: t("Огласи и конкурси", "Job Ads & Tenders"), link: "/aktuelnosti/oglasi-konkursi" },
       { _key: "akt-6", title: t("Часопис Дедиње", "Dedinje Journal"), link: "/aktuelnosti/casopis-dedinje" },
-      { _key: "akt-7", title: t("Информатор о раду", "Information Booklet"), link: "/aktuelnosti/informator" },
     ],
   },
   { _key: "kontakt", title: t("КОНТАКТ", "CONTACT"), link: "/kontakt" },

@@ -69,5 +69,15 @@
     "source": "Source:",
     "prevAriaLabel": "Previous experiences",
     "nextAriaLabel": "Next experiences"
+  },
+  "ClinicPage": {
+    "home": "Home",
+    "clinics": "Clinics",
+    "close": "Close",
+    "orgStructure": "Organizational structure",
+    "results": "Key results",
+    "areasTitle": "Key areas of work",
+    "areasSubtitle": "From diagnosis to full recovery",
+    "allInstructions": "All patient instructions"
   }
 }

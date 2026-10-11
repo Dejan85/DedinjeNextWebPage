@@ -188,6 +188,66 @@
 
 .proceduresList li i { color: var(--primary); margin-top: 3px; flex-shrink: 0; }
 
+.procedureDetails { display: grid; gap: 16px; }
+
+.procedureDetail {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-left: 4px solid var(--primary);
+  border-radius: 10px;
+  padding: 18px 22px;
+}
+
+.procedureDetail h4 { font-size: 16px; font-weight: 700; color: var(--gray-800); margin: 0 0 8px; }
+.procedureDetail p { font-size: 14px; line-height: 1.8; color: var(--gray-600); margin: 0; }
+
+.photo {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  max-height: 460px;
+  height: auto;
+  margin: 18px 0 0;
+  border-radius: 12px;
+}
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  margin-top: 28px;
+}
+
+.galleryPhoto {
+  display: block;
+  flex: 0 0 auto;
+  width: auto;
+  height: 360px;
+  max-width: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .galleryPhoto { height: auto; width: 100%; }
+}
+
+.textSection h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--gray-800);
+  margin: 0 0 14px;
+}
+.textSection h3 i { color: var(--primary); }
+.textSection p { font-size: 15px; line-height: 1.8; color: var(--gray-600); margin: 0 0 12px; }
+.textSection p:last-child { margin-bottom: 0; }
+
 .staffBlock h3 { font-size: 18px; font-weight: 800; color: var(--gray-800); margin: 0 0 20px; }
 
 .staffGroups {
@@ -323,4 +383,59 @@
   .sectionHeader { flex-direction: column; align-items: flex-start; gap: 12px; }
   .banner { flex-direction: column; text-align: center; }
   .proceduresList { grid-template-columns: 1fr; }
+}
+
+.procedureDetail p + p, .procedureDetail p + ul, .procedureDetail ul + p { margin-top: 10px; }
+.procedureBullets { margin: 10px 0 0; padding-left: 20px; font-size: 14px; line-height: 1.8; color: var(--gray-600); }
+.figure { margin: 18px 0 0; }
+.figure .photo { margin: 0; }
+.figure figcaption { margin-top: 8px; font-size: 13px; font-style: italic; color: var(--gray-600); }
+.photoRow { display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start; margin-top: 18px; }
+.photoRow .figure { margin: 0; }
+.procedureSubheading { font-size: 15px; font-weight: 700; color: var(--primary); margin: 20px 0 6px; }
+.procedureDetail .procedureSubheading:first-child { margin-top: 0; }
+
+/* Procedure / tehnologije — popup režim */
+.procedureButtons { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.procedureButtons button {
+  width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 14px 18px; text-align: left; font: inherit; font-size: 15px; font-weight: 600;
+  color: var(--gray-800); background: var(--white); border: 1px solid var(--gray-200);
+  border-radius: 12px; cursor: pointer; transition: border-color 0.2s, box-shadow 0.2s;
+}
+.procedureButtons button:hover, .procedureButtons button:focus-visible { border-color: var(--primary); box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08); }
+.procedureButtons button i { color: var(--primary); flex-shrink: 0; }
+
+.modalBackdrop {
+  position: fixed; inset: 0; z-index: 1000; background: rgba(0, 0, 0, 0.55);
+  display: flex; align-items: center; justify-content: center; padding: 20px;
+}
+.modal {
+  position: relative; width: 100%; max-width: 760px; max-height: 88vh; overflow-y: auto;
+  background: var(--white); border-radius: 16px; padding: 32px 28px 28px;
+}
+.modal h4 { font-size: 20px; font-weight: 800; color: var(--gray-800); margin: 0 40px 14px 0; }
+.modal p { font-size: 15px; line-height: 1.8; color: var(--gray-600); margin: 0; }
+.modal p + p, .modal p + ul, .modal ul + p { margin-top: 10px; }
+.modalClose {
+  position: absolute; top: 14px; right: 14px; width: 36px; height: 36px; border: 0;
+  border-radius: 50%; background: var(--gray-100); color: var(--gray-700); cursor: pointer;
+}
+.modalClose:hover { background: var(--gray-200); }
+
+.instructionsLink {
+  display: inline-flex; align-items: center; gap: 8px; margin-top: 18px;
+  font-size: 15px; font-weight: 700; color: var(--primary); text-decoration: none;
+}
+.instructionsLink:hover { text-decoration: underline; }
+
+@media (max-width: 768px) {
+  .procedureButtons { grid-template-columns: 1fr; }
+  .modal { padding: 28px 20px 22px; }
+}
+
+/* Tekstualne sekcije idu jedna za drugom — smanjen vertikalni razmak (specificity > Section padding) */
+.textBlock.textBlock { padding: 36px 0; }
+@media (max-width: 768px) {
+  .textBlock.textBlock { padding: 28px 0; }
 }

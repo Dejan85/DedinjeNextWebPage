@@ -121,10 +121,10 @@ umesto bespoke singleton-a, ako se oblik ponavlja na više mesta.
 > samo kratak pregled.
 
 - ✅ Početna, `footer`, `/rec-direktora`, `/o-institutu`, `/biografija`, `/bibliografija` — migrirano (bespoke singletoni).
-- ✅ `klinike/*` (20 od 20 stranica, `clinicPage` multi-instance tip) — migrirano, uklj. kardiohirurgiju (schema proširen opcionim `stats`/`highlights`/`organizationalStructure`/`units[]` poljima umesto novog tipa).
+- ✅ `klinike/*` (21 od 21 stranice, `clinicPage` multi-instance tip) — migrirano, uklj. kardiohirurgiju (schema proširen opcionim `stats`/`highlights`/`organizationalStructure`/`units[]` poljima umesto novog tipa).
 - ✅ `za-pacijente/*` (12 od 12 stranica, generički `page` builder) — migrirano.
 - ✅ `edukacija/*` (16 od 16 stranica — 13 generički `page` builder, 3 škole kroz bespoke `schoolPage` multi-instance tip) — migrirano.
-- ✅ `nauka-istrazivanje/*` (7 od 7 stranica, generički `page` builder — uklj. CardioView3D Lab, ranija "namerni izuzetak" politika svesno probijena 2026-08-03 na eksplicitan zahtev vlasnika sajta) — migrirano.
+- ✅ `nauka-istrazivanje/*` (generički `page` builder) — migrirano; reorganizovano 2026-10-11: CIV + lista istraživača spojeni u `nio`, CardioView3D Lab → `3d-laboratorija` (+3 podstranice), SAIGE prerađen (vidi `TASKS.md` sekcija 4).
 - ✅ `o-nama/*` (4 od 4 podstranice, generički `page` builder, nov `boardListBlock` tip za odbore/organe) — migrirano.
 - ✅ `aktuelnosti/*` (9 od 9 stranica — `news`/`video`/`announcement`/`jobPosting`/`magazineIssue` multi-instance tipovi + `informatorPage` singleton, jedan tip po podsekciji jer se polja bitno razlikuju) — migrirano.
 - ✅ Header/glavna navigacija (`navigation` singleton, 3 nivoa) i `/kontakt` (`page` + `siteSettings` singleton, koji ranije nije ni postojao u datasetu) — migrirano.

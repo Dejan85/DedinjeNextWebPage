@@ -15,6 +15,19 @@ const nextConfig: NextConfig = {
     config.resolve.alias.canvas = false;
     return config;
   },
+  // Reorganizacija Nauke (2026-10-11): CIV i lista istraživača ušli u NIO, CardioView3D LAB → 3D laboratorija.
+  async redirects() {
+    const moves: [string, string][] = [
+      ["/nauka-istrazivanje/centar-izuzetnih-vrednosti", "/nauka-istrazivanje/nio"],
+      ["/nauka-istrazivanje/lista-istrazivaca", "/nauka-istrazivanje/nio"],
+      ["/nauka-istrazivanje/cardioview3d-lab", "/nauka-istrazivanje/3d-laboratorija"],
+      ["/nauka-istrazivanje/cardioview3d-lab/workshop", "/nauka-istrazivanje/3d-laboratorija"],
+    ];
+    return moves.flatMap(([from, to]) => [
+      { source: from, destination: to, permanent: true },
+      { source: `/en${from}`, destination: `/en${to}`, permanent: true },
+    ]);
+  },
   images: {
     unoptimized: process.env.BUILD_STATIC === "true",
     remotePatterns: [

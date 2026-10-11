@@ -25,6 +25,8 @@ const FALLBACK_CLINICS: { icon: string; title: string; subtitle: string; slug: s
   { icon: "fas fa-heart-circle-check", title: "Центар за урођене срчане мане код одраслих (ЦУСМО)", subtitle: "Дијагностика и праћење одраслих са урођеним срчаним манама", slug: "cusmo" },
   { icon: "fas fa-heart", title: "Одељење за неинвазивну дијагностику срца", subtitle: "Ехокардиографија и структурне интервентне процедуре", slug: "neinvazivna-dijagnostika-srca" },
   { icon: "fas fa-heart-circle-check", title: "Центар за срчану слабост", subtitle: "Специјализована нега за срце", slug: "centar-srcana-slabost" },
+  { icon: "fas fa-heart-circle-check", title: "Центар за структурне болести срца", subtitle: "ТАВИ, МитраКлип, ТрикВалв и друге структурне интервенције", slug: "centar-strukturne-bolesti-srca" },
+  { icon: "fas fa-clipboard-check", title: "Одељење преоперативне припреме", subtitle: "Пријем, процена ризика и припрема за кардиохируршку процедуру", slug: "preoperativna-priprema" },
   { icon: "fas fa-hospital", title: "Поликлиника Института", subtitle: "Амбулантне здравствене услуге", slug: "poliklinika" },
   { icon: "fas fa-microscope", title: "Кабинет за клиничку патологију", subtitle: "Патолошке анализе и дијагностика", slug: "klinicka-patologija" },
   { icon: "fas fa-heart", title: "Клиника за кардиологију", subtitle: "Дијагностика и лечење срца", slug: "kardiologija" },

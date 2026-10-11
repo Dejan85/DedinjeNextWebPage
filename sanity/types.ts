@@ -1262,9 +1262,28 @@ export interface ClinicUnit {
   sections: ClinicUnitSection[];
 }
 
+export interface ClinicProcedureDetail {
+  _key?: string;
+  title: string;
+  desc: string;
+  image?: string;
+  photos?: { _key?: string; src: string; caption?: string }[];
+}
+
 export interface ClinicProceduresList {
   title: string;
   items: string[];
+  popup?: boolean;
+  detailedItems?: ClinicProcedureDetail[];
+}
+
+export interface ClinicSection {
+  _key?: string;
+  icon?: string;
+  title: string;
+  paragraphs: string[];
+  image?: string;
+  images?: string[];
 }
 
 export interface ClinicExtraBanner {
@@ -1304,7 +1323,9 @@ export interface ClinicPage {
   stats?: ClinicStat[];
   highlights?: ClinicHighlight[];
   proceduresList?: ClinicProceduresList;
+  technologies?: ClinicProceduresList;
   staffList?: ClinicStaffList;
+  sections?: ClinicSection[];
   patientInstructions?: ClinicPatientInstructions;
   units?: ClinicUnit[];
   seo?: ClinicSeo;

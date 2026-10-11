@@ -4,6 +4,10 @@ const DIGRAPHS: Record<string, [string, string, string]> = {
   Љ: ["LJ", "Lj", "lj"],
   Њ: ["NJ", "Nj", "nj"],
   Џ: ["DŽ", "Dž", "dž"],
+  // mala slova: isUpper() je false pa se uvek bira treći oblik
+  љ: ["LJ", "Lj", "lj"],
+  њ: ["NJ", "Nj", "nj"],
+  џ: ["DŽ", "Dž", "dž"],
 };
 
 const SIMPLE_MAP: Record<string, string> = {

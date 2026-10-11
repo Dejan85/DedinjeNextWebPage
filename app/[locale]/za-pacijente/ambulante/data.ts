@@ -1,6 +1,6 @@
 import type { AccordionBlockData, IntroSectionBlock, PatientPage } from "@/sanity/types";
 
-const KONTAKT = "Call centar Института Дедиње 011 3601 700";
+const KONTAKT = "Кол центар Института Дедиње 011 3601 700";
 
 const intro: IntroSectionBlock = {
   _type: "introSection",

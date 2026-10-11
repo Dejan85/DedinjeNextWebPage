@@ -124,6 +124,34 @@ const CLINICS_FEATURED = [
   },
 ];
 
+// Sekcija „Наука” na početnoj (email Miljenka i Dragiše, 2026-10-11): tri kartice → stranice.
+const SCIENCE_CARDS = [
+  {
+    href: "/nauka-istrazivanje/nio",
+    icon: "fas fa-microscope",
+    title: "NIO",
+    titleEn: "NIO",
+    desc: "Научноистраживачки одсек, Центар изузетних вредности и истраживачки тим Института",
+    descEn: "Research Department, Center of Excellence and the Institute’s research team",
+  },
+  {
+    href: "/nauka-istrazivanje/saige-projekat",
+    icon: "fas fa-lightbulb",
+    title: "SAIGE",
+    titleEn: "SAIGE",
+    desc: "Институционална трансформација, иновације и комерцијализација",
+    descEn: "Institutional transformation, innovation and commercialization",
+  },
+  {
+    href: "/nauka-istrazivanje/3d-laboratorija",
+    icon: "fas fa-cube",
+    title: "3D лабораторија",
+    titleEn: "3D Laboratory",
+    desc: "Адитивне технологије, инжењеринг и прототипирање у кардиоваскуларној медицини",
+    descEn: "Additive technologies, engineering and prototyping in cardiovascular medicine",
+  },
+];
+
 interface PartnerInstitution {
   name: string;
   nameEn?: string;
@@ -800,6 +828,41 @@ export default async function Home({
               <i className="fas fa-hospital" aria-hidden />
               {locale === "en" ? "View All Clinics" : "Погледајте све клинике"}
             </Button>
+          </div>
+        </Container>
+      </Section>
+
+      {/* Nauka (NIO / SAIGE / 3D laboratorija) — između klinika i partnera */}
+      <Section padding="medium" background="white">
+        <Container>
+          <div className={styles.sectionHeader}>
+            <span className={styles.sectionIconWrap}>
+              <i className="fas fa-flask" aria-hidden />
+            </span>
+            <div>
+              <h2>{locale === "en" ? "Science" : "Наука"}</h2>
+              <p>
+                {locale === "en"
+                  ? "Research, innovation and technology at the Institute"
+                  : "Истраживање, иновације и технологија у Институту"}
+              </p>
+            </div>
+          </div>
+          <div className={styles.clinicsGrid}>
+            {SCIENCE_CARDS.map((card) => (
+              <Link key={card.href} href={card.href} className={styles.clinicCard}>
+                <div className={styles.clinicCardIcon}>
+                  <i className={card.icon} aria-hidden />
+                </div>
+                <div>
+                  <strong>{locale === "en" ? card.titleEn : card.title}</strong>
+                  <p>{locale === "en" ? card.descEn : card.desc}</p>
+                </div>
+                <span className={styles.clinicArrow}>
+                  <i className="fas fa-arrow-right" aria-hidden />
+                </span>
+              </Link>
+            ))}
           </div>
         </Container>
       </Section>

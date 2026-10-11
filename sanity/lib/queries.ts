@@ -926,7 +926,35 @@ export const CLINIC_PAGE_QUERY = groq`
     },
     proceduresList {
       title,
-      items
+      popup,
+      items,
+      detailedItems[] {
+        _key,
+        title,
+        desc,
+        image,
+        photos[] { _key, src, caption }
+      }
+    },
+    technologies {
+      title,
+      popup,
+      items,
+      detailedItems[] {
+        _key,
+        title,
+        desc,
+        image,
+        photos[] { _key, src, caption }
+      }
+    },
+    sections[] {
+      _key,
+      icon,
+      title,
+      paragraphs,
+      image,
+      images
     },
     staffList {
       title,
@@ -1043,6 +1071,18 @@ export const BIBLIOGRAPHY_PAGE_QUERY = groq`
       title,
       description,
       keywords
+    }
+  }
+`;
+
+// Sva uputstva za pacijente na jednom mestu (/za-pacijente/uputstva)
+export const CLINIC_PATIENT_INSTRUCTIONS_QUERY = groq`
+  *[_type == "clinicPage" && defined(patientInstructions.paragraphs)] | order(order asc) {
+    title,
+    "slug": slug.current,
+    patientInstructions {
+      title,
+      paragraphs
     }
   }
 `;

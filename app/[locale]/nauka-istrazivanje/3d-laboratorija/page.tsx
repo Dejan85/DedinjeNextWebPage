@@ -1,16 +1,22 @@
+import type { Metadata } from "next";
 import { PageBuilder, PageHeader } from "@/components/shared";
 import { client } from "@/sanity/lib/client";
 import { PAGE_BY_SLUG_QUERY } from "@/sanity/lib/queries";
 import { localize, type Locale } from "@/sanity/lib/locale";
 import type { PatientPage } from "@/sanity/types";
-import { generateMetadata } from "./metadata";
-import { DATA } from "./data";
+import { HUB_DATA } from "./data";
 
-export { generateMetadata };
+const SLUG = "3d-laboratorija";
 
-const SLUG = "centar-izuzetnih-vrednosti";
+export function generateMetadata(): Metadata {
+  return {
+    title: "3D лабораторија | Наука и истраживање | Институт Дедиње",
+    description:
+      "3D лабораторија Института Дедиње — адитивне технологије, инжењеринг и развој, прототипирање и производња медицинских уређаја и модела.",
+  };
+}
 
-export default async function CentarIzuzetnihVrednostiPage({
+export default async function Lab3dPage({
   params,
 }: {
   params: Promise<{ locale: string }>;
@@ -25,7 +31,7 @@ export default async function CentarIzuzetnihVrednostiPage({
     console.error("⚠️ Sanity fetch failed:", error);
   }
 
-  const data = page ?? DATA;
+  const data = page ?? HUB_DATA;
 
   return (
     <>
@@ -33,7 +39,7 @@ export default async function CentarIzuzetnihVrednostiPage({
         breadcrumbs={[
           { label: "Почетна", href: "/" },
           { label: "Наука и истраживање", href: "/nauka-istrazivanje" },
-          { label: "Центар изузетних вредности" },
+          { label: "3D лабораторија" },
         ]}
         title={data.title}
         subtitle={data.subtitle}

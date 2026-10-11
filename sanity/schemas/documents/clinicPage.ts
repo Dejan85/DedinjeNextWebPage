@@ -113,7 +113,6 @@ export default defineType({
           preview: { select: { title: "title.sr", subtitle: "desc.sr" } },
         },
       ],
-      validation: (Rule) => Rule.required().min(1),
     }),
     defineField({
       name: "areasTitle",
@@ -147,10 +146,104 @@ export default defineType({
       fields: [
         { name: "title", title: "Naslov", type: "localeString" },
         {
+          name: "popup",
+          title: "Opis u prozoru (popup)",
+          description: "Ako je uključeno, stavke sa opisom su dugmad koja otvaraju prozor sa opisom.",
+          type: "boolean",
+          initialValue: false,
+        },
+        {
           name: "items",
           title: "Stavke",
           type: "array",
           of: [{ type: "localeString" }],
+        },
+        {
+          name: "detailedItems",
+          title: "Procedure sa opisom (opciono, zamenjuje prost spisak Stavke)",
+          description:
+            "Ako je popunjeno, prikazuje se kao kartice naslov + opis umesto prostog spiska sa checkmarkom.",
+          type: "array",
+          of: [
+            {
+              type: "object",
+              fields: [
+                { name: "title", title: "Naziv procedure", type: "localeString" },
+                { name: "desc", title: "Opis", type: "localeText" },
+                { name: "image", title: "Slika (putanja u public/ ili URL, opciono)", type: "string" },
+                {
+                  name: "photos",
+                  title: "Fotografije sa potpisom (opciono)",
+                  type: "array",
+                  of: [
+                    {
+                      type: "object",
+                      fields: [
+                        { name: "src", title: "Putanja u public/ ili URL", type: "string" },
+                        { name: "caption", title: "Potpis", type: "localeString" },
+                      ],
+                      preview: { select: { title: "caption.sr", subtitle: "src" } },
+                    },
+                  ],
+                },
+              ],
+              preview: { select: { title: "title.sr", subtitle: "desc.sr" } },
+            },
+          ],
+        },
+      ],
+    }),
+    defineField({
+      name: "technologies",
+      title: "Nove tehnologije (opciono)",
+      type: "object",
+      fields: [
+        { name: "title", title: "Naslov", type: "localeString" },
+        {
+          name: "popup",
+          title: "Opis u prozoru (popup)",
+          description: "Ako je uključeno, stavke sa opisom su dugmad koja otvaraju prozor sa opisom.",
+          type: "boolean",
+          initialValue: false,
+        },
+        {
+          name: "items",
+          title: "Stavke",
+          type: "array",
+          of: [{ type: "localeString" }],
+        },
+        {
+          name: "detailedItems",
+          title: "Procedure sa opisom (opciono, zamenjuje prost spisak Stavke)",
+          description:
+            "Ako je popunjeno, prikazuje se kao kartice naslov + opis umesto prostog spiska sa checkmarkom.",
+          type: "array",
+          of: [
+            {
+              type: "object",
+              fields: [
+                { name: "title", title: "Naziv procedure", type: "localeString" },
+                { name: "desc", title: "Opis", type: "localeText" },
+                { name: "image", title: "Slika (putanja u public/ ili URL, opciono)", type: "string" },
+                {
+                  name: "photos",
+                  title: "Fotografije sa potpisom (opciono)",
+                  type: "array",
+                  of: [
+                    {
+                      type: "object",
+                      fields: [
+                        { name: "src", title: "Putanja u public/ ili URL", type: "string" },
+                        { name: "caption", title: "Potpis", type: "localeString" },
+                      ],
+                      preview: { select: { title: "caption.sr", subtitle: "src" } },
+                    },
+                  ],
+                },
+              ],
+              preview: { select: { title: "title.sr", subtitle: "desc.sr" } },
+            },
+          ],
         },
       ],
     }),
@@ -196,6 +289,31 @@ export default defineType({
               preview: { select: { title: "heading.sr" } },
             },
           ],
+        },
+      ],
+    }),
+    defineField({
+      name: "sections",
+      title: "Dodatne sekcije teksta (opciono)",
+      description:
+        "Slobodne tekstualne sekcije (npr. Istorijat, Istraživanja, Edukacija) — prikazuju se posle ključnih oblasti rada.",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          fields: [
+            { name: "icon", title: "Ikonica", type: "string" },
+            { name: "title", title: "Naslov", type: "localeString" },
+            { name: "paragraphs", title: "Paragrafi", type: "array", of: [{ type: "localeText" }] },
+            { name: "image", title: "Slika ispod teksta (putanja u public/ ili URL, opciono)", type: "string" },
+            {
+              name: "images",
+              title: "Više slika ispod teksta (galerija, opciono — prikazuju se jedna pored druge)",
+              type: "array",
+              of: [{ type: "string" }],
+            },
+          ],
+          preview: { select: { title: "title.sr" } },
         },
       ],
     }),
